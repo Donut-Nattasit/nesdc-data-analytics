@@ -1,0 +1,25 @@
+# Private Keys & Configurations
+.env
+
+# Virtual Environment & Python Caches
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Local & Temporary Folders
+temp/
+.antigravitycli/
+
+# Large Datasets & Local Database Files
+output/data/database/
+*.db
+*.xlsx
+*.csv
+
+# Compiled Executables
+bin/x13as.exe
+
+# System Files
+.DS_Store
+Thumbs.db

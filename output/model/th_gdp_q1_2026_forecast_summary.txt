@@ -1,0 +1,20 @@
+Thailand Real GDP Q1 2026 Forecast Summary
+==========================================
+
+1. Stationarity Tests (ADF):
+   - GDP: p-val=0.7660 (Non-Stationary)
+   - Exports: p-val=0.9644 (Non-Stationary)
+
+2. Model Predictions for Q1 2026:
+   - Auto-ARIMA: 3,091,590.75 (YoY: +2.73%)
+   - ARDL:       3,102,963.91 (YoY: +3.11%)
+   - AutoMFLES:  3,068,107.55 (YoY: +1.95%)
+
+3. Model Diagnostics (Ljung-Box p-value on residuals):
+   - ARIMA (Proxy): 0.0063
+   - ARDL:          0.0000
+
+4. Model Reasoning:
+   - Auto-ARIMA: Selected as a univariate baseline using Nixtla's automated selection.
+   - ARDL(2, 2): Incorporates Exports as a leading demand-side indicator. Q1 2026 exports are used as a known future input.
+   - AutoMFLES: Captures local levels and trends adaptive to recent structural shifts.

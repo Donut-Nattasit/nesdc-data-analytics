@@ -1,0 +1,14 @@
+--extra-index-url https://downloads.ceicdata.com/python
+ceic_api_client
+python-dotenv
+pandas
+requests
+statsmodels
+pmdarima
+arch
+statsforecast
+vl-convert-python
+altair
+tabulate
+plotly
+

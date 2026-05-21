@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@6"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@6.4.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@7"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"title": {"font": "TH Sarabun New", "fontSize": 18}, "axis": {"labelFont": "TH Sarabun New", "titleFont": "TH Sarabun New", "labelFontSize": 14, "titleFontSize": 16, "grid": true, "gridOpacity": 0.4}, "header": {"labelFont": "TH Sarabun New", "titleFont": "TH Sarabun New"}, "legend": {"labelFont": "TH Sarabun New", "titleFont": "TH Sarabun New", "labelFontSize": 14, "titleFontSize": 16}, "text": {"font": "TH Sarabun New"}, "view": {"stroke": null}}, "layer": [{"mark": {"type": "bar", "cornerRadiusTopLeft": 4, "cornerRadiusTopRight": 4}, "encoding": {"color": {"field": "Year", "scale": {"domain": ["2025 (Jan-Feb)", "2026 (Jan-Feb)"], "range": ["#94a3b8", "#0284c7"]}, "title": "Period", "type": "nominal"}, "tooltip": [{"field": "Category", "title": "Category", "type": "nominal"}, {"field": "Year", "title": "Period", "type": "nominal"}, {"field": "Value_Billion_USD", "format": ",.2f", "title": "Value (Billion USD)", "type": "quantitative"}, {"field": "YoY_Text", "title": "YoY Change", "type": "nominal"}], "x": {"axis": {"labelAlign": "center", "labelAngle": 0}, "field": "Category", "title": "HS2 Category", "type": "nominal"}, "xOffset": {"field": "Year", "type": "nominal"}, "y": {"field": "Value_Billion_USD", "scale": {"zero": true}, "title": "Export Value (USD Billion)", "type": "quantitative"}}, "title": {"text": "Thailand's Top 5 Exports Comparative Analysis", "subtitle": "Comparison of Cumulative Exports (January \u2013 February) in 2025 vs. 2026", "fontSize": 18, "subtitleFontSize": 14, "anchor": "start", "color": "#0f172a"}}, {"mark": {"type": "text", "align": "center", "baseline": "bottom", "dy": -4, "fontSize": 10, "fontWeight": "bold"}, "encoding": {"color": {"field": "Year", "scale": {"domain": ["2025 (Jan-Feb)", "2026 (Jan-Feb)"], "range": ["#94a3b8", "#0284c7"]}, "title": "Period", "type": "nominal"}, "text": {"field": "Value_Billion_USD", "format": ".2f", "type": "quantitative"}, "tooltip": [{"field": "Category", "title": "Category", "type": "nominal"}, {"field": "Year", "title": "Period", "type": "nominal"}, {"field": "Value_Billion_USD", "format": ",.2f", "title": "Value (Billion USD)", "type": "quantitative"}, {"field": "YoY_Text", "title": "YoY Change", "type": "nominal"}], "x": {"axis": {"labelAlign": "center", "labelAngle": 0}, "field": "Category", "title": "HS2 Category", "type": "nominal"}, "xOffset": {"field": "Year", "type": "nominal"}, "y": {"field": "Value_Billion_USD", "scale": {"zero": true}, "title": "Export Value (USD Billion)", "type": "quantitative"}}, "title": {"text": "Thailand's Top 5 Exports Comparative Analysis", "subtitle": "Comparison of Cumulative Exports (January \u2013 February) in 2025 vs. 2026", "fontSize": 18, "subtitleFontSize": 14, "anchor": "start", "color": "#0f172a"}}], "data": {"name": "data-810c25b2d7e8c39d9efe1e02598d4382"}, "height": 350, "width": 550, "$schema": "https://vega.github.io/schema/vega-lite/v6.4.1.json", "datasets": {"data-810c25b2d7e8c39d9efe1e02598d4382": [{"Category": "HS 40\nRubber & Rubber Articles", "Year": "2025 (Jan-Feb)", "Value_Billion_USD": 3.6019459301100003, "YoY_Text": ""}, {"Category": "HS 40\nRubber & Rubber Articles", "Year": "2026 (Jan-Feb)", "Value_Billion_USD": 3.26772004704, "YoY_Text": "-9.3%"}, {"Category": "HS 71\nPrecious Stones & Gems", "Year": "2025 (Jan-Feb)", "Value_Billion_USD": 6.13754060688, "YoY_Text": ""}, {"Category": "HS 71\nPrecious Stones & Gems", "Year": "2026 (Jan-Feb)", "Value_Billion_USD": 7.235944429280001, "YoY_Text": "+17.9%"}, {"Category": "HS 84\nMechanical Machinery & Boilers", "Year": "2025 (Jan-Feb)", "Value_Billion_USD": 8.80447676023, "YoY_Text": ""}, {"Category": "HS 84\nMechanical Machinery & Boilers", "Year": "2026 (Jan-Feb)", "Value_Billion_USD": 10.86743986794, "YoY_Text": "+23.4%"}, {"Category": "HS 85\nElectrical Machinery & Electronics", "Year": "2025 (Jan-Feb)", "Value_Billion_USD": 8.06129697339, "YoY_Text": ""}, {"Category": "HS 85\nElectrical Machinery & Electronics", "Year": "2026 (Jan-Feb)", "Value_Billion_USD": 12.26912628903, "YoY_Text": "+52.2%"}, {"Category": "HS 87\nVehicles & Parts", "Year": "2025 (Jan-Feb)", "Value_Billion_USD": 5.16892228938, "YoY_Text": ""}, {"Category": "HS 87\nVehicles & Parts", "Year": "2026 (Jan-Feb)", "Value_Billion_USD": 5.7749133633400005, "YoY_Text": "+11.7%"}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>

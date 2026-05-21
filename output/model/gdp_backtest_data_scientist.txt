@@ -1,0 +1,14 @@
+GDP Backtest Summary - XGBoost
+================================
+Target: Real GDP 2014p: Quarterly: Thailand
+Predicting for: 2025-12-31 (Q4 2025)
+
+CV RMSE (k=3): 371,223.03
+Predicted Value: 3,846,221.50
+Actual Value (for backtest): 4,320,133.15
+Error (%): -10.97%
+
+Feature Importance:
+-------------------
+Electricity Consumption: Total: 0.6829
+Industrial Production Index: Thailand: 0.3171
