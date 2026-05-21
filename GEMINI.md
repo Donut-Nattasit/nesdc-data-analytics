@@ -111,7 +111,7 @@ To prevent environment conflicts and ensure all dependencies (like `tabulate`) a
 - **Task Summary**: Every major directive must conclude with a **"Strategic Audit Trail"**. This summary must be **scaled to the task** (omit irrelevant sections):
     - **Team Deployment**: List of agents invoked.
     - **Data Pipeline**: Series IDs, Names, Sources, Transformations, and **Frequencies**. 
-    - **Data Acquisition Summary**: When presenting datasets, always include a **Frequency** column in the summary table.
+    - **Data Acquisition Summary**: To avoid the cramped table display problem in chat windows, always present datasets in clear, structured **bullet points** rather than Markdown tables. For each candidate series, explicitly include: Series ID, Name, Frequency, Unit, Source, Date Range, Database, and Recommendation.
     - **Analytical Artifacts**: Model findings and Visualization paths.
     - **Final Deliverable**: Path to the primary output (CSV, PNG, or Report).
     - **Registry Status**: Confirmation that `.gemini/PROJECT_STATE.md` has been updated.
