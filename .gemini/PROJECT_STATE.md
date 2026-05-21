@@ -25,6 +25,8 @@ This file tracks the current state of analytical assets in the workspace. Agents
 | **Thai Real GDP Growth** | **CEIC / Fallback** | **output/data/raw/thailand_gdp_cvm.csv** | **output/data/transformed/thailand_gdp_growth.csv** | | **Ready** | 2026-05-20 |
 | **NIEs Monthly Exports** | **CEIC (4 Series)** | **output/data/raw/nies_exports_raw.csv** | output/data/transformed/nies_exports_growth_yoy.csv | | **Ready** | 2026-05-20 |
 | **Thailand Top 5 Exports** | **GTA (SQLite)** | **output/data/raw/thailand_top5_exports_raw.csv** | **output/data/transformed/thailand_top5_exports_growth.csv** | | **Ready** | 2026-05-20 |
+| **249411001** | CEIC | **output/data/raw/ceic_th_ppi_monthly_yoy.csv** | | | **Ready** | 2026-05-21 |
+
 
 
 
