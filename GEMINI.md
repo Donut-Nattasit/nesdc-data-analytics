@@ -82,6 +82,8 @@ Your workflow follows a **Top-Down Orchestration** pattern, governed by the user
     - **Method**: **Mean** (Average of observations within the period).
     - **Alignment**: **Quarter-End ('QE')**. Dates must reflect the end of the quarter (e.g., 03-31, 06-30, 09-30, 12-31).
 
+- **Wide Format Standard (Mandatory)**: Cleaned, transformed, or resampled timeseries data must ALWAYS be stored in wide format (i.e., dates/periods as the primary index/rows, and individual timeseries/variables as columns). This ensures direct compatibility with econometric and machine learning modeling frameworks.
+
 - **Documentation**: All model summaries must go to `output/model/`, charts to `output/chart/`, and final reports to `output/report/`.
 
 ### Portability & Multi-Machine Protocol (Mandatory)

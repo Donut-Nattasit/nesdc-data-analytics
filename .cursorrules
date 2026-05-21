@@ -62,6 +62,7 @@ To prevent module import conflicts and guarantee that the local virtual environm
 * **Quarterly Aggregations**: When resampling monthly or daily time-series to quarterly frequency:
   * **Aggregation Method**: **Mean** (Average of observations).
   * **Temporal Alignment**: **Quarter-End ('QE')** (e.g., `2026-03-31`, `2026-06-30`).
+* **Wide Format Standard (Mandatory)**: Cleaned, transformed, or resampled timeseries data must ALWAYS be stored in wide format (i.e., dates/periods as the primary index/rows, and individual timeseries/variables as columns). This ensures direct compatibility with econometric and machine learning modeling frameworks.
 * **Localization Standard**: Use English text, standard Gregorian calendar years (YYYY), and standard professional typography for all tables, charts, and reports by default. Only use Thai B.E. calendar years or `TH Sarabun New` font if the user explicitly requests Thai localization.
 * **Dataset Presentation**: To prevent cramped Markdown tables in terminal or chat windows, always present candidate datasets in a clean, structured **bullet-points format** rather than tables. List Series ID, Name, Frequency, Unit, Source, Date Range, Database, and Recommendation explicitly.
 
