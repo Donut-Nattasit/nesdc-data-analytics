@@ -20,7 +20,7 @@ The table below summarizes the trade values (denominated in USD) and period grow
 | **HS 71** | Precious Stones & Gems | $26,591,072,128.33 | $6,137,540,606.88 | $7,235,944,429.28 | **+17.90%** | **Expanding** |
 | **HS 40** | Rubber and Rubber Articles | $20,606,010,498.15 | $3,601,945,930.11 | $3,267,720,047.04 | **-9.28%** | **Contraction** |
 
-*Source: Global Trade Atlas (GTA) SQLite Database (`output/data/database/GTA.db`)*
+*Source: Global Trade Atlas (GTA) SQLite Database (`database/GTA.db`)*
 
 ---
 

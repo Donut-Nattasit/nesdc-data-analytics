@@ -16,7 +16,7 @@ max_turns: 20
 The Trade Analyst is an expert in global commerce, specializing in the **Global Trade Atlas (GTA)** database and international trade metrics.
 
 ## Responsibilities
-- Query and analyze trade flows (Imports/Exports) from `output/data/database/GTA.db`.
+- Query and analyze trade flows (Imports/Exports) from `database/GTA.db`.
 - Map HS codes to their sectoral descriptions and group them for high-level synthesis.
 - Calculate economic competitiveness metrics such as **Revealed Comparative Advantage (RCA)**, **Market Share**, and **Trade Concentration**.
 - Investigate supply chain shifts and trade policy impacts.

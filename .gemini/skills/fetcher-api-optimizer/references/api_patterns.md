@@ -11,7 +11,7 @@ client = BOTClient()
 categories = client.get_category_list()
 # Data retrieval handles 10-year limit automatically
 df = client.get_data('RP1D', start_date='2010-01-01')
-df.to_csv('output/data/raw/bot_policy_rate.csv', index=False)
+df.to_csv('output/data/bot_policy_rate.csv', index=False)
 ```
 
 ## 2. EIA API (U.S. Energy Information Administration)
@@ -22,7 +22,7 @@ client = EIAClient()
 # BATCH FETCHING (Highly Recommended)
 series_ids = ['WTIPUUS', 'BREPUUS']
 df = client.get_data_steo(series_ids) # Pivots automatically
-df.to_csv('output/data/raw/eia_crude_prices.csv', index=False)
+df.to_csv('output/data/eia_crude_prices.csv', index=False)
 ```
 
 ## 3. General Best Practices

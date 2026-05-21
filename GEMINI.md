@@ -9,8 +9,7 @@ The `data-analysis` workspace is an AI-driven economic research lab.
 ### Data Infrastructure
 - `input/`: Manual user uploads and external raw data (e.g., Excel, CSV).
 - `output/`: Consolidated storage for all analytical artifacts.
-    - `output/data/`: Local storage for datasets.
-        - `output/data/raw/`: Original API outputs.
+    - `output/data/`: Local storage for datasets (including raw API outputs).
         - `output/data/transformed/`: Cleaned, seasonally adjusted, or rebased data.
         - `output/data/forecast/`: Model-generated predictive data.
     - `output/chart/`: Generated visualizations (PNG).

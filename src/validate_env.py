@@ -61,7 +61,7 @@ def check_workspace_assets():
     
     # Path lists
     folders = [
-        "input", "output", "output/data", "output/data/raw", 
+        "input", "output", "output/data", 
         "output/data/transformed", "output/data/forecast",
         "output/chart", "output/model", "output/report", "assets"
     ]
@@ -84,7 +84,7 @@ def check_workspace_assets():
         results.append(["Binary: bin/x13as.exe", "Not Found", "❌ Required for X-13 ARIMA! Please download and place in bin/"])
         
     # Check API Cache DB
-    db_path = project_root / "output" / "data" / "database" / "api_cache.db"
+    db_path = project_root / "database" / "api_cache.db"
     if db_path.exists():
         try:
             conn = sqlite3.connect(db_path)

@@ -101,8 +101,8 @@ def create_recession_shading(df_or_dates: Union[pd.DataFrame, List[Tuple[str, st
     )
     return shading_chart
 
-def create_line_chart(df: pd.DataFrame, x: str = 'date:T', y: str = 'value:Q', color: str = 'series_name:N', title: str = "Data Visualization", add_recessions: bool = False) -> alt.Chart:
-    """Create a standard interactive Altair line chart, optionally with recession shading."""
+def create_line_chart(df: pd.DataFrame, x: str = 'date:T', y: str = 'value:Q', color: str = 'series_name:N', title: str = "Data Visualization", add_recessions: bool = False, interactive: bool = False) -> alt.Chart:
+    """Create a standard Altair line chart (static by default), optionally with recession shading."""
     base_chart = alt.Chart(df).mark_line().encode(
         x=alt.X(x, title='Date'),
         y=alt.Y(y, title='Value', scale=alt.Scale(zero=False)),
@@ -112,7 +112,10 @@ def create_line_chart(df: pd.DataFrame, x: str = 'date:T', y: str = 'value:Q', c
         title=title,
         width=800,
         height=400
-    ).interactive()
+    )
+    
+    if interactive:
+        base_chart = base_chart.interactive()
     
     if add_recessions:
         shading = create_recession_shading(df)
@@ -169,9 +172,9 @@ def create_dual_axis_chart(df: pd.DataFrame, x_col: str, y1_col: str, y2_col: st
         
     return layered
 
-def create_composition_chart(df: pd.DataFrame, x: str, y: str, color: str, title: str = "Composition Analysis", relative: bool = False) -> alt.Chart:
+def create_composition_chart(df: pd.DataFrame, x: str, y: str, color: str, title: str = "Composition Analysis", relative: bool = False, interactive: bool = False) -> alt.Chart:
     """
-    Create a stacked area chart to analyze structural composition (e.g. GDP drivers over time).
+    Create a stacked area chart to analyze structural composition (static by default).
     """
     stack_type = 'normalize' if relative else 'zero'
     y_title = "Percentage Share (%)" if relative else "Absolute Value"
@@ -185,11 +188,14 @@ def create_composition_chart(df: pd.DataFrame, x: str, y: str, color: str, title
         title=title,
         width=800,
         height=400
-    ).interactive()
+    )
+    
+    if interactive:
+        chart = chart.interactive()
     
     return chart
 
-def save_chart(chart, filename: str, save_html: bool = True) -> Optional[str]:
+def save_chart(chart, filename: str, save_html: bool = False) -> Optional[str]:
     """
     Save Altair chart as static PNG, and optionally interactive HTML.
     All saving operations are relative to the project root and conform

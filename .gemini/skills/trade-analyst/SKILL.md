@@ -24,7 +24,7 @@ When queried about trade flows or HS codes, use the schema and SQL patterns defi
 *   Highlight "Top 5" partners or products unless specified otherwise.
 
 ## Specialized Tools
-- **GTA Database**: `output/data/database/GTA.db`
+- **GTA Database**: `database/GTA.db`
 - **Metadata**: `meta_hs2` (HS descriptions), `meta_iso` (Country names)
 
 ## SQL Best Practices for Trade

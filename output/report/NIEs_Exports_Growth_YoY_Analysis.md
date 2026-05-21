@@ -117,7 +117,7 @@ Thailand's export structure shares moderate similarities with the NIEs, particul
 *   **Data Source:** CEIC World Trend Plus Database (Series denominated in USD mn, Monthly Frequency)
 *   **Transformations:** Year-over-Year (YoY) Percentage Change, wide-format pivoting.
 *   **Primary Deliverables:** 
-    *   Raw Dataset: [nies_exports_raw.csv](../data/raw/nies_exports_raw.csv)
+    *   Raw Dataset: [nies_exports_raw.csv](../data/nies_exports_raw.csv)
     *   Transformed Dataset: [nies_exports_growth_yoy.csv](../data/transformed/nies_exports_growth_yoy.csv)
     *   Comparative Chart: [nies_exports_growth_yoy.png](../chart/nies_exports_growth_yoy.png)
     *   Formal Report: [NIEs_Exports_Growth_YoY_Analysis.md](NIEs_Exports_Growth_YoY_Analysis.md)

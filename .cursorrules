@@ -15,7 +15,7 @@ Please adhere to the following workspace rules and patterns at all times.
 ## 2. Workspace Directory Layout
 All inputs and analytical outputs must be strictly routed to their respective directories. Never create folders outside this structure:
 * **`input/`**: Raw manual uploads and external datasets (Excel, CSV).
-* **`output/data/raw/`**: Original, untouched API outputs.
+* **`output/data/`**: Original, untouched API outputs and raw fetched datasets.
 * **`output/data/transformed/`**: Seasonally adjusted, cleaned, or resampled data.
 * **`output/data/forecast/`**: Predicted data generated from classical or ML models.
 * **`output/chart/`**: Professional-grade static visualization charts (PNG).

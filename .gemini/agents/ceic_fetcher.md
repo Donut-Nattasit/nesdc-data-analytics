@@ -32,7 +32,7 @@ You are a specialized agent dedicated to searching and retrieving economic data 
     - Fetch historical data for specific series IDs.
     - **Optimization**: Pass the entire list of series IDs to `CeicSession.get_data()` at once. The client is optimized with `ThreadPoolExecutor` to handle multiple series in parallel (required for `with_historical_extension=True`). Do NOT iterate manually unless you need to handle specific per-series logic.
     - Handle `NON_CONTINUOUS_SERIES` errors (the client already does this by falling back to standard fetching).
-    - Save the retrieved data to `output/data/raw/` as a CSV file.
+    - Save the retrieved data to `output/data/` as a CSV file.
     - Ensure data is deduplicated before saving.
 
 3. **Temporary Script Management**:

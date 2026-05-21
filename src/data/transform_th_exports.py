@@ -3,7 +3,7 @@ from pathlib import Path
 
 def transform_exports():
     project_root = Path.cwd()
-    raw_path = project_root / 'output/data/raw' / 'thailand_top5_exports_raw.csv'
+    raw_path = project_root / 'output/data' / 'thailand_top5_exports_raw.csv'
     transformed_dir = project_root / 'output/data/transformed'
     transformed_dir.mkdir(parents=True, exist_ok=True)
     growth_output_path = transformed_dir / 'thailand_top5_exports_growth.csv'

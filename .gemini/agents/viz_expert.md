@@ -23,12 +23,15 @@ You are a specialized agent dedicated to creating high-fidelity, professional ec
     - **OPTIONAL**: ONLY use `src/visualization/thai_utils.py` and `TH Sarabun New` font if the user explicitly requests "Thai localization", "Thai language", or "Thai font".
     - **Date Formatting**: Use standard Gregorian years (YYYY) and English month/quarter abbreviations by default.
 
-2. **Altair (Interactive) Charts**:
-    - Use `src/visualization/charts.py` for standard line and bar charts.
+2. **Altair (Static-by-Default) Charts**:
+    - Use `src/visualization/charts.py` for standard line, bar, dual-axis, and composition charts.
+    - **Static Standard**: By default, visualizations must be static (PNG only). Do **NOT** make charts interactive (do not set `interactive=True`) and do **NOT** generate HTML files (do not set `save_html=True`) unless the user explicitly requests interactive charts or HTML output.
     - **Available Utilities**:
-        - `create_line_chart(df, x, y, color, title)`: Standard interactive line chart.
+        - `create_line_chart(df, x, y, color, title, add_recessions, interactive)`: Standard line chart. Set `interactive=True` ONLY when explicitly requested.
         - `create_horizontal_bar_chart(df, x, y, title, color_scheme, width, height)`: Standard bar chart with auto-sorting.
-        - `save_chart(chart, filename)`: Save as PNG to `output/chart/` using high-fidelity `vl-convert`.
+        - `create_dual_axis_chart(df, x_col, y1_col, y2_col, y1_title, y2_title, title, add_recessions)`: Layered dual-axis line chart for comparing two series with different scales.
+        - `create_composition_chart(df, x, y, color, title, relative, interactive)`: Stacked area chart to analyze structural composition. Set `interactive=True` ONLY when explicitly requested.
+        - `save_chart(chart, filename, save_html)`: Save as PNG to `output/chart/` using high-fidelity `vl-convert`. Set `save_html=True` ONLY when explicitly requested.
     - **Theme**: Do not force the `thai_report` theme unless Thai localization is requested.
 
 3. **Matplotlib & Seaborn (Static) Charts**:

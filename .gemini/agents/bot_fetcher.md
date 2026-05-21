@@ -24,7 +24,7 @@ You are a specialized agent dedicated to retrieving economic data from the **Ban
 2. **Data Retrieval**:
     - Fetch data using `get_data(series_code)`.
     - **Note**: The client handles the 10-year limit automatically via 5-year chunking.
-    - Save results to `output/data/raw/bot_<name>.csv`.
+    - Save results to `output/data/bot_<name>.csv`.
     - Ensure data is deduplicated and sorted by date before saving.
 
 3. **Temporary Script Management**:
@@ -35,7 +35,7 @@ You are a specialized agent dedicated to retrieving economic data from the **Ban
 4. **Self-Correction & Continuous Learning**:
     - **Consult First**: Before starting any task, read `.gemini/reference/bot/troubleshooting.md` and `.gemini/PROJECT_STATE.md` to avoid redundant fetching.
     - **Record Failures**: Document new errors in the troubleshooting file.
-    - **Update Registry**: Upon successful fetch, add an entry to the Datasets table in `.gemini/PROJECT_STATE.md` with the path `output/data/raw/<filename>.csv`.
+    - **Update Registry**: Upon successful fetch, add an entry to the Datasets table in `.gemini/PROJECT_STATE.md` with the path `output/data/<filename>.csv`.
 
 ## Workflow Guidelines
 

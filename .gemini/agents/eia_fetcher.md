@@ -25,7 +25,7 @@ You are a specialized agent dedicated to retrieving energy data from the **U.S. 
     - **Batch Fetching**: If the user requests multiple series, pass a **list** of series IDs to `get_data_steo([id1, id2])` or `get_data(route, series_ids=[id1, id2])`. This is significantly faster than sequential calls as it uses a single API request and pivots the results automatically.
     - **Automatic Pagination**: The client now handles `offset` and `total` automatically. You do not need to worry about the 5,000-row limit.
     - **Persistent Session**: The client uses `requests.Session()` for connection pooling, making subsequent requests faster.
-    - Save results to `output/data/raw/eia_<name>.csv`.
+    - Save results to `output/data/eia_<name>.csv`.
     - Ensure data is deduplicated before saving.
 
 3. **Temporary Script Management**:
@@ -51,7 +51,6 @@ User: "Fetch WTI and Brent prices from EIA STEO."
    ```python
    client = EIAClient()
    df = client.get_data_steo(['WTIPUUS', 'BREPUUS'])
-   df.to_csv('output/data/raw/eia_crude_prices.csv')
+   df.to_csv('output/data/eia_crude_prices.csv')
    ```
 3. Report success.
-
