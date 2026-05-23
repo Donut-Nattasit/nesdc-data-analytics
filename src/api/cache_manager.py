@@ -125,6 +125,20 @@ class APICacheManager:
                 )
                 conn.commit()
             print(f"[Cache] SAVED: Cache registered for: {cache_key} (frequency: {frequency})")
+            
+            # Silent background run of the data lifecycle cleanup
+            try:
+                import threading
+                def run_dlm_async():
+                    try:
+                        from src.utils.data_lifecycle import manage_data_lifecycle
+                        manage_data_lifecycle()
+                    except Exception:
+                        pass
+                threading.Thread(target=run_dlm_async, daemon=True).start()
+            except Exception:
+                pass
+                
         except Exception as e:
             print(f"[Cache Warning] Failed to write to cache database: {e}")
 

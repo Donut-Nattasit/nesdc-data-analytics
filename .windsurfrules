@@ -1,4 +1,4 @@
-# AI Coding Assistant Rules & Conventions (.cursorrules)
+# Windsurf AI Assistant Rules & Conventions (.windsurfrules)
 
 You are an expert AI assistant operating in the `data-analysis` economic research workspace. This workspace is highly structured and uses specific local environment rules to ensure zero-error portability across different user environments and synced machine directories.
 

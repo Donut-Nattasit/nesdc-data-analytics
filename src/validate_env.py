@@ -123,6 +123,18 @@ def run_suite():
     asset_res = check_workspace_assets()
     print(tabulate(asset_res, headers=["Asset Component", "Location Status", "Details"], tablefmt="grid"))
     
+    # 4. Storage & Data Lifecycle Management (DLM) Audit
+    print("\n[4] Data Lifecycle Management (DLM) & Storage Cleanup:")
+    try:
+        # Ensure project root is in path for imports
+        project_root = Path(__file__).resolve().parent.parent
+        if str(project_root) not in sys.path:
+            sys.path.append(str(project_root))
+        from src.utils.data_lifecycle import manage_data_lifecycle
+        manage_data_lifecycle()
+    except Exception as e:
+        print(f"⚠️ Failed to run data lifecycle cleanup: {e}")
+        
     print("\n" + "=" * 69)
     # Check if there are any failures
     has_failure = any("❌" in row[2] for row in api_res + dep_res + asset_res)

@@ -3,6 +3,10 @@ import vl_convert as vlc
 import os
 import pandas as pd
 from typing import List, Tuple, Optional, Union
+import matplotlib.pyplot as plt
+import seaborn as sns
+import matplotlib.figure
+from matplotlib import font_manager
 
 # Configure local font registration
 FONTS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "assets", "fonts"))
@@ -13,14 +17,59 @@ if os.path.exists(FONTS_DIR):
             if any(f.endswith(('.ttf', '.otf')) for f in files):
                 vlc.register_font_directory(root)
     except Exception as e:
-        print(f"Warning: Could not register local fonts: {e}")
+        print(f"Warning: Could not register local fonts for vl-convert: {e}")
 
-# Configure THSarabunNew as the default font
+# Register font for matplotlib/seaborn fallback
+def configure_matplotlib_font(font_name: str = 'FC Vision'):
+    if os.path.exists(FONTS_DIR):
+        try:
+            # Register all font directories and variants in matplotlib's font manager
+            for root, dirs, files in os.walk(FONTS_DIR):
+                for f in files:
+                    if f.endswith(('.ttf', '.otf')):
+                        font_path = os.path.join(root, f)
+                        try:
+                            font_manager.fontManager.addfont(font_path)
+                        except Exception:
+                            pass
+            plt.rcParams['font.family'] = font_name
+            sns.set_theme(style="whitegrid", rc={"font.family": font_name})
+        except Exception as e:
+            print(f"Warning: Could not register local fonts for matplotlib: {e}")
+
+# Configure FCVision as the default font with bottom legends for Altair (when requested)
+def fc_vision_theme():
+    font = "FC Vision"
+    return {
+        "config": {
+            "title": {"font": font, "fontSize": 18, "anchor": "middle", "fontWeight": "bold"},
+            "axis": {
+                "labelFont": font,
+                "titleFont": font,
+                "labelFontSize": 12,
+                "titleFontSize": 14
+            },
+            "header": {"labelFont": font, "titleFont": font},
+            "legend": {
+                "orient": "bottom",
+                "direction": "horizontal",
+                "align": "center",
+                "labelFont": font,
+                "titleFont": font,
+                "labelFontSize": 11,
+                "titleFontSize": 12,
+                "padding": 15
+            },
+            "text": {"font": font}
+        }
+    }
+
+# Configure THSarabunNew as an optional localized font for Altair (when requested)
 def th_sarabun_theme():
     font = "TH Sarabun New"
     return {
         "config": {
-            "title": {"font": font, "fontSize": 18},
+            "title": {"font": font, "fontSize": 18, "fontWeight": "bold"},
             "axis": {
                 "labelFont": font,
                 "titleFont": font,
@@ -29,17 +78,22 @@ def th_sarabun_theme():
             },
             "header": {"labelFont": font, "titleFont": font},
             "legend": {
+                "orient": "bottom",
+                "direction": "horizontal",
+                "align": "center",
                 "labelFont": font,
                 "titleFont": font,
                 "labelFontSize": 14,
-                "titleFontSize": 16
+                "titleFontSize": 16,
+                "padding": 15
             },
             "text": {"font": font}
         }
     }
 
+alt.themes.register("fc_vision_theme", fc_vision_theme)
 alt.themes.register("thai_report", th_sarabun_theme)
-alt.themes.enable("thai_report")
+alt.themes.enable("fc_vision_theme")
 
 def get_standard_recession_periods() -> List[Tuple[str, str]]:
     """Return standard historical economic crisis spans for shading."""
@@ -51,7 +105,7 @@ def get_standard_recession_periods() -> List[Tuple[str, str]]:
 
 def create_recession_shading(df_or_dates: Union[pd.DataFrame, List[Tuple[str, str]]] = None) -> alt.Chart:
     """
-    Create a layered background representing vertical recession shading.
+    Create a layered background representing vertical recession shading in Altair.
     """
     if df_or_dates is None:
         periods = get_standard_recession_periods()
@@ -60,7 +114,6 @@ def create_recession_shading(df_or_dates: Union[pd.DataFrame, List[Tuple[str, st
     else:
         periods = get_standard_recession_periods()
         try:
-            # Find the date column in the DataFrame
             date_col = None
             for col in df_or_dates.columns:
                 if 'date' in col.lower() or pd.api.types.is_datetime64_any_dtype(df_or_dates[col]):
@@ -68,12 +121,10 @@ def create_recession_shading(df_or_dates: Union[pd.DataFrame, List[Tuple[str, st
                     break
             
             if date_col is not None:
-                # Convert the date column to datetime
                 df_dates = pd.to_datetime(df_or_dates[date_col])
                 min_date = df_dates.min()
                 max_date = df_dates.max()
                 
-                # Filter periods that overlap with [min_date, max_date]
                 filtered_periods = []
                 for start, end in periods:
                     p_start = pd.to_datetime(start)
@@ -86,7 +137,6 @@ def create_recession_shading(df_or_dates: Union[pd.DataFrame, List[Tuple[str, st
         except Exception as e:
             print(f"Warning: Failed to filter recession periods: {e}")
 
-        
     shading_data = [{'start': p[0], 'end': p[1]} for p in periods]
     df_shading = pd.DataFrame(shading_data)
     df_shading['start'] = pd.to_datetime(df_shading['start'])
@@ -101,105 +151,348 @@ def create_recession_shading(df_or_dates: Union[pd.DataFrame, List[Tuple[str, st
     )
     return shading_chart
 
-def create_line_chart(df: pd.DataFrame, x: str = 'date:T', y: str = 'value:Q', color: str = 'series_name:N', title: str = "Data Visualization", add_recessions: bool = False, interactive: bool = False) -> alt.Chart:
-    """Create a standard Altair line chart (static by default), optionally with recession shading."""
-    base_chart = alt.Chart(df).mark_line().encode(
-        x=alt.X(x, title='Date'),
-        y=alt.Y(y, title='Value', scale=alt.Scale(zero=False)),
-        color=alt.Color(color, title='Series'),
-        tooltip=[x, y, color]
-    ).properties(
-        title=title,
-        width=800,
-        height=400
-    )
+def create_line_chart(df: pd.DataFrame, x: str = 'date:T', y: str = 'value:Q', color: str = 'series_name:N', title: str = "Data Visualization", add_recessions: bool = False, interactive: bool = False, use_altair: bool = False, font_name: str = 'FC Vision', thai_locale: bool = False) -> Union[alt.Chart, matplotlib.figure.Figure]:
+    """Create a standard line chart. Seaborn/Matplotlib by default, Altair if use_altair=True or interactive=True."""
+    clean_x = x.split(':')[0]
+    clean_y = y.split(':')[0]
+    clean_color = color.split(':')[0] if color else None
     
-    if interactive:
-        base_chart = base_chart.interactive()
-    
-    if add_recessions:
-        shading = create_recession_shading(df)
-        # Combine layered charts
-        return alt.layer(shading, base_chart).properties(title=title)
+    if use_altair or interactive:
+        # Altair Nominals (When explicitly requested)
+        is_temp = ':T' in x
+        if thai_locale:
+            x_axis = alt.X(x, title=None if is_temp else 'วันที่', axis=alt.Axis(labelExpr="timeFormat(datum.value, '%Y')*1 + 543"))
+            if 'oil' in title.lower() or 'น้ำมันดิบ' in title or 'ราคาน้ำมัน' in title:
+                y_title = 'ดอลลาร์ สรอ. ต่อบาร์เรล'
+            else:
+                y_title = 'ค่า'
+        else:
+            x_axis = alt.X(x, title=None if is_temp else 'Date')
+            y_title = 'Value'
+            
+        base_chart = alt.Chart(df).mark_line().encode(
+            x=x_axis,
+            y=alt.Y(y, title=y_title, scale=alt.Scale(zero=False)),
+            color=alt.Color(color, title='Series', legend=alt.Legend(orient='bottom', direction='horizontal', title=None)),
+            tooltip=[x, y, color]
+        ).properties(
+            title=title,
+            width=800,
+            height=400
+        )
+        if interactive:
+            base_chart = base_chart.interactive()
+        if add_recessions:
+            shading = create_recession_shading(df)
+            return alt.layer(shading, base_chart).properties(title=title)
+        return base_chart
         
-    return base_chart
-
-def create_horizontal_bar_chart(df: pd.DataFrame, x: str, y: str, title: str, color_scheme: str = 'viridis', width: int = 600, height: int = 300) -> alt.Chart:
-    """Create a standard Altair horizontal bar chart."""
-    chart = alt.Chart(df).mark_bar().encode(
-        x=alt.X(f'{x}:Q', title=x.replace('_', ' ')),
-        y=alt.Y(f'{y}:N', sort='-x', title=y.replace('_', ' ')),
-        color=alt.Color(f'{x}:Q', scale=alt.Scale(scheme=color_scheme), legend=None),
-        tooltip=list(df.columns)
-    ).properties(
-        title=title,
-        width=width,
-        height=height
-    )
-    return chart
-
-def create_dual_axis_chart(df: pd.DataFrame, x_col: str, y1_col: str, y2_col: str, y1_title: str, y2_title: str, title: str = "Dual-Axis Comparison", add_recessions: bool = False) -> alt.Chart:
-    """
-    Create a clean dual-axis line chart layered together.
-    Useful for comparing growth rates against monetary rates or prices.
-    """
-    base = alt.Chart(df).encode(
-        x=alt.X(x_col, title='Date')
-    )
-    
-    line1 = base.mark_line(color='#1f77b4').encode(
-        y=alt.Y(y1_col, title=y1_title, axis=alt.Axis(titleColor='#1f77b4'), scale=alt.Scale(zero=False)),
-        tooltip=[x_col, y1_col]
-    )
-    
-    line2 = base.mark_line(color='#ff7f0e').encode(
-        y=alt.Y(y2_col, title=y2_title, axis=alt.Axis(titleColor='#ff7f0e'), scale=alt.Scale(zero=False)),
-        tooltip=[x_col, y2_col]
-    )
-    
-    # Layer and independent resolve
-    layered = alt.layer(line1, line2).resolve_scale(
-        y='independent'
-    ).properties(
-        title=title,
-        width=800,
-        height=400
-    )
-    
-    if add_recessions:
-        shading = create_recession_shading(df)
-        return alt.layer(shading, layered).properties(title=title)
+    else:
+        # Standard Default Seaborn Path
+        print(f"[Engine Active] Rendering line chart via Seaborn default path with font '{font_name}'...")
+        configure_matplotlib_font(font_name)
+        fig, ax = plt.subplots(figsize=(10, 5))
         
-    return layered
+        is_temporal = ':T' in x or pd.api.types.is_datetime64_any_dtype(df[clean_x])
+        plot_df = df.copy()
+        if is_temporal:
+            plot_df[clean_x] = pd.to_datetime(plot_df[clean_x])
+            
+        # Apply date formatting based on range and locale
+        if is_temporal:
+            import matplotlib.dates as mdates
+            from matplotlib.ticker import FuncFormatter
+            
+            min_date = plot_df[clean_x].min()
+            max_date = plot_df[clean_x].max()
+            
+            if not pd.isna(min_date) and not pd.isna(max_date):
+                date_range = max_date - min_date
+                
+                # Less than 3 years -> Monthly formatting standard
+                if date_range < pd.Timedelta(days=3 * 365):
+                    if thai_locale:
+                        thai_months = ["ม.ค.", "ก.พ.", "มี.ค.", "เม.ย.", "พ.ค.", "มิ.ย.", "ก.ค.", "ส.ค.", "ก.ย.", "ต.ค.", "พ.ย.", "ธ.ค."]
+                        ax.xaxis.set_major_formatter(FuncFormatter(lambda val, pos: f"{thai_months[mdates.num2date(val).month - 1]} {mdates.num2date(val).year + 543}"))
+                    else:
+                        ax.xaxis.set_major_formatter(mdates.DateFormatter('%b %Y'))
+                else:
+                    # Long-term -> Yearly formatting standard
+                    if thai_locale:
+                        ax.xaxis.set_major_formatter(FuncFormatter(lambda val, pos: f"{mdates.num2date(val).year + 543}"))
+            
+        if clean_color and clean_color in plot_df.columns:
+            sns.lineplot(data=plot_df, x=clean_x, y=clean_y, hue=clean_color, ax=ax, palette="tab10", linewidth=2.5)
+        else:
+            sns.lineplot(data=plot_df, x=clean_x, y=clean_y, ax=ax, color="#1f77b4", linewidth=2.5)
+            
+        ax.set_title(title, fontsize=14, fontweight='bold', pad=15)
+        
+        # Remove X-axis label by default if it is a date/temporal column
+        if is_temporal:
+            ax.set_xlabel(None)
+            ax.xaxis.label.set_visible(False)
+        else:
+            if thai_locale and clean_x.lower() == 'date':
+                ax.set_xlabel("วันที่", fontsize=11, fontweight='medium')
+            else:
+                ax.set_xlabel(clean_x.replace('_', ' ').capitalize(), fontsize=11, fontweight='medium')
+            
+        # Localize Y-axis description if Thai locale requested
+        if thai_locale:
+            if clean_y == 'value' and ('oil' in title.lower() or 'น้ำมันดิบ' in title or 'ราคาน้ำมัน' in title):
+                y_label = 'ดอลลาร์ สรอ. ต่อบาร์เรล'
+            elif clean_y == 'value':
+                y_label = 'ค่า'
+            else:
+                y_label = clean_y
+        else:
+            y_label = clean_y.capitalize()
+            
+        ax.set_ylabel(y_label, fontsize=11, fontweight='medium')
+        
+        if add_recessions:
+            periods = get_standard_recession_periods()
+            min_date = plot_df[clean_x].min()
+            max_date = plot_df[clean_x].max()
+            for start, end in periods:
+                p_start = pd.to_datetime(start)
+                p_end = pd.to_datetime(end)
+                if not (p_end < min_date or p_start > max_date):
+                    ax.axvspan(p_start, p_end, color='gray', alpha=0.15)
+                    
+        # Center horizontal legend underneath the axis without redundant title
+        if ax.get_legend():
+            handles, labels = ax.get_legend_handles_labels()
+            bbox_y = -0.12 if is_temporal else -0.18
+            ax.legend(handles, labels, loc='upper center', bbox_to_anchor=(0.5, bbox_y), ncol=4, frameon=True, title=None)
+            
+        plt.tight_layout()
+        return fig
 
-def create_composition_chart(df: pd.DataFrame, x: str, y: str, color: str, title: str = "Composition Analysis", relative: bool = False, interactive: bool = False) -> alt.Chart:
-    """
-    Create a stacked area chart to analyze structural composition (static by default).
-    """
-    stack_type = 'normalize' if relative else 'zero'
-    y_title = "Percentage Share (%)" if relative else "Absolute Value"
+def create_horizontal_bar_chart(df: pd.DataFrame, x: str, y: str, title: str, color_scheme: str = 'viridis', width: int = 600, height: int = 300, use_altair: bool = False, font_name: str = 'FC Vision', thai_locale: bool = False) -> Union[alt.Chart, matplotlib.figure.Figure]:
+    """Create a standard horizontal bar chart. Seaborn/Matplotlib by default, Altair if use_altair=True."""
+    clean_x = x.split(':')[0]
+    clean_y = y.split(':')[0]
     
-    chart = alt.Chart(df).mark_area(opacity=0.85).encode(
-        x=alt.X(x, title='Date'),
-        y=alt.Y(y, stack=stack_type, title=y_title),
-        color=alt.Color(color, scale=alt.Scale(scheme='category20'), title='Component'),
-        tooltip=[x, y, color]
-    ).properties(
-        title=title,
-        width=800,
-        height=400
-    )
+    if use_altair:
+        # Altair Nominals (When explicitly requested)
+        x_title = 'วันที่' if (thai_locale and clean_x.lower() == 'date') else x.replace('_', ' ')
+        y_title = 'วันที่' if (thai_locale and clean_y.lower() == 'date') else y.replace('_', ' ')
+        chart = alt.Chart(df).mark_bar().encode(
+            x=alt.X(f'{x}:Q', title=x_title),
+            y=alt.Y(f'{y}:N', sort='-x', title=y_title),
+            color=alt.Color(f'{x}:Q', scale=alt.Scale(scheme=color_scheme), legend=None),
+            tooltip=list(df.columns)
+        ).properties(
+            title=title,
+            width=width,
+            height=height
+        )
+        return chart
+        
+    else:
+        # Standard Default Seaborn Path
+        print(f"[Engine Active] Rendering horizontal bar chart via Seaborn default path with font '{font_name}'...")
+        configure_matplotlib_font(font_name)
+        fig, ax = plt.subplots(figsize=(width/80, height/80))
+        
+        plot_df = df.sort_values(by=clean_x, ascending=False).copy()
+        sns.barplot(data=plot_df, x=clean_x, y=clean_y, ax=ax, palette="viridis")
+        
+        ax.set_title(title, fontsize=14, fontweight='bold', pad=15)
+        
+        # Check if we should translate date to วันที่
+        if thai_locale and clean_x.lower() == 'date':
+            ax.set_xlabel("วันที่", fontsize=11)
+        else:
+            ax.set_xlabel(clean_x.replace('_', ' ').capitalize(), fontsize=11)
+            
+        if thai_locale and clean_y.lower() == 'date':
+            ax.set_ylabel("วันที่", fontsize=11)
+        else:
+            ax.set_ylabel(clean_y.replace('_', ' ').capitalize(), fontsize=11)
+        
+        plt.tight_layout()
+        return fig
+
+def create_dual_axis_chart(df: pd.DataFrame, x_col: str, y1_col: str, y2_col: str, y1_title: str, y2_title: str, title: str = "Dual-Axis Comparison", add_recessions: bool = False, use_altair: bool = False, font_name: str = 'FC Vision', thai_locale: bool = False) -> Union[alt.Chart, matplotlib.figure.Figure]:
+    """Create a dual-axis line chart. Seaborn/Matplotlib by default, Altair if use_altair=True."""
+    clean_x = x_col.split(':')[0]
+    clean_y1 = y1_col.split(':')[0]
+    clean_y2 = y2_col.split(':')[0]
     
-    if interactive:
-        chart = chart.interactive()
+    if use_altair:
+        # Altair Nominals (When explicitly requested)
+        is_temp = ':T' in x_col
+        x_title = None if is_temp else ('วันที่' if thai_locale else 'Date')
+        base = alt.Chart(df).encode(
+            x=alt.X(x_col, title=x_title)
+        )
+        line1 = base.mark_line(color='#1f77b4').encode(
+            y=alt.Y(y1_col, title=y1_title, axis=alt.Axis(titleColor='#1f77b4'), scale=alt.Scale(zero=False)),
+            tooltip=[x_col, y1_col]
+        )
+        line2 = base.mark_line(color='#ff7f0e').encode(
+            y=alt.Y(y2_col, title=y2_title, axis=alt.Axis(titleColor='#ff7f0e'), scale=alt.Scale(zero=False)),
+            tooltip=[x_col, y2_col]
+        )
+        layered = alt.layer(line1, line2).resolve_scale(
+            y='independent'
+        ).properties(
+            title=title,
+            width=800,
+            height=400
+        )
+        if add_recessions:
+            shading = create_recession_shading(df)
+            return alt.layer(shading, layered).properties(title=title)
+        return layered
+        
+    else:
+        # Standard Default Seaborn Path
+        print(f"[Engine Active] Rendering dual axis chart via Seaborn default path with font '{font_name}'...")
+        configure_matplotlib_font(font_name)
+        fig, ax1 = plt.subplots(figsize=(10, 5))
+        
+        is_temporal = ':T' in x_col or pd.api.types.is_datetime64_any_dtype(df[clean_x])
+        plot_df = df.copy()
+        if is_temporal:
+            plot_df[clean_x] = pd.to_datetime(plot_df[clean_x])
+            
+        # Apply Thai Calendar Year Skill (BE = CE + 543)
+        if thai_locale and is_temporal:
+            import matplotlib.dates as mdates
+            from matplotlib.ticker import FuncFormatter
+            ax1.xaxis.set_major_formatter(FuncFormatter(lambda val, pos: f"{mdates.num2date(val).year + 543}"))
+        if is_temporal:
+            plot_df[clean_x] = pd.to_datetime(plot_df[clean_x])
+            
+        color1 = '#1f77b4'
+        sns.lineplot(data=plot_df, x=clean_x, y=clean_y1, ax=ax1, color=color1, linewidth=2.5)
+        ax1.set_title(title, fontsize=14, fontweight='bold', pad=15)
+        
+        # Remove X-axis label by default if it is a date/temporal column
+        if is_temporal:
+            ax1.set_xlabel(None)
+            ax1.xaxis.label.set_visible(False)
+        else:
+            if thai_locale and clean_x.lower() == 'date':
+                ax1.set_xlabel("วันที่", fontsize=11, fontweight='medium')
+            else:
+                ax1.set_xlabel(clean_x.replace('_', ' ').capitalize(), fontsize=11, fontweight='medium')
+            
+        ax1.set_ylabel(y1_title, color=color1, fontsize=11, fontweight='medium')
+        ax1.tick_params(axis='y', labelcolor=color1)
+        
+        ax2 = ax1.twinx()
+        color2 = '#ff7f0e'
+        sns.lineplot(data=plot_df, x=clean_x, y=clean_y2, ax=ax2, color=color2, linewidth=2.5)
+        ax2.set_ylabel(y2_title, color=color2, fontsize=11, fontweight='medium')
+        ax2.tick_params(axis='y', labelcolor=color2)
+        
+        if add_recessions:
+            periods = get_standard_recession_periods()
+            min_date = plot_df[clean_x].min()
+            max_date = plot_df[clean_x].max()
+            for start, end in periods:
+                p_start = pd.to_datetime(start)
+                p_end = pd.to_datetime(end)
+                if not (p_end < min_date or p_start > max_date):
+                    ax1.axvspan(p_start, p_end, color='gray', alpha=0.15)
+                    
+        # Centered horizontal bottom legends with no title
+        lines = ax1.get_lines() + ax2.get_lines()
+        labels = [y1_title, y2_title]
+        bbox_y = -0.12 if is_temporal else -0.18
+        ax1.legend(lines, labels, loc='upper center', bbox_to_anchor=(0.5, bbox_y), ncol=2, frameon=True, title=None)
+        
+        plt.tight_layout()
+        return fig
+
+def create_composition_chart(df: pd.DataFrame, x: str, y: str, color: str, title: str = "Composition Analysis", relative: bool = False, interactive: bool = False, use_altair: bool = False, font_name: str = 'FC Vision', thai_locale: bool = False) -> Union[alt.Chart, matplotlib.figure.Figure]:
+    """Create a stacked area composition chart. Seaborn/Matplotlib by default, Altair if use_altair=True or interactive=True."""
+    clean_x = x.split(':')[0]
+    clean_y = y.split(':')[0]
+    clean_color = color.split(':')[0]
     
-    return chart
+    if use_altair or interactive:
+        # Altair Nominals (When explicitly requested)
+        stack_type = 'normalize' if relative else 'zero'
+        y_title = "Percentage Share (%)" if relative else "Absolute Value"
+        is_temp = ':T' in x
+        
+        if thai_locale:
+            x_axis = alt.X(x, title=None if is_temp else 'วันที่', axis=alt.Axis(labelExpr="timeFormat(datum.value, '%Y')*1 + 543"))
+        else:
+            x_axis = alt.X(x, title=None if is_temp else 'Date')
+            
+        chart = alt.Chart(df).mark_area(opacity=0.85).encode(
+            x=x_axis,
+            y=alt.Y(y, stack=stack_type, title=y_title),
+            color=alt.Color(color, scale=alt.Scale(scheme='category20'), title='Component', legend=alt.Legend(orient='bottom', direction='horizontal', title=None)),
+            tooltip=[x, y, color]
+        ).properties(
+            title=title,
+            width=800,
+            height=400
+        )
+        if interactive:
+            chart = chart.interactive()
+        return chart
+        
+    else:
+        # Standard Default Matplotlib Stackplot Path
+        print(f"[Engine Active] Rendering composition chart via Matplotlib default path with font '{font_name}'...")
+        configure_matplotlib_font(font_name)
+        fig, ax = plt.subplots(figsize=(10, 5))
+        
+        is_temporal = ':T' in x or pd.api.types.is_datetime64_any_dtype(df[clean_x])
+        plot_df = df.copy()
+        if is_temporal:
+            plot_df[clean_x] = pd.to_datetime(plot_df[clean_x])
+            
+        # Apply Thai Calendar Year Skill (BE = CE + 543)
+        if thai_locale and is_temporal:
+            import matplotlib.dates as mdates
+            from matplotlib.ticker import FuncFormatter
+            ax.xaxis.set_major_formatter(FuncFormatter(lambda val, pos: f"{mdates.num2date(val).year + 543}"))
+        if is_temporal:
+            plot_df[clean_x] = pd.to_datetime(plot_df[clean_x])
+            
+        pivot_df = plot_df.pivot(index=clean_x, columns=clean_color, values=clean_y).fillna(0)
+        
+        if relative:
+            pivot_df = pivot_df.div(pivot_df.sum(axis=1), axis=0) * 100
+            y_title = "Percentage Share (%)"
+        else:
+            y_title = "Absolute Value"
+            
+        ax.stackplot(pivot_df.index, [pivot_df[col] for col in pivot_df.columns], labels=pivot_df.columns, alpha=0.85)
+        
+        ax.set_title(title, fontsize=14, fontweight='bold', pad=15)
+        
+        # Remove X-axis label by default if it is a date/temporal column
+        if is_temporal:
+            ax.set_xlabel(None)
+            ax.xaxis.label.set_visible(False)
+        else:
+            if thai_locale and clean_x.lower() == 'date':
+                ax.set_xlabel("วันที่", fontsize=11, fontweight='medium')
+            else:
+                ax.set_xlabel(clean_x.replace('_', ' ').capitalize(), fontsize=11, fontweight='medium')
+            
+        ax.set_ylabel(y_title, fontsize=11)
+        
+        bbox_y = -0.12 if is_temporal else -0.18
+        ax.legend(loc='upper center', bbox_to_anchor=(0.5, bbox_y), ncol=4, frameon=True, title=None)
+        plt.tight_layout()
+        return fig
 
 def save_chart(chart, filename: str, save_html: bool = False) -> Optional[str]:
     """
     Save Altair chart as static PNG, and optionally interactive HTML.
-    All saving operations are relative to the project root and conform
-    to the 'output/chart/' standard layout.
+    Supports native Matplotlib Figure object saving as well.
     """
     if not filename.endswith('.png'):
         filename += '.png'
@@ -208,34 +501,37 @@ def save_chart(chart, filename: str, save_html: bool = False) -> Optional[str]:
     if filename.startswith('output' + os.sep) or filename.startswith('output/'):
         path = filename
     elif filename.startswith('chart' + os.sep) or filename.startswith('chart/'):
-        # Map chart/... to output/chart/...
         path = os.path.join('output', filename)
     else:
         path = os.path.join('output', 'chart', filename)
     
-    # Ensure directory exists
     os.makedirs(os.path.dirname(path), exist_ok=True)
     
     try:
-        # Save static PNG
+        # Check if the chart is a Matplotlib Figure (Default Path)
+        if isinstance(chart, (plt.Figure, matplotlib.figure.Figure)):
+            # Apply safe native optimization (reduced DPI and PIL optimization)
+            chart.savefig(path, bbox_inches='tight', dpi=150, pil_kwargs={'optimize': True})
+            plt.close(chart)
+            print(f"[Save Success] Seaborn/Matplotlib chart successfully saved to PNG: {path}")
+            return path
+            
+        # Altair Saving via vl-convert
         png_data = vlc.vegalite_to_png(chart.to_json())
         with open(path, 'wb') as f:
             f.write(png_data)
-        print(f"Chart saved to PNG: {path}")
+        print(f"[Save Success] Altair chart successfully saved to PNG: {path}")
         
-        # Save interactive HTML
+        # Save interactive HTML (Only if explicitly requested)
         if save_html:
             html_path = path.replace('.png', '.html')
-            # Create html subfolder if needed
             html_dir = os.path.join(os.path.dirname(path), 'html')
             os.makedirs(html_dir, exist_ok=True)
             html_final_path = os.path.join(html_dir, os.path.basename(html_path))
-            
-            # Save chart as HTML using Altair standard save method
             chart.save(html_final_path)
-            print(f"Interactive HTML saved: {html_final_path}")
+            print(f"[Save Success] Interactive HTML saved to: {html_final_path}")
             
         return path
     except Exception as e:
-        print(f"Failed to save chart: {e}")
+        print(f"[Save Error] Failed to save chart: {e}")
         return None

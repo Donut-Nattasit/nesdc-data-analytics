@@ -6,7 +6,7 @@ This file tracks the current state of analytical assets in the workspace. Agents
 | Series ID | Source | Raw Path (`output/data/`) | Transformed Path (`output/data/transformed/`) | Forecast Path (`output/data/forecast/`) | Status | Last Update |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Dubai Oil Scenarios** | **Excel (User Input)** | **input/oil_price_scenarios.xlsx** | **output/data/transformed/oil_price_scenarios.csv** | | **Ready** | 2026-05-13 |
-| WTIPUUS, BREPUUS | EIA STEO | output/data/eia_crude_oil_prices.csv | | | Ready | 2026-05-13 |
+| WTIPUUS, BREPUUS | EIA STEO | output/data/eia_crude_prices.csv | | | Ready | 2026-05-23 |
 | Aggregate ImPI (Q) | User | input/ImPI_q.csv | output/data/transformed/ExPI_q.csv | | Ready | 2026-05-10 |
 | Local Project Database | SQLite | database/World_Trend_Plus.db | | | Ready | 2026-05-10 |
 | 541395757, 352376202, 352376302, 367523747 | CEIC | output/data/th_prices_raw.csv | | | Ready | 2026-05-15 |
@@ -26,6 +26,7 @@ This file tracks the current state of analytical assets in the workspace. Agents
 | **NIEs Monthly Exports** | **CEIC (4 Series)** | **output/data/nies_exports_raw.csv** | output/data/transformed/nies_exports_growth_yoy.csv | | **Ready** | 2026-05-20 |
 | **Thailand Top 5 Exports** | **GTA (SQLite)** | **output/data/thailand_top5_exports_raw.csv** | **output/data/transformed/thailand_top5_exports_growth.csv** | | **Ready** | 2026-05-20 |
 | **249411001** | CEIC | **output/data/ceic_th_ppi_monthly_yoy.csv** | | | **Ready** | 2026-05-21 |
+| **PAPR_WORLD, PATC_WORLD, T3_STCHANGE_WORLD** | EIA STEO | | **output/data/transformed/eia_world_balance_quarterly.csv** | | **Ready** | 2026-05-23 |
 
 
 
@@ -49,6 +50,13 @@ This file tracks the current state of analytical assets in the workspace. Agents
 | Thailand Inflation Contribution | Bar/Stacked | output/data/thailand_inflation_contribution.csv | output/chart/thailand_inflation_contribution_labeled.png | Rendered |
 | Thailand Public Debt | Line | output/data/ceic_th_public_debt_gdp.csv | output/chart/thailand_public_debt_gdp.png | Rendered |
 | Oil Prices Forecast | Line | output/data/forecast/oil_prices_forecast_full.csv | output/chart/oil_prices_full_forecast.png | Rendered |
+| **EIA STEO Crude Oil Prices** | **Line** | **output/data/eia_crude_prices.csv** | **output/chart/eia_crude_oil_prices.png** | **Rendered** |
+| **EIA STEO Crude Oil Prices (Thai)** | **Line** | **output/data/eia_crude_prices.csv** | **output/chart/eia_crude_oil_prices_thai.png** | **Rendered** |
+| **EIA STEO Crude Oil Prices (2025-2026 Monthly ENG)** | **Line** | **output/data/eia_crude_prices.csv (Filtered)** | **output/chart/eia_crude_oil_prices_2025_2026_eng.png** | **Rendered** |
+| **EIA STEO Crude Oil Prices (2025-2026 Monthly THAI)** | **Line** | **output/data/eia_crude_prices.csv (Filtered)** | **output/chart/eia_crude_oil_prices_2025_2026_thai.png** | **Rendered** |
+| **EIA STEO World Petroleum Balance (Quarterly ENG)** | **Subplots** | **output/data/transformed/eia_world_balance_quarterly.csv** (1990-Q1 – 2027-Q4, Display: 2020–2027) | **output/chart/eia_world_balance_quarterly.png** | **Rendered** | 2026-05-23 |
+| **EIA STEO World Petroleum Balance (Quarterly THAI)** | **Subplots** | **output/data/transformed/eia_world_balance_quarterly.csv** (1990-Q1 – 2027-Q4, Display: 2020–2027) | **output/chart/eia_world_balance_quarterly_thai.png** | **Rendered** | 2026-05-23 |
+| EIA Crude Oil Prices Fallback Test | Line | Synthetic 12k Row Dataset | output/chart/eia_crude_oil_prices_fallback_test.png | Rendered |
 | US Real GDP Forecast | Line | output/data/forecast/us_real_gdp_forecast.csv | output/chart/us_real_gdp_forecast.png | Rendered |
 | India Exports YoY (Bar) | Bar | output/data/india_exports_yoy.csv | output/chart/india_exports_yoy_bar.png | Rendered |
 | THB/USD Monthly | Line | output/data/bop_summary_usd.csv | output/chart/thb_usd_monthly_avg_final.png | Rendered |
@@ -57,7 +65,7 @@ This file tracks the current state of analytical assets in the workspace. Agents
 | **Thailand Real GDP Growth YoY** | **Line** | **output/data/transformed/thailand_gdp_growth.csv** | **output/chart/thailand_gdp_growth_yoy.png** | **Rendered** |
 | **NIEs Exports YoY Growth** | **Line** | **output/data/transformed/nies_exports_growth_yoy.csv** | **output/chart/nies_exports_growth_yoy.png** | **Rendered** |
 | **Thailand Top 5 Exports YoY Comparison** | **Grouped Bar** | **output/data/transformed/thailand_top5_exports_growth.csv** | **output/chart/thailand_top5_exports_comparison.png** | **Rendered** |
-
+| **Thailand PPI YoY Growth** | **Line** | **output/data/ceic_th_ppi_monthly_yoy.csv** | **output/chart/th_ppi_monthly_yoy.png** | **Rendered** |
 
 
 ## 4. Formal Reports (`output/report/`)

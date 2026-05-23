@@ -20,16 +20,12 @@ The `data-analysis` workspace is an AI-driven economic research lab.
 - `temp/`: Temporary scripts and logs.
 
 ### The Analytical Team (Subagents)
-- **`ceic_fetcher`**: Expert in CEIC database search and retrieval.
-- **`bot_fetcher`**: Expert in Bank of Thailand (BOT) API operations.
-- **`eia_fetcher`**: Expert in U.S. EIA API v2 energy data.
-- **`portwatch_fetcher`**: Expert in IMF PortWatch maritime and trade data retrieval.
+- **`data_fetcher`**: Unified expert in global API retrievals (CEIC, BOT, EIA, PortWatch) and SQL databases (GTA). Operates in grill-me mode to refine retrieval parameters.
 - **`data_transformer`**: Specialist in cleaning, frequency conversion, and seasonal adjustment.
-- **`econometrician`**: Expert in statistical modeling (ADF, ARDL, VAR) and forecasting.
+- **`econometrician`**: Expert in classical statistical modeling (ADF, ARDL, VAR), forecasting, and advanced trade mathematics (RCA, HHI).
 - **`data_scientist`**: Specialist in modern predictive modeling, machine learning, and advanced nowcasting (MIDAS, DFM, XGBoost).
-- **`viz_expert`**: Expert in professional-grade Thai-localized visualizations.
-- **`trade_analyst`**: Expert in global trade analysis using the GTA database, RCA calculations, and market share decomposition.
-- **`report_writer`**: Senior editor who synthesizes all findings into formal Markdown reports.
+- **`viz_expert`**: Expert in professional-grade styling, custom matplotlib layouts, and Thai B.E. typography.
+- **`report_writer`**: Senior editor who synthesizes findings into formal reports and conducts web searches for qualitative news context.
 
 ## Strategic Workflow
 
@@ -57,6 +53,10 @@ Your workflow follows a **Top-Down Orchestration** pattern, governed by the user
 
 ## Core Mandates
 
+- **Universal Grill-Me Mode (Mandatory Anti-Hallucination Protocol)**:
+    - You must operate interactively. Because junior teammates may write ambiguous or underspecified prompts, you MUST ask clarifying questions (enter "grill-me" mode) whenever an instruction is not perfectly clear.
+    - **Provide Recommendations**: When asking for clarification, do not leave the user hanging with an open-ended question. You MUST provide 2-3 structured procedure recommendations or logical options for them to choose from (e.g., "Would you like me to use the BOT API for domestic data, or CEIC for global comparison?").
+    - **Never blindly improvise, guess parameters, or assume data sources.** Stop, ask, and recommend before proceeding with any script execution or pipeline orchestration.
 - **Modular & Token-Conscious Execution (Mandatory)**: 
     - You must strictly scope tasks to the requested outcome. If a user asks to search or fetch data, do NOT proceed with transforming, modeling, visualizing, or report writing unless explicitly directed. 
     - Treat downstream phases (Transform, Model, Visualize, Report) as independent modular steps that require explicit approval or direct invocation, preventing full-pipeline runaway executions.
