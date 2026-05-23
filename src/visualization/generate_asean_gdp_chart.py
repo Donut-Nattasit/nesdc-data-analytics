@@ -90,7 +90,7 @@ def generate_asean_gdp_analysis():
     configure_matplotlib_font('FC Vision')
     
     # Setup styling parameters
-    plt.rcParams['figure.facecolor'] = '#F8F9FA'  # Soft light background
+    plt.rcParams['figure.facecolor'] = '#FFFFFF'  # Pure white background
     plt.rcParams['axes.facecolor'] = '#FFFFFF'
     plt.rcParams['grid.color'] = '#E9ECEF'
     plt.rcParams['grid.linestyle'] = '--'
@@ -98,13 +98,14 @@ def generate_asean_gdp_analysis():
     
     fig, ax = plt.subplots(figsize=(12, 7.5), dpi=300)
     
-    # Custom high-contrast premium color palette
+    # Official NESDC Solid Color Palette mapping
     colors = {
-        "IDN": "#0D6EFD",  # Premium Royal Blue (Indonesia)
-        "MYS": "#198754",  # Emerald Green (Malaysia)
-        "PHL": "#FD7E14",  # Radiant Amber Orange (Philippines)
-        "THA": "#DC3545"   # Crimson Red (Thailand)
+        "THA": "#00109E",  # Sapphire Blue (Primary 60% - Thailand as main reference)
+        "IDN": "#78DED4",  # Caribbean Sea (Secondary 15% - Indonesia)
+        "MYS": "#BFB997",  # Clay (Secondary 15% - Malaysia)
+        "PHL": "#60B1E7"   # Maya Blue (Secondary 5% - Philippines)
     }
+
     
     markers = {
         "IDN": "o",  # Circle

@@ -221,10 +221,14 @@ def create_line_chart(df: pd.DataFrame, x: str = 'date:T', y: str = 'value:Q', c
                     if thai_locale:
                         ax.xaxis.set_major_formatter(FuncFormatter(lambda val, pos: f"{mdates.num2date(val).year + 543}"))
             
+        # Official NESDC Solid Color Palette
+        nesdc_palette = ["#00109E", "#78DED4", "#BFB997", "#60B1E7", "#FFA300"]
+        
         if clean_color and clean_color in plot_df.columns:
-            sns.lineplot(data=plot_df, x=clean_x, y=clean_y, hue=clean_color, ax=ax, palette="tab10", linewidth=2.5)
+            sns.lineplot(data=plot_df, x=clean_x, y=clean_y, hue=clean_color, ax=ax, palette=nesdc_palette[:len(plot_df[clean_color].unique())], linewidth=2.5)
         else:
-            sns.lineplot(data=plot_df, x=clean_x, y=clean_y, ax=ax, color="#1f77b4", linewidth=2.5)
+            sns.lineplot(data=plot_df, x=clean_x, y=clean_y, ax=ax, color="#00109E", linewidth=2.5)
+
             
         ax.set_title(title, fontsize=14, fontweight='bold', pad=15)
         
@@ -368,7 +372,7 @@ def create_dual_axis_chart(df: pd.DataFrame, x_col: str, y1_col: str, y2_col: st
         if is_temporal:
             plot_df[clean_x] = pd.to_datetime(plot_df[clean_x])
             
-        color1 = '#1f77b4'
+        color1 = '#00109E'  # Sapphire Blue
         sns.lineplot(data=plot_df, x=clean_x, y=clean_y1, ax=ax1, color=color1, linewidth=2.5)
         ax1.set_title(title, fontsize=14, fontweight='bold', pad=15)
         
@@ -386,10 +390,11 @@ def create_dual_axis_chart(df: pd.DataFrame, x_col: str, y1_col: str, y2_col: st
         ax1.tick_params(axis='y', labelcolor=color1)
         
         ax2 = ax1.twinx()
-        color2 = '#ff7f0e'
+        color2 = '#FFA300'  # Saffron support color
         sns.lineplot(data=plot_df, x=clean_x, y=clean_y2, ax=ax2, color=color2, linewidth=2.5)
         ax2.set_ylabel(y2_title, color=color2, fontsize=11, fontweight='medium')
         ax2.tick_params(axis='y', labelcolor=color2)
+
         
         if add_recessions:
             periods = get_standard_recession_periods()

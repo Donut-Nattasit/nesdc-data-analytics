@@ -54,8 +54,9 @@ def generate_grouped_bar_chart():
         y=alt.Y('Value_Billion_USD:Q', title='Export Value (USD Billion)', scale=alt.Scale(zero=True)),
         xOffset='Year:N',
         color=alt.Color('Year:N', 
-                        scale=alt.Scale(domain=['2025 (Jan-Feb)', '2026 (Jan-Feb)'], range=['#94a3b8', '#0284c7']),
+                        scale=alt.Scale(domain=['2025 (Jan-Feb)', '2026 (Jan-Feb)'], range=['#BFB997', '#00109E']),
                         title='Period'),
+
         tooltip=[
             alt.Tooltip('Category:N', title='Category'),
             alt.Tooltip('Year:N', title='Period'),

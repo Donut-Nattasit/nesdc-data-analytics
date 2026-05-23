@@ -29,6 +29,8 @@ This file tracks the current state of analytical assets in the workspace. Agents
 | **PAPR_WORLD, PATC_WORLD, T3_STCHANGE_WORLD** | EIA STEO | | **output/data/transformed/eia_world_balance_quarterly.csv** | | **Ready** | 2026-05-23 |
 | **THA.NGDP_RPCH (A)** | IMF WEO (SDMX) | *SQLite Cache* | | | Ready (Cached) | 2026-05-23 |
 | **THA+USA.CPI (M)** | IMF CPI (SDMX) | *SQLite Cache* | | | Ready (Cached) | 2026-05-23 |
+| **G001.NGDP_RPCH (A)** | IMF WEO (SDMX) | output/data/world_gdp_growth.csv | | | Ready | 2026-05-23 |
+
 
 
 
@@ -68,6 +70,8 @@ This file tracks the current state of analytical assets in the workspace. Agents
 | **NIEs Exports YoY Growth** | **Line** | **output/data/transformed/nies_exports_growth_yoy.csv** | **output/chart/nies_exports_growth_yoy.png** | **Rendered** |
 | **Thailand Top 5 Exports YoY Comparison** | **Grouped Bar** | **output/data/transformed/thailand_top5_exports_growth.csv** | **output/chart/thailand_top5_exports_comparison.png** | **Rendered** |
 | **Thailand PPI YoY Growth** | **Line** | **output/data/ceic_th_ppi_monthly_yoy.csv** | **output/chart/th_ppi_monthly_yoy.png** | **Rendered** |
+| **World Output Growth (2015-2031)** | **Line** | **output/data/world_gdp_growth.csv** | **output/chart/world_gdp_growth.png** | **Rendered** | 2026-05-23 |
+
 
 
 ## 4. Formal Reports (`output/report/`)
