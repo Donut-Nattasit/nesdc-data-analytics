@@ -62,7 +62,6 @@ def check_workspace_assets():
     # Path lists
     folders = [
         "input", "output", "output/data", 
-        "output/data/transformed", "output/data/forecast",
         "output/chart", "output/model", "output/report", "assets"
     ]
     

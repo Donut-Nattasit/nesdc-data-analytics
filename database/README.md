@@ -5,7 +5,7 @@ This file documents the structures, tables, and columns of the central SQLite da
 ---
 
 ## 📁 Database: `GTA.db`
-* **Workspace Path**: `./data/database/GTA.db`
+* **Workspace Path**: `./database/GTA.db`
 
 ### 📋 Table: `meta_hs2`
 * **Record Count**: 99 rows
@@ -42,7 +42,7 @@ This file documents the structures, tables, and columns of the central SQLite da
 ---
 
 ## 📁 Database: `World_Trend_Plus.db`
-* **Workspace Path**: `./data/database/World_Trend_Plus.db`
+* **Workspace Path**: `./database/World_Trend_Plus.db`
 
 ### 📋 Table: `metadata`
 * **Record Count**: 106 rows
