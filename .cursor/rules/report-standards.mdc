@@ -1,0 +1,23 @@
+---
+description: Enforce relative sibling pathing for charts and localization rules in reports.
+globs: output/report/**/*.md
+alwaysApply: false
+---
+# Report Writing & Visualization Standards
+
+When creating or modifying economic research reports in `output/report/`, ensure compliance with our professional publication standards.
+
+## 1. Sibling Pathing for Visualizations (Mandatory)
+* All charts embedded in Markdown reports **must** use the relative sibling directory prefix `../chart/` to ensure they render correctly in Markdown compilers and previews:
+  ```markdown
+  ![Chart Description](../chart/chart_filename.png)
+  ```
+* **Do NOT** use root-relative paths like `/output/chart/` or absolute local paths like `C:\Users\...`.
+
+## 2. Language & Localization Protocols
+* **Default Language**: Use English for all reports, charts, datasets, and Gregorian calendar years (YYYY).
+* **Thai Localization**: Only use the `TH Sarabun New` font, Buddhist Era (B.E.) calendar standards, and Thai language utilities in `src/visualization/` if the user explicitly requests "Thai localization" or "Thai language".
+
+## 3. Directory Cleanliness
+* Reports must be saved exclusively under `output/report/`.
+* Accompanying models/diagnostics must go to `output/model/`, and charts must go to `output/chart/`.

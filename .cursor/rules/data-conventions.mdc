@@ -1,0 +1,28 @@
+---
+description: Enforce wide format, quarterly mean aggregation, and quarter-end date alignment conventions.
+globs: src/data/**/*.py, output/data/**/*.csv
+alwaysApply: false
+---
+# Data Resampling & Formatter Conventions
+
+All raw API outputs, transformations, and datasets in the workspace must adhere to our strict econometric formatting standards.
+
+## 1. Wide Format Standard (Mandatory)
+* All cleaned, transformed, or resampled timeseries data must ALWAYS be stored in wide format:
+  * **Rows / Primary Index**: Dates or temporal periods (e.g., `YYYY-MM-DD`).
+  * **Columns**: Individual timeseries or economic variables.
+* This ensures direct compatibility with classical econometric models (statsmodels, VAR, ARDL) and machine learning forecasting frameworks.
+
+## 2. Quarterly Aggregation Protocols
+When resampling daily or monthly timeseries data to a quarterly frequency:
+* **Aggregation Method**: **Mean** (Average of observations within the period).
+* **Temporal Alignment**: **Quarter-End ('QE')**. Dates must reflect the end of the quarter:
+  * Q1: `YYYY-03-31`
+  * Q2: `YYYY-06-30`
+  * Q3: `YYYY-09-30`
+  * Q4: `YYYY-12-31`
+
+## 3. Storage Hierarchy
+* Raw API outputs go to `output/data/`.
+* Processed/resampled series go to `output/data/transformed/`.
+* Model predictions and forecast datasets go to `output/data/forecast/`.
