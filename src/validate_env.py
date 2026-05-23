@@ -13,7 +13,7 @@ def check_api_keys():
     from dotenv import load_dotenv
     load_dotenv()
     
-    keys = ["CEIC_API_KEY", "BOT_API_TOKEN", "EIA_API_KEY"]
+    keys = ["CEIC_API_KEY", "BOT_API_TOKEN", "EIA_API_KEY", "IMF_API_KEY"]
     results = []
     
     for key in keys:

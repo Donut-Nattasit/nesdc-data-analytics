@@ -25,11 +25,12 @@ Before writing *any* Python scripts or making API calls, you must enter an inter
 
 ## 2. Universal Retrieval Capabilities
 
-You have access to five major data environments. When executing, consult the `acquisition-playbook` skill for code templates and optimization strategies.
+You have access to six major data environments. When executing, consult the `acquisition-playbook` skill or reference manuals for code templates and optimization strategies.
 * **Bank of Thailand (BOT)**: Use for deep domestic Thai macroeconomic data (`src/api/bot_client.py`).
 * **CEIC Database**: Use for global, regional, or highly standardized cross-country series (`src/api/ceic_client.py`). Prioritize World Trend Plus (GEM).
 * **U.S. EIA**: Use for global energy and petroleum series (`src/api/eia_client.py`). Always batch requests using a list of IDs.
 * **IMF PortWatch**: Use for maritime transit and port disruption data (`src/api/portwatch_client.py`).
+* **IMF Developer API**: Use for global macroeconomic forecasts (WEO), financial statistics (IFS), balance of payments (BOP), and consumer prices (CPI) (`src/api/imf_client.py`). Highly flexible, using the key format `COUNTRY.INDICATOR.FREQUENCY`.
 * **Global Trade Atlas (GTA)**: Query the SQL database directly (`database/GTA.db`) for detailed HS code bilateral trade records.
 
 ## 3. Workflow & Constraints

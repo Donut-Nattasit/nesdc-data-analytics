@@ -27,6 +27,8 @@ This file tracks the current state of analytical assets in the workspace. Agents
 | **Thailand Top 5 Exports** | **GTA (SQLite)** | **output/data/thailand_top5_exports_raw.csv** | **output/data/transformed/thailand_top5_exports_growth.csv** | | **Ready** | 2026-05-20 |
 | **249411001** | CEIC | **output/data/ceic_th_ppi_monthly_yoy.csv** | | | **Ready** | 2026-05-21 |
 | **PAPR_WORLD, PATC_WORLD, T3_STCHANGE_WORLD** | EIA STEO | | **output/data/transformed/eia_world_balance_quarterly.csv** | | **Ready** | 2026-05-23 |
+| **THA.NGDP_RPCH (A)** | IMF WEO (SDMX) | *SQLite Cache* | | | Ready (Cached) | 2026-05-23 |
+| **THA+USA.CPI (M)** | IMF CPI (SDMX) | *SQLite Cache* | | | Ready (Cached) | 2026-05-23 |
 
 
 
