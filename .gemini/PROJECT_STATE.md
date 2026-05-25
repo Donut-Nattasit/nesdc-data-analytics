@@ -26,8 +26,9 @@ This file tracks the current state of analytical assets in the workspace. Agents
 | **NIEs Monthly Exports** | **CEIC (4 Series)** | **output/data/nies_exports_raw.csv** | output/data/nies_exports_growth_yoy.csv | | **Ready** | 2026-05-20 |
 | **Thailand Top 5 Exports** | **GTA (SQLite)** | **output/data/thailand_top5_exports_raw.csv** | **output/data/thailand_top5_exports_growth.csv** | | **Ready** | 2026-05-20 |
 | **249411001** | CEIC | **output/data/ceic_th_ppi_monthly_yoy.csv** | | | **Ready** | 2026-05-21 |
-| **PAPR_WORLD, PATC_WORLD, T3_STCHANGE_WORLD** | EIA STEO | | **output/data/eia_world_balance_quarterly.csv** | | **Ready** | 2026-05-23 |
+| **PAPR_WORLD, PATC_WORLD, T3_STCHANGE_WORLD** | EIA STEO | | **output/data/transformed/eia_world_balance_quarterly.csv** | | **Ready** | 2026-05-25 |
 | **THA.NGDP_RPCH (A)** | IMF WEO (SDMX) | *SQLite Cache* | | | Ready (Cached) | 2026-05-23 |
+| **THA.PCPIPCH (A)** | IMF WEO (SDMX) | output/data/thailand_inflation.csv | | | Ready | 2026-05-25 |
 | **THA+USA.CPI (M)** | IMF CPI (SDMX) | *SQLite Cache* | | | Ready (Cached) | 2026-05-23 |
 | **G001.NGDP_RPCH (A)** | IMF WEO (SDMX) | output/data/world_gdp_growth.csv | | | Ready | 2026-05-23 |
 
@@ -58,8 +59,8 @@ This file tracks the current state of analytical assets in the workspace. Agents
 | **EIA STEO Crude Oil Prices (Thai)** | **Line** | **output/data/eia_crude_prices.csv** | **output/chart/eia_crude_oil_prices_thai.png** | **Rendered** |
 | **EIA STEO Crude Oil Prices (2025-2026 Monthly ENG)** | **Line** | **output/data/eia_crude_prices.csv (Filtered)** | **output/chart/eia_crude_oil_prices_2025_2026_eng.png** | **Rendered** |
 | **EIA STEO Crude Oil Prices (2025-2026 Monthly THAI)** | **Line** | **output/data/eia_crude_prices.csv (Filtered)** | **output/chart/eia_crude_oil_prices_2025_2026_thai.png** | **Rendered** |
-| **EIA STEO World Petroleum Balance (Quarterly ENG)** | **Subplots** | **output/data/eia_world_balance_quarterly.csv** (1990-Q1 – 2027-Q4, Display: 2020–2027) | **output/chart/eia_world_balance_quarterly.png** | **Rendered** | 2026-05-23 |
-| **EIA STEO World Petroleum Balance (Quarterly THAI)** | **Subplots** | **output/data/eia_world_balance_quarterly.csv** (1990-Q1 – 2027-Q4, Display: 2020–2027) | **output/chart/eia_world_balance_quarterly_thai.png** | **Rendered** | 2026-05-23 |
+| **EIA STEO World Petroleum Balance (Quarterly ENG)** | Subplots | **output/data/transformed/eia_world_balance_quarterly.csv** (1990-Q1 – 2027-Q4, Display: 2020–2027) | **output/chart/eia_world_balance_quarterly.png** | **Rendered** | 2026-05-25 |
+| **EIA STEO World Petroleum Balance (Quarterly THAI)** | Subplots | **output/data/transformed/eia_world_balance_quarterly.csv** (1990-Q1 – 2027-Q4, Display: 2020–2027) | **output/chart/eia_world_balance_quarterly_thai.png** | **Rendered** | 2026-05-25 |
 | EIA Crude Oil Prices Fallback Test | Line | Synthetic 12k Row Dataset | output/chart/eia_crude_oil_prices_fallback_test.png | Rendered |
 | US Real GDP Forecast | Line | output/data/us_real_gdp_forecast.csv | output/chart/us_real_gdp_forecast.png | Rendered |
 | India Exports YoY (Bar) | Bar | output/data/india_exports_yoy.csv | output/chart/india_exports_yoy_bar.png | Rendered |
@@ -71,6 +72,7 @@ This file tracks the current state of analytical assets in the workspace. Agents
 | **Thailand Top 5 Exports YoY Comparison** | **Grouped Bar** | **output/data/thailand_top5_exports_growth.csv** | **output/chart/thailand_top5_exports_comparison.png** | **Rendered** |
 | **Thailand PPI YoY Growth** | **Line** | **output/data/ceic_th_ppi_monthly_yoy.csv** | **output/chart/th_ppi_monthly_yoy.png** | **Rendered** |
 | **World Output Growth (2015-2031)** | **Line** | **output/data/world_gdp_growth.csv** | **output/chart/world_gdp_growth.png** | **Rendered** | 2026-05-23 |
+| **Thailand Inflation Outlook (2015-2031)** | **Line** | **output/data/thailand_inflation.csv** | **output/chart/thailand_inflation_weo.png** | **Rendered** | 2026-05-25 |
 
 
 
