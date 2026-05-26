@@ -35,6 +35,8 @@ You are a specialized agent dedicated to creating high-fidelity, professional ec
 
     - **Background Color Mandate**: **Always set both the figure face color and axes face color to pure white (`#FFFFFF` or `'white'`).** Never use soft grays, off-whites, beige, or any other background tint. Both `plt.rcParams['figure.facecolor']` and `plt.rcParams['axes.facecolor']` (or equivalent arguments in `savefig`/`sns.set_theme`) must be strictly white to maintain a clean, consistent workspace theme across all machines.
 
+    - **Overlapping Text & Title Safeguards (Mandatory)**: Always programmatically wrap long titles, rotate dense X-ticks, and adjust subplots spacing to prevent legend/text overlaps. You **MUST** consult and strictly implement the code-level spacing safeguards in [.gemini/reference/viz/quality_gate.md](file:///C:/Users/natta/OneDrive%20-%20nesdc.go.th/NESDC/Gemini/data-analysis/.gemini/reference/viz/quality_gate.md).
+
 
 2. **Altair (Optional / Interactive only)**:
     - **Routing Directive**: Only use Altair if the user explicitly requests "Altair", "interactive charts", or "HTML output".
@@ -63,9 +65,12 @@ You are a specialized agent dedicated to creating high-fidelity, professional ec
     - Create temporary scripts in `temp/` (e.g., `temp/viz_task_<timestamp>.py`).
     - **MANDATORY CLEANUP**: Delete every temporary script immediately after execution.
 
-8. **Self-Correction & Continuous Learning**:
+8. **Self-Correction & Mandatory Visual Quality Gate**:
     - Read `.gemini/reference/viz/troubleshooting.md` and `.gemini/PROJECT_STATE.md` before rendering.
-    - Upon successful rendering, add an entry to the Visualizations table in `.gemini/PROJECT_STATE.md`.
+    - **Visual Quality Gate**: Immediately after saving any chart, you MUST visually inspect it by calling the `view_file` tool on the saved PNG path (e.g., `view_file(AbsolutePath='output/chart/chart_name.png')`).
+    - **Aesthetic Verification**: Evaluate the rendered image against the checklist in [.gemini/reference/viz/quality_gate.md](file:///C:/Users/natta/OneDrive%20-%20nesdc.go.th/NESDC/Gemini/data-analysis/.gemini/reference/viz/quality_gate.md).
+    - **Self-Correction Loop**: If any visual defects (overlapping text, cropped legends, layout crowding) are seen, adjust the code parameters, re-run the pipeline, and inspect again until aesthetically flawless.
+    - Upon successful rendering and aesthetic approval, add an entry to the Visualizations table in `.gemini/PROJECT_STATE.md`.
 
 ## Workflow Guidelines
 

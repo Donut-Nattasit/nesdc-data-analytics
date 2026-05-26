@@ -25,12 +25,21 @@ This file tracks the current state of analytical assets in the workspace. Agents
 | **Thai Real GDP Growth** | **CEIC / Fallback** | **output/data/thailand_gdp_cvm.csv** | **output/data/thailand_gdp_growth.csv** | | **Ready** | 2026-05-20 |
 | **NIEs Monthly Exports** | **CEIC (4 Series)** | **output/data/nies_exports_raw.csv** | output/data/nies_exports_growth_yoy.csv | | **Ready** | 2026-05-20 |
 | **Thailand Top 5 Exports** | **GTA (SQLite)** | **output/data/thailand_top5_exports_raw.csv** | **output/data/thailand_top5_exports_growth.csv** | | **Ready** | 2026-05-20 |
+| **Thailand Top 5 Exports (Refreshed)** | **Thailand MOC API** | **output/data/thailand_top5_exports_refreshed_raw.csv** | **output/data/thailand_top5_exports_refreshed_summary.csv** | | **Ready** | 2026-05-26 |
 | **249411001** | CEIC | **output/data/ceic_th_ppi_monthly_yoy.csv** | | | **Ready** | 2026-05-21 |
 | **PAPR_WORLD, PATC_WORLD, T3_STCHANGE_WORLD** | EIA STEO | | **output/data/transformed/eia_world_balance_quarterly.csv** | | **Ready** | 2026-05-25 |
 | **THA.NGDP_RPCH (A)** | IMF WEO (SDMX) | *SQLite Cache* | | | Ready (Cached) | 2026-05-23 |
 | **THA.PCPIPCH (A)** | IMF WEO (SDMX) | output/data/thailand_inflation.csv | | | Ready | 2026-05-25 |
 | **THA+USA.CPI (M)** | IMF CPI (SDMX) | *SQLite Cache* | | | Ready (Cached) | 2026-05-23 |
 | **G001.NGDP_RPCH (A)** | IMF WEO (SDMX) | output/data/world_gdp_growth.csv | | | Ready | 2026-05-23 |
+| **Global & ASEAN Policy Rates (M/Q)** | CEIC (9 Series) | **output/data/global_asean_policy_rates_raw.csv** | **output/data/global_asean_policy_rates_wide.csv**, **output/data/transformed/global_asean_policy_rates_quarterly.csv** | | **Ready** | 2026-05-25 |
+| **Middle East GDP Growth (Q)** | CEIC (8 Series) | *SQLite Table: middle_east_gdp_yoy* | *SQLite Table: middle_east_gdp_yoy* | | **Ready** | 2026-05-25 |
+| **MOC Trade Statistics** | Thailand MOC API | *SQLite api_cache.db* | | | **Ready** | 2026-05-26 |
+| **Durian Bilateral Exports (M)** | Thailand MOC API | **output/data/durian_exports_bilateral.csv** | *SQLite Table: durian_exports_bilateral* | | **Ready** | 2026-05-26 |
+| **MOC Daily Product Prices** | Thailand MOC API | **output/data/moc_prices/*.csv** (31 Series) | **output/data/transformed/moc_prices_wide.csv**, *SQLite Table: moc_product_prices_wide* | | **Ready** | 2026-05-26 |
+
+| **Rice Bilateral Exports (M)** | Thailand MOC API | **output/data/rice_exports_raw.csv** | **output/data/rice_exports_wide.csv**, **output/data/rice_exports_bilateral.csv** | | **Ready** | 2026-05-26 |
+
 
 
 
@@ -70,9 +79,15 @@ This file tracks the current state of analytical assets in the workspace. Agents
 | **Thailand Real GDP Growth YoY** | **Line** | **output/data/thailand_gdp_growth.csv** | **output/chart/thailand_gdp_growth_yoy.png** | **Rendered** |
 | **NIEs Exports YoY Growth** | **Line** | **output/data/nies_exports_growth_yoy.csv** | **output/chart/nies_exports_growth_yoy.png** | **Rendered** |
 | **Thailand Top 5 Exports YoY Comparison** | **Grouped Bar** | **output/data/thailand_top5_exports_growth.csv** | **output/chart/thailand_top5_exports_comparison.png** | **Rendered** |
+| **Thailand Top 5 Exports YoY Comparison (Refreshed)** | **Grouped Bar** | **output/data/thailand_top5_exports_refreshed_summary.csv** | **output/chart/thailand_top5_exports_comparison_refreshed.png** | **Rendered** | 2026-05-26 |
 | **Thailand PPI YoY Growth** | **Line** | **output/data/ceic_th_ppi_monthly_yoy.csv** | **output/chart/th_ppi_monthly_yoy.png** | **Rendered** |
 | **World Output Growth (2015-2031)** | **Line** | **output/data/world_gdp_growth.csv** | **output/chart/world_gdp_growth.png** | **Rendered** | 2026-05-23 |
 | **Thailand Inflation Outlook (2015-2031)** | **Line** | **output/data/thailand_inflation.csv** | **output/chart/thailand_inflation_weo.png** | **Rendered** | 2026-05-25 |
+| **Global & ASEAN Policy Interest Rates** | Subplots | **output/data/global_asean_policy_rates_wide.csv** | **output/chart/global_asean_policy_rates.png** | **Rendered** | 2026-05-25 |
+| **Middle East Real GDP Growth YoY** | **Line** | **database/time_series.db (table: middle_east_gdp_yoy)** | **output/chart/middle_east_gdp_yoy.png** | **Rendered** | 2026-05-26 |
+| **Post-Iran War Price Trajectories** | **Line** | **output/data/transformed/moc_prices_wide.csv** | **output/chart/indexed_prices_post_iran_war.png** | **Rendered** | 2026-05-26 |
+
+
 
 
 
@@ -86,5 +101,7 @@ This file tracks the current state of analytical assets in the workspace. Agents
 | **Thailand Real GDP Growth Analysis** | **report_writer** | **2026-05-20** | **output/report/Thailand_Real_GDP_Growth_Analysis.md** | **Published** |
 | **NIEs Exports YoY Growth Analysis** | **report_writer** | **2026-05-20** | **output/report/NIEs_Exports_Growth_YoY_Analysis.md** | **Published** |
 | **Thailand Top 5 Exports Analysis** | **report_writer** | **2026-05-20** | **output/report/Thailand_Top5_Exports_Analysis_2025_2026.md** | **Published** |
+| **Thailand Top 5 Exports Analysis (Refreshed)** | **report_writer** | **2026-05-26** | **output/report/Thailand_Top5_Exports_Analysis_Refreshed.md** | **Published** |
+| **Thailand Top 5 Trade Partner Analysis** | **report_writer** | **2026-05-26** | **output/report/Thailand_Top5_Trade_Partner_Analysis.md** | **Published** |
 | **Thailand Rubber Q1 2026 News Context** | **news_analyst** | **2026-05-20** | **output/report/news_context_rubber_2026.md** | **Published** |
 

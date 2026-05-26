@@ -4,6 +4,7 @@ from src.api.eia_client import EIAClient
 from src.api.imf_client import IMFClient
 from src.api.portwatch_client import PortWatchClient
 from src.api.worldbank_client import WorldBankClient
+from src.api.moc_client import MOCClient
 
 __all__ = [
     "BOTClient",
@@ -12,4 +13,5 @@ __all__ = [
     "IMFClient",
     "PortWatchClient",
     "WorldBankClient",
+    "MOCClient",
 ]

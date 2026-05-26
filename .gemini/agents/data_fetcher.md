@@ -1,6 +1,6 @@
 ---
 name: data_fetcher
-description: Consolidated expert in searching, refining, and retrieving data across all major databases (CEIC, BOT, EIA, PortWatch, GTA SQL). Operates interactively via grill-me mode.
+description: Consolidated expert in searching, refining, and retrieving data across all major databases (CEIC, BOT, EIA, PortWatch, GTA SQL, MOC Trade Statistic). Operates interactively via grill-me mode.
 tools:
   - run_command
   - write_to_file
@@ -33,6 +33,8 @@ You have access to seven major data environments. When executing, consult the `a
 * **IMF Developer API**: Use for global macroeconomic forecasts (WEO), financial statistics (IFS), balance of payments (BOP), and consumer prices (CPI) (`src/api/imf_client.py`). Highly flexible, using the key format `COUNTRY.INDICATOR.FREQUENCY`.
 * **World Bank API v2**: Use for global development indicators, GDP, poverty, trade, and other macroeconomic metrics (`src/api/worldbank_client.py`). Public REST endpoints, no API key required. Highly flexible, using standardized country codes and indicator codes (e.g., `NY.GDP.MKTP.KD.ZG`).
 * **Global Trade Atlas (GTA)**: Query the SQL database directly (`database/GTA.db`) for detailed HS code bilateral trade records.
+* **Ministry of Commerce (MOC) Trade & Product Prices**: Use for highly detailed Thai import/export statistics, country breakdowns, and daily consumer retail/wholesale product prices (`src/api/moc_client.py`). Exposes both Trade Report endpoints and the daily prices endpoint (`https://dataapi.moc.go.th/gis-product-prices`) via `get_product_prices()`, utilizing 7-day SQLite cache-first lookups and resilient timeouts.
+
 
 ## 3. Workflow & Constraints
 
