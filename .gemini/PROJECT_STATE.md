@@ -96,7 +96,7 @@ This file tracks the current state of analytical assets in the workspace. Agents
 ## 4. Formal Reports (`output/report/`)
 | Report Title | Author | Date | Path | Status |
 | :--- | :--- | :--- | :--- | :--- |
-| ASEAN Q1 2026 News Context | news_analyst | 2026-05-10 | output/report/news_context_asean_q1_2026.md | Published |
+| ASEAN Q1 2026 News Context | qualitative_analyst | 2026-05-10 | output/report/news_context_asean_q1_2026.md | Published |
 | ASEAN Economic Performance Report: Q1 2026 | report_writer | 2026-05-10 | output/report/ASEAN_GDP_Q1_2026_Final.md | Published |
 | Analysis of India's Export Performance: March 2026 | report_writer | 2026-04-15 | output/report/India_Export_Decline_Mar2026.md | Published |
 | India Export Decline: March 2026 (Data-Driven Update) | report_writer | 2026-04-16 | output/report/India_Export_Decline_Mar2026_DataDriven.md | Published |
@@ -105,5 +105,5 @@ This file tracks the current state of analytical assets in the workspace. Agents
 | **Thailand Top 5 Exports Analysis** | **report_writer** | **2026-05-20** | **output/report/Thailand_Top5_Exports_Analysis_2025_2026.md** | **Published** |
 | **Thailand Top 5 Exports Analysis (Refreshed)** | **report_writer** | **2026-05-26** | **output/report/Thailand_Top5_Exports_Analysis_Refreshed.md** | **Published** |
 | **Thailand Top 5 Trade Partner Analysis** | **report_writer** | **2026-05-26** | **output/report/Thailand_Top5_Trade_Partner_Analysis.md** | **Published** |
-| **Thailand Rubber Q1 2026 News Context** | **news_analyst** | **2026-05-20** | **output/report/news_context_rubber_2026.md** | **Published** |
+| **Thailand Rubber Q1 2026 News Context** | **qualitative_analyst** | **2026-05-20** | **output/report/news_context_rubber_2026.md** | **Published** |
 

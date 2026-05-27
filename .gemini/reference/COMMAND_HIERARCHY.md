@@ -9,8 +9,8 @@ To prevent circular dependencies, infinite loops, and "Spaghetti Delegation," th
 
 ## 2. Synthesis Layer
 - **`report_writer`**:
-    - **Commands**: `econometrician`, `viz_expert`.
-    - **Focus**: Integrating models and visuals into a cohesive narrative.
+    - **Commands**: `econometrician`, `viz_expert`, `qualitative_analyst`.
+    - **Focus**: Integrating models, visuals, and qualitative Research Briefs into a cohesive narrative.
 
 ## 3. Specialist Layer
 - **`econometrician`**:
@@ -27,9 +27,9 @@ To prevent circular dependencies, infinite loops, and "Spaghetti Delegation," th
 
 ## 5. Field Layer (Fetchers & Data Discovery)
 - **`ceic_fetcher`, `bot_fetcher`, `eia_fetcher`**: Raw data acquisition (Quantitative).
-- **`news_analyst`**: Real-time economic discovery (Qualitative).
+- **`qualitative_analyst`**: Deep economic research and crawling (Qualitative).
 - **Commands**: None.
-- **Focus**: Gathering foundational evidence.
+- **Focus**: Gathering qualitative economic, institutional, policy, and market context.
 
 ## Coordination Rules
 - **One-Way Upward Feedback**: Subagents report results (file paths, summaries) back to their requester.

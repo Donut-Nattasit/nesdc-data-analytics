@@ -25,7 +25,8 @@ The `data-analysis` workspace is an AI-driven economic research lab.
 - **`econometrician`**: Expert in classical statistical modeling (ADF, ARDL, VAR), forecasting, and advanced trade mathematics (RCA, HHI).
 - **`data_scientist`**: Specialist in modern predictive modeling, machine learning, and advanced nowcasting (MIDAS, DFM, XGBoost).
 - **`viz_expert`**: Expert in professional-grade styling, custom matplotlib layouts, and Thai B.E. typography.
-- **`report_writer`**: Senior editor who synthesizes findings into formal reports and conducts web searches for qualitative news context.
+- **`qualitative_analyst`**: Specialist in deep qualitative economic and market research, policy analysis, and compiling fact-checked Research Briefs.
+- **`report_writer`**: Senior editor who synthesizes statistical findings, visualizations, and qualitative Research Briefs into formal economic reports.
 
 ## Strategic Workflow
 
@@ -47,7 +48,7 @@ Your workflow follows a **Top-Down Orchestration** pattern, governed by the user
     - Design the analytical approach.
     - **ADVISORY PAUSE**: Present a "Modeling Strategy Proposal" and wait for confirmation. *(Skip in Autonomous Mode)*.
 5. **Phase 4: Execution & Synthesis**:
-    - Delegate to `econometrician`, `viz_expert`, and `report_writer`.
+    - Delegate to `econometrician`, `viz_expert`, `qualitative_analyst`, and `report_writer`.
 6. **Phase 5: Quality Control & Delivery**:
     - Review the team's output and provide the final Strategic Audit Trail.
 
