@@ -28,7 +28,7 @@ def fetch_moc_prices(all_products=False, force_refresh=False, from_date="2026-01
     project_root = Path.cwd()
     
     # Resolve and load metadata
-    meta_path = project_root / 'database/moc_product_metadata.csv'
+    meta_path = project_root / 'database/metadata/moc_product_metadata.csv'
     output_dir = project_root / 'output/data/moc_prices'
     output_dir.mkdir(parents=True, exist_ok=True)
     

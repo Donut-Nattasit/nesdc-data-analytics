@@ -16,7 +16,7 @@ def transform_moc_prices():
     output_dir = project_root / 'output/data/transformed'
     output_dir.mkdir(parents=True, exist_ok=True)
     
-    db_path = project_root / 'output/data/time_series.db'
+    db_path = project_root / 'database/core/time_series.db'
     db_path.parent.mkdir(parents=True, exist_ok=True)
     
     output_csv = output_dir / 'moc_prices_wide.csv'

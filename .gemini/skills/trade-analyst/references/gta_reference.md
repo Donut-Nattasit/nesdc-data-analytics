@@ -1,6 +1,6 @@
 # Trade Analysis Reference: GTA Database Schema & Metrics
 
-## 1. GTA Database Schema (`database/GTA.db`)
+## 1. GTA Database Schema (`database/core/GTA.db`)
 
 ### Table: `GTA` (Main Trade Data)
 - `Reporter`: ISO3 code of the reporting country.

@@ -15,7 +15,7 @@ class APICacheManager:
       - Daily/Weekly: 7 days validity
     """
     
-    DEFAULT_DB_PATH = os.path.join("database", "api_cache.db")
+    DEFAULT_DB_PATH = os.path.join("database", "cache", "api_cache.db")
     
     def __init__(self, db_path: Optional[str] = None):
         self.db_path = db_path or self.DEFAULT_DB_PATH

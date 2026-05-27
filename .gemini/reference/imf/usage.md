@@ -28,7 +28,7 @@ The IMF SDMX 3.0 API follows a hierarchical REST structure.
 ---
 
 ## 3. Caching & Freshness Mandate
-All queries are automatically cached inside the unified SQLite database (`output/data/database/api_cache.db`) using the `APICacheManager`.
+All queries are automatically cached inside the unified SQLite database (`database/cache/api_cache.db`) using the `APICacheManager`.
 * **Annual Frequency (WEO default):** Cache is valid for **365 days**.
 * **Monthly Frequency (CPI default):** Cache is valid for **30 days**.
 * **Quarterly Frequency (IFS/BOP default):** Cache is valid for **90 days**.

@@ -76,7 +76,7 @@ def main():
     
     # 3. Store Datasets in SQLite Database
     print("\n[Phase 3] Storing aligned dataset to SQLite Database...")
-    db_path = "database/time_series.db"
+    db_path = "database/core/time_series.db"
     os.makedirs(os.path.dirname(db_path), exist_ok=True)
     conn = sqlite3.connect(db_path)
     try:
@@ -177,7 +177,7 @@ def main():
     
     # Source disclaimer caption at the absolute bottom
     plt.figtext(0.1, 0.02, 
-                "Source: CEIC Global Economic Monitor Database. Series transformed to Quarter-End (QE) alignment.\nDisclaimer: Stored in wide-format SQLite database standard 'database/time_series.db' (table: middle_east_gdp_yoy).",
+                "Source: CEIC Global Economic Monitor Database. Series transformed to Quarter-End (QE) alignment.\nDisclaimer: Stored in wide-format SQLite database standard 'database/core/time_series.db' (table: middle_east_gdp_yoy).",
                 fontsize=9.5, color='#8D99AE', fontstyle='italic')
     
     plt.tight_layout()

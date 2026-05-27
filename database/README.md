@@ -2,10 +2,18 @@
 
 This file documents the structures, tables, and columns of the central SQLite databases in the workspace. Any AI or developer can use these schemas to write precise, high-fidelity SQL queries.
 
+## 📁 Directory Structure Overview
+
+The `./database/` folder is organized as follows:
+*   **`core/`**: Houses permanent SQLite databases used for analysis and charting (`GTA.db`, `World_Trend_Plus.db`, `time_series.db`).
+*   **`cache/`**: Contains transient/temporary SQLite cache buffers (`api_cache.db`).
+*   **`metadata/`**: Contains static reference metadata files (`moc_product_metadata.csv`).
+*   **`README.md`**: This entry point schema registry.
+
 ---
 
 ## 📁 Database: `GTA.db`
-* **Workspace Path**: `./database/GTA.db`
+* **Workspace Path**: `./database/core/GTA.db`
 
 ### 📋 Table: `meta_hs2`
 * **Record Count**: 99 rows
@@ -42,7 +50,7 @@ This file documents the structures, tables, and columns of the central SQLite da
 ---
 
 ## 📁 Database: `World_Trend_Plus.db`
-* **Workspace Path**: `./database/World_Trend_Plus.db`
+* **Workspace Path**: `./database/core/World_Trend_Plus.db`
 
 ### 📋 Table: `metadata`
 * **Record Count**: 106 rows

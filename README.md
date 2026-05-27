@@ -96,7 +96,7 @@ powershell -Command "$env:PYTHONPATH='.'; .\.venv\Scripts\python.exe src/validat
 ## 📊 Central Databases
 
 The workspace houses two central SQLite analytical databases:
-* **`World_Trend_Plus.db`** (stored in `database/`): Local repository for global trend indicators and historical time series.
-* **`GTA.db`** (stored in `database/`): Contains Global Trade Atlas records, import/export series, and transaction details.
+* **`World_Trend_Plus.db`** (stored in `database/core/`): Local repository for global trend indicators and historical time series.
+* **`GTA.db`** (stored in `database/core/`): Contains Global Trade Atlas records, import/export series, and transaction details.
 
 For detailed schema details, index guides, and sample queries optimized for SQL-generating AI assistants, refer to **[database/README.md](file:///C:/Users/natta/OneDrive%20-%20nesdc.go.th/NESDC/Gemini/data-analysis/database/README.md)**.

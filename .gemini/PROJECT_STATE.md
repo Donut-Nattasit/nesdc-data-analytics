@@ -8,10 +8,10 @@ This file tracks the current state of analytical assets in the workspace. Agents
 | **Dubai Oil Scenarios** | **Excel (User Input)** | **input/oil_price_scenarios.xlsx** | **output/data/oil_price_scenarios.csv** | | **Ready** | 2026-05-13 |
 | WTIPUUS, BREPUUS | EIA STEO | output/data/eia_crude_prices.csv | | | Ready | 2026-05-23 |
 | Aggregate ImPI (Q) | User | input/ImPI_q.csv | output/data/ExPI_q.csv | | Ready | 2026-05-10 |
-| Local Project Database | SQLite | database/World_Trend_Plus.db | | | Ready | 2026-05-10 |
+| Local Project Database | SQLite | database/core/World_Trend_Plus.db | | | Ready | 2026-05-10 |
 | 541395757, 352376202, 352376302, 367523747 | CEIC | output/data/th_prices_raw.csv | | | Ready | 2026-05-15 |
 | **Quarterly Price Master** | **Mixed** | **output/data/th_prices_raw.csv** | **output/data/th_prices_quarterly_for_deflator.csv** | **output/data/th_prices_scenarios_forecast.csv** | **Ready** | 2026-05-15 |
-| Global Trade Atlas (GTA) | GTA | input/GTA/combined.csv | database/GTA.db | | Ready | 2026-05-01 |
+| Global Trade Atlas (GTA) | GTA | input/GTA/combined.csv | database/core/GTA.db | | Ready | 2026-05-01 |
 | International Crude Oil Production | EIA (v2) | output/data/eia_crude_oil_production_monthly.csv | output/data/petroleum_production_grouped.csv | | Ready | 2026-05-12 |
 | EC_XT_046_S2 (9 Series) | BOT | output/data/bot_EC_XT_046_S2_*.csv | | | Ready | 2025-05-22 |
 | 317092601 | CEIC | output/data/ceic_317092601.csv | | | Ready | 2026-05-22 |
@@ -39,6 +39,8 @@ This file tracks the current state of analytical assets in the workspace. Agents
 | **MOC Daily Product Prices** | Thailand MOC API | **output/data/moc_prices/*.csv** (31 Series) | **output/data/transformed/moc_prices_wide.csv**, *SQLite Table: moc_product_prices_wide* | | **Ready** | 2026-05-26 |
 
 | **Rice Bilateral Exports (M)** | Thailand MOC API | **output/data/rice_exports_raw.csv** | **output/data/rice_exports_wide.csv**, **output/data/rice_exports_bilateral.csv** | | **Ready** | 2026-05-26 |
+| **ASEAN-5 Bilateral Trade w/ China (M)** | **CEIC World Trend Plus (10 Series)** | **output/data/asean5_china_bilateral_trade.csv** | *SQLite Table: asean5_china_bilateral_trade* | | **Ready** | 2026-05-27 |
+| **ASEAN-5 Real GDP Growth YoY (Q)** | **CEIC World Trend Plus (5 Series: 249445001, 208962702, 414411697, 414411557, 468026567)** | **output/data/asean5_real_gdp_growth_yoy.csv** | *SQLite Table: asean5_real_gdp_growth_yoy* | | **Ready** | 2026-05-27 |
 
 
 
@@ -84,7 +86,7 @@ This file tracks the current state of analytical assets in the workspace. Agents
 | **World Output Growth (2015-2031)** | **Line** | **output/data/world_gdp_growth.csv** | **output/chart/world_gdp_growth.png** | **Rendered** | 2026-05-23 |
 | **Thailand Inflation Outlook (2015-2031)** | **Line** | **output/data/thailand_inflation.csv** | **output/chart/thailand_inflation_weo.png** | **Rendered** | 2026-05-25 |
 | **Global & ASEAN Policy Interest Rates** | Subplots | **output/data/global_asean_policy_rates_wide.csv** | **output/chart/global_asean_policy_rates.png** | **Rendered** | 2026-05-25 |
-| **Middle East Real GDP Growth YoY** | **Line** | **database/time_series.db (table: middle_east_gdp_yoy)** | **output/chart/middle_east_gdp_yoy.png** | **Rendered** | 2026-05-26 |
+| **Middle East Real GDP Growth YoY** | **Line** | **database/core/time_series.db (table: middle_east_gdp_yoy)** | **output/chart/middle_east_gdp_yoy.png** | **Rendered** | 2026-05-26 |
 | **Post-Iran War Price Trajectories** | **Line** | **output/data/transformed/moc_prices_wide.csv** | **output/chart/indexed_prices_post_iran_war.png** | **Rendered** | 2026-05-26 |
 
 

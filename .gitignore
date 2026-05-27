@@ -16,6 +16,7 @@ output/data/database/
 *.db
 *.xlsx
 *.csv
+!database/metadata/moc_product_metadata.csv
 
 # Compiled Executables
 bin/x13as.exe
