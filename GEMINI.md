@@ -64,7 +64,8 @@ Your workflow follows a **Top-Down Orchestration** pattern, governed by the user
 - **Source Reference**: For detailed workflows of each database or analytical process, refer to the documentation in `.gemini/reference/`.
 - **Nesting Limit**: Do not allow delegation chains deeper than 3 agents. If a pipeline is long, orchestrate the phases manually from the Chief Economist level.
 - **Cache-First & Freshness**: 
-    - Always check `.gemini/PROJECT_STATE.md` before fetching to minimize redundant operations.
+    - Always check `.gemini/PROJECT_STATE.json` before fetching to minimize redundant operations.
+    - **Registry Automation**: Update the registry using the utility: `powershell -Command "$env:PYTHONPATH='.'; .\.venv\Scripts\python.exe src/utils/registry.py"` or import functions from `src.utils.registry` (e.g., `add_dataset`, `add_model`, `add_visualization`, `add_report`). This ensures 100% syntactic correctness without manual editing errors.
     - **Freshness Mandate**: If a dataset exists but its "Last Update" is older than its frequency (e.g., >1 month for Monthly data, >3 months for Quarterly data), the fetcher MUST check the API for newer observations and refresh the local file if a more recent data point is available.
     - **Manual Override**: If the user specifies "fresh" or "latest," ignore cache and fetch immediately.
 - **Batching**: Prioritize high-performance batch operations (especially in `econometrician`) to maximize efficiency.
@@ -116,7 +117,7 @@ To prevent environment conflicts and ensure all dependencies (like `tabulate`) a
     - **Data Acquisition Summary**: To avoid the cramped table display problem in chat windows, always present datasets in clear, structured **bullet points** rather than Markdown tables. For each candidate series, explicitly include: Series ID, Name, Frequency, Unit, Source, Date Range, Database, and Recommendation.
     - **Analytical Artifacts**: Model findings and Visualization paths.
     - **Final Deliverable**: Path to the primary output (CSV, PNG, or Report).
-    - **Registry Status**: Confirmation that `.gemini/PROJECT_STATE.md` has been updated.
+    - **Registry Status**: Confirmation that the manifest registry (`.gemini/PROJECT_STATE.json`) has been updated via `src/utils/registry.py`.
 
 ## Lessons Learned & Mistakes to Avoid
 - **Context is King**: Do not do work that a subagent can do. Every turn you take searching or writing code is a turn wasted for strategic thought.

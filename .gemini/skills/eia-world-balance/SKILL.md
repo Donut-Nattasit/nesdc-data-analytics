@@ -63,7 +63,7 @@ The dual-subplot layout is structured as follows:
 ## Execution Protocol
 
 ### Step 1 — Check Freshness (Cache-First)
-Before running, check `.gemini/PROJECT_STATE.md` for the last update date of:
+Before running, check `.gemini/PROJECT_STATE.json` for the last update date of:
 - `output/data/transformed/eia_world_balance_quarterly.csv`
 
 If the **Last Update** is **less than 1 month old**, the cache is still fresh. Ask the user if they want to force a refresh.
@@ -85,9 +85,7 @@ This script automatically:
 - Renders and saves the Thai chart: `output/chart/eia_world_balance_quarterly_thai.png`.
 
 ### Step 3 — Update the Project State Registry
-After successful execution, update `.gemini/PROJECT_STATE.md`:
-- Set the **Last Update** timestamp for both chart rows to today's date.
-- Update the **Data Range** field if EIA has extended the STEO forecast horizon.
+After successful execution, update `.gemini/PROJECT_STATE.json` using `src/utils/registry.py`:
 
 ---
 
@@ -124,7 +122,7 @@ When EIA publishes a new STEO report, follow this checklist:
 - `[ ]` Run the pipeline with `force_refresh=True` to pull the latest API data.
 - `[ ]` Verify the new chart covers the updated forecast horizon (EIA typically extends by 1 month each release).
 - `[ ]` Confirm that the last bar in the stock changes subplot reflects the latest STEO projection.
-- `[ ]` Update `PROJECT_STATE.md` with the new Last Update date and data range.
+- `[ ]` Update `PROJECT_STATE.json` with the new Last Update date and data range using `registry.py`.
 
 ---
 

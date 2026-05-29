@@ -176,6 +176,8 @@ class CeicSession:
                 
             series_name = getattr(m, 'name', 'Unknown')
             series_id = getattr(m, 'id', 'Unknown')
+            source_info = getattr(m, 'source', None)
+            source_name = getattr(source_info, 'name', 'Unknown') if source_info else 'Unknown'
             
             time_points = getattr(item, 'time_points', [])
             for tp in time_points:
@@ -184,7 +186,8 @@ class CeicSession:
                         'date': tp.date,  # Keep as string for faster collection
                         'value': tp.value,
                         'series_id': series_id,
-                        'series_name': series_name
+                        'series_name': series_name,
+                        'source': source_name
                     })
                 except:
                     continue
@@ -195,3 +198,32 @@ class CeicSession:
         df = pd.DataFrame(points)
         df['date'] = pd.to_datetime(df['date'])  # Batch conversion is MUCH faster
         return df
+
+    def get_series_source(self, series_id) -> str:
+        """Fetch the original source agency name for a series ID."""
+        if not self.is_authenticated:
+            self.authenticate()
+        try:
+            res = Ceic.series([str(series_id)], with_historical_extension=False, count=1)
+            data_items = getattr(res, 'data', [])
+            if data_items:
+                m = getattr(data_items[0], 'metadata', None)
+                if m:
+                    source_info = getattr(m, 'source', None)
+                    if source_info:
+                        return getattr(source_info, 'name', 'Unknown')
+            return 'Unknown'
+        except Exception as e:
+            try:
+                res = Ceic.series([str(series_id)], with_historical_extension=True, count=1)
+                data_items = getattr(res, 'data', [])
+                if data_items:
+                    m = getattr(data_items[0], 'metadata', None)
+                    if m:
+                        source_info = getattr(m, 'source', None)
+                        if source_info:
+                            return getattr(source_info, 'name', 'Unknown')
+            except:
+                pass
+            print(f"Failed to fetch source for {series_id}: {e}")
+            return 'Unknown'

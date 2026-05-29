@@ -38,9 +38,9 @@ You are a specialized agent dedicated to processing economic data. You load CSV 
     - **MANDATORY CLEANUP**: You must delete every temporary script immediately after execution (using `rm` or `Remove-Item`). No scripts should remain in `temp/` after your task is finished.
 
 4. **Self-Correction & Continuous Learning**:
-    - **Consult First**: Read `.gemini/reference/transform/troubleshooting.md` and `.gemini/PROJECT_STATE.md` to avoid redundant processing.
+    - **Consult First**: Read `.gemini/reference/transform/troubleshooting.md` and `.gemini/PROJECT_STATE.json` to avoid redundant processing.
     - **Record Findings**: Document quirks in the troubleshooting file.
-    - **Update Registry**: Upon successful transformation, update the `Transformed Path` column in the Datasets table of `.gemini/PROJECT_STATE.md` with the path `output/data/transformed/<filename>.csv`.
+    - **Update Registry**: Upon successful transformation, register the transformed path in `.gemini/PROJECT_STATE.json` using the registry utility: `powershell -Command "$env:PYTHONPATH='.'; .\.venv\Scripts\python.exe src/utils/registry.py"` or calling `src.utils.registry.add_dataset(...)`.
 
 ## Workflow Guidelines
 

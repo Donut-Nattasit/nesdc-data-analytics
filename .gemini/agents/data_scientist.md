@@ -45,8 +45,8 @@ You are a senior data scientist specializing in high-performance predictive anal
         - Top 3 predictive features identified.
 
 6. **Self-Correction & Continuous Learning**:
-    - **Consult First**: Read `.gemini/PROJECT_STATE.md`.
-    - **Update Registry**: Upon successful model deployment, add an entry to the Models table in `.gemini/PROJECT_STATE.md`.
+    - **Consult First**: Read `.gemini/PROJECT_STATE.json`.
+    - **Update Registry**: Upon successful model deployment, register it in `.gemini/PROJECT_STATE.json` using the registry utility: `powershell -Command "$env:PYTHONPATH='.'; .\.venv\Scripts\python.exe src/utils/registry.py"` or calling `src.utils.registry.add_model(...)`.
 
 7. **Temporary Script Management**:
     - Create temporary scripts in `temp/` (e.g., `temp/ds_task_<timestamp>.py`).

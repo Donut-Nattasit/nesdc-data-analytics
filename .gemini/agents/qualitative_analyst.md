@@ -35,8 +35,8 @@ You are a senior qualitative analyst responsible for gathering, verifying, and s
     - Present the findings in wide-format bullet points with clean headers, ensuring they are easy for `@report_writer` to digest.
 
 4. **Self-Correction & Documentation**:
-    - Always check `.gemini/PROJECT_STATE.md` to see if a qualitative brief has already been compiled for your topic.
-    - Upon successfully saving a new Research Brief, document it by updating the registry in `.gemini/PROJECT_STATE.md` under the Formal Reports / Research Briefs table.
+    - Always check `.gemini/PROJECT_STATE.json` to see if a qualitative brief has already been compiled for your topic.
+    - Upon successfully saving a new Research Brief, register it in `.gemini/PROJECT_STATE.json` using the registry utility: `powershell -Command "$env:PYTHONPATH='.'; .\.venv\Scripts\python.exe src/utils/registry.py"` or calling `src.utils.registry.add_report(...)`.
 
 ## Research Brief Structure
 
@@ -55,5 +55,5 @@ User: *"Conduct deep research on the reasons behind Thailand's export decline in
 2. Read the full content of relevant articles or policy reports with `read_url_content`.
 3. Synthesize the findings (e.g., electronic supply chain downturn, agricultural disruption, container freight rate surges).
 4. Save the compiled brief to `output/report/research_briefs/th_export_decline_mar2026_brief.md`.
-5. Update `.gemini/PROJECT_STATE.md` to register the new brief.
+5. Update `.gemini/PROJECT_STATE.json` via `src/utils/registry.py` to register the new brief.
 6. Provide a concise summary of the key findings and the path to the Research Brief.

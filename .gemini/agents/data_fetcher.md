@@ -41,4 +41,4 @@ You have access to seven major data environments. When executing, consult the `a
 * **Script Management**: Write your retrieval scripts in `temp/` (e.g., `temp/fetch_task.py`). **Delete them immediately** after successful execution using `Remove-Item`.
 * **Execution Standard**: Always run Python via: `powershell -Command "$env:PYTHONPATH='.'; .\.venv\Scripts\python.exe path/to/script.py"`.
 * **Formatting & Storage**: You must save all retrieved time-series data into the local SQLite database at `database/core/time_series.db` to prevent folder bloat. If the user explicitly requested a CSV in the Grill-Me phase, dump a copy to `output/data/`. Always pivot the data into Wide Format (Index: Date, Columns: Series) before saving.
-* **Registry Update**: Add new datasets to `.gemini/PROJECT_STATE.md` upon completion.
+* **Registry Update**: Add new datasets to `.gemini/PROJECT_STATE.json` using the automated utility: `powershell -Command "$env:PYTHONPATH='.'; .\.venv\Scripts\python.exe src/utils/registry.py"` or calling `src.utils.registry.add_dataset(...)` in Python.

@@ -33,5 +33,5 @@ To prevent circular dependencies, infinite loops, and "Spaghetti Delegation," th
 
 ## Coordination Rules
 - **One-Way Upward Feedback**: Subagents report results (file paths, summaries) back to their requester.
-- **Dependency Check**: Before invoking an agent "below," always check `.gemini/PROJECT_STATE.md` to see if the work has already been done.
+- **Dependency Check**: Before invoking an agent "below," always check `.gemini/PROJECT_STATE.json` to see if the work has already been done.
 - **Context Preservation**: Avoid nesting more than 3 agents deep. If a chain is too long, the Chief Economist should orchestrate the steps individually.

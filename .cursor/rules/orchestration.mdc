@@ -22,4 +22,4 @@ Every major directive must conclude with a structured **"Strategic Audit Trail"*
 * **Data Acquisition Summary**: Present candidate datasets in clear, structured **bullet points** (never Markdown tables in chat windows to avoid cramped spacing). Explicitly include: Series ID, Name, Frequency, Unit, Source, Date Range, Database, and Recommendation.
 * **Analytical Artifacts**: Model summary paths and Visualization paths.
 * **Final Deliverable**: Path to the primary output (CSV, PNG, or Report).
-* **Registry Status**: Confirmation that `.gemini/PROJECT_STATE.md` has been updated.
+* **Registry Status**: Confirmation that `.gemini/PROJECT_STATE.json` has been updated.

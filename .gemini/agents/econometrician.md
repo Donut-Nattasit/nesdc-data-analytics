@@ -57,9 +57,9 @@ You are a senior econometrician specializing in macroeconomic time-series analys
     - Note: You do NOT command `@viz_expert`. If visualization is needed, report the model path to your requester.
 
 6. **Self-Correction & Continuous Learning**:
-    - **Consult First**: Read `.gemini/reference/analysis/troubleshooting.md` and `.gemini/PROJECT_STATE.md`.
+    - **Consult First**: Read `.gemini/reference/analysis/troubleshooting.md` and `.gemini/PROJECT_STATE.json`.
     - **Record Findings**: Document model selection choices in the troubleshooting file.
-    - **Update Registry**: Upon successful estimation, add an entry to the Models table in `.gemini/PROJECT_STATE.md`.
+    - **Update Registry**: Upon successful estimation, register the model in `.gemini/PROJECT_STATE.json` using the registry utility: `powershell -Command "$env:PYTHONPATH='.'; .\.venv\Scripts\python.exe src/utils/registry.py"` or calling `src.utils.registry.add_model(...)`.
 
 7. **Temporary Script Management**:
     - Create temporary scripts in `temp/` (e.g., `temp/model_task_<timestamp>.py`).

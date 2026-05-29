@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib.figure
 from matplotlib import font_manager
+import textwrap
 
 # Configure local font registration
 FONTS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "assets", "fonts"))
@@ -33,7 +34,13 @@ def configure_matplotlib_font(font_name: str = 'FC Vision'):
                         except Exception:
                             pass
             plt.rcParams['font.family'] = font_name
-            sns.set_theme(style="whitegrid", rc={"font.family": font_name})
+            sns.set_theme(style="whitegrid", rc={
+                "font.family": font_name,
+                "figure.facecolor": "#FFFFFF",
+                "axes.facecolor": "#FFFFFF",
+                "grid.color": "#E9ECEF",
+                "grid.alpha": 0.7
+            })
         except Exception as e:
             print(f"Warning: Could not register local fonts for matplotlib: {e}")
 
@@ -151,7 +158,7 @@ def create_recession_shading(df_or_dates: Union[pd.DataFrame, List[Tuple[str, st
     )
     return shading_chart
 
-def create_line_chart(df: pd.DataFrame, x: str = 'date:T', y: str = 'value:Q', color: str = 'series_name:N', title: str = "Data Visualization", add_recessions: bool = False, interactive: bool = False, use_altair: bool = False, font_name: str = 'FC Vision', thai_locale: bool = False) -> Union[alt.Chart, matplotlib.figure.Figure]:
+def create_line_chart(df: pd.DataFrame, x: str = 'date:T', y: str = 'value:Q', color: str = 'series_name:N', title: str = "Data Visualization", add_recessions: bool = False, interactive: bool = False, use_altair: bool = False, font_name: str = 'FC Vision', thai_locale: bool = False, subtitle: Optional[str] = None, source: Optional[str] = None) -> Union[alt.Chart, matplotlib.figure.Figure]:
     """Create a standard line chart. Seaborn/Matplotlib by default, Altair if use_altair=True or interactive=True."""
     clean_x = x.split(':')[0]
     clean_y = y.split(':')[0]
@@ -165,18 +172,27 @@ def create_line_chart(df: pd.DataFrame, x: str = 'date:T', y: str = 'value:Q', c
             if 'oil' in title.lower() or 'น้ำมันดิบ' in title or 'ราคาน้ำมัน' in title:
                 y_title = 'ดอลลาร์ สรอ. ต่อบาร์เรล'
             else:
-                y_title = 'ค่า'
+                y_title = None
         else:
             x_axis = alt.X(x, title=None if is_temp else 'Date')
-            y_title = 'Value'
+            y_title = None
             
+        if subtitle and source:
+            title_params = alt.TitleParams(text=title, subtitle=[subtitle, f"ที่มา: {source}" if thai_locale else f"Source: {source}"], anchor='middle')
+        elif subtitle:
+            title_params = alt.TitleParams(text=title, subtitle=subtitle, anchor='middle')
+        elif source:
+            title_params = alt.TitleParams(text=title, subtitle=f"ที่มา: {source}" if thai_locale else f"Source: {source}", anchor='middle')
+        else:
+            title_params = title
+
         base_chart = alt.Chart(df).mark_line().encode(
             x=x_axis,
             y=alt.Y(y, title=y_title, scale=alt.Scale(zero=False)),
             color=alt.Color(color, title='Series', legend=alt.Legend(orient='bottom', direction='horizontal', title=None)),
             tooltip=[x, y, color]
         ).properties(
-            title=title,
+            title=title_params,
             width=800,
             height=400
         )
@@ -184,7 +200,7 @@ def create_line_chart(df: pd.DataFrame, x: str = 'date:T', y: str = 'value:Q', c
             base_chart = base_chart.interactive()
         if add_recessions:
             shading = create_recession_shading(df)
-            return alt.layer(shading, base_chart).properties(title=title)
+            return alt.layer(shading, base_chart).properties(title=title_params)
         return base_chart
         
     else:
@@ -230,7 +246,11 @@ def create_line_chart(df: pd.DataFrame, x: str = 'date:T', y: str = 'value:Q', c
             sns.lineplot(data=plot_df, x=clean_x, y=clean_y, ax=ax, color="#00109E", linewidth=2.5)
 
             
-        ax.set_title(title, fontsize=14, fontweight='bold', pad=15)
+        if subtitle:
+            fig.suptitle(title, fontsize=14, fontweight='bold', x=0.5, y=0.97, ha='center')
+            ax.set_title(subtitle, fontsize=10, color='#64748b', pad=10, loc='center')
+        else:
+            ax.set_title(title, fontsize=14, fontweight='bold', pad=15, loc='center')
         
         # Remove X-axis label by default if it is a date/temporal column
         if is_temporal:
@@ -247,13 +267,19 @@ def create_line_chart(df: pd.DataFrame, x: str = 'date:T', y: str = 'value:Q', c
             if clean_y == 'value' and ('oil' in title.lower() or 'น้ำมันดิบ' in title or 'ราคาน้ำมัน' in title):
                 y_label = 'ดอลลาร์ สรอ. ต่อบาร์เรล'
             elif clean_y == 'value':
-                y_label = 'ค่า'
+                y_label = None
             else:
                 y_label = clean_y
         else:
-            y_label = clean_y.capitalize()
+            if clean_y.lower() == 'value':
+                y_label = None
+            else:
+                y_label = clean_y.capitalize()
             
-        ax.set_ylabel(y_label, fontsize=11, fontweight='medium')
+        if y_label:
+            ax.set_ylabel(y_label, fontsize=11, fontweight='medium')
+        else:
+            ax.set_ylabel(None)
         
         if add_recessions:
             periods = get_standard_recession_periods()
@@ -268,13 +294,35 @@ def create_line_chart(df: pd.DataFrame, x: str = 'date:T', y: str = 'value:Q', c
         # Center horizontal legend underneath the axis without redundant title
         if ax.get_legend():
             handles, labels = ax.get_legend_handles_labels()
-            bbox_y = -0.12 if is_temporal else -0.18
-            ax.legend(handles, labels, loc='upper center', bbox_to_anchor=(0.5, bbox_y), ncol=4, frameon=True, title=None)
+            ncol = min(4, len(labels))
+            if is_temporal:
+                ax.legend(handles, labels, loc='upper center', bbox_to_anchor=(0.5, -0.06), ncol=ncol, frameon=True, title=None)
+                plt.tight_layout()
+                bottom_val = 0.14
+            else:
+                ax.legend(handles, labels, loc='upper center', bbox_to_anchor=(0.5, -0.18), ncol=ncol, frameon=True, title=None)
+                plt.tight_layout()
+                bottom_val = 0.22
+        else:
+            plt.tight_layout()
+            bottom_val = 0.10 if is_temporal else 0.14
             
-        plt.tight_layout()
+        if subtitle:
+            fig.subplots_adjust(bottom=bottom_val, top=0.87)
+        else:
+            fig.subplots_adjust(bottom=bottom_val)
+            
+        if source:
+            if thai_locale:
+                prefix = "ที่มา: "
+            else:
+                prefix = "Source: "
+            source_text = source if (source.startswith("Source:") or source.startswith("ที่มา:")) else f"{prefix}{source}"
+            fig.text(0.08, 0.02, source_text, fontsize=9, color='#64748b', ha='left', family=font_name)
+            
         return fig
 
-def create_horizontal_bar_chart(df: pd.DataFrame, x: str, y: str, title: str, color_scheme: str = 'viridis', width: int = 600, height: int = 300, use_altair: bool = False, font_name: str = 'FC Vision', thai_locale: bool = False) -> Union[alt.Chart, matplotlib.figure.Figure]:
+def create_horizontal_bar_chart(df: pd.DataFrame, x: str, y: str, title: str, color_scheme: str = 'viridis', width: int = 600, height: int = 300, use_altair: bool = False, font_name: str = 'FC Vision', thai_locale: bool = False, subtitle: Optional[str] = None, source: Optional[str] = None) -> Union[alt.Chart, matplotlib.figure.Figure]:
     """Create a standard horizontal bar chart. Seaborn/Matplotlib by default, Altair if use_altair=True."""
     clean_x = x.split(':')[0]
     clean_y = y.split(':')[0]
@@ -283,13 +331,22 @@ def create_horizontal_bar_chart(df: pd.DataFrame, x: str, y: str, title: str, co
         # Altair Nominals (When explicitly requested)
         x_title = 'วันที่' if (thai_locale and clean_x.lower() == 'date') else x.replace('_', ' ')
         y_title = 'วันที่' if (thai_locale and clean_y.lower() == 'date') else y.replace('_', ' ')
+        if subtitle and source:
+            title_params = alt.TitleParams(text=title, subtitle=[subtitle, f"ที่มา: {source}" if thai_locale else f"Source: {source}"], anchor='middle')
+        elif subtitle:
+            title_params = alt.TitleParams(text=title, subtitle=subtitle, anchor='middle')
+        elif source:
+            title_params = alt.TitleParams(text=title, subtitle=f"ที่มา: {source}" if thai_locale else f"Source: {source}", anchor='middle')
+        else:
+            title_params = title
+
         chart = alt.Chart(df).mark_bar().encode(
             x=alt.X(f'{x}:Q', title=x_title),
             y=alt.Y(f'{y}:N', sort='-x', title=y_title),
             color=alt.Color(f'{x}:Q', scale=alt.Scale(scheme=color_scheme), legend=None),
             tooltip=list(df.columns)
         ).properties(
-            title=title,
+            title=title_params,
             width=width,
             height=height
         )
@@ -302,25 +359,50 @@ def create_horizontal_bar_chart(df: pd.DataFrame, x: str, y: str, title: str, co
         fig, ax = plt.subplots(figsize=(width/80, height/80))
         
         plot_df = df.sort_values(by=clean_x, ascending=False).copy()
-        sns.barplot(data=plot_df, x=clean_x, y=clean_y, ax=ax, palette="viridis")
+        # Strictly use NESDC brand colors for up to 5 categories, fallback to brand-consistent Blues gradient
+        nesdc_palette = ["#00109E", "#78DED4", "#BFB997", "#60B1E7", "#FFA300"]
+        num_categories = len(plot_df[clean_y].unique())
+        if num_categories <= len(nesdc_palette):
+            palette = nesdc_palette[:num_categories]
+        else:
+            palette = sns.color_palette("Blues_r", n_colors=num_categories)
+        sns.barplot(data=plot_df, x=clean_x, y=clean_y, ax=ax, palette=palette)
         
-        ax.set_title(title, fontsize=14, fontweight='bold', pad=15)
+        if subtitle:
+            fig.suptitle(title, fontsize=14, fontweight='bold', x=0.5, y=0.97, ha='center')
+            ax.set_title(subtitle, fontsize=10, color='#64748b', pad=10, loc='center')
+            plt.tight_layout()
+            fig.subplots_adjust(top=0.87)
+        else:
+            ax.set_title(title, fontsize=14, fontweight='bold', pad=15, loc='center')
+            plt.tight_layout()
         
         # Check if we should translate date to วันที่
         if thai_locale and clean_x.lower() == 'date':
             ax.set_xlabel("วันที่", fontsize=11)
+        elif clean_x.lower() == 'value' or clean_x == 'ค่า':
+            ax.set_xlabel(None)
         else:
             ax.set_xlabel(clean_x.replace('_', ' ').capitalize(), fontsize=11)
             
         if thai_locale and clean_y.lower() == 'date':
             ax.set_ylabel("วันที่", fontsize=11)
+        elif clean_y.lower() == 'value' or clean_y == 'ค่า':
+            ax.set_ylabel(None)
         else:
             ax.set_ylabel(clean_y.replace('_', ' ').capitalize(), fontsize=11)
         
         plt.tight_layout()
+        if source:
+            if thai_locale:
+                prefix = "ที่มา: "
+            else:
+                prefix = "Source: "
+            source_text = source if (source.startswith("Source:") or source.startswith("ที่มา:")) else f"{prefix}{source}"
+            fig.text(0.08, 0.02, source_text, fontsize=9, color='#64748b', ha='left', family=font_name)
         return fig
 
-def create_dual_axis_chart(df: pd.DataFrame, x_col: str, y1_col: str, y2_col: str, y1_title: str, y2_title: str, title: str = "Dual-Axis Comparison", add_recessions: bool = False, use_altair: bool = False, font_name: str = 'FC Vision', thai_locale: bool = False) -> Union[alt.Chart, matplotlib.figure.Figure]:
+def create_dual_axis_chart(df: pd.DataFrame, x_col: str, y1_col: str, y2_col: str, y1_title: str, y2_title: str, title: str = "Dual-Axis Comparison", add_recessions: bool = False, use_altair: bool = False, font_name: str = 'FC Vision', thai_locale: bool = False, subtitle: Optional[str] = None, source: Optional[str] = None) -> Union[alt.Chart, matplotlib.figure.Figure]:
     """Create a dual-axis line chart. Seaborn/Matplotlib by default, Altair if use_altair=True."""
     clean_x = x_col.split(':')[0]
     clean_y1 = y1_col.split(':')[0]
@@ -341,16 +423,25 @@ def create_dual_axis_chart(df: pd.DataFrame, x_col: str, y1_col: str, y2_col: st
             y=alt.Y(y2_col, title=y2_title, axis=alt.Axis(titleColor='#ff7f0e'), scale=alt.Scale(zero=False)),
             tooltip=[x_col, y2_col]
         )
+        if subtitle and source:
+            title_params = alt.TitleParams(text=title, subtitle=[subtitle, f"ที่มา: {source}" if thai_locale else f"Source: {source}"], anchor='middle')
+        elif subtitle:
+            title_params = alt.TitleParams(text=title, subtitle=subtitle, anchor='middle')
+        elif source:
+            title_params = alt.TitleParams(text=title, subtitle=f"ที่มา: {source}" if thai_locale else f"Source: {source}", anchor='middle')
+        else:
+            title_params = title
+
         layered = alt.layer(line1, line2).resolve_scale(
             y='independent'
         ).properties(
-            title=title,
+            title=title_params,
             width=800,
             height=400
         )
         if add_recessions:
             shading = create_recession_shading(df)
-            return alt.layer(shading, layered).properties(title=title)
+            return alt.layer(shading, layered).properties(title=title_params)
         return layered
         
     else:
@@ -374,7 +465,11 @@ def create_dual_axis_chart(df: pd.DataFrame, x_col: str, y1_col: str, y2_col: st
             
         color1 = '#00109E'  # Sapphire Blue
         sns.lineplot(data=plot_df, x=clean_x, y=clean_y1, ax=ax1, color=color1, linewidth=2.5)
-        ax1.set_title(title, fontsize=14, fontweight='bold', pad=15)
+        if subtitle:
+            fig.suptitle(title, fontsize=14, fontweight='bold', x=0.5, y=0.97, ha='center')
+            ax1.set_title(subtitle, fontsize=10, color='#64748b', pad=10, loc='center')
+        else:
+            ax1.set_title(title, fontsize=14, fontweight='bold', pad=15, loc='center')
         
         # Remove X-axis label by default if it is a date/temporal column
         if is_temporal:
@@ -386,13 +481,21 @@ def create_dual_axis_chart(df: pd.DataFrame, x_col: str, y1_col: str, y2_col: st
             else:
                 ax1.set_xlabel(clean_x.replace('_', ' ').capitalize(), fontsize=11, fontweight='medium')
             
-        ax1.set_ylabel(y1_title, color=color1, fontsize=11, fontweight='medium')
+        y1_label = None if y1_title.lower() in ['value', 'ค่า'] else y1_title
+        if y1_label:
+            ax1.set_ylabel(y1_label, color=color1, fontsize=11, fontweight='medium')
+        else:
+            ax1.set_ylabel(None)
         ax1.tick_params(axis='y', labelcolor=color1)
         
         ax2 = ax1.twinx()
         color2 = '#FFA300'  # Saffron support color
         sns.lineplot(data=plot_df, x=clean_x, y=clean_y2, ax=ax2, color=color2, linewidth=2.5)
-        ax2.set_ylabel(y2_title, color=color2, fontsize=11, fontweight='medium')
+        y2_label = None if y2_title.lower() in ['value', 'ค่า'] else y2_title
+        if y2_label:
+            ax2.set_ylabel(y2_label, color=color2, fontsize=11, fontweight='medium')
+        else:
+            ax2.set_ylabel(None)
         ax2.tick_params(axis='y', labelcolor=color2)
 
         
@@ -409,13 +512,31 @@ def create_dual_axis_chart(df: pd.DataFrame, x_col: str, y1_col: str, y2_col: st
         # Centered horizontal bottom legends with no title
         lines = ax1.get_lines() + ax2.get_lines()
         labels = [y1_title, y2_title]
-        bbox_y = -0.12 if is_temporal else -0.18
-        ax1.legend(lines, labels, loc='upper center', bbox_to_anchor=(0.5, bbox_y), ncol=2, frameon=True, title=None)
-        
-        plt.tight_layout()
+        if is_temporal:
+            ax1.legend(lines, labels, loc='upper center', bbox_to_anchor=(0.5, -0.06), ncol=2, frameon=True, title=None)
+            plt.tight_layout()
+            bottom_val = 0.14
+        else:
+            ax1.legend(lines, labels, loc='upper center', bbox_to_anchor=(0.5, -0.18), ncol=2, frameon=True, title=None)
+            plt.tight_layout()
+            bottom_val = 0.22
+            
+        if subtitle:
+            fig.subplots_adjust(bottom=bottom_val, top=0.87)
+        else:
+            fig.subplots_adjust(bottom=bottom_val)
+            
+        if source:
+            if thai_locale:
+                prefix = "ที่มา: "
+            else:
+                prefix = "Source: "
+            source_text = source if (source.startswith("Source:") or source.startswith("ที่มา:")) else f"{prefix}{source}"
+            fig.text(0.08, 0.02, source_text, fontsize=9, color='#64748b', ha='left', family=font_name)
+            
         return fig
 
-def create_composition_chart(df: pd.DataFrame, x: str, y: str, color: str, title: str = "Composition Analysis", relative: bool = False, interactive: bool = False, use_altair: bool = False, font_name: str = 'FC Vision', thai_locale: bool = False) -> Union[alt.Chart, matplotlib.figure.Figure]:
+def create_composition_chart(df: pd.DataFrame, x: str, y: str, color: str, title: str = "Composition Analysis", relative: bool = False, interactive: bool = False, use_altair: bool = False, font_name: str = 'FC Vision', thai_locale: bool = False, subtitle: Optional[str] = None, source: Optional[str] = None) -> Union[alt.Chart, matplotlib.figure.Figure]:
     """Create a stacked area composition chart. Seaborn/Matplotlib by default, Altair if use_altair=True or interactive=True."""
     clean_x = x.split(':')[0]
     clean_y = y.split(':')[0]
@@ -432,13 +553,22 @@ def create_composition_chart(df: pd.DataFrame, x: str, y: str, color: str, title
         else:
             x_axis = alt.X(x, title=None if is_temp else 'Date')
             
+        if subtitle and source:
+            title_params = alt.TitleParams(text=title, subtitle=[subtitle, f"ที่มา: {source}" if thai_locale else f"Source: {source}"], anchor='middle')
+        elif subtitle:
+            title_params = alt.TitleParams(text=title, subtitle=subtitle, anchor='middle')
+        elif source:
+            title_params = alt.TitleParams(text=title, subtitle=f"ที่มา: {source}" if thai_locale else f"Source: {source}", anchor='middle')
+        else:
+            title_params = title
+
         chart = alt.Chart(df).mark_area(opacity=0.85).encode(
             x=x_axis,
             y=alt.Y(y, stack=stack_type, title=y_title),
             color=alt.Color(color, scale=alt.Scale(scheme='category20'), title='Component', legend=alt.Legend(orient='bottom', direction='horizontal', title=None)),
             tooltip=[x, y, color]
         ).properties(
-            title=title,
+            title=title_params,
             width=800,
             height=400
         )
@@ -473,9 +603,16 @@ def create_composition_chart(df: pd.DataFrame, x: str, y: str, color: str, title
         else:
             y_title = "Absolute Value"
             
-        ax.stackplot(pivot_df.index, [pivot_df[col] for col in pivot_df.columns], labels=pivot_df.columns, alpha=0.85)
+        # Strictly use NESDC brand colors for stackplot
+        nesdc_palette = ["#00109E", "#78DED4", "#BFB997", "#60B1E7", "#FFA300"]
+        colors = nesdc_palette[:len(pivot_df.columns)]
+        ax.stackplot(pivot_df.index, [pivot_df[col] for col in pivot_df.columns], labels=pivot_df.columns, colors=colors, alpha=0.85)
         
-        ax.set_title(title, fontsize=14, fontweight='bold', pad=15)
+        if subtitle:
+            fig.suptitle(title, fontsize=14, fontweight='bold', x=0.5, y=0.97, ha='center')
+            ax.set_title(subtitle, fontsize=10, color='#64748b', pad=10, loc='center')
+        else:
+            ax.set_title(title, fontsize=14, fontweight='bold', pad=15, loc='center')
         
         # Remove X-axis label by default if it is a date/temporal column
         if is_temporal:
@@ -487,11 +624,34 @@ def create_composition_chart(df: pd.DataFrame, x: str, y: str, color: str, title
             else:
                 ax.set_xlabel(clean_x.replace('_', ' ').capitalize(), fontsize=11, fontweight='medium')
             
-        ax.set_ylabel(y_title, fontsize=11)
+        if y_title and y_title.lower() not in ['value', 'ค่า']:
+            ax.set_ylabel(y_title, fontsize=11)
+        else:
+            ax.set_ylabel(None)
         
-        bbox_y = -0.12 if is_temporal else -0.18
-        ax.legend(loc='upper center', bbox_to_anchor=(0.5, bbox_y), ncol=4, frameon=True, title=None)
-        plt.tight_layout()
+        ncol = min(4, len(pivot_df.columns))
+        if is_temporal:
+            ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.06), ncol=ncol, frameon=True, title=None)
+            plt.tight_layout()
+            bottom_val = 0.14
+        else:
+            ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.18), ncol=ncol, frameon=True, title=None)
+            plt.tight_layout()
+            bottom_val = 0.22
+            
+        if subtitle:
+            fig.subplots_adjust(bottom=bottom_val, top=0.87)
+        else:
+            fig.subplots_adjust(bottom=bottom_val)
+            
+        if source:
+            if thai_locale:
+                prefix = "ที่มา: "
+            else:
+                prefix = "Source: "
+            source_text = source if (source.startswith("Source:") or source.startswith("ที่มา:")) else f"{prefix}{source}"
+            fig.text(0.08, 0.02, source_text, fontsize=9, color='#64748b', ha='left', family=font_name)
+            
         return fig
 
 def save_chart(chart, filename: str, save_html: bool = False) -> Optional[str]:
