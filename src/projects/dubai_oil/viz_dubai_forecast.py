@@ -49,11 +49,11 @@ def main():
         marker='o', markersize=4, label='Historical Spot Dubai (GIOS0097)'
     )
     
-    # Line B: ARIMAX Forecast Trajectory (Spread Correction)
+    # Line B: Error Correction Model (ECM) Forecast Trajectory
     ax.plot(
         df_fc['date'], df_fc['dubai_spot_forecast'],
         color='#00109E', linestyle='-', linewidth=3.0,
-        marker='o', markersize=5, label='Official ARIMAX Forecast'
+        marker='o', markersize=5, label='Official ECM Forecast'
     )
     
     # Line C: Raw Futures Curve (Traded Consensus)
@@ -95,14 +95,14 @@ def main():
     plt.xticks(rotation=45)
     
     # Annotate final values for clarity
-    final_arimax_val = df_fc.iloc[-1]['dubai_spot_forecast']
+    final_ecm_val = df_fc.iloc[-1]['dubai_spot_forecast']
     final_future_val = df_fc.iloc[-1]['dubai_baseline']
     final_date = df_fc.iloc[-1]['date']
     
     ax.annotate(
-        f"ARIMAX: ${final_arimax_val:.2f}",
-        xy=(final_date, final_arimax_val),
-        xytext=(final_date - pd.DateOffset(months=4), final_arimax_val - 4),
+        f"ECM Forecast: ${final_ecm_val:.2f}",
+        xy=(final_date, final_ecm_val),
+        xytext=(final_date - pd.DateOffset(months=4), final_ecm_val - 4),
         arrowprops=dict(facecolor='#00109E', shrink=0.08, width=1, headwidth=6),
         color='#00109E', fontweight='bold', fontsize=10
     )

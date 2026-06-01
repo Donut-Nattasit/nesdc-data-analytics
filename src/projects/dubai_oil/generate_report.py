@@ -162,12 +162,15 @@ def main():
     last_actual_avg = last_sit_row['monthly_avg']
     latest_ytd = last_sit_row['ytd_avg']
     latest_date_str = dt_pos.strftime('%B %d, %Y')
+    
+    from datetime import datetime
+    published_date_str = datetime.now().strftime('%B %d, %Y')
         
     # 5. Assemble Report
     print("\n[Step 5] Assembling Report...")
     report_content = f"""# Special Economic Report: Global Energy Dynamics & Dubai Crude Projections (2026 - 2027)
 
-**Published Date**: June 01, 2026
+**Published Date**: {published_date_str}
 
 ---
 
@@ -191,25 +194,21 @@ These physical disruptions were overlaid on a market heavily regulated by volunt
 
 Figure 1.1 illustrates the monthly historical spot actual price trajectories of Dubai Fateh, Brent, and West Texas Intermediate (WTI) benchmarks from January 2024 through May 2026, marked with key market-shaping events.
 
-<img src="../chart/global_oil_prices_comparison.png" alt="Global Crude Oil Price Benchmarks" width="700">
+<img src="../../../dubai_oil/chart/global_oil_prices_comparison.png" alt="Global Crude Oil Price Benchmarks" width="700">
 
 *Figure 1.1: Historical monthly spot prices of Dubai Fateh, Brent, and WTI crude benchmarks with key market-shaping events marked (January 2024 – May 2026).*
 
 ### Major Oil Suppliers and Production Stances
 The supply-side responses and policies of major crude producers reflect distinct domestic, corporate, and geopolitical priorities:
 *   **OECD Suppliers**: Overall OECD production has remained stable, prioritizing capital discipline and refining efficiency. Strategic petroleum reserve (SPR) releases have ceased, leaving commercial stock levels to reflect standard refinery demand.
-*   **United States**: U.S. shale operators have entered a mature plateau phase. Prioritizing shareholder returns, debt reduction, and cash flow maximization, U.S. shale producers have abandoned "growth at all costs" expansion models. Maturing acreage in the Permian Basin, along with supply chain constraints, has kept U.S. crude production relatively stable. High-frequency weekly data from the CEIC Global Database (ID: 355221677) resampled to monthly averages confirms this structural transition: U.S. production reached a high-level plateau in mid-2025, peaking at 13.84 mb/d in December 2025, and then stabilizing firmly at an average of 13.64 mb/d during the first five months of 2026 (ranging from 13.59 mb/d in April to 13.71 mb/d in February). Figure 1.3 illustrates this mature plateau phase. Significant capital investment expansions are expected to materialize only in 2027 as new drilling cycles complete.
 
-<img src="../chart/us_crude_production.png" alt="U.S. Monthly Crude Oil Production" width="700">
-
-*Figure 1.3: U.S. Monthly Crude Oil Production and Mature Plateau Phase (January 2024 – May 2026) resampled from high-frequency weekly CEIC series.*
 *   **Russia**: Russia's petroleum sector is facing operational headwinds, with production projected to decline for the fourth consecutive year in 2026 to a 17-year low. This decline is driven by Western sanctions, corporate financial strain, and combat-damaged refinery infrastructure. Russian policy has consequently shifted from crude export maximization toward protecting domestic fuel stability. Russia implemented a total export ban on aviation fuel until November 30, 2026, and extended its export bans on diesel and marine gas oils through July 31, 2026, while committing to OPEC+ guidelines on production compensation.
 *   **Other Major Producers (OPEC+)**: Core Middle Eastern OPEC+ members continue their market-management policies. In May 2026, seven OPEC+ nations (Saudi Arabia, Russia, Iraq, Kuwait, Kazakhstan, Algeria, and Oman) agreed to implement a voluntary production adjustment of 188,000 b/d starting in June 2026, reinforcing the voluntary cuts of 2.2 mb/d implemented since late 2023. Compliance is monitored tightly by the JMMC, with strict compensation schedules enforced for members that exceeded their quotas in early 2026.
 
 ### Global Petroleum Supply and Demand
 To analyze the structural market balance, we evaluate the monthly world petroleum supply and demand series from the U.S. EIA STEO database. Figure 1.2 illustrates monthly production vs. consumption and net inventory changes.
 
-<img src="../../chart/eia_world_balance_quarterly.png" alt="EIA World Monthly Petroleum Balance" width="700">
+<img src="../../../chart/eia_world_balance_quarterly.png" alt="EIA World Monthly Petroleum Balance" width="700">
 
 *Figure 1.2: EIA Monthly World Petroleum Production (Supply) vs. Consumption (Demand) and Net Stock Changes from 2020 through 2027, highlighting the shaded STEO Forecast projection period starting June 2026.*
 
@@ -227,7 +226,7 @@ To benchmark our projections, we analyze the annual average forecasts for Brent,
 *Table 2.1: Institutional Crude Oil Price Projections (2026–2027)*
 | Institution | Benchmark | 2026 Forecast (USD/bbl) | 2026 YoY (%) | 2027 Forecast (USD/bbl) | 2027 YoY (%) | Key Forecast Assumptions & Analytical Narrative |
 | :--- | :--- | :---: | :---: | :---: | :---: | :--- |
-| **U.S. EIA STEO**<br>(April 2026 Outlook) | **Brent Spot**<br>**WTI Spot** | **$96.00**<br>**$87.41** | **+38.9%**<br>**+33.5%** | **$76.09**<br>**$72.43** | **-20.7%**<br>**-17.1%** | Assumes shipping constraints in the Strait of Hormuz persist through mid-2026, keeping Brent near $100 before voluntary cuts ease and non-OPEC production gains pull prices down to $75/bbl in late 2027. |
+| **U.S. EIA STEO**<br>(May 2026 Outlook) | **Brent Spot**<br>**WTI Spot** | **$94.49**<br>**$85.35** | **+36.7%**<br>**+30.4%** | **$79.50**<br>**$74.50** | **-15.9%**<br>**-12.7%** | Assumes shipping constraints in the Strait of Hormuz persist through mid-2026, keeping Brent near $100 before voluntary cuts ease and non-OPEC production gains pull prices down to $79.50/bbl in late 2027. |
 | **World Bank**<br>(April 2026 Outlook) | **Brent Spot**<br>**WTI Spot**<br>**Dubai Fateh** | **$86.00**<br>**$82.00**<br>**$85.00** | **+24.5%**<br>**+25.3%**<br>**+22.4%** | **$70.00**<br>**$66.00**<br>**$69.00** | **-18.6%**<br>**-19.5%**<br>**-18.8%** | Assumes the acute phase of Middle East shipping disruptions ends by May 2026, leading to a steady return to normal trade routes by Q4 2026. Projections in their Pink Sheet statistical tables show WTI and Dubai trading at a typical structural discount to Brent. |
 | **IMF WEO**<br>(April 2026 Outlook) | **Simple Average**<br>(Brent/WTI/Dubai) | **$82.22** | **+20.9%** | **$75.97** | **-7.6%** | Technical working assumptions derived directly from futures market pricing. Warns that a protracted geopolitical crisis keeping average prices at $125/bbl would depress global growth and re-ignite inflation. |
 
@@ -241,7 +240,7 @@ We deploy our production-grade time-series forecasting engine to project the mon
 
 Figure 3.1 illustrates the daily spot Dubai prices since January 2026, their resampled monthly averages, and the expanding cumulative Year-to-Date (YTD) average.
 
-<img src="../chart/dubai_oil_situation.png" alt="Daily, Monthly & YTD Trajectories in 2026" width="700">
+<img src="../../../dubai_oil/chart/dubai_oil_situation.png" alt="Daily, Monthly & YTD Trajectories in 2026" width="700">
 
 *Figure 3.1: Daily Bloomberg spot Dubai price, monthly averages, and expanding cumulative Year-to-Date (YTD) average in 2026.*
 
@@ -253,7 +252,7 @@ Table 3.1 summarizes the official physical spot actuals and cumulative YTD price
 
 Figure 3.2 illustrates our official monthly forecasting trajectory compared to historical spot prices and the raw traded futures curve.
 
-<img src="../chart/dubai_oil_forecast_comparison.png" alt="Dubai Crude Oil Forecast comparison" width="700">
+<img src="../../../dubai_oil/chart/dubai_oil_forecast_comparison.png" alt="Dubai Crude Oil Forecast comparison" width="700">
 
 *Figure 3.2: Historical spot Dubai crude price, official forecast trajectory, and raw futures curve baseline through December 2027.*
 
@@ -302,10 +301,13 @@ To analyze the divergence between our official projections and raw market consen
 *Report successfully compiled, updated, and registered in workspace registry.*
 """
     
+    from datetime import datetime
+    current_yyyy_mm = datetime.now().strftime('%Y-%m')
+    
     # Write report file
-    report_dir = project_root / "output" / "dubai_oil" / "report"
+    report_dir = project_root / "output" / "report" / "price_forecast" / current_yyyy_mm
     report_dir.mkdir(parents=True, exist_ok=True)
-    report_path = report_dir / "Dubai_Oil_Forecast_Report_2026.md"
+    report_path = report_dir / "01_dubai_price.md"
     
     with open(report_path, 'w', encoding='utf-8') as f:
         f.write(report_content)
@@ -317,7 +319,7 @@ To analyze the divergence between our official projections and raw market consen
         add_report(
             title="Dubai Oil Price Forecast Report (2026-2027)",
             author="Chief Economist",
-            path="output/dubai_oil/report/Dubai_Oil_Forecast_Report_2026.md",
+            path=f"output/report/price_forecast/{current_yyyy_mm}/01_dubai_price.md",
             status="Published"
         )
         print("✅ Report registered successfully in PROJECT_STATE.json.")

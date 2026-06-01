@@ -33,7 +33,8 @@ if ($LASTEXITCODE -ne 0) {
 } else {
     Write-Host "==========================================================" -ForegroundColor Green
     Write-Host "🎉 Monthly Pipeline completed successfully!" -ForegroundColor Green
-    Write-Host "Special Economic Report saved at: output/dubai_oil/report/Dubai_Oil_Forecast_Report_2026.md" -ForegroundColor Green
+    $CurrentYyyyMm = Get-Date -Format "yyyy-MM"
+    Write-Host "Special Economic Report saved at: output/report/price_forecast/$CurrentYyyyMm/01_dubai_price.md" -ForegroundColor Green
     Write-Host "Visual charts updated at: output/dubai_oil/chart/" -ForegroundColor Green
     Write-Host "==========================================================" -ForegroundColor Green
 }

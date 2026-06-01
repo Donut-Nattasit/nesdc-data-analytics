@@ -62,10 +62,9 @@ def main():
     steps = [
         # Phase 1: Data Preparation & Ingestion
         {"name": "Data Preparation & EIA Ingestion", "path": project_root / "src" / "projects" / "dubai_oil" / "prepare_data.py"},
-        {"name": "CEIC U.S. Crude Ingestion & Trans", "path": project_root / "src" / "projects" / "dubai_oil" / "viz_us_production.py"},
         
         # Phase 2: Model Estimation & Predictions
-        {"name": "ARIMAX Forecast Engine", "path": project_root / "src" / "projects" / "dubai_oil" / "predict_model.py"},
+        {"name": "Engle-Granger ECM Engine", "path": project_root / "src" / "projects" / "dubai_oil" / "predict_model.py"},
         
         # Phase 3: Visual Assets Generation
         {"name": "Global Price Benchmarks Chart", "path": project_root / "src" / "projects" / "dubai_oil" / "viz_global_prices.py"},
@@ -96,10 +95,11 @@ def main():
         print("✅ PIPELINE RUN COMPLETED SUCCESSFULLY!")
         print("   Primary Artifacts Saved:")
         print("   - transformed data : output/dubai_oil/data/transformed/dubai_oil_master.csv")
-        print("   - transformed data : output/dubai_oil/data/transformed/us_crude_production.csv")
+        from datetime import datetime
+        current_yyyy_mm = datetime.now().strftime('%Y-%m')
         print("   - forecast data    : output/dubai_oil/data/forecast/dubai_oil_forecast_production.csv")
-        print("   - visual charts    : output/dubai_oil/chart/*.png (5 charts total)")
-        print("   - compiled report  : output/dubai_oil/report/Dubai_Oil_Forecast_Report_2026.md")
+        print("   - visual charts    : output/dubai_oil/chart/*.png (4 charts total)")
+        print(f"   - compiled report  : output/report/price_forecast/{current_yyyy_mm}/01_dubai_price.md")
         
         # Print registry update confirmation
         state_path = project_root / ".gemini" / "PROJECT_STATE.json"

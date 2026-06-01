@@ -21,50 +21,72 @@ def main():
     print("==========================================================")
     
     project_root = Path(__file__).resolve().parent.parent.parent.parent
-    master_path = project_root / "output" / "dubai_oil" / "data" / "transformed" / "dubai_oil_master.csv"
+    data_path = project_root / "output" / "dubai_oil" / "data" / "forecast" / "dubai_oil_forecast_production.csv"
     
-    if not master_path.exists():
-        print(f"[Error] Master dataset not found at: {master_path}")
+    if not data_path.exists():
+        print(f"[Error] Forecast dataset not found at: {data_path}")
         sys.exit(1)
         
-    # Load Master CSV
-    df = pd.read_csv(master_path)
+    # Load Forecast CSV
+    df = pd.read_csv(data_path)
     df['date'] = pd.to_datetime(df['date'])
     
-    # Filter historical period (Jan 2024 - May 2026)
-    df_hist = df[(df['date'] >= '2024-01-01') & (df['date'] <= '2026-05-01')].copy()
-    df_hist = df_hist.sort_values(by='date').reset_index(drop=True)
+    # Filter full projection period (Jan 2024 - Dec 2027)
+    df_filtered = df[(df['date'] >= '2024-01-01') & (df['date'] <= '2027-12-01')].copy()
+    df_filtered = df_filtered.sort_values(by='date').reset_index(drop=True)
     
-    if df_hist.empty:
-        print("[Error] No historical data found in specified range. Exiting.")
+    if df_filtered.empty:
+        print("[Error] No data found in specified range. Exiting.")
         sys.exit(1)
         
-    print(f"Loaded {len(df_hist)} monthly observations from {df_hist['date'].min().strftime('%Y-%m')} to {df_hist['date'].max().strftime('%Y-%m')}.")
+    # Dynamically find forecast origin
+    forecast_origin = df_filtered[df_filtered['dubai_spot'].notna()]['date'].max()
+    print(f"  Forecast Origin (Last Actual Month): {forecast_origin.strftime('%Y-%m-%d')}")
+    
+    df_hist = df_filtered[df_filtered['date'] <= forecast_origin].copy()
+    df_fc = df_filtered[df_filtered['date'] >= forecast_origin].copy()
+    
+    print(f"Loaded {len(df_hist)} historical and {len(df_fc)} forecast observations.")
     
     # Render Chart
     configure_matplotlib_font(font_name='FC Vision')
     fig, ax = plt.subplots(figsize=(8.5, 5.2))
     
-    # 1. Plotting the lines (using official NESDC brand palette)
-    # Dubai Fateh Spot: Sapphire Blue (Primary target focus)
+    # 1. Plotting the lines (solid for actuals, dashed for forecasts)
+    # Dubai Fateh: Sapphire Blue (Primary target focus)
     ax.plot(
         df_hist['date'], df_hist['dubai_spot'],
         color='#00109E', linestyle='-', linewidth=2.5,
-        marker='o', markersize=5.5, label='Dubai Spot (GIOS0097 Index)'
+        marker='o', markersize=5.5, label='Dubai Spot (Historical / Forecast)'
+    )
+    ax.plot(
+        df_fc['date'], df_fc['dubai_spot_forecast'],
+        color='#00109E', linestyle='--', linewidth=2.0,
+        marker='o', markersize=4.5, label='_nolegend_'
     )
     
     # Brent Spot: Support Teal-Cyan
     ax.plot(
         df_hist['date'], df_hist['brent_spot'],
         color='#14b8a6', linestyle='-', linewidth=2.0,
-        marker='s', markersize=5.0, label='Brent Spot (EIA BREPUUS)'
+        marker='s', markersize=5.0, label='Brent Spot (Historical / Forecast)'
+    )
+    ax.plot(
+        df_fc['date'], df_fc['brent_spot'],
+        color='#14b8a6', linestyle='--', linewidth=1.5,
+        marker='s', markersize=4.0, label='_nolegend_'
     )
     
     # WTI Spot: Neutral Clay
     ax.plot(
         df_hist['date'], df_hist['wti_spot'],
         color='#bfb997', linestyle='-', linewidth=2.0,
-        marker='^', markersize=5.0, label='WTI Spot (EIA WTIPUUS)'
+        marker='^', markersize=5.0, label='WTI Spot (Historical / Forecast)'
+    )
+    ax.plot(
+        df_fc['date'], df_fc['wti_spot'],
+        color='#bfb997', linestyle='--', linewidth=1.5,
+        marker='^', markersize=4.0, label='_nolegend_'
     )
     
     # 2. Add Key Event Annotations / Marks
@@ -116,12 +138,20 @@ def main():
         bbox=dict(boxstyle="round,pad=0.2", fc="#ffffff", ec="#e2e8f0", lw=0.5, alpha=0.85)
     )
     
-    # Vertical line at Hormuz disruption onset (Feb/Mar 2026)
-    ax.axvline(x=hormuz_date, color='#cbd5e1', linestyle=':', linewidth=1.5)
+    # Vertical line at forecast origin
+    ax.axvline(x=forecast_origin, color='#94a3b8', linestyle=':', linewidth=1.5)
+    
+    # Shade the forecast region to highlight outlook bounds
+    ax.axvspan(forecast_origin, df_filtered['date'].max(), color='#f8fafc', alpha=0.6)
+    ax.text(
+        forecast_origin + pd.DateOffset(days=20), 140,
+        f'Forecast Region\n(starts {forecast_origin.strftime("%b %Y")})',
+        color='#475569', fontsize=9, fontweight='bold', ha='left'
+    )
     
     # Titles and formatting (Using centered isolated titles per viz_expert rules)
-    fig.suptitle("Global Crude Oil Price Benchmarks (2024 - 2026)", fontsize=16, fontweight='bold', x=0.5, y=0.97, ha='center')
-    ax.set_title("Historical Monthly Spot Prices of Dubai Fateh, Brent, and WTI with Key Market Events Marked", fontsize=10, color='#64748b', pad=10, loc='center')
+    fig.suptitle("Global Crude Oil Price Benchmarks & Projections (2024 - 2027)", fontsize=16, fontweight='bold', x=0.5, y=0.97, ha='center')
+    ax.set_title("Historical monthly spot actuals and forecast price paths to December 2027", fontsize=10, color='#64748b', pad=10, loc='center')
     
     # Axes limits and labels
     ax.set_ylabel("Price (USD / Barrel)", fontsize=11, fontweight='bold', labelpad=10)
@@ -129,6 +159,7 @@ def main():
     ax.xaxis.label.set_visible(False)
     ax.set_ylim(45, 150)
     
+    # Customize grid and spines
     ax.grid(True, which='both', linestyle='-', color='#e2e8f0', alpha=0.7)
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
@@ -136,10 +167,10 @@ def main():
     ax.spines['bottom'].set_color('#cbd5e1')
     
     # Legend
-    ax.legend(loc='upper left', frameon=True, facecolor='#ffffff', edgecolor='#cbd5e1', framealpha=0.9, fontsize=10)
+    ax.legend(loc='lower left', frameon=True, facecolor='#ffffff', edgecolor='#cbd5e1', framealpha=0.9, fontsize=9.5)
     
     # Date formatting
-    ax.xaxis.set_major_locator(mdates.MonthLocator(interval=2))
+    ax.xaxis.set_major_locator(mdates.MonthLocator(interval=3))
     ax.xaxis.set_major_formatter(mdates.DateFormatter('%b-%y'))
     plt.xticks(rotation=30, ha='right')
     
@@ -152,14 +183,20 @@ def main():
     # Save figure
     out_chart_path = "output/dubai_oil/chart/global_oil_prices_comparison.png"
     save_chart(fig, out_chart_path, save_html=False)
-    print(f"✅ Successfully generated and saved global prices chart to: {out_chart_path}")
+    
+    # Copy file to sibling output/chart/ path to keep it updated in both directories
+    import shutil
+    sibling_chart_path = project_root / "output" / "chart" / "global_oil_prices_comparison.png"
+    sibling_chart_path.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy(out_chart_path, sibling_chart_path)
+    print(f"✅ Successfully generated and saved global prices chart to: {out_chart_path} (and copied to {sibling_chart_path})")
     
     # Register visualization
     try:
         add_visualization(
             name="Global Crude Price Comparison",
             chart_type="Multi-Series Line with Annotations",
-            source_data="output/dubai_oil/data/transformed/dubai_oil_master.csv",
+            source_data="output/dubai_oil/data/forecast/dubai_oil_forecast_production.csv",
             png_path=out_chart_path,
             status="Rendered"
         )

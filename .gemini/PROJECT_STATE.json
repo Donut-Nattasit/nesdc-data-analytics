@@ -407,7 +407,7 @@
     },
     {
       "series_id": "Dubai Crude Production Forecast",
-      "source": "ARIMAX (Brent/WTI Levels)",
+      "source": "Error Correction Model (Engle-Granger)",
       "raw_path": "output/dubai_oil/data/transformed/dubai_oil_master.csv",
       "transformed_path": "",
       "forecast_path": "output/dubai_oil/data/forecast/dubai_oil_forecast_production.csv",
@@ -1015,7 +1015,7 @@
     {
       "name": "Global Crude Price Comparison",
       "type": "Multi-Series Line with Annotations",
-      "source_data": "output/dubai_oil/data/transformed/dubai_oil_master.csv",
+      "source_data": "output/dubai_oil/data/forecast/dubai_oil_forecast_production.csv",
       "png_path": "output/dubai_oil/chart/global_oil_prices_comparison.png",
       "status": "Rendered",
       "last_update": "2026-06-01"
@@ -1132,7 +1132,7 @@
       "title": "Dubai Oil Price Forecast Report (2026-2027)",
       "author": "Chief Economist",
       "date": "2026-06-01",
-      "path": "output/dubai_oil/report/Dubai_Oil_Forecast_Report_2026.md",
+      "path": "output/report/price_forecast/2026-06/01_dubai_price.md",
       "status": "Published"
     }
   ]
