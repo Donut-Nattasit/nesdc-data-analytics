@@ -395,6 +395,42 @@
       "forecast_path": "",
       "status": "Ready",
       "last_update": "2026-05-29"
+    },
+    {
+      "series_id": "Dubai Oil Forecasting Master",
+      "source": "Excel/EIA STEO",
+      "raw_path": "src/projects/dubai_oil/input/dubai_price.xlsx",
+      "transformed_path": "output/dubai_oil/data/transformed/dubai_oil_master.csv",
+      "forecast_path": "",
+      "status": "Ready",
+      "last_update": "2026-06-01"
+    },
+    {
+      "series_id": "Dubai Crude Production Forecast",
+      "source": "ARIMAX (Brent/WTI Levels)",
+      "raw_path": "output/dubai_oil/data/transformed/dubai_oil_master.csv",
+      "transformed_path": "",
+      "forecast_path": "output/dubai_oil/data/forecast/dubai_oil_forecast_production.csv",
+      "status": "Finalized",
+      "last_update": "2026-06-01"
+    },
+    {
+      "series_id": "EIA STEO World Petroleum Balance Monthly",
+      "source": "EIA STEO API",
+      "raw_path": "",
+      "transformed_path": "output\\dubai_oil\\data\\transformed\\eia_world_balance_monthly.csv",
+      "forecast_path": "",
+      "status": "Ready",
+      "last_update": "2026-06-01"
+    },
+    {
+      "series_id": "355221677",
+      "source": "CEIC Global Database",
+      "raw_path": "temp/ceic_candidates_raw.csv",
+      "transformed_path": "output/dubai_oil/data/transformed/us_crude_production.csv",
+      "forecast_path": "",
+      "status": "Ready",
+      "last_update": "2026-06-01"
     }
   ],
   "models": [
@@ -509,6 +545,30 @@
       "summary_path": "output/model/th_prices_scenarios_forecast_summary.txt",
       "status": "Finalized",
       "last_update": "2026-05-14"
+    },
+    {
+      "name": "Dubai Oil ARIMAX Forecast",
+      "type": "ARIMAX (0, 0, 0)",
+      "source_data": "output/data/transformed/dubai_oil_master.csv",
+      "summary_path": "output/model/dubai_arimax_summary.txt",
+      "status": "Finalized",
+      "last_update": "2026-06-01"
+    },
+    {
+      "name": "Dubai Oil Ridge ML Forecast",
+      "type": "Ridge Regression",
+      "source_data": "output/data/transformed/dubai_oil_master.csv",
+      "summary_path": "output/model/dubai_ml_summary.txt",
+      "status": "Finalized",
+      "last_update": "2026-06-01"
+    },
+    {
+      "name": "Dubai Oil Best Rolling Forecast Model",
+      "type": "Expanding Window Backtest Winner",
+      "source_data": "output/data/transformed/dubai_oil_master.csv",
+      "summary_path": "output/model/dubai_rolling_backtest_summary.txt",
+      "status": "Finalized",
+      "last_update": "2026-06-01"
     }
   ],
   "visualizations": [
@@ -943,6 +1003,30 @@
       "png_path": "output/chart/us_macro_var_irf.png",
       "status": "Rendered",
       "last_update": "2026-05-09"
+    },
+    {
+      "name": "EIA World Petroleum Balance Monthly",
+      "type": "Dual-Subplot Line/Bar",
+      "source_data": "output\\dubai_oil\\data\\transformed\\eia_world_balance_monthly.csv",
+      "png_path": "output\\chart\\eia_world_balance_monthly.png",
+      "status": "Rendered",
+      "last_update": "2026-06-01"
+    },
+    {
+      "name": "Global Crude Price Comparison",
+      "type": "Multi-Series Line with Annotations",
+      "source_data": "output/dubai_oil/data/transformed/dubai_oil_master.csv",
+      "png_path": "output/dubai_oil/chart/global_oil_prices_comparison.png",
+      "status": "Rendered",
+      "last_update": "2026-06-01"
+    },
+    {
+      "name": "U.S. Crude Oil Production and Plateau Phase",
+      "type": "Line with Highlight Area",
+      "source_data": "output/dubai_oil/data/transformed/us_crude_production.csv",
+      "png_path": "output/dubai_oil/chart/us_crude_production.png",
+      "status": "Rendered",
+      "last_update": "2026-06-01"
     }
   ],
   "reports": [
@@ -1042,6 +1126,13 @@
       "author": "report_writer",
       "date": "2026-05-14",
       "path": "output/report/Thailand_Price_Scenarios_2024-2027.md",
+      "status": "Published"
+    },
+    {
+      "title": "Dubai Oil Price Forecast Report (2026-2027)",
+      "author": "Chief Economist",
+      "date": "2026-06-01",
+      "path": "output/dubai_oil/report/Dubai_Oil_Forecast_Report_2026.md",
       "status": "Published"
     }
   ]

@@ -1,0 +1,19 @@
+==========================================================
+        ORDINARY LEAST SQUARES (OLS) SPECIFICATION SUMMARY
+==========================================================
+
+Model: dubai_spot = beta_0 + beta_1 * brent_spot + beta_2 * wti_spot
+
+Fitted Coefficients:
+  - Brent Spot (beta_1)            : 1.02282
+  - WTI Spot (beta_2)              : -0.07387
+  - Intercept (beta_0)             : 2.33191
+
+Diagnostics:
+  - In-Sample R-squared            : 0.97357
+  - Out-of-Sample Rolling RMSE     : 4.853
+  - Out-of-Sample Rolling MAE      : 2.548
+
+Model Reasoning:
+- Due to tight global cointegration and arbitrage bounds, Dubai crude prices are extremely bound to Brent and WTI.
+- Using contemporaneous OLS provides maximum out-of-sample forecast accuracy by utilizing EIA STEO's benchmark projections.
