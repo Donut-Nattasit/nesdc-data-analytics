@@ -8,7 +8,7 @@ Write-Host "==========================================================" -Foregro
 
 Write-Host "`n⚠️  WAIT! Have you updated the local data? ⚠️" -ForegroundColor Yellow
 Write-Host "Please ensure you have updated the input data in:" -ForegroundColor Yellow
-Write-Host "-> src/projects/dubai_oil/input/dubai_price.xlsx" -ForegroundColor White
+Write-Host "-> input/projects/dubai_oil/dubai_price.xlsx" -ForegroundColor White
 Read-Host "Press Enter to continue or Ctrl+C to abort"
 # Set PYTHONPATH to project root to resolve modules correctly
 $env:PYTHONPATH = "..\..\.."

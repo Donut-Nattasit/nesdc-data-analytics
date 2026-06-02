@@ -1,5 +1,6 @@
 import os
 import sys
+from datetime import datetime
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -12,6 +13,7 @@ if hasattr(sys.stdout, 'reconfigure'):
 
 # Add project root to path
 project_root = Path(__file__).resolve().parent.parent.parent.parent
+    current_yyyy_mm = datetime.now().strftime("%Y-%m")
 sys.path.append(str(project_root))
 
 from src.visualization.charts import configure_matplotlib_font, save_chart
@@ -63,7 +65,7 @@ def main():
     df_monthly['value_mbd'] = df_monthly['value'] / 1000.0  # Convert to million barrels per day (mb/d)
     
     # Save transformed data
-    transformed_dir = project_root / "output" / "dubai_oil" / "data" / "transformed"
+    transformed_dir = project_root / "output" / "report" / "price_forecast" / current_yyyy_mm / "data" / "transformed"
     transformed_dir.mkdir(parents=True, exist_ok=True)
     transformed_path = transformed_dir / "us_crude_production.csv"
     df_monthly.to_csv(transformed_path, index=False)
@@ -75,7 +77,7 @@ def main():
             series_id="355221677",
             source="CEIC Global Database",
             raw_path="temp/ceic_candidates_raw.csv",
-            transformed_path="output/dubai_oil/data/transformed/us_crude_production.csv",
+            transformed_path=f"output/report/price_forecast/{current_yyyy_mm}/data/transformed/us_crude_production.csv",
             status="Ready"
         )
     except Exception as e:
@@ -149,7 +151,7 @@ def main():
     fig.subplots_adjust(top=0.87, bottom=0.18)
     
     # Save figure
-    out_chart_path = "output/dubai_oil/chart/us_crude_production.png"
+    out_chart_path = f"output/report/price_forecast/{current_yyyy_mm}/chart/us_crude_production.png"
     save_chart(fig, out_chart_path, save_html=False)
     print(f"✅ Successfully generated and saved US production chart to: {out_chart_path}")
     
@@ -158,7 +160,7 @@ def main():
         add_visualization(
             name="U.S. Crude Oil Production and Plateau Phase",
             chart_type="Line with Highlight Area",
-            source_data="output/dubai_oil/data/transformed/us_crude_production.csv",
+            source_data=f"output/report/price_forecast/{current_yyyy_mm}/data/transformed/us_crude_production.csv",
             png_path=out_chart_path,
             status="Rendered"
         )

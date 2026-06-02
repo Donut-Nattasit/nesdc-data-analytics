@@ -11,7 +11,7 @@ To ensure statistical rigor, data freshness, and policy-relevant report consiste
 Whenever a new month of crude oil spot/futures prices or EIA STEO statistics is released, follow this 3-step workflow to update the entire workspace:
 
 ### Step 1: Update Local Input Files
-1. Open `input/dubai_price.xlsx` in Excel.
+1. Open `input/projects/dubai_oil/dubai_price.xlsx` in Excel.
 2. In the **`spot`** sheet: Add the new daily observations for the latest month (specifically update the date column, the `GIOS0097 Index` (Dubai Bloomberg spot), and the `PGCRDUBA Index` (Platts Dubai spot)).
 3. In the **`future`** sheet: Add the daily traded futures curve contracts (columns `DBL1 Comdty` through `DBL24 Comdty`) priced as of the latest day/month.
 4. Save and close the Excel file.
@@ -46,12 +46,12 @@ For advanced customization or debugging, the pipeline runs the following 6 scrip
 
 | Step | Phase | Script File | Key Responsibilities | Primary Output |
 | :--- | :--- | :--- | :--- | :--- |
-| **1** | **Ingest** | `prepare_data.py` | Ingests local Excel sheets; queries EIA API for Brent/WTI spot and global balance actuals; merges into wide format. | `output/dubai_oil/data/transformed/dubai_oil_master.csv` |
-| **2** | **Model** | `predict_model.py` | Estimates two-stage Engle-Granger Error Correction Model (ECM) and exports forecasted levels. | `output/dubai_oil/data/forecast/dubai_oil_forecast_production.csv` |
-| **3** | **Visualize**| `viz_global_prices.py` | Renders monthly benchmark spot pricing (Brent, WTI, Dubai) marked with key historical geopolitical milestones. | `output/dubai_oil/chart/global_oil_prices_comparison.png` |
-| **4** | **Visualize**| `viz_dubai_situation.py` | Renders current year daily spot fluctuations, monthly actual averages, and expanding cumulative YTD curve. | `output/dubai_oil/chart/dubai_oil_situation.png` |
-| **5** | **Visualize**| `viz_dubai_forecast.py` | Renders historical actual spot path, model projections path, and the raw baseline futures curve through Dec 2027. | `output/dubai_oil/chart/dubai_oil_forecast_comparison.png` |
-| **6** | **Report** | `generate_report.py` | Synthesizes physical actuals spreads, resampled forecast tables, and quarterly spreads; embeds all figures. | `output/report/price_forecast/2026-06/01_dubai_price.md` |
+| **1** | **Ingest** | `prepare_data.py` | Ingests local Excel sheets; queries EIA API for Brent/WTI spot and global balance actuals; merges into wide format. | `output/report/price_forecast/[YYYY-MM]/data/transformed/dubai_oil_master.csv` |
+| **2** | **Model** | `predict_model.py` | Estimates two-stage Engle-Granger Error Correction Model (ECM) and exports forecasted levels. | `output/report/price_forecast/[YYYY-MM]/data/forecast/dubai_oil_forecast_production.csv` |
+| **3** | **Visualize**| `viz_global_prices.py` | Renders monthly benchmark spot pricing (Brent, WTI, Dubai) marked with key historical geopolitical milestones. | `output/report/price_forecast/[YYYY-MM]/chart/global_oil_prices_comparison.png` |
+| **4** | **Visualize**| `viz_dubai_situation.py` | Renders current year daily spot fluctuations, monthly actual averages, and expanding cumulative YTD curve. | `output/report/price_forecast/[YYYY-MM]/chart/dubai_oil_situation.png` |
+| **5** | **Visualize**| `viz_dubai_forecast.py` | Renders historical actual spot path, model projections path, and the raw baseline futures curve through Dec 2027. | `output/report/price_forecast/[YYYY-MM]/chart/dubai_oil_forecast_comparison.png` |
+| **6** | **Report** | `generate_report.py` | Synthesizes physical actuals spreads, resampled forecast tables, and quarterly spreads; embeds all figures. | `output/report/price_forecast/[YYYY-MM]/01_dubai_price.md` |
 
 ---
 

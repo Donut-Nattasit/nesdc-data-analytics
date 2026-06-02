@@ -399,20 +399,20 @@
     {
       "series_id": "Dubai Oil Forecasting Master",
       "source": "Excel/EIA STEO",
-      "raw_path": "src/projects/dubai_oil/input/dubai_price.xlsx",
-      "transformed_path": "output/dubai_oil/data/transformed/dubai_oil_master.csv",
+      "raw_path": "input/projects/dubai_oil/dubai_price.xlsx",
+      "transformed_path": "output/report/price_forecast/2026-06/data/transformed/dubai_oil_master.csv",
       "forecast_path": "",
       "status": "Ready",
-      "last_update": "2026-06-01"
+      "last_update": "2026-06-02"
     },
     {
       "series_id": "Dubai Crude Production Forecast",
       "source": "Error Correction Model (Engle-Granger)",
-      "raw_path": "output/dubai_oil/data/transformed/dubai_oil_master.csv",
+      "raw_path": "output/report/price_forecast/2026-06/data/transformed/dubai_oil_master.csv",
       "transformed_path": "",
-      "forecast_path": "output/dubai_oil/data/forecast/dubai_oil_forecast_production.csv",
+      "forecast_path": "output/report/price_forecast/2026-06/data/forecast/dubai_oil_forecast_production.csv",
       "status": "Finalized",
-      "last_update": "2026-06-01"
+      "last_update": "2026-06-02"
     },
     {
       "series_id": "EIA STEO World Petroleum Balance Monthly",
@@ -1015,10 +1015,10 @@
     {
       "name": "Global Crude Price Comparison",
       "type": "Multi-Series Line with Annotations",
-      "source_data": "output/dubai_oil/data/forecast/dubai_oil_forecast_production.csv",
-      "png_path": "output/dubai_oil/chart/global_oil_prices_comparison.png",
+      "source_data": "output/report/price_forecast/2026-06/data/forecast/dubai_oil_forecast_production.csv",
+      "png_path": "output/report/price_forecast/2026-06/chart/global_oil_prices_comparison.png",
       "status": "Rendered",
-      "last_update": "2026-06-01"
+      "last_update": "2026-06-02"
     },
     {
       "name": "U.S. Crude Oil Production and Plateau Phase",
@@ -1131,7 +1131,7 @@
     {
       "title": "Dubai Oil Price Forecast Report (2026-2027)",
       "author": "Chief Economist",
-      "date": "2026-06-01",
+      "date": "2026-06-02",
       "path": "output/report/price_forecast/2026-06/01_dubai_price.md",
       "status": "Published"
     }

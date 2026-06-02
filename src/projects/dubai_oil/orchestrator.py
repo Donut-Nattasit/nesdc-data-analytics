@@ -94,11 +94,11 @@ def main():
     else:
         print("✅ PIPELINE RUN COMPLETED SUCCESSFULLY!")
         print("   Primary Artifacts Saved:")
-        print("   - transformed data : output/dubai_oil/data/transformed/dubai_oil_master.csv")
         from datetime import datetime
         current_yyyy_mm = datetime.now().strftime('%Y-%m')
-        print("   - forecast data    : output/dubai_oil/data/forecast/dubai_oil_forecast_production.csv")
-        print("   - visual charts    : output/dubai_oil/chart/*.png (4 charts total)")
+        print(f"   - transformed data : output/report/price_forecast/{current_yyyy_mm}/data/transformed/dubai_oil_master.csv")
+        print(f"   - forecast data    : output/report/price_forecast/{current_yyyy_mm}/data/forecast/dubai_oil_forecast_production.csv")
+        print(f"   - visual charts    : output/report/price_forecast/{current_yyyy_mm}/chart/*.png (4 charts total)")
         print(f"   - compiled report  : output/report/price_forecast/{current_yyyy_mm}/01_dubai_price.md")
         
         # Print registry update confirmation

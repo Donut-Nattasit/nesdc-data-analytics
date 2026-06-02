@@ -1,5 +1,6 @@
 import os
 import sys
+from datetime import datetime
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -21,7 +22,8 @@ def main():
     print("==========================================================")
     
     project_root = Path(__file__).resolve().parent.parent.parent.parent
-    data_path = project_root / "output" / "dubai_oil" / "data" / "forecast" / "dubai_oil_forecast_production.csv"
+    current_yyyy_mm = datetime.now().strftime("%Y-%m")
+    data_path = project_root / "output" / "report" / "price_forecast" / current_yyyy_mm / "data" / "forecast" / "dubai_oil_forecast_production.csv"
     
     if not data_path.exists():
         print(f"[Error] Forecast dataset not found at: {data_path}")
@@ -181,7 +183,7 @@ def main():
     fig.subplots_adjust(top=0.88, bottom=0.18)
     
     # Save figure
-    out_chart_path = "output/dubai_oil/chart/global_oil_prices_comparison.png"
+    out_chart_path = f"output/report/price_forecast/{current_yyyy_mm}/chart/global_oil_prices_comparison.png"
     save_chart(fig, out_chart_path, save_html=False)
     
     # Copy file to sibling output/chart/ path to keep it updated in both directories
@@ -196,7 +198,7 @@ def main():
         add_visualization(
             name="Global Crude Price Comparison",
             chart_type="Multi-Series Line with Annotations",
-            source_data="output/dubai_oil/data/forecast/dubai_oil_forecast_production.csv",
+            source_data=f"output/report/price_forecast/{current_yyyy_mm}/data/forecast/dubai_oil_forecast_production.csv",
             png_path=out_chart_path,
             status="Rendered"
         )

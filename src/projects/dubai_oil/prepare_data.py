@@ -1,5 +1,6 @@
 import os
 import sys
+from datetime import datetime
 import pandas as pd
 from pathlib import Path
 from src.api.eia_client import EIAClient
@@ -15,7 +16,8 @@ def main():
     print("==========================================================")
     
     project_root = Path(__file__).resolve().parent.parent.parent.parent
-    excel_path = project_root / "src" / "projects" / "dubai_oil" / "input" / "dubai_price.xlsx"
+    current_yyyy_mm = datetime.now().strftime("%Y-%m")
+    excel_path = project_root / "input" / "projects" / "dubai_oil" / "dubai_price.xlsx"
     
     if not excel_path.exists():
         print(f"[Error] Excel file not found at: {excel_path}")
@@ -113,7 +115,7 @@ def main():
             print(f"  - {col:30} : {len(col_valid):4} valid, range: {col_valid['date'].min().strftime('%Y-%m')} to {col_valid['date'].max().strftime('%Y-%m')}")
             
     # Save the transformed dataset to wide format csv
-    out_dir = project_root / "output" / "dubai_oil" / "data" / "transformed"
+    out_dir = project_root / "output" / "report" / "price_forecast" / current_yyyy_mm / "data" / "transformed"
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / "dubai_oil_master.csv"
     df_master.to_csv(out_path, index=False)
@@ -124,8 +126,8 @@ def main():
         add_dataset(
             series_id="Dubai Oil Forecasting Master",
             source="Excel/EIA STEO",
-            raw_path="src/projects/dubai_oil/input/dubai_price.xlsx",
-            transformed_path="output/dubai_oil/data/transformed/dubai_oil_master.csv",
+            raw_path="input/projects/dubai_oil/dubai_price.xlsx",
+            transformed_path=f"output/report/price_forecast/{current_yyyy_mm}/data/transformed/dubai_oil_master.csv",
             forecast_path="",
             status="Ready",
             last_update=pd.Timestamp.now().strftime('%Y-%m-%d')

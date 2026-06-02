@@ -1,6 +1,6 @@
 # Special Economic Report: Global Energy Dynamics & Dubai Crude Projections (2026 - 2027)
 
-**Published Date**: June 01, 2026
+**Published Date**: June 02, 2026
 
 ---
 
@@ -24,7 +24,7 @@ These physical disruptions were overlaid on a market heavily regulated by volunt
 
 Figure 1.1 illustrates the monthly historical spot actual price trajectories of Dubai Fateh, Brent, and West Texas Intermediate (WTI) benchmarks from January 2024 through May 2026, marked with key market-shaping events.
 
-<img src="../../../dubai_oil/chart/global_oil_prices_comparison.png" alt="Global Crude Oil Price Benchmarks" width="700">
+<img src="chart/global_oil_prices_comparison.png" alt="Global Crude Oil Price Benchmarks" width="700">
 
 *Figure 1.1: Historical monthly spot prices of Dubai Fateh, Brent, and WTI crude benchmarks with key market-shaping events marked (January 2024 – May 2026).*
 
@@ -70,7 +70,7 @@ We deploy our production-grade time-series forecasting engine to project the mon
 
 Figure 3.1 illustrates the daily spot Dubai prices since January 2026, their resampled monthly averages, and the expanding cumulative Year-to-Date (YTD) average.
 
-<img src="../../../dubai_oil/chart/dubai_oil_situation.png" alt="Daily, Monthly & YTD Trajectories in 2026" width="700">
+<img src="chart/dubai_oil_situation.png" alt="Daily, Monthly & YTD Trajectories in 2026" width="700">
 
 *Figure 3.1: Daily Bloomberg spot Dubai price, monthly averages, and expanding cumulative Year-to-Date (YTD) average in 2026.*
 
@@ -89,7 +89,7 @@ Table 3.1 summarizes the official physical spot actuals and cumulative YTD price
 
 Figure 3.2 illustrates our official monthly forecasting trajectory compared to historical spot prices and the raw traded futures curve.
 
-<img src="../../../dubai_oil/chart/dubai_oil_forecast_comparison.png" alt="Dubai Crude Oil Forecast comparison" width="700">
+<img src="chart/dubai_oil_forecast_comparison.png" alt="Dubai Crude Oil Forecast comparison" width="700">
 
 *Figure 3.2: Historical spot Dubai crude price, official forecast trajectory, and raw futures curve baseline through December 2027.*
 
@@ -141,8 +141,8 @@ Equation: Dubai = 2.3319 + 1.0228 * Brent + -0.0739 * WTI
 Dep. Variable:             dubai_spot   R-squared:                       0.974
 Model:                            OLS   Adj. R-squared:                  0.973
 Method:                 Least Squares   F-statistic:                     2468.
-Date:                Mon, 01 Jun 2026   Prob (F-statistic):          1.92e-106
-Time:                        22:05:48   Log-Likelihood:                -346.34
+Date:                Tue, 02 Jun 2026   Prob (F-statistic):          1.92e-106
+Time:                        14:51:00   Log-Likelihood:                -346.34
 No. Observations:                 137   AIC:                             698.7
 Df Residuals:                     134   BIC:                             707.4
 Df Model:                           2                                         
@@ -172,8 +172,8 @@ Equation: dDubai = -0.0249 + 0.8887 * dBrent + 0.1475 * dWTI + -1.0272 * ECT_t-1
 Dep. Variable:                     dy   R-squared:                       0.847
 Model:                            OLS   Adj. R-squared:                  0.844
 Method:                 Least Squares   F-statistic:                     244.4
-Date:                Mon, 01 Jun 2026   Prob (F-statistic):           1.08e-53
-Time:                        22:05:48   Log-Likelihood:                -342.35
+Date:                Tue, 02 Jun 2026   Prob (F-statistic):           1.08e-53
+Time:                        14:51:00   Log-Likelihood:                -342.35
 No. Observations:                 136   AIC:                             692.7
 Df Residuals:                     132   BIC:                             704.4
 Df Model:                           3                                         
