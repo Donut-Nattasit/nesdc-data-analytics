@@ -38,8 +38,17 @@ def main():
     # 1. Generate Physical Spot Actuals Table (now Table 3.1)
     print("\n[Step 1] Generating Table 3.1 dynamically with MoM and YoY calculations...")
     
-    sit_table = "| Period | Monthly Average (USD/bbl) | Month-on-Month (%) | Year-on-Year (%) | Cumulative YTD Price (USD/bbl) |\n"
-    sit_table += "| :--- | :---: | :---: | :---: | :---: |\n"
+    sit_table = """<table style="width:100%; border-collapse:collapse; margin:20px 0; font-family:inherit;">
+  <thead>
+    <tr style="background-color:#f2f4f8; border-bottom:2px solid #cfd8dc; text-align:left;">
+      <th style="padding:10px 8px; font-weight:600; color:#37474f;">Period</th>
+      <th style="padding:10px 8px; font-weight:600; color:#37474f; text-align:center;">Monthly Average (USD/bbl)</th>
+      <th style="padding:10px 8px; font-weight:600; color:#37474f; text-align:center;">Month-on-Month (%)</th>
+      <th style="padding:10px 8px; font-weight:600; color:#37474f; text-align:center;">Year-on-Year (%)</th>
+      <th style="padding:10px 8px; font-weight:600; color:#37474f; text-align:center;">Cumulative YTD Price (USD/bbl)</th>
+    </tr>
+  </thead>
+  <tbody>"""
     
     for idx, row in df_sit.iterrows():
         dt_pos = pd.to_datetime(row['date_pos'])
@@ -58,7 +67,24 @@ def main():
         mom_str = f"{mom_val:+.1f}%" if pd.notnull(mom_val) else "N/A"
         yoy_str = f"{yoy_val:+.1f}%" if pd.notnull(yoy_val) else "N/A"
         
-        sit_table += f"| **{period_label}** | ${row['monthly_avg']:.2f} | {mom_str} | {yoy_str} | ${row['ytd_avg']:.2f} |\n"
+        # Style colors for changes
+        mom_color = "#2e7d32" if pd.notnull(mom_val) and mom_val > 0 else ("#c62828" if pd.notnull(mom_val) and mom_val < 0 else "inherit")
+        yoy_color = "#2e7d32" if pd.notnull(yoy_val) and yoy_val > 0 else ("#c62828" if pd.notnull(yoy_val) and yoy_val < 0 else "inherit")
+        
+        mom_style = f"color:{mom_color}; font-weight:600;" if mom_color != "inherit" else ""
+        yoy_style = f"color:{yoy_color}; font-weight:600;" if yoy_color != "inherit" else ""
+        
+        bg_style = "background-color:#fafafa;" if idx % 2 == 1 else ""
+        
+        sit_table += f"""
+    <tr style="border-bottom:1px solid #e0e0e0; {bg_style}">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">{period_label}</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">${row['monthly_avg']:.2f}</td>
+      <td style="padding:10px 8px; text-align:center; {mom_style}">{mom_str}</td>
+      <td style="padding:10px 8px; text-align:center; {yoy_style}">{yoy_str}</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:600; color:#37474f;">${row['ytd_avg']:.2f}</td>
+    </tr>"""
+    sit_table += "\n  </tbody>\n</table>"
         
     # 2. Generate Annual Forecast Averages Table (now Table 3.2)
     print("\n[Step 2] Computing Table 3.2 dynamically with YoY Growth rates...")
@@ -104,10 +130,43 @@ def main():
         })
         
     df_annual = pd.DataFrame(annual_data)
-    md_annual_table = "| Year | Official Forecast (USD/bbl) | YoY Growth (%) | Raw Futures Curve (USD/bbl) | YoY Growth (%) | Status |\n"
-    md_annual_table += "| :--- | :---: | :---: | :---: | :---: | :---: |\n"
-    for _, row in df_annual.iterrows():
-        md_annual_table += f"| **{row['Year']}** | ${row['Model_Avg']:.2f} | {row['Model_YoY']} | ${row['Market_Avg']:.2f} | {row['Market_YoY']} | {row['Status']} |\n"
+    md_annual_table = """<table style="width:100%; border-collapse:collapse; margin:20px 0; font-family:inherit;">
+  <thead>
+    <tr style="background-color:#f2f4f8; border-bottom:2px solid #cfd8dc; text-align:left;">
+      <th style="padding:10px 8px; font-weight:600; color:#37474f;">Year</th>
+      <th style="padding:10px 8px; font-weight:600; color:#37474f; text-align:center;">Official Forecast (USD/bbl)</th>
+      <th style="padding:10px 8px; font-weight:600; color:#37474f; text-align:center;">YoY Growth (%)</th>
+      <th style="padding:10px 8px; font-weight:600; color:#37474f; text-align:center;">Raw Futures Curve (USD/bbl)</th>
+      <th style="padding:10px 8px; font-weight:600; color:#37474f; text-align:center;">YoY Growth (%)</th>
+      <th style="padding:10px 8px; font-weight:600; color:#37474f; text-align:center;">Status</th>
+    </tr>
+  </thead>
+  <tbody>"""
+    
+    for idx, row in df_annual.iterrows():
+        bg_style = "background-color:#fafafa;" if idx % 2 == 1 else ""
+        
+        m_yoy = row['Model_YoY']
+        k_yoy = row['Market_YoY']
+        
+        m_color = "#2e7d32" if "+" in m_yoy else ("#c62828" if "-" in m_yoy else "inherit")
+        k_color = "#2e7d32" if "+" in k_yoy else ("#c62828" if "-" in k_yoy else "inherit")
+        
+        m_style = f"color:{m_color}; font-weight:600;" if m_color != "inherit" else ""
+        k_style = f"color:{k_color}; font-weight:600;" if k_color != "inherit" else ""
+        
+        status_color = "#1e88e5" if row['Status'] == "Forecast" else "#43a047"
+        
+        md_annual_table += f"""
+    <tr style="border-bottom:1px solid #e0e0e0; {bg_style}">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">{row['Year']}</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">${row['Model_Avg']:.2f}</td>
+      <td style="padding:10px 8px; text-align:center; {m_style}">{m_yoy}</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">${row['Market_Avg']:.2f}</td>
+      <td style="padding:10px 8px; text-align:center; {k_style}">{k_yoy}</td>
+      <td style="padding:10px 8px; text-align:center;"><span style="background-color:{status_color}15; color:{status_color}; padding:2px 8px; border-radius:4px; font-size:0.9em; font-weight:600;">{row['Status']}</span></td>
+    </tr>"""
+    md_annual_table += "\n  </tbody>\n</table>"
         
     # 3. Generate Appendix C Table (Quarterly spreads 2024 - 2027)
     print("\n[Step 3] Computing Quarterly Spread Table for Appendix C...")
@@ -119,13 +178,34 @@ def main():
     ).reset_index()
     df_q['spread'] = df_q['spot_q'] - df_q['base_q']
     
-    md_q_table = "| Quarter | Official Forecast (USD/bbl) | Raw Futures Baseline (USD/bbl) | Spread Diff (Model - Market) |\n"
-    md_q_table += "| :--- | :---: | :---: | :---: |\n"
-    for _, row in df_q.iterrows():
+    md_q_table = """<table style="width:100%; border-collapse:collapse; margin:20px 0; font-family:inherit;">
+  <thead>
+    <tr style="background-color:#f2f4f8; border-bottom:2px solid #cfd8dc; text-align:left;">
+      <th style="padding:10px 8px; font-weight:600; color:#37474f;">Quarter</th>
+      <th style="padding:10px 8px; font-weight:600; color:#37474f; text-align:center;">Official Forecast (USD/bbl)</th>
+      <th style="padding:10px 8px; font-weight:600; color:#37474f; text-align:center;">Raw Futures Baseline (USD/bbl)</th>
+      <th style="padding:10px 8px; font-weight:600; color:#37474f; text-align:center;">Spread Diff (Model - Market)</th>
+    </tr>
+  </thead>
+  <tbody>"""
+    
+    for idx, row in df_q.iterrows():
+        bg_style = "background-color:#fafafa;" if idx % 2 == 1 else ""
         q_label = str(row['quarter'])
         spread_val = row['spread']
         spread_str = f"{spread_val:+.2f}" if abs(spread_val) > 0.005 else "0.00"
-        md_q_table += f"| **{q_label}** | ${row['spot_q']:.2f} | ${row['base_q']:.2f} | {spread_str} |\n"
+        
+        spread_color = "#2e7d32" if spread_val > 0.005 else ("#c62828" if spread_val < -0.005 else "inherit")
+        spread_style = f"color:{spread_color}; font-weight:bold;" if spread_color != "inherit" else ""
+        
+        md_q_table += f"""
+    <tr style="border-bottom:1px solid #e0e0e0; {bg_style}">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">{q_label}</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">${row['spot_q']:.2f}</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">${row['base_q']:.2f}</td>
+      <td style="padding:10px 8px; text-align:center; {spread_style}">{spread_str}</td>
+    </tr>"""
+    md_q_table += "\n  </tbody>\n</table>"
 
     # 4. Read Model diagnostics from Appendix
     print("\n[Step 4] Reading Model Diagnostics from Appendix...")
@@ -226,11 +306,70 @@ Our quantitative analysis of the monthly petroleum balance indicates:
 To benchmark our projections, we analyze the annual average forecasts for Brent, WTI, and Dubai crude from three leading international institutions: the U.S. EIA STEO, the World Bank Commodity Markets Outlook, and the IMF World Economic Outlook (WEO).
 
 *Table 2.1: Institutional Crude Oil Price Projections (2026–2027)*
-| Institution | Benchmark | 2026 Forecast (USD/bbl) | 2026 YoY (%) | 2027 Forecast (USD/bbl) | 2027 YoY (%) | Key Forecast Assumptions & Analytical Narrative |
-| :--- | :--- | :---: | :---: | :---: | :---: | :--- |
-| **U.S. EIA STEO**<br>(May 2026 Outlook) | **Brent Spot**<br>**WTI Spot** | **$94.49**<br>**$85.35** | **+36.7%**<br>**+30.4%** | **$79.50**<br>**$74.50** | **-15.9%**<br>**-12.7%** | Assumes shipping constraints in the Strait of Hormuz persist through mid-2026, keeping Brent near $100 before voluntary cuts ease and non-OPEC production gains pull prices down to $79.50/bbl in late 2027. |
-| **World Bank**<br>(April 2026 Outlook) | **Brent Spot**<br>**WTI Spot**<br>**Dubai Fateh** | **$86.00**<br>**$82.00**<br>**$85.00** | **+24.5%**<br>**+25.3%**<br>**+22.4%** | **$70.00**<br>**$66.00**<br>**$69.00** | **-18.6%**<br>**-19.5%**<br>**-18.8%** | Assumes the acute phase of Middle East shipping disruptions ends by May 2026, leading to a steady return to normal trade routes by Q4 2026. Projections in their Pink Sheet statistical tables show WTI and Dubai trading at a typical structural discount to Brent. |
-| **IMF WEO**<br>(April 2026 Outlook) | **Simple Average**<br>(Brent/WTI/Dubai) | **$82.22** | **+20.9%** | **$75.97** | **-7.6%** | Technical working assumptions derived directly from futures market pricing. Warns that a protracted geopolitical crisis keeping average prices at $125/bbl would depress global growth and re-ignite inflation. |
+
+<table style="width:100%; border-collapse:collapse; margin:20px 0; font-family:inherit;">
+  <thead>
+    <tr style="background-color:#f2f4f8; border-bottom:2px solid #cfd8dc; text-align:left;">
+      <th style="padding:12px 8px; font-weight:600; color:#37474f; font-size:0.95em;">Institution</th>
+      <th style="padding:12px 8px; font-weight:600; color:#37474f; font-size:0.95em;">Benchmark</th>
+      <th style="padding:12px 8px; font-weight:600; color:#37474f; font-size:0.95em; text-align:center;">2026 Forecast (USD/bbl)</th>
+      <th style="padding:12px 8px; font-weight:600; color:#37474f; font-size:0.95em; text-align:center;">2026 YoY (%)</th>
+      <th style="padding:12px 8px; font-weight:600; color:#37474f; font-size:0.95em; text-align:center;">2027 Forecast (USD/bbl)</th>
+      <th style="padding:12px 8px; font-weight:600; color:#37474f; font-size:0.95em; text-align:center;">2027 YoY (%)</th>
+      <th style="padding:12px 8px; font-weight:600; color:#37474f; font-size:0.95em; width:35%;">Key Assumptions & Analytical Narrative</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border-bottom:1px solid #e0e0e0;">
+      <td rowspan="2" style="padding:12px 8px; font-weight:bold; vertical-align:top; color:#263238; font-size:0.95em;">U.S. EIA STEO<br><span style="font-size:0.85em; font-weight:normal; color:#78909c;">(May 2026 Outlook)</span></td>
+      <td style="padding:12px 8px; font-size:0.95em;">Brent Spot</td>
+      <td style="padding:12px 8px; text-align:center; font-weight:bold; font-size:0.95em;">$94.49</td>
+      <td style="padding:12px 8px; text-align:center; color:#2e7d32; font-weight:600; font-size:0.95em;">+36.7%</td>
+      <td style="padding:12px 8px; text-align:center; font-weight:bold; font-size:0.95em;">$79.50</td>
+      <td style="padding:12px 8px; text-align:center; color:#c62828; font-weight:600; font-size:0.95em;">-15.9%</td>
+      <td rowspan="2" style="padding:12px 8px; vertical-align:top; font-size:0.9em; color:#455a64; line-height:1.4;">Assumes shipping constraints in the Strait of Hormuz persist through mid-2026, keeping Brent near $100 before voluntary cuts ease and non-OPEC production gains pull prices down to $79.50/bbl in late 2027.</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; background-color:#fafafa;">
+      <td style="padding:12px 8px; font-size:0.95em;">WTI Spot</td>
+      <td style="padding:12px 8px; text-align:center; font-weight:bold; font-size:0.95em;">$85.35</td>
+      <td style="padding:12px 8px; text-align:center; color:#2e7d32; font-weight:600; font-size:0.95em;">+30.4%</td>
+      <td style="padding:12px 8px; text-align:center; font-weight:bold; font-size:0.95em;">$74.50</td>
+      <td style="padding:12px 8px; text-align:center; color:#c62828; font-weight:600; font-size:0.95em;">-12.7%</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0;">
+      <td rowspan="3" style="padding:12px 8px; font-weight:bold; vertical-align:top; color:#263238; font-size:0.95em;">World Bank<br><span style="font-size:0.85em; font-weight:normal; color:#78909c;">(April 2026 Outlook)</span></td>
+      <td style="padding:12px 8px; font-size:0.95em;">Brent Spot</td>
+      <td style="padding:12px 8px; text-align:center; font-weight:bold; font-size:0.95em;">$86.00</td>
+      <td style="padding:12px 8px; text-align:center; color:#2e7d32; font-weight:600; font-size:0.95em;">+24.5%</td>
+      <td style="padding:12px 8px; text-align:center; font-weight:bold; font-size:0.95em;">$70.00</td>
+      <td style="padding:12px 8px; text-align:center; color:#c62828; font-weight:600; font-size:0.95em;">-18.6%</td>
+      <td rowspan="3" style="padding:12px 8px; vertical-align:top; font-size:0.9em; color:#455a64; line-height:1.4;">Assumes the acute phase of Middle East shipping disruptions ends by May 2026, leading to a steady return to normal trade routes by Q4 2026. Projections in their Pink Sheet statistical tables show WTI and Dubai trading at a typical structural discount to Brent.</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; background-color:#fafafa;">
+      <td style="padding:12px 8px; font-size:0.95em;">WTI Spot</td>
+      <td style="padding:12px 8px; text-align:center; font-weight:bold; font-size:0.95em;">$82.00</td>
+      <td style="padding:12px 8px; text-align:center; color:#2e7d32; font-weight:600; font-size:0.95em;">+25.3%</td>
+      <td style="padding:12px 8px; text-align:center; font-weight:bold; font-size:0.95em;">$66.00</td>
+      <td style="padding:12px 8px; text-align:center; color:#c62828; font-weight:600; font-size:0.95em;">-19.5%</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0;">
+      <td style="padding:12px 8px; font-size:0.95em;">Dubai Fateh</td>
+      <td style="padding:12px 8px; text-align:center; font-weight:bold; font-size:0.95em;">$85.00</td>
+      <td style="padding:12px 8px; text-align:center; color:#2e7d32; font-weight:600; font-size:0.95em;">+22.4%</td>
+      <td style="padding:12px 8px; text-align:center; font-weight:bold; font-size:0.95em;">$69.00</td>
+      <td style="padding:12px 8px; text-align:center; color:#c62828; font-weight:600; font-size:0.95em;">-18.8%</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; background-color:#fafafa;">
+      <td style="padding:12px 8px; font-weight:bold; vertical-align:top; color:#263238; font-size:0.95em;">IMF WEO<br><span style="font-size:0.85em; font-weight:normal; color:#78909c;">(April 2026 Outlook)</span></td>
+      <td style="padding:12px 8px; font-size:0.95em;">Simple Average<br><span style="font-size:0.8em; color:#78909c;">(Brent/WTI/Dubai)</span></td>
+      <td style="padding:12px 8px; text-align:center; font-weight:bold; font-size:0.95em;">$82.22</td>
+      <td style="padding:12px 8px; text-align:center; color:#2e7d32; font-weight:600; font-size:0.95em;">+20.9%</td>
+      <td style="padding:12px 8px; text-align:center; font-weight:bold; font-size:0.95em;">$75.97</td>
+      <td style="padding:12px 8px; text-align:center; color:#c62828; font-weight:600; font-size:0.95em;">-7.6%</td>
+      <td style="padding:12px 8px; vertical-align:top; font-size:0.9em; color:#455a64; line-height:1.4;">Technical working assumptions derived directly from futures market pricing. Warns that a protracted geopolitical crisis keeping average prices at $125/bbl would depress global growth and re-ignite inflation.</td>
+    </tr>
+  </tbody>
+</table>
 
 These projections highlight a consensus that oil prices will peak in 2026 due to supply disruptions before easing in 2027. The EIA presents the most conservative policy benchmark by assuming slower transit resolution and higher physical tightness, whereas the World Bank assumes rapid shipping normalization, resulting in a lower Brent average of $86.00 per barrel. We align our exogenous price assumptions with the EIA STEO price pathways, ensuring our Dubai projections are backed by a structurally detailed global supply-demand framework.
 
@@ -249,6 +388,7 @@ Figure 3.1 illustrates the daily spot Dubai prices since January 2026, their res
 Table 3.1 summarizes the official physical spot actuals and cumulative YTD prices for 2026. This YTD average acts as a core input for government trade balance calculations and domestic retail fuel structures.
 
 *Table 3.1: Dubai Crude Spot Prices and Cumulative YTD Average in 2026*
+
 {sit_table}
 *Note: Expanding YTD cumulative price is calculated daily since January 1, 2026. The latest YTD actual average stands at ${latest_ytd:.2f} per barrel as of {latest_date_str}.*
 
@@ -261,6 +401,7 @@ Figure 3.2 illustrates our official monthly forecasting trajectory compared to h
 Table 3.2 summarizes the computed annual averages and YoY percentage growth rates for Dubai Crude prices over the 2024–2027 planning horizon.
 
 *Table 3.2: Annual Average Dubai Crude Price Projections (2024–2027)*
+
 {md_annual_table}
 
 ### Economic Insights & Policy Justifications
@@ -296,6 +437,7 @@ The detailed coefficient weights and diagnostics generated by the production eng
 To analyze the divergence between our official projections and raw market consensus over a longer planning interval, Table C.1 details the quarterly averages and spreads for both series.
 
 *Table C.1: Quarterly Average Price Projections and Spreads (2024–2027)*
+
 {md_q_table}
 *Note: Spreads are calculated as the difference between our Official Forecast and the Raw Futures Baseline. A positive spread reflects the model's correction for physical market tightness in early 2026.*
 

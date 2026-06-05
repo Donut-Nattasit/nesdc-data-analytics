@@ -1,6 +1,6 @@
 # Special Economic Report: Global Energy Dynamics & Dubai Crude Projections (2026 - 2027)
 
-**Published Date**: June 02, 2026
+**Published Date**: June 05, 2026
 
 ---
 
@@ -54,11 +54,70 @@ Our quantitative analysis of the monthly petroleum balance indicates:
 To benchmark our projections, we analyze the annual average forecasts for Brent, WTI, and Dubai crude from three leading international institutions: the U.S. EIA STEO, the World Bank Commodity Markets Outlook, and the IMF World Economic Outlook (WEO).
 
 *Table 2.1: Institutional Crude Oil Price Projections (2026–2027)*
-| Institution | Benchmark | 2026 Forecast (USD/bbl) | 2026 YoY (%) | 2027 Forecast (USD/bbl) | 2027 YoY (%) | Key Forecast Assumptions & Analytical Narrative |
-| :--- | :--- | :---: | :---: | :---: | :---: | :--- |
-| **U.S. EIA STEO**<br>(May 2026 Outlook) | **Brent Spot**<br>**WTI Spot** | **$94.49**<br>**$85.35** | **+36.7%**<br>**+30.4%** | **$79.50**<br>**$74.50** | **-15.9%**<br>**-12.7%** | Assumes shipping constraints in the Strait of Hormuz persist through mid-2026, keeping Brent near $100 before voluntary cuts ease and non-OPEC production gains pull prices down to $79.50/bbl in late 2027. |
-| **World Bank**<br>(April 2026 Outlook) | **Brent Spot**<br>**WTI Spot**<br>**Dubai Fateh** | **$86.00**<br>**$82.00**<br>**$85.00** | **+24.5%**<br>**+25.3%**<br>**+22.4%** | **$70.00**<br>**$66.00**<br>**$69.00** | **-18.6%**<br>**-19.5%**<br>**-18.8%** | Assumes the acute phase of Middle East shipping disruptions ends by May 2026, leading to a steady return to normal trade routes by Q4 2026. Projections in their Pink Sheet statistical tables show WTI and Dubai trading at a typical structural discount to Brent. |
-| **IMF WEO**<br>(April 2026 Outlook) | **Simple Average**<br>(Brent/WTI/Dubai) | **$82.22** | **+20.9%** | **$75.97** | **-7.6%** | Technical working assumptions derived directly from futures market pricing. Warns that a protracted geopolitical crisis keeping average prices at $125/bbl would depress global growth and re-ignite inflation. |
+
+<table style="width:100%; border-collapse:collapse; margin:20px 0; font-family:inherit;">
+  <thead>
+    <tr style="background-color:#f2f4f8; border-bottom:2px solid #cfd8dc; text-align:left;">
+      <th style="padding:12px 8px; font-weight:600; color:#37474f; font-size:0.95em;">Institution</th>
+      <th style="padding:12px 8px; font-weight:600; color:#37474f; font-size:0.95em;">Benchmark</th>
+      <th style="padding:12px 8px; font-weight:600; color:#37474f; font-size:0.95em; text-align:center;">2026 Forecast (USD/bbl)</th>
+      <th style="padding:12px 8px; font-weight:600; color:#37474f; font-size:0.95em; text-align:center;">2026 YoY (%)</th>
+      <th style="padding:12px 8px; font-weight:600; color:#37474f; font-size:0.95em; text-align:center;">2027 Forecast (USD/bbl)</th>
+      <th style="padding:12px 8px; font-weight:600; color:#37474f; font-size:0.95em; text-align:center;">2027 YoY (%)</th>
+      <th style="padding:12px 8px; font-weight:600; color:#37474f; font-size:0.95em; width:35%;">Key Assumptions & Analytical Narrative</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border-bottom:1px solid #e0e0e0;">
+      <td rowspan="2" style="padding:12px 8px; font-weight:bold; vertical-align:top; color:#263238; font-size:0.95em;">U.S. EIA STEO<br><span style="font-size:0.85em; font-weight:normal; color:#78909c;">(May 2026 Outlook)</span></td>
+      <td style="padding:12px 8px; font-size:0.95em;">Brent Spot</td>
+      <td style="padding:12px 8px; text-align:center; font-weight:bold; font-size:0.95em;">$94.49</td>
+      <td style="padding:12px 8px; text-align:center; color:#2e7d32; font-weight:600; font-size:0.95em;">+36.7%</td>
+      <td style="padding:12px 8px; text-align:center; font-weight:bold; font-size:0.95em;">$79.50</td>
+      <td style="padding:12px 8px; text-align:center; color:#c62828; font-weight:600; font-size:0.95em;">-15.9%</td>
+      <td rowspan="2" style="padding:12px 8px; vertical-align:top; font-size:0.9em; color:#455a64; line-height:1.4;">Assumes shipping constraints in the Strait of Hormuz persist through mid-2026, keeping Brent near $100 before voluntary cuts ease and non-OPEC production gains pull prices down to $79.50/bbl in late 2027.</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; background-color:#fafafa;">
+      <td style="padding:12px 8px; font-size:0.95em;">WTI Spot</td>
+      <td style="padding:12px 8px; text-align:center; font-weight:bold; font-size:0.95em;">$85.35</td>
+      <td style="padding:12px 8px; text-align:center; color:#2e7d32; font-weight:600; font-size:0.95em;">+30.4%</td>
+      <td style="padding:12px 8px; text-align:center; font-weight:bold; font-size:0.95em;">$74.50</td>
+      <td style="padding:12px 8px; text-align:center; color:#c62828; font-weight:600; font-size:0.95em;">-12.7%</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0;">
+      <td rowspan="3" style="padding:12px 8px; font-weight:bold; vertical-align:top; color:#263238; font-size:0.95em;">World Bank<br><span style="font-size:0.85em; font-weight:normal; color:#78909c;">(April 2026 Outlook)</span></td>
+      <td style="padding:12px 8px; font-size:0.95em;">Brent Spot</td>
+      <td style="padding:12px 8px; text-align:center; font-weight:bold; font-size:0.95em;">$86.00</td>
+      <td style="padding:12px 8px; text-align:center; color:#2e7d32; font-weight:600; font-size:0.95em;">+24.5%</td>
+      <td style="padding:12px 8px; text-align:center; font-weight:bold; font-size:0.95em;">$70.00</td>
+      <td style="padding:12px 8px; text-align:center; color:#c62828; font-weight:600; font-size:0.95em;">-18.6%</td>
+      <td rowspan="3" style="padding:12px 8px; vertical-align:top; font-size:0.9em; color:#455a64; line-height:1.4;">Assumes the acute phase of Middle East shipping disruptions ends by May 2026, leading to a steady return to normal trade routes by Q4 2026. Projections in their Pink Sheet statistical tables show WTI and Dubai trading at a typical structural discount to Brent.</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; background-color:#fafafa;">
+      <td style="padding:12px 8px; font-size:0.95em;">WTI Spot</td>
+      <td style="padding:12px 8px; text-align:center; font-weight:bold; font-size:0.95em;">$82.00</td>
+      <td style="padding:12px 8px; text-align:center; color:#2e7d32; font-weight:600; font-size:0.95em;">+25.3%</td>
+      <td style="padding:12px 8px; text-align:center; font-weight:bold; font-size:0.95em;">$66.00</td>
+      <td style="padding:12px 8px; text-align:center; color:#c62828; font-weight:600; font-size:0.95em;">-19.5%</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0;">
+      <td style="padding:12px 8px; font-size:0.95em;">Dubai Fateh</td>
+      <td style="padding:12px 8px; text-align:center; font-weight:bold; font-size:0.95em;">$85.00</td>
+      <td style="padding:12px 8px; text-align:center; color:#2e7d32; font-weight:600; font-size:0.95em;">+22.4%</td>
+      <td style="padding:12px 8px; text-align:center; font-weight:bold; font-size:0.95em;">$69.00</td>
+      <td style="padding:12px 8px; text-align:center; color:#c62828; font-weight:600; font-size:0.95em;">-18.8%</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; background-color:#fafafa;">
+      <td style="padding:12px 8px; font-weight:bold; vertical-align:top; color:#263238; font-size:0.95em;">IMF WEO<br><span style="font-size:0.85em; font-weight:normal; color:#78909c;">(April 2026 Outlook)</span></td>
+      <td style="padding:12px 8px; font-size:0.95em;">Simple Average<br><span style="font-size:0.8em; color:#78909c;">(Brent/WTI/Dubai)</span></td>
+      <td style="padding:12px 8px; text-align:center; font-weight:bold; font-size:0.95em;">$82.22</td>
+      <td style="padding:12px 8px; text-align:center; color:#2e7d32; font-weight:600; font-size:0.95em;">+20.9%</td>
+      <td style="padding:12px 8px; text-align:center; font-weight:bold; font-size:0.95em;">$75.97</td>
+      <td style="padding:12px 8px; text-align:center; color:#c62828; font-weight:600; font-size:0.95em;">-7.6%</td>
+      <td style="padding:12px 8px; vertical-align:top; font-size:0.9em; color:#455a64; line-height:1.4;">Technical working assumptions derived directly from futures market pricing. Warns that a protracted geopolitical crisis keeping average prices at $125/bbl would depress global growth and re-ignite inflation.</td>
+    </tr>
+  </tbody>
+</table>
 
 These projections highlight a consensus that oil prices will peak in 2026 due to supply disruptions before easing in 2027. The EIA presents the most conservative policy benchmark by assuming slower transit resolution and higher physical tightness, whereas the World Bank assumes rapid shipping normalization, resulting in a lower Brent average of $86.00 per barrel. We align our exogenous price assumptions with the EIA STEO price pathways, ensuring our Dubai projections are backed by a structurally detailed global supply-demand framework.
 
@@ -77,14 +136,55 @@ Figure 3.1 illustrates the daily spot Dubai prices since January 2026, their res
 Table 3.1 summarizes the official physical spot actuals and cumulative YTD prices for 2026. This YTD average acts as a core input for government trade balance calculations and domestic retail fuel structures.
 
 *Table 3.1: Dubai Crude Spot Prices and Cumulative YTD Average in 2026*
-| Period | Monthly Average (USD/bbl) | Month-on-Month (%) | Year-on-Year (%) | Cumulative YTD Price (USD/bbl) |
-| :--- | :---: | :---: | :---: | :---: |
-| **January 2026** | $61.95 | -0.2% | -22.8% | $61.95 |
-| **February 2026** | $68.27 | +10.2% | -12.4% | $64.96 |
-| **March 2026** | $128.78 | +88.6% | +77.3% | $86.90 |
-| **April 2026** | $106.15 | -17.6% | +56.6% | $91.82 |
-| **May 2026 (up to May 11)** | $102.93 | -3.0% | +61.6% | $92.66 |
 
+<table style="width:100%; border-collapse:collapse; margin:20px 0; font-family:inherit;">
+  <thead>
+    <tr style="background-color:#f2f4f8; border-bottom:2px solid #cfd8dc; text-align:left;">
+      <th style="padding:10px 8px; font-weight:600; color:#37474f;">Period</th>
+      <th style="padding:10px 8px; font-weight:600; color:#37474f; text-align:center;">Monthly Average (USD/bbl)</th>
+      <th style="padding:10px 8px; font-weight:600; color:#37474f; text-align:center;">Month-on-Month (%)</th>
+      <th style="padding:10px 8px; font-weight:600; color:#37474f; text-align:center;">Year-on-Year (%)</th>
+      <th style="padding:10px 8px; font-weight:600; color:#37474f; text-align:center;">Cumulative YTD Price (USD/bbl)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border-bottom:1px solid #e0e0e0; ">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">January 2026</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$61.95</td>
+      <td style="padding:10px 8px; text-align:center; color:#c62828; font-weight:600;">-0.2%</td>
+      <td style="padding:10px 8px; text-align:center; color:#c62828; font-weight:600;">-22.8%</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:600; color:#37474f;">$61.95</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; background-color:#fafafa;">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">February 2026</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$68.27</td>
+      <td style="padding:10px 8px; text-align:center; color:#2e7d32; font-weight:600;">+10.2%</td>
+      <td style="padding:10px 8px; text-align:center; color:#c62828; font-weight:600;">-12.4%</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:600; color:#37474f;">$64.96</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; ">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">March 2026</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$128.78</td>
+      <td style="padding:10px 8px; text-align:center; color:#2e7d32; font-weight:600;">+88.6%</td>
+      <td style="padding:10px 8px; text-align:center; color:#2e7d32; font-weight:600;">+77.3%</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:600; color:#37474f;">$86.90</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; background-color:#fafafa;">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">April 2026</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$106.15</td>
+      <td style="padding:10px 8px; text-align:center; color:#c62828; font-weight:600;">-17.6%</td>
+      <td style="padding:10px 8px; text-align:center; color:#2e7d32; font-weight:600;">+56.6%</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:600; color:#37474f;">$91.82</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; ">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">May 2026 (up to May 11)</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$102.93</td>
+      <td style="padding:10px 8px; text-align:center; color:#c62828; font-weight:600;">-3.0%</td>
+      <td style="padding:10px 8px; text-align:center; color:#2e7d32; font-weight:600;">+61.6%</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:600; color:#37474f;">$92.66</td>
+    </tr>
+  </tbody>
+</table>
 *Note: Expanding YTD cumulative price is calculated daily since January 1, 2026. The latest YTD actual average stands at $92.66 per barrel as of May 11, 2026.*
 
 Figure 3.2 illustrates our official monthly forecasting trajectory compared to historical spot prices and the raw traded futures curve.
@@ -96,13 +196,53 @@ Figure 3.2 illustrates our official monthly forecasting trajectory compared to h
 Table 3.2 summarizes the computed annual averages and YoY percentage growth rates for Dubai Crude prices over the 2024–2027 planning horizon.
 
 *Table 3.2: Annual Average Dubai Crude Price Projections (2024–2027)*
-| Year | Official Forecast (USD/bbl) | YoY Growth (%) | Raw Futures Curve (USD/bbl) | YoY Growth (%) | Status |
-| :--- | :---: | :---: | :---: | :---: | :---: |
-| **2024** | $79.62 | N/A | $79.42 | N/A | Actual |
-| **2025** | $69.44 | -12.8% | $69.20 | -12.9% | Actual |
-| **2026f** | $93.58 | +34.8% | $91.37 | +32.0% | Forecast |
-| **2027f** | $78.04 | -16.6% | $79.70 | -12.8% | Forecast |
 
+<table style="width:100%; border-collapse:collapse; margin:20px 0; font-family:inherit;">
+  <thead>
+    <tr style="background-color:#f2f4f8; border-bottom:2px solid #cfd8dc; text-align:left;">
+      <th style="padding:10px 8px; font-weight:600; color:#37474f;">Year</th>
+      <th style="padding:10px 8px; font-weight:600; color:#37474f; text-align:center;">Official Forecast (USD/bbl)</th>
+      <th style="padding:10px 8px; font-weight:600; color:#37474f; text-align:center;">YoY Growth (%)</th>
+      <th style="padding:10px 8px; font-weight:600; color:#37474f; text-align:center;">Raw Futures Curve (USD/bbl)</th>
+      <th style="padding:10px 8px; font-weight:600; color:#37474f; text-align:center;">YoY Growth (%)</th>
+      <th style="padding:10px 8px; font-weight:600; color:#37474f; text-align:center;">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border-bottom:1px solid #e0e0e0; ">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">2024</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$79.62</td>
+      <td style="padding:10px 8px; text-align:center; ">N/A</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$79.42</td>
+      <td style="padding:10px 8px; text-align:center; ">N/A</td>
+      <td style="padding:10px 8px; text-align:center;"><span style="background-color:#43a04715; color:#43a047; padding:2px 8px; border-radius:4px; font-size:0.9em; font-weight:600;">Actual</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; background-color:#fafafa;">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">2025</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$69.44</td>
+      <td style="padding:10px 8px; text-align:center; color:#c62828; font-weight:600;">-12.8%</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$69.20</td>
+      <td style="padding:10px 8px; text-align:center; color:#c62828; font-weight:600;">-12.9%</td>
+      <td style="padding:10px 8px; text-align:center;"><span style="background-color:#43a04715; color:#43a047; padding:2px 8px; border-radius:4px; font-size:0.9em; font-weight:600;">Actual</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; ">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">2026f</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$93.58</td>
+      <td style="padding:10px 8px; text-align:center; color:#2e7d32; font-weight:600;">+34.8%</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$91.37</td>
+      <td style="padding:10px 8px; text-align:center; color:#2e7d32; font-weight:600;">+32.0%</td>
+      <td style="padding:10px 8px; text-align:center;"><span style="background-color:#1e88e515; color:#1e88e5; padding:2px 8px; border-radius:4px; font-size:0.9em; font-weight:600;">Forecast</span></td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; background-color:#fafafa;">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">2027f</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$78.04</td>
+      <td style="padding:10px 8px; text-align:center; color:#c62828; font-weight:600;">-16.6%</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$79.70</td>
+      <td style="padding:10px 8px; text-align:center; color:#c62828; font-weight:600;">-12.8%</td>
+      <td style="padding:10px 8px; text-align:center;"><span style="background-color:#1e88e515; color:#1e88e5; padding:2px 8px; border-radius:4px; font-size:0.9em; font-weight:600;">Forecast</span></td>
+    </tr>
+  </tbody>
+</table>
 
 ### Economic Insights & Policy Justifications
 
@@ -141,8 +281,8 @@ Equation: Dubai = 2.3319 + 1.0228 * Brent + -0.0739 * WTI
 Dep. Variable:             dubai_spot   R-squared:                       0.974
 Model:                            OLS   Adj. R-squared:                  0.973
 Method:                 Least Squares   F-statistic:                     2468.
-Date:                Tue, 02 Jun 2026   Prob (F-statistic):          1.92e-106
-Time:                        14:51:00   Log-Likelihood:                -346.34
+Date:                Fri, 05 Jun 2026   Prob (F-statistic):          1.92e-106
+Time:                        18:40:03   Log-Likelihood:                -346.34
 No. Observations:                 137   AIC:                             698.7
 Df Residuals:                     134   BIC:                             707.4
 Df Model:                           2                                         
@@ -172,8 +312,8 @@ Equation: dDubai = -0.0249 + 0.8887 * dBrent + 0.1475 * dWTI + -1.0272 * ECT_t-1
 Dep. Variable:                     dy   R-squared:                       0.847
 Model:                            OLS   Adj. R-squared:                  0.844
 Method:                 Least Squares   F-statistic:                     244.4
-Date:                Tue, 02 Jun 2026   Prob (F-statistic):           1.08e-53
-Time:                        14:51:00   Log-Likelihood:                -342.35
+Date:                Fri, 05 Jun 2026   Prob (F-statistic):           1.08e-53
+Time:                        18:40:03   Log-Likelihood:                -342.35
 No. Observations:                 136   AIC:                             692.7
 Df Residuals:                     132   BIC:                             704.4
 Df Model:                           3                                         
@@ -215,25 +355,115 @@ Model Reasoning:
 To analyze the divergence between our official projections and raw market consensus over a longer planning interval, Table C.1 details the quarterly averages and spreads for both series.
 
 *Table C.1: Quarterly Average Price Projections and Spreads (2024–2027)*
-| Quarter | Official Forecast (USD/bbl) | Raw Futures Baseline (USD/bbl) | Spread Diff (Model - Market) |
-| :--- | :---: | :---: | :---: |
-| **2024Q1** | $81.31 | $80.50 | +0.81 |
-| **2024Q2** | $85.36 | $84.90 | +0.46 |
-| **2024Q3** | $78.26 | $78.60 | -0.34 |
-| **2024Q4** | $73.56 | $73.69 | -0.13 |
-| **2025Q1** | $76.95 | $76.28 | +0.67 |
-| **2025Q2** | $66.91 | $66.72 | +0.20 |
-| **2025Q3** | $70.09 | $69.84 | +0.25 |
-| **2025Q4** | $63.79 | $63.95 | -0.16 |
-| **2026Q1** | $86.33 | $81.96 | +4.37 |
-| **2026Q2** | $103.98 | $102.40 | +1.58 |
-| **2026Q3** | $96.88 | $93.98 | +2.90 |
-| **2026Q4** | $87.14 | $87.13 | +0.01 |
-| **2027Q1** | $82.30 | $82.68 | -0.38 |
-| **2027Q2** | $79.46 | $80.11 | -0.66 |
-| **2027Q3** | $76.64 | $78.55 | -1.92 |
-| **2027Q4** | $73.76 | $77.46 | -3.70 |
 
+<table style="width:100%; border-collapse:collapse; margin:20px 0; font-family:inherit;">
+  <thead>
+    <tr style="background-color:#f2f4f8; border-bottom:2px solid #cfd8dc; text-align:left;">
+      <th style="padding:10px 8px; font-weight:600; color:#37474f;">Quarter</th>
+      <th style="padding:10px 8px; font-weight:600; color:#37474f; text-align:center;">Official Forecast (USD/bbl)</th>
+      <th style="padding:10px 8px; font-weight:600; color:#37474f; text-align:center;">Raw Futures Baseline (USD/bbl)</th>
+      <th style="padding:10px 8px; font-weight:600; color:#37474f; text-align:center;">Spread Diff (Model - Market)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border-bottom:1px solid #e0e0e0; ">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">2024Q1</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$81.31</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$80.50</td>
+      <td style="padding:10px 8px; text-align:center; color:#2e7d32; font-weight:bold;">+0.81</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; background-color:#fafafa;">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">2024Q2</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$85.36</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$84.90</td>
+      <td style="padding:10px 8px; text-align:center; color:#2e7d32; font-weight:bold;">+0.46</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; ">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">2024Q3</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$78.26</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$78.60</td>
+      <td style="padding:10px 8px; text-align:center; color:#c62828; font-weight:bold;">-0.34</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; background-color:#fafafa;">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">2024Q4</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$73.56</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$73.69</td>
+      <td style="padding:10px 8px; text-align:center; color:#c62828; font-weight:bold;">-0.13</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; ">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">2025Q1</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$76.95</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$76.28</td>
+      <td style="padding:10px 8px; text-align:center; color:#2e7d32; font-weight:bold;">+0.67</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; background-color:#fafafa;">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">2025Q2</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$66.91</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$66.72</td>
+      <td style="padding:10px 8px; text-align:center; color:#2e7d32; font-weight:bold;">+0.20</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; ">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">2025Q3</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$70.09</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$69.84</td>
+      <td style="padding:10px 8px; text-align:center; color:#2e7d32; font-weight:bold;">+0.25</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; background-color:#fafafa;">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">2025Q4</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$63.79</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$63.95</td>
+      <td style="padding:10px 8px; text-align:center; color:#c62828; font-weight:bold;">-0.16</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; ">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">2026Q1</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$86.33</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$81.96</td>
+      <td style="padding:10px 8px; text-align:center; color:#2e7d32; font-weight:bold;">+4.37</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; background-color:#fafafa;">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">2026Q2</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$103.98</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$102.40</td>
+      <td style="padding:10px 8px; text-align:center; color:#2e7d32; font-weight:bold;">+1.58</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; ">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">2026Q3</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$96.88</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$93.98</td>
+      <td style="padding:10px 8px; text-align:center; color:#2e7d32; font-weight:bold;">+2.90</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; background-color:#fafafa;">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">2026Q4</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$87.14</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$87.13</td>
+      <td style="padding:10px 8px; text-align:center; color:#2e7d32; font-weight:bold;">+0.01</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; ">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">2027Q1</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$82.30</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$82.68</td>
+      <td style="padding:10px 8px; text-align:center; color:#c62828; font-weight:bold;">-0.38</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; background-color:#fafafa;">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">2027Q2</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$79.46</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$80.11</td>
+      <td style="padding:10px 8px; text-align:center; color:#c62828; font-weight:bold;">-0.66</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; ">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">2027Q3</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$76.64</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$78.55</td>
+      <td style="padding:10px 8px; text-align:center; color:#c62828; font-weight:bold;">-1.92</td>
+    </tr>
+    <tr style="border-bottom:1px solid #e0e0e0; background-color:#fafafa;">
+      <td style="padding:10px 8px; font-weight:bold; color:#263238;">2027Q4</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$73.76</td>
+      <td style="padding:10px 8px; text-align:center; font-weight:bold;">$77.46</td>
+      <td style="padding:10px 8px; text-align:center; color:#c62828; font-weight:bold;">-3.70</td>
+    </tr>
+  </tbody>
+</table>
 *Note: Spreads are calculated as the difference between our Official Forecast and the Raw Futures Baseline. A positive spread reflects the model's correction for physical market tightness in early 2026.*
 
 ---

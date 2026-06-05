@@ -403,7 +403,7 @@
       "transformed_path": "output/report/price_forecast/2026-06/data/transformed/dubai_oil_master.csv",
       "forecast_path": "",
       "status": "Ready",
-      "last_update": "2026-06-02"
+      "last_update": "2026-06-05"
     },
     {
       "series_id": "Dubai Crude Production Forecast",
@@ -412,7 +412,7 @@
       "transformed_path": "",
       "forecast_path": "output/report/price_forecast/2026-06/data/forecast/dubai_oil_forecast_production.csv",
       "status": "Finalized",
-      "last_update": "2026-06-02"
+      "last_update": "2026-06-05"
     },
     {
       "series_id": "EIA STEO World Petroleum Balance Monthly",
@@ -1173,7 +1173,7 @@
       "source_data": "output/report/price_forecast/2026-06/data/forecast/dubai_oil_forecast_production.csv",
       "png_path": "output/report/price_forecast/2026-06/chart/global_oil_prices_comparison.png",
       "status": "Rendered",
-      "last_update": "2026-06-02"
+      "last_update": "2026-06-05"
     },
     {
       "name": "U.S. Crude Oil Production and Plateau Phase",
@@ -1454,7 +1454,7 @@
     {
       "title": "Dubai Oil Price Forecast Report (2026-2027)",
       "author": "Chief Economist",
-      "date": "2026-06-02",
+      "date": "2026-06-05",
       "path": "output/report/price_forecast/2026-06/01_dubai_price.md",
       "status": "Published"
     }
