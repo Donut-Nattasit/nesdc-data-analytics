@@ -102,7 +102,7 @@ def main():
         print(f"   - compiled report  : output/report/price_forecast/{current_yyyy_mm}/01_dubai_price.md")
         
         # Print registry update confirmation
-        state_path = project_root / ".antigravitycli" / "PROJECT_STATE.json"
+        state_path = project_root / "database" / "PROJECT_STATE.json"
         if state_path.exists():
             with open(state_path, 'r', encoding='utf-8') as f:
                 state = json.load(f)

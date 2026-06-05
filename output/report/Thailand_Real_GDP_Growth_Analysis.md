@@ -63,4 +63,4 @@ While the recovery continues with **2.54% growth in Q4 2025**, the structural ch
     *   Dataset: [thailand_gdp_growth.csv](file:///output/data/transformed/thailand_gdp_growth.csv)
     *   Chart: [thailand_gdp_growth_yoy.png](file:///output/chart/thailand_gdp_growth_yoy.png)
     *   Report: [Thailand_Real_GDP_Growth_Analysis.md](file:///output/report/Thailand_Real_GDP_Growth_Analysis.md)
-*   **Registry Status:** Manifest updated in `.antigravitycli/PROJECT_STATE.json`
+*   **Registry Status:** Manifest updated in `database/PROJECT_STATE.json`

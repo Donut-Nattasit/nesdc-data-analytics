@@ -9,7 +9,7 @@ __pycache__/
 
 # Local & Temporary Folders
 temp/
-.antigravitycli/
+.agents/
 
 # Large Datasets & Local Database Files
 output/data/database/
