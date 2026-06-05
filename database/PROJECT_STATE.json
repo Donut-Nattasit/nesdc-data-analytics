@@ -521,6 +521,15 @@
       "forecast_path": "",
       "status": "Ready",
       "last_update": "2026-06-05"
+    },
+    {
+      "series_id": "451012627",
+      "source": "CEIC Global Database / Ministry of Trade, Industry and Energy",
+      "raw_path": "database/core/time_series.db (table: ceic_dubai_oil_price)",
+      "transformed_path": "",
+      "forecast_path": "",
+      "status": "Ready",
+      "last_update": "2026-06-05"
     }
   ],
   "models": [
@@ -1331,6 +1340,14 @@
       "type": "Line",
       "source_data": "Vietnam_Peers_Exports_Value_Growth_Annual",
       "png_path": "output/chart/vietnam_exports_growth_comparison.png",
+      "status": "Rendered",
+      "last_update": "2026-06-05"
+    },
+    {
+      "name": "Dubai Crude Oil Price (Spot)",
+      "type": "Line Chart",
+      "source_data": "database/core/time_series.db (table: ceic_dubai_oil_price)",
+      "png_path": "output\\chart\\ceic_dubai_oil_price.png",
       "status": "Rendered",
       "last_update": "2026-06-05"
     }

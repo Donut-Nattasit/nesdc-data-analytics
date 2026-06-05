@@ -9,7 +9,6 @@ __pycache__/
 
 # Local & Temporary Folders
 temp/
-.agents/
 
 # Large Datasets & Local Database Files
 output/data/database/
