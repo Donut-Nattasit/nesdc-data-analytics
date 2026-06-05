@@ -5,7 +5,7 @@ from datetime import datetime
 
 # Define standard paths
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-JSON_PATH = PROJECT_ROOT / '.gemini' / 'PROJECT_STATE.json'
+JSON_PATH = PROJECT_ROOT / '.antigravitycli' / 'PROJECT_STATE.json'
 
 def load_registry() -> dict:
     """Load the JSON registry, initializing it if it doesn't exist."""

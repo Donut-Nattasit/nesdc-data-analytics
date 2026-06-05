@@ -38,4 +38,4 @@ Always save code, visual assets, outputs, and documentation strictly within our 
 * Do **NOT** use root-relative paths like `/output/chart/` or absolute paths.
 
 ## 5. Master Conventions & Guidelines
-For details regarding the **Chief Economist** role, **Advisory Strategic Pauses**, resampling conventions (Mean method, QE alignment), wide-format data standards, and local database architectures, consult **[GEMINI.md](file:///C:/Users/natta/OneDrive%20-%20nesdc.go.th/NESDC/Gemini/data-analysis/GEMINI.md)** at the root of the project.
+For details regarding the **Chief Economist** role, **Advisory Strategic Pauses**, resampling conventions (Mean method, QE alignment), wide-format data standards, and local database architectures, consult **[.cursorrules](file:///C:/Users/natta/OneDrive%20-%20nesdc.go.th/NESDC/Gemini/data-analysis/.cursorrules)** at the root of the project.

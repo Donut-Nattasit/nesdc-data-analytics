@@ -12,9 +12,8 @@ The workspace operates on a strict **Modular Directory Standard**. Inputs, inter
 
 ```
 data-analysis/
-├── .cursorrules           # Universal rules for AI coding assistants
+├── .cursorrules           # Chief Economist system mandates and conventions for AI coding assistants
 ├── .env.example           # Non-sensitive template for API key configs
-├── GEMINI.md              # Chief Economist system mandates and conventions
 ├── README.md              # This master developer and AI onboarding manual
 ├── assets/                # Visual assets, logos, and custom localized typography
 ├── bin/                   # Compiled binaries (e.g., x13as.exe for seasonal adjustment)

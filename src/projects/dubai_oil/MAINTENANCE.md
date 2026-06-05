@@ -36,7 +36,7 @@ Upon successful completion, the pipeline automatically:
 3. Automatically estimates the **ARIMAX levels model**, executes the residual ADF unit root stationarity audits, and outputs forecast projections through December 2027.
 4. Regenerates all professional visual charts with standard fixed sizes and center-anchored titles.
 5. Re-compiles the final structured markdown **Special Economic Report**, updating all embedded spreadsheets, figures, and model specifications.
-6. Updates the central workspace manifest registry (`.gemini/PROJECT_STATE.json`) for full auditability.
+6. Updates the central workspace manifest registry (`.antigravitycli/PROJECT_STATE.json`) for full auditability.
 
 ---
 
