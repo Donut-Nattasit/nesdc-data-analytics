@@ -10,6 +10,7 @@ The `./database/` folder is organized as follows:
 *   **`IMF.db`**: International Monetary Fund database (World GDP growth, Thailand inflation, ASEAN-4 GDP growth).
 *   **`CEIC.db`**: CEIC database (World Trend Plus metadata and series, Middle East GDP growth, Dubai oil prices).
 *   **`MOC.db`**: Ministry of Commerce database (Thailand product prices).
+*   **`WB.db`**: World Bank database (global development indicators and macroeconomic metadata).
 *   **`api_cache.db`**: API client query cache (caching responses from IMF, MOC, BOT, World Bank, EIA).
 *   **`data_dict/`**: Directory for static reference metadata and data dictionaries (formerly `metadata/`).
 *   **`README.md`**: This entry point schema registry.
@@ -106,3 +107,24 @@ Contains price data from Ministry of Commerce.
 
 ### 📋 Table: `moc_product_prices_wide`
 Daily product price series compiled in wide format (Columns are product IDs, rows are dates).
+
+---
+
+## 📁 Database: `WB.db`
+* **Workspace Path**: `./database/WB.db`
+Contains macroeconomic indicators and global development metadata fetched via the World Bank API.
+
+### 📋 Table: `indicators_metadata`
+| CID | Column Name | Type | Primary Key | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| 0 | **indicator_id** | `TEXT` | 🔑 PRIMARY KEY | World Bank indicator ID |
+| 1 | **name** | `TEXT` | | Indicator full name |
+| 2 | **description** | `TEXT` | | Detailed description of the indicator |
+
+### 📋 Table: `series_data`
+| CID | Column Name | Type | Primary Key | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| 0 | **indicator_id** | `TEXT` | 🔑 PRIMARY KEY | World Bank indicator ID |
+| 1 | **iso3c** | `TEXT` | 🔑 PRIMARY KEY | Country ISO3 Code |
+| 2 | **date** | `TEXT` | 🔑 PRIMARY KEY | Date / Year of the observation |
+| 3 | **value** | `REAL` | | Indicator value |

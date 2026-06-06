@@ -530,6 +530,15 @@
       "forecast_path": "",
       "status": "Ready",
       "last_update": "2026-06-05"
+    },
+    {
+      "series_id": "World Bank Commodity Price Forecasts (Nominal)",
+      "source": "CEIC (10 Series: 354748601, 303148204, 354748801, 303147804, 354747901, 354748001, 303147904, 354748301, 303148004, 303148104)",
+      "raw_path": "database/CEIC.db (table: world_bank_commodity_forecasts)",
+      "transformed_path": "database/CEIC.db (table: world_bank_commodity_forecasts)",
+      "forecast_path": "",
+      "status": "Ready",
+      "last_update": "2026-06-06"
     }
   ],
   "models": [
@@ -1350,6 +1359,14 @@
       "png_path": "output/chart/ceic_dubai_oil_price.png",
       "status": "Rendered",
       "last_update": "2026-06-05"
+    },
+    {
+      "name": "World Bank Commodity Price Forecasts",
+      "type": "Subplot Grid (5x2)",
+      "source_data": "database/CEIC.db (table: world_bank_commodity_forecasts)",
+      "png_path": "output/chart/commodity_price_forecasts.png",
+      "status": "Rendered",
+      "last_update": "2026-06-06"
     }
   ],
   "reports": [
