@@ -16,7 +16,7 @@ India's merchandise exports experienced a slight contraction in March 2026, with
 
 The trade data for March 2026 indicates a pivot in the export trajectory that had characterized the early part of the first quarter. While the magnitude of the decline is relatively contained at -0.90%, the shift from positive territory reflects the increasing sensitivity of India's trade basket to external shocks.
 
-![India Export Growth YoY](../chart/india_exports_yoy_bar.png)
+![India Export Growth YoY](../output/chart/india_exports_yoy_bar.png)
 
 *Figure 1: India's Merchandise Export Growth (YoY %) – Highlighting the March 2026 contraction relative to previous periods.*
 

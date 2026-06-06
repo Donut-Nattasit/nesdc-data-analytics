@@ -9,7 +9,7 @@ This report analyzes the long-term year-over-year (YoY) growth of Thailand's Rea
 
 Thailand's economic history over the past three decades is marked by high growth periods punctuated by significant crises. The figure below visualizes the year-over-year quarterly real GDP growth rate.
 
-![Thailand Real GDP YoY Growth](../chart/thailand_gdp_growth_yoy.png)
+![Thailand Real GDP YoY Growth](../output/chart/thailand_gdp_growth_yoy.png)
 
 ---
 

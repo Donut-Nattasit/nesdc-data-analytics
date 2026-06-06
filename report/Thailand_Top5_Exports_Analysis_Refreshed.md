@@ -1,6 +1,6 @@
 # Structural Realignment: Thailand's Top 5 Exports Mid-Year Performance (2025–2026)
 
-<img src="../chart/thailand_top5_exports_comparison_refreshed.png" onerror="this.onerror=null; this.src='output/chart/thailand_top5_exports_comparison_refreshed.png';" alt="Thailand Top 5 Exports YoY Comparison Refreshed" style="max-width: 100%; height: auto; display: block; margin: 0 auto 1.5rem auto; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);" />
+<img src="../output/chart/thailand_top5_exports_comparison_refreshed.png" onerror="this.onerror=null; this.src='output/chart/thailand_top5_exports_comparison_refreshed.png';" alt="Thailand Top 5 Exports YoY Comparison Refreshed" style="max-width: 100%; height: auto; display: block; margin: 0 auto 1.5rem auto; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);" />
 
 ## Executive Summary
 This report provides a high-fidelity, data-driven macroeconomic investigation of Thailand's top 5 export sectors at the 2-digit Harmonized System (HS2) level. Using the most up-to-date monthly statistics directly acquired from the Thailand Ministry of Commerce (MOC) API, we examine the full-year performance of **2025** and conduct a detailed year-on-year (YoY) comparison of cumulative trade data for the first five months (**January–May**) of **2025 vs. 2026**.

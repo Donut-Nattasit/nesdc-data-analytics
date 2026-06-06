@@ -24,7 +24,7 @@ In contrast, the Philippines has slowed to a **2.76% YoY** expansion. This decel
 - **Malaysia (5.3% YoY)**: According to the **advance estimate**, Malaysia maintains a steady trajectory, supported by a recovery in international tourism and a rebound in the electronics export sector.
 
 ## Visual Summary
-![ASEAN GDP YoY Growth Trends](../chart/asean_gdp_yoy_q1_2026.png)
+![ASEAN GDP YoY Growth Trends](../output/chart/asean_gdp_yoy_q1_2026.png)
 
 ## Forecast Outlook & Recommendations
 The divergence is expected to persist through the first half of 2026.

@@ -33,7 +33,7 @@ Despite the prevailing headwinds, two critical sectors remained in positive terr
 *   **Petroleum Products:** Grew by **+5.88% YoY**. This resilience is particularly noteworthy given the regional tensions in West Asia.
 *   **Engineering Goods:** Recorded a growth of **+1.13% YoY**, continuing to serve as a bedrock for Indian merchandise trade.
 
-![India Export Sectoral Breakdown March 2026](../chart/india_exports_components_mar2026.png)
+![India Export Sectoral Breakdown March 2026](../output/chart/india_exports_components_mar2026.png)
 *Figure 1: Sectoral Year-on-Year Growth Rates (March 2026) – Contrasting the contraction in luxury and chemical goods against the resilience in energy and engineering.*
 
 ---

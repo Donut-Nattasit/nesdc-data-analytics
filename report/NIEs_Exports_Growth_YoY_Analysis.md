@@ -1,7 +1,7 @@
 # Export Cyclicality and Trade Dynamics in Newly Industrialized Economies (NIEs): A YoY Growth Analysis (2015–2026)
 
 <p align="center">
-  <img src="../chart/nies_exports_growth_yoy.png" alt="Newly Industrialized Economies (NIEs) Exports YoY Growth" width="100%" style="max-width: 800px; display: block; margin: auto;" onerror="this.onerror=null; this.src='output/chart/nies_exports_growth_yoy.png';" />
+  <img src="../output/chart/nies_exports_growth_yoy.png" alt="Newly Industrialized Economies (NIEs) Exports YoY Growth" width="100%" style="max-width: 800px; display: block; margin: auto;" onerror="this.onerror=null; this.src='output/chart/nies_exports_growth_yoy.png';" />
 </p>
 
 ## Executive Summary
@@ -33,7 +33,7 @@ The data analyzed in this report is retrieved from the **CEIC World Trend Plus d
 The figure below visualizes the comparative monthly YoY export growth rates for the four NIEs from 2015 to early 2026, illustrating their cyclical fluctuations and synchronized turning points.
 
 <p align="center">
-  <img src="../chart/nies_exports_growth_yoy.png" alt="Newly Industrialized Economies (NIEs) Exports YoY Growth" width="100%" style="max-width: 800px; display: block; margin: auto;" onerror="this.onerror=null; this.src='output/chart/nies_exports_growth_yoy.png';" />
+  <img src="../output/chart/nies_exports_growth_yoy.png" alt="Newly Industrialized Economies (NIEs) Exports YoY Growth" width="100%" style="max-width: 800px; display: block; margin: auto;" onerror="this.onerror=null; this.src='output/chart/nies_exports_growth_yoy.png';" />
 </p>
 
 ### Key Export Growth Rates at Crucial Cycle Turning Points (%)

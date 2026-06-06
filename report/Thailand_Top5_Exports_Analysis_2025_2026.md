@@ -1,6 +1,6 @@
 # Export Rebound and Structural Divergence: An Analysis of Thailand's Top 5 Exports (2025–2026)
 
-<img src="../chart/thailand_top5_exports_comparison.png" onerror="this.onerror=null; this.src='output/chart/thailand_top5_exports_comparison.png';" alt="Thailand Top 5 Exports YoY Comparison" style="max-width: 100%; height: auto; display: block; margin: 0 auto 1.5rem auto; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);" />
+<img src="../output/chart/thailand_top5_exports_comparison.png" onerror="this.onerror=null; this.src='output/chart/thailand_top5_exports_comparison.png';" alt="Thailand Top 5 Exports YoY Comparison" style="max-width: 100%; height: auto; display: block; margin: 0 auto 1.5rem auto; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);" />
 
 ## Executive Summary
 This report provides a data-driven macroeconomic analysis of Thailand's top 5 export categories at the 2-digit Harmonized System (HS2) level. Drawing on high-fidelity trade records from the Global Trade Atlas (GTA) database, we examine full-year performance in 2025 and compare available cumulative trade data for the first two months (January–February) of 2025 and 2026. 

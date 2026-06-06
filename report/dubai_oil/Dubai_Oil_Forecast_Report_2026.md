@@ -24,7 +24,7 @@ These physical disruptions were overlaid on a market heavily regulated by volunt
 
 Figure 1.1 illustrates the monthly historical spot actual price trajectories of Dubai Fateh, Brent, and West Texas Intermediate (WTI) benchmarks from January 2024 through May 2026, marked with key market-shaping events.
 
-![Global Crude Oil Price Benchmarks](../chart/global_oil_prices_comparison.png)
+![Global Crude Oil Price Benchmarks](../../output/chart/global_oil_prices_comparison.png)
 
 *Figure 1.1: Historical monthly spot prices of Dubai Fateh, Brent, and WTI crude benchmarks with key market-shaping events marked (January 2024 – May 2026).*
 
@@ -33,7 +33,7 @@ The supply-side responses and policies of major crude producers reflect distinct
 *   **OECD Suppliers**: Overall OECD production has remained stable, prioritizing capital discipline and refining efficiency. Strategic petroleum reserve (SPR) releases have ceased, leaving commercial stock levels to reflect standard refinery demand.
 *   **United States**: U.S. shale operators have entered a mature plateau phase. Prioritizing shareholder returns, debt reduction, and cash flow maximization, U.S. shale producers have abandoned "growth at all costs" expansion models. Maturing acreage in the Permian Basin, along with supply chain constraints, has kept U.S. crude production relatively stable. High-frequency weekly data from the CEIC Global Database (ID: 355221677) resampled to monthly averages confirms this structural transition: U.S. production reached a high-level plateau in mid-2025, peaking at 13.84 mb/d in December 2025, and then stabilizing firmly at an average of 13.64 mb/d during the first five months of 2026 (ranging from 13.59 mb/d in April to 13.71 mb/d in February). Figure 1.3 illustrates this mature plateau phase. Significant capital investment expansions are expected to materialize only in 2027 as new drilling cycles complete.
 
-![U.S. Monthly Crude Oil Production](../chart/us_crude_production.png)
+![U.S. Monthly Crude Oil Production](../../output/chart/us_crude_production.png)
 
 *Figure 1.3: U.S. Monthly Crude Oil Production and Mature Plateau Phase (January 2024 – May 2026) resampled from high-frequency weekly CEIC series.*
 *   **Russia**: Russia's petroleum sector is facing operational headwinds, with production projected to decline for the fourth consecutive year in 2026 to a 17-year low. This decline is driven by Western sanctions, corporate financial strain, and combat-damaged refinery infrastructure. Russian policy has consequently shifted from crude export maximization toward protecting domestic fuel stability. Russia implemented a total export ban on aviation fuel until November 30, 2026, and extended its export bans on diesel and marine gas oils through July 31, 2026, while committing to OPEC+ guidelines on production compensation.
@@ -42,7 +42,7 @@ The supply-side responses and policies of major crude producers reflect distinct
 ### Global Petroleum Supply and Demand
 To analyze the structural market balance, we evaluate the monthly world petroleum supply and demand series from the U.S. EIA STEO database. Figure 1.2 illustrates monthly production vs. consumption and net inventory changes.
 
-![EIA World Monthly Petroleum Balance](../chart/eia_world_balance_monthly.png)
+![EIA World Monthly Petroleum Balance](../../output/chart/eia_world_balance_monthly.png)
 
 *Figure 1.2: EIA Monthly World Petroleum Production (Supply) vs. Consumption (Demand) and Net Stock Changes from 2020 through 2027, highlighting the shaded STEO Forecast projection period starting June 2026.*
 
@@ -74,7 +74,7 @@ We deploy our production-grade time-series forecasting engine to project the mon
 
 Figure 3.1 illustrates the daily spot Dubai prices since January 2026, their resampled monthly averages, and the expanding cumulative Year-to-Date (YTD) average.
 
-![Daily, Monthly & YTD Trajectories in 2026](../chart/dubai_oil_situation.png)
+![Daily, Monthly & YTD Trajectories in 2026](../../output/chart/dubai_oil_situation.png)
 
 *Figure 3.1: Daily Bloomberg spot Dubai price, monthly averages, and expanding cumulative Year-to-Date (YTD) average in 2026.*
 
@@ -93,7 +93,7 @@ Table 3.1 summarizes the official physical spot actuals and cumulative YTD price
 
 Figure 3.2 illustrates our official monthly forecasting trajectory compared to historical spot prices and the raw traded futures curve.
 
-![Dubai Crude Oil Forecast comparison](../chart/dubai_oil_forecast_comparison.png)
+![Dubai Crude Oil Forecast comparison](../../output/chart/dubai_oil_forecast_comparison.png)
 
 *Figure 3.2: Historical spot Dubai crude price, official forecast trajectory, and raw futures curve baseline through December 2027.*
 

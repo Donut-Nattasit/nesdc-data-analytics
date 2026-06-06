@@ -1,0 +1,9 @@
+---
+description: Policy for creating temporary files, scratch scripts, and ephemeral logs
+globs: *
+---
+# Temp Policy
+
+- **Exclusive Location**: ALL temporary files, scratch scripts, test scripts, ad-hoc python scripts, and ephemeral logs MUST be created and executed exclusively inside the `temp/` directory (`@temp/`).
+- **No Root Clutter**: Never create temporary files, test scripts, or scratchpads in the root workspace directory or any other production folder.
+- **Cleanup**: Ephemeral scripts should generally be cleaned up after they have served their purpose, unless they are useful for future debugging, in which case they should remain within the `temp/` directory.
