@@ -75,7 +75,7 @@ def main():
     print(f"\nLatest Cumulative YTD Average (as of {latest_date.strftime('%Y-%m-%d')}): ${latest_ytd:.2f}/bbl")
     
     # Save the prepared table to a CSV for report integration or quick reference
-    tbl_path = project_root / "output" / "report" / "price_forecast" / current_yyyy_mm / "data" / "transformed" / "dubai_situation_2026.csv"
+    tbl_path = project_root / "output" / "data" / "dubai_situation_2026.csv"
     df_monthly_out = df_monthly.copy()
     # Compute cumulative YTD at the end of each month
     monthly_ytd = []
@@ -175,7 +175,7 @@ def main():
     fig.subplots_adjust(top=0.88, bottom=0.18)
     
     # Save figure
-    out_chart_path = f"output/report/price_forecast/{current_yyyy_mm}/chart/dubai_oil_situation.png"
+    out_chart_path = "output/chart/dubai_oil_situation.png"
     save_chart(fig, out_chart_path, save_html=False)
     print(f"✅ Successfully generated and saved situation line chart to: {out_chart_path}")
 

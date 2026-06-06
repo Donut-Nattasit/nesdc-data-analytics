@@ -91,8 +91,8 @@ def main():
     df_wide = df_wide.sort_index()
     
     # Prepare results folders
-    os.makedirs("output/data/forecast", exist_ok=True)
-    os.makedirs("output/model", exist_ok=True)
+    os.makedirs("output/data", exist_ok=True)
+    os.makedirs("output/model_summary", exist_ok=True)
     os.makedirs("output/chart", exist_ok=True)
     
     # Transform to long format for statsforecast
@@ -234,7 +234,7 @@ def main():
             print(f"Generated forecast for {comp} using {best_model_name}.")
         
     # Save forecast dataset
-    forecast_path = "output/data/forecast/export_import_forecast_statsforecast.csv"
+    forecast_path = "output/data/export_import_forecast_statsforecast.csv"
     forecast_df.to_csv(forecast_path)
     print(f"Saved forecast dataset to {forecast_path} (Shape: {forecast_df.shape})")
     
@@ -302,7 +302,7 @@ def main():
     print(f"Saved Import forecast chart to {import_chart_path}")
     
     # ------------------ Write Model Summary ------------------
-    summary_path = "output/model/forecast_statsforecast_summary.md"
+    summary_path = "output/model_summary/forecast_statsforecast_summary.txt"
     print(f"\nWriting model summary to {summary_path}...")
     with open(summary_path, "w", encoding="utf-8") as f:
         f.write("# statsforecast Univariate Projections Summary\n\n")

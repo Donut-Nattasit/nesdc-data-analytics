@@ -8,13 +8,12 @@ The `data-analysis` workspace is an AI-driven economic research lab.
 
 ### Data Infrastructure
 - `input/`: Manual user uploads and external raw data (e.g., Excel, CSV).
-- `output/`: Consolidated storage for all analytical artifacts.
-    - `output/data/`: Local storage for datasets (including raw API outputs).
-        - `output/data/transformed/`: Cleaned, seasonally adjusted, or rebased data.
-        - `output/data/forecast/`: Model-generated predictive data.
-    - `output/chart/`: Generated visualizations (PNG).
-    - `output/model/`: Saved model summaries and diagnostics (txt/md).
-    - `output/report/`: Formal economic reports (md).
+- `output/`: Consolidates intermediate assets.
+    - `output/data/`: Local storage for datasets (including raw/processed CSVs, no subfolders).
+    - `output/chart/`: Generated visualizations (PNG, no subfolders).
+    - `output/model_summary/`: Saved model summaries and diagnostics (TXT, no subfolders).
+    - `output/archive/`: Storage optimized archives.
+- `report/`: Workspace root directory for publication-ready reports (MD). General reports are directly in `report/`, project-specific reports in project subfolders (e.g., `report/dubai_oil/`).
 - `assets/`: Project assets like fonts.
 - `src/`: Source code for clients, transformations, and visualization.
 - `temp/`: Temporary scripts and logs.
@@ -22,6 +21,7 @@ The `data-analysis` workspace is an AI-driven economic research lab.
 ### The Analytical Team (Subagents)
 - **`data_fetcher`**: Unified expert in global API retrievals (CEIC, BOT, EIA, PortWatch) and SQL databases (GTA). Operates in grill-me mode to refine retrieval parameters.
 - **`data_transformer`**: Specialist in cleaning, frequency conversion, and seasonal adjustment.
+- **`db_manager`**: Database Administrator and Schema Registry Custodian. Handles SQLite migrations, query optimization, and schema registry documentation.
 - **`econometrician`**: Expert in classical statistical modeling (ADF, ARDL, VAR), forecasting, and advanced trade mathematics (RCA, HHI).
 - **`data_scientist`**: Specialist in modern predictive modeling, machine learning, and advanced nowcasting (MIDAS, DFM, XGBoost).
 - **`viz_expert`**: Expert in professional-grade styling, custom matplotlib layouts, and Thai B.E. typography.
@@ -85,7 +85,7 @@ Your workflow follows a **Top-Down Orchestration** pattern, governed by the user
 
 - **Wide Format Standard (Mandatory)**: Cleaned, transformed, or resampled timeseries data must ALWAYS be stored in wide format (i.e., dates/periods as the primary index/rows, and individual timeseries/variables as columns). This ensures direct compatibility with econometric and machine learning modeling frameworks.
 
-- **Documentation**: All model summaries must go to `output/model/`, charts to `output/chart/`, and final reports to `output/report/`.
+- **Documentation**: All model summaries must go to `output/model_summary/`, charts to `output/chart/`, and final reports to `report/` (or its project subfolders).
 
 ### Portability & Multi-Machine Protocol (Mandatory)
 
@@ -103,9 +103,10 @@ To prevent environment conflicts and ensure all dependencies (like `tabulate`) a
 3. **Command Template**: `powershell -Command "$env:PYTHONPATH='.'; .\.venv\Scripts\python.exe path/to/script.py"`
 4. **Validation**: Before any major fetch or model run, verify the environment with `.\.venv\Scripts\python.exe -m pip list`.
 
-- **Pathing Protocol (Mandatory)**: All agents MUST use correct relative paths when referencing assets across directories. 
-    - **Reports to Charts**: For any report stored in `output/report/` that embeds an image from `output/chart/`, use the `../chart/` prefix (e.g., `![Alt Text](../chart/image.png)`). 
-    - This is required for images to render correctly in Markdown previews. Since both directories are subfolders of `output/`, the sibling relationship is maintained.
+- **Pathing Protocol (Mandatory)**: All agents MUST use correct relative paths when referencing assets from Markdown reports to `output/chart/`.
+    - **General reports to Charts**: For reports directly under `report/`, use `../output/chart/filename.png`.
+    - **Project reports to Charts**: For reports under subdirectories like `report/dubai_oil/`, use `../../output/chart/filename.png`.
+    - This is required for images to render correctly in Markdown previews and compilers.
 
 ## Available Automated Pipelines
 

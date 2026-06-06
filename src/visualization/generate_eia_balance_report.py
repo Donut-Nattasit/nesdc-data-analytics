@@ -203,7 +203,7 @@ def main():
         sys.exit(1)
     
     # Save refreshed wide-format CSV
-    transformed_dir = os.path.join('output', 'data', 'transformed')
+    transformed_dir = os.path.join('output', 'data')
     os.makedirs(transformed_dir, exist_ok=True)
     csv_path = os.path.join(transformed_dir, 'eia_world_balance_quarterly.csv')
     df_filtered.to_csv(csv_path, index=False)

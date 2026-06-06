@@ -153,7 +153,7 @@ def main():
     df_wide = pd.read_csv("output/data/export_import_monthly_wide.csv", index_col=0, parse_dates=True).sort_index()
     
     # Load dubai oil forecast dataset
-    dubai_path = "output/report/price_forecast/2026-06/data/forecast/dubai_oil_forecast_production.csv"
+    dubai_path = "output/data/dubai_oil_forecast_production.csv"
     if not os.path.exists(dubai_path):
         print(f"Error: {dubai_path} not found. Please run Dubai Oil forecasts first.")
         sys.exit(1)
@@ -268,7 +268,7 @@ def main():
         new_forecasts[comp] = fc.values
         
     # Update baseline forecast CSV
-    forecast_csv_path = "output/data/forecast/export_import_forecast_statsforecast.csv"
+    forecast_csv_path = "output/data/export_import_forecast_statsforecast.csv"
     if not os.path.exists(forecast_csv_path):
         print(f"Error: {forecast_csv_path} not found. Please run baseline statsforecast script first.")
         sys.exit(1)
@@ -284,7 +284,7 @@ def main():
     
     # ------------------ Write Model Summary ------------------
     # We load the existing statsforecast summary and update/overwrite it with the exogenous details!
-    summary_path = "output/model/forecast_statsforecast_summary.md"
+    summary_path = "output/model_summary/forecast_statsforecast_summary.txt"
     print(f"\nUpdating model summary at {summary_path}...")
     
     # We will read the table from summary and format it with the exogenous selections

@@ -28,7 +28,7 @@ def pad_code(val, length):
 
 def main():
     project_root = Path(__file__).resolve().parents[2]
-    db_path = project_root / "database" / "core" / "DBD.db"
+    db_path = project_root / "database" / "DBD.db"
     excel_path = project_root / "input" / "งบการเงิน" / "TSIC_descriptions.xlsx"
     
     if not excel_path.exists():
@@ -112,7 +112,7 @@ def main():
         series_id="TSIC Industry Descriptions",
         source="Department of Business Development (DBD) / TSIC",
         raw_path="input/งบการเงิน/TSIC_descriptions.xlsx",
-        transformed_path="database/core/DBD.db",
+        transformed_path="database/DBD.db",
         forecast_path="",
         status="Ready"
     )

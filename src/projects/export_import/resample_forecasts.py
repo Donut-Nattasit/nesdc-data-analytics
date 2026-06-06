@@ -25,7 +25,7 @@ def main():
     df_wide = pd.read_csv("output/data/export_import_monthly_wide.csv", index_col=0, parse_dates=True).sort_index()
     
     # Load forecasted monthly dataset
-    forecast_path = "output/data/forecast/export_import_forecast_statsforecast.csv"
+    forecast_path = "output/data/export_import_forecast_statsforecast.csv"
     if not os.path.exists(forecast_path):
         print(f"Error: {forecast_path} not found. Please run the forecasting scripts first.")
         sys.exit(1)
@@ -92,7 +92,7 @@ def main():
     df_q["bot_import_price_index"] = (df_q["bot_import_value_index"] / df_q["bot_import_quantity_index"]) * 100
     
     # Save quarterly dataset
-    q_out_path = "output/data/forecast/export_import_forecast_quarterly.csv"
+    q_out_path = "output/data/export_import_forecast_quarterly.csv"
     df_q.to_csv(q_out_path)
     print(f"Saved quarterly aggregated dataset to {q_out_path} (Shape: {df_q.shape})")
     
@@ -109,7 +109,7 @@ def main():
     df_a["bot_import_price_index"] = (df_a["bot_import_value_index"] / df_a["bot_import_quantity_index"]) * 100
     
     # Save annual dataset
-    a_out_path = "output/data/forecast/export_import_forecast_annual.csv"
+    a_out_path = "output/data/export_import_forecast_annual.csv"
     df_a.to_csv(a_out_path)
     print(f"Saved annual aggregated dataset to {a_out_path} (Shape: {df_a.shape})")
     
@@ -156,7 +156,7 @@ def main():
     print(f"Saved frequency aggregation chart to {chart_path}")
     
     # Write a small summary file
-    summary_path = "output/model/forecast_resampled_summary.md"
+    summary_path = "output/model_summary/forecast_resampled_summary.txt"
     print(f"Writing summary to {summary_path}...")
     with open(summary_path, "w", encoding="utf-8") as f:
         f.write("# BOT Official Price Indices: Quarterly & Annual Aggregations\n\n")
@@ -208,7 +208,7 @@ def main():
         add_visualization(
             name="BOT Official Price Indices Frequency Aggregations",
             chart_type="Line Grid (Multi-frequency)",
-            source_data="output/data/forecast/export_import_forecast_quarterly.csv",
+            source_data="output/data/export_import_forecast_quarterly.csv",
             png_path=chart_path,
             status="Rendered",
             last_update=datetime.now().strftime('%Y-%m-%d')

@@ -73,7 +73,7 @@ def generate_world_gdp_analysis():
     print(f"  -> Saved CSV to: {csv_path}")
     
     # Save to SQLite database
-    db_path = "database/core/time_series.db"
+    db_path = "database/IMF.db"
     os.makedirs(os.path.dirname(db_path), exist_ok=True)
     conn = sqlite3.connect(db_path)
     try:

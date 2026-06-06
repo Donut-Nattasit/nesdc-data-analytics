@@ -10,7 +10,7 @@ from src.visualization.charts import save_chart
 
 def generate_grouped_bar_chart():
     project_root = Path.cwd()
-    data_path = project_root / 'output/data/transformed' / 'thailand_top5_exports_growth.csv'
+    data_path = project_root / 'output/data' / 'thailand_top5_exports_growth.csv'
     
     # Load data
     df = pd.read_csv(data_path)

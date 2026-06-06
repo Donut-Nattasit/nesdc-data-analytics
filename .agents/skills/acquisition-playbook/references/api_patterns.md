@@ -28,4 +28,4 @@ df.to_csv('output/data/eia_crude_prices.csv', index=False)
 ## 3. General Best Practices
 - **Environment**: Always load `.env` before initializing clients.
 - **Pivoting**: If fetching multiple series, ensure the final CSV is in **Wide Format** (date as index, series as columns).
-- **Registration**: Always update `.gemini/PROJECT_STATE.json` using `src/utils/registry.py` after a successful fetch.
+- **Registration**: Always update `PROJECT_STATE.json` using `src/utils/registry.py` after a successful fetch.

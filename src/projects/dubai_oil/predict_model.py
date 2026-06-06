@@ -17,8 +17,7 @@ def main():
     print("==========================================================")
     
     project_root = Path(__file__).resolve().parent.parent.parent.parent
-    current_yyyy_mm = datetime.now().strftime("%Y-%m")
-    master_path = project_root / "output" / "report" / "price_forecast" / current_yyyy_mm / "data" / "transformed" / "dubai_oil_master.csv"
+    master_path = project_root / "output" / "data" / "dubai_oil_master.csv"
     
     if not master_path.exists():
         print(f"[Error] Master dataset not found at: {master_path}")
@@ -103,8 +102,8 @@ def main():
     print(f"  WTI short-run coef   (gamma_2) : {gamma_2:.4f}")
     print(f"  Speed of Adjustment  (theta)   : {theta:.4f} (z-stat: {model_short.tvalues['ect']:.2f}, p-val: {model_short.pvalues['ect']:.5f})")
     
-    # Save OLS summary to output/dubai_oil/model/dubai_arimax_summary.txt (keep name for generate_report compatibility)
-    summary_dir = project_root / "output" / "report" / "price_forecast" / current_yyyy_mm / "model"
+    # Save OLS summary to output/model_summary/dubai_arimax_summary.txt
+    summary_dir = project_root / "output" / "model_summary"
     summary_dir.mkdir(parents=True, exist_ok=True)
     summary_path = summary_dir / "dubai_arimax_summary.txt"
     with open(summary_path, 'w', encoding='utf-8') as f:
@@ -179,7 +178,7 @@ def main():
     df_out.loc[df_out['date'] > forecast_origin, 'dubai_spot_forecast'] = forecast_spot
     
     # Save production file
-    out_dir = project_root / "output" / "report" / "price_forecast" / current_yyyy_mm / "data" / "forecast"
+    out_dir = project_root / "output" / "data"
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / "dubai_oil_forecast_production.csv"
     df_out.to_csv(out_path, index=False)
@@ -202,9 +201,9 @@ def main():
         add_dataset(
             series_id="Dubai Crude Production Forecast",
             source="Error Correction Model (Engle-Granger)",
-            raw_path=f"output/report/price_forecast/{current_yyyy_mm}/data/transformed/dubai_oil_master.csv",
+            raw_path="output/data/dubai_oil_master.csv",
             transformed_path="",
-            forecast_path=f"output/report/price_forecast/{current_yyyy_mm}/data/forecast/dubai_oil_forecast_production.csv",
+            forecast_path="output/data/dubai_oil_forecast_production.csv",
             status="Finalized",
             last_update=pd.Timestamp.now().strftime('%Y-%m-%d')
         )

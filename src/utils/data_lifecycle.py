@@ -44,17 +44,17 @@ def manage_data_lifecycle():
             print("No charts older than 90 days found.")
             
     # 2. Purge Forecasts (>90 days)
-    forecast_dir = output_dir / 'data' / 'forecast'
-    if forecast_dir.exists():
+    data_dir = output_dir / 'data'
+    if data_dir.exists():
         purged_forecasts = 0
-        for file in forecast_dir.glob('*.*'):
+        for file in data_dir.glob('*forecast*'):
             if file.stat().st_mtime < threshold_timestamp:
                 file.unlink()
                 purged_forecasts += 1
         print(f"Purged {purged_forecasts} transient forecast files.")
         
     # 3. Purge Models (>90 days)
-    model_dir = output_dir / 'model'
+    model_dir = output_dir / 'model_summary'
     if model_dir.exists():
         purged_models = 0
         for file in model_dir.glob('*.*'):

@@ -1,6 +1,6 @@
 ---
 description: Enforce wide format, quarterly mean aggregation, and quarter-end date alignment conventions.
-globs: src/data/**/*.py, output/data/**/*.csv
+globs: src/data/**/*.py, output/data/*.csv
 alwaysApply: false
 ---
 # Data Resampling & Formatter Conventions
@@ -23,6 +23,4 @@ When resampling daily or monthly timeseries data to a quarterly frequency:
   * Q4: `YYYY-12-31`
 
 ## 3. Storage Hierarchy
-* Raw API outputs go to `output/data/`.
-* Processed/resampled series go to `output/data/transformed/`.
-* Model predictions and forecast datasets go to `output/data/forecast/`.
+* All datasets (including raw API outputs, processed series, and forecast outputs) must be stored directly in `output/data/` (no subfolders).

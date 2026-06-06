@@ -14,7 +14,7 @@ from src.utils.registry import add_visualization, add_dataset
 
 def main():
     project_root = Path(__file__).resolve().parents[2]
-    db_path = project_root / "database" / "core" / "DBD.db"
+    db_path = project_root / "database" / "DBD.db"
     
     if not db_path.exists():
         print(f"Error: Database {db_path} not found.")
@@ -64,7 +64,7 @@ def main():
     result_df = result_df.sort_values(by='category_code', ascending=True)
     
     # Save CSV
-    csv_dir = project_root / "output" / "data" / "transformed"
+    csv_dir = project_root / "output" / "data"
     csv_dir.mkdir(parents=True, exist_ok=True)
     csv_path = csv_dir / "firm_size_share_by_category.csv"
     
@@ -75,8 +75,8 @@ def main():
     add_dataset(
         series_id="Firm Size Shares by TSIC Category",
         source="Department of Business Development (DBD)",
-        raw_path="database/core/DBD.db",
-        transformed_path="output/data/transformed/firm_size_share_by_category.csv",
+        raw_path="database/DBD.db",
+        transformed_path="output/data/firm_size_share_by_category.csv",
         status="Ready"
     )
     
@@ -164,7 +164,7 @@ def main():
     add_visualization(
         name="Firm Size Shares by TSIC Category",
         chart_type="Stacked Horizontal Bar Chart",
-        source_data="database/core/DBD.db",
+        source_data="database/DBD.db",
         png_path="output/chart/firm_size_share_by_category.png"
     )
     

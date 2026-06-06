@@ -94,15 +94,13 @@ def main():
     else:
         print("✅ PIPELINE RUN COMPLETED SUCCESSFULLY!")
         print("   Primary Artifacts Saved:")
-        from datetime import datetime
-        current_yyyy_mm = datetime.now().strftime('%Y-%m')
-        print(f"   - transformed data : output/report/price_forecast/{current_yyyy_mm}/data/transformed/dubai_oil_master.csv")
-        print(f"   - forecast data    : output/report/price_forecast/{current_yyyy_mm}/data/forecast/dubai_oil_forecast_production.csv")
-        print(f"   - visual charts    : output/report/price_forecast/{current_yyyy_mm}/chart/*.png (4 charts total)")
-        print(f"   - compiled report  : output/report/price_forecast/{current_yyyy_mm}/01_dubai_price.md")
+        print("   - transformed data : output/data/dubai_oil_master.csv")
+        print("   - forecast data    : output/data/dubai_oil_forecast_production.csv")
+        print("   - visual charts    : output/chart/*.png")
+        print("   - compiled report  : report/dubai_oil/01_dubai_price.md")
         
         # Print registry update confirmation
-        state_path = project_root / "database" / "PROJECT_STATE.json"
+        state_path = project_root / "PROJECT_STATE.json"
         if state_path.exists():
             with open(state_path, 'r', encoding='utf-8') as f:
                 state = json.load(f)

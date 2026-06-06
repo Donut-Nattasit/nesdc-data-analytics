@@ -25,7 +25,7 @@ def main():
     df_wide = pd.read_csv("output/data/export_import_monthly_wide.csv", index_col=0, parse_dates=True).sort_index()
     
     # Load forecasted components dataset
-    forecast_path = "output/data/forecast/export_import_forecast_statsforecast.csv"
+    forecast_path = "output/data/export_import_forecast_statsforecast.csv"
     if not os.path.exists(forecast_path):
         print(f"Error: {forecast_path} not found. Please run the forecasting scripts first.")
         sys.exit(1)
@@ -139,7 +139,7 @@ def main():
     print(f"Saved BOT composites forecast chart to {chart_path}")
     
     # Write a small summary file
-    summary_path = "output/model/forecast_composite_summary.md"
+    summary_path = "output/model_summary/forecast_composite_summary.txt"
     print(f"Writing summary to {summary_path}...")
     with open(summary_path, "w", encoding="utf-8") as f:
         f.write("# Export & Import Composite Price Indices Aggregation\n\n")

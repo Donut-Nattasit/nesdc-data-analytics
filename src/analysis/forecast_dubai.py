@@ -18,7 +18,7 @@ def main():
     print("==========================================================")
     
     project_root = Path(__file__).resolve().parent.parent.parent
-    master_path = project_root / "output" / "data" / "transformed" / "dubai_oil_master.csv"
+    master_path = project_root / "output" / "data" / "dubai_oil_master.csv"
     
     if not master_path.exists():
         print(f"[Error] Master dataset not found at: {master_path}")
@@ -152,8 +152,8 @@ def main():
     arimax_forecast_corr = final_arimax.predict(n_periods=len(df_forecast), X=df_forecast[exog_cols]).values
     arimax_forecast_spot = df_forecast['dubai_baseline'].values + arimax_forecast_corr
     
-    # Write ARIMAX summary to output/model/
-    summary_dir = project_root / "output" / "model"
+    # Write ARIMAX summary to output/model_summary/
+    summary_dir = project_root / "output" / "model_summary"
     summary_dir.mkdir(parents=True, exist_ok=True)
     arimax_summary_path = summary_dir / "dubai_arimax_summary.txt"
     with open(arimax_summary_path, 'w', encoding='utf-8') as f:
@@ -213,7 +213,7 @@ def main():
     df_out.loc[forecast_mask, 'ridge_forecast'] = ridge_forecast_spot
     
     # Save unified forecast CSV
-    forecast_dir = project_root / "output" / "data" / "forecast"
+    forecast_dir = project_root / "output" / "data"
     forecast_dir.mkdir(parents=True, exist_ok=True)
     forecast_csv_path = forecast_dir / "dubai_oil_forecast.csv"
     df_out.to_csv(forecast_csv_path, index=False)
@@ -235,15 +235,15 @@ def main():
         add_model(
             name="Dubai Oil ARIMAX Forecast",
             model_type=f"ARIMAX {final_arimax.order}",
-            source_data="output/data/transformed/dubai_oil_master.csv",
-            summary_path="output/model/dubai_arimax_summary.txt",
+            source_data="output/data/dubai_oil_master.csv",
+            summary_path="output/model_summary/dubai_arimax_summary.txt",
             status="Finalized"
         )
         add_model(
             name="Dubai Oil Ridge ML Forecast",
             model_type="Ridge Regression",
-            source_data="output/data/transformed/dubai_oil_master.csv",
-            summary_path="output/model/dubai_ml_summary.txt",
+            source_data="output/data/dubai_oil_master.csv",
+            summary_path="output/model_summary/dubai_ml_summary.txt",
             status="Finalized"
         )
         print("✅ Models registered successfully in PROJECT_STATE.json.")

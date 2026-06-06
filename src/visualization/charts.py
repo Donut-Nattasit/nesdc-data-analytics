@@ -690,11 +690,8 @@ def save_chart(chart, filename: str, save_html: bool = False) -> Optional[str]:
         # Save interactive HTML (Only if explicitly requested)
         if save_html:
             html_path = path.replace('.png', '.html')
-            html_dir = os.path.join(os.path.dirname(path), 'html')
-            os.makedirs(html_dir, exist_ok=True)
-            html_final_path = os.path.join(html_dir, os.path.basename(html_path))
-            chart.save(html_final_path)
-            print(f"[Save Success] Interactive HTML saved to: {html_final_path}")
+            chart.save(html_path)
+            print(f"[Save Success] Interactive HTML saved to: {html_path}")
             
         return path
     except Exception as e:

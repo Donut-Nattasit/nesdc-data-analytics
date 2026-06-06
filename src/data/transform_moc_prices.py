@@ -13,10 +13,10 @@ def transform_moc_prices():
     project_root = Path.cwd()
     
     input_dir = project_root / 'output/data/moc_prices'
-    output_dir = project_root / 'output/data/transformed'
+    output_dir = project_root / 'output/data'
     output_dir.mkdir(parents=True, exist_ok=True)
     
-    db_path = project_root / 'database/core/time_series.db'
+    db_path = project_root / 'database/MOC.db'
     db_path.parent.mkdir(parents=True, exist_ok=True)
     
     output_csv = output_dir / 'moc_prices_wide.csv'
@@ -90,7 +90,7 @@ def transform_moc_prices():
     wide_df.to_csv(output_csv, index=False, encoding='utf-8')
     print(f"\n[Success] Exported unified wide-format master dataset to: {output_csv.relative_to(project_root)}")
 
-    # Write to local SQLite database (time_series.db)
+    # Write to local SQLite database (MOC.db)
     print(f"Registering wide series in SQLite database at {db_path.relative_to(project_root)}...")
     try:
         # Convert date back to string for SQLite storage

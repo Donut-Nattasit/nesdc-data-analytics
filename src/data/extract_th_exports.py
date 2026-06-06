@@ -4,7 +4,7 @@ from pathlib import Path
 
 def extract_thailand_exports():
     project_root = Path.cwd()
-    db_path = project_root / 'database/core/GTA.db'
+    db_path = project_root / 'database/GTA.db'
     output_dir = project_root / 'output/data'
     output_dir.mkdir(parents=True, exist_ok=True)
     output_path = output_dir / 'thailand_top5_exports_raw.csv'

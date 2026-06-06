@@ -91,7 +91,7 @@ def main():
         print("[Warning] Could not retrieve World GDP growth from IMF API.")
     
     # Ensure directories exist
-    os.makedirs("output/data/transformed", exist_ok=True)
+    os.makedirs("output/data", exist_ok=True)
     os.makedirs("output/chart", exist_ok=True)
 
     # Configure Matplotlib fonts and styles
@@ -141,7 +141,7 @@ def main():
     df_gdp_growth_final = df_gdp_growth_wide.loc[2010:2025]
     
     # Save CSV
-    gdp_growth_csv = "output/data/transformed/vietnam_gdp_growth_comparison.csv"
+    gdp_growth_csv = "output/data/vietnam_gdp_growth_comparison.csv"
     df_gdp_growth_final.to_csv(gdp_growth_csv)
     print(f"  -> Saved GDP Growth CSV to: {gdp_growth_csv}")
     
@@ -208,7 +208,7 @@ def main():
     df_gdp_pc_final = df_gdp_pc_wide.loc[2010:2024]
     
     # Save CSV
-    gdp_pc_csv = "output/data/transformed/vietnam_gdp_pc_comparison.csv"
+    gdp_pc_csv = "output/data/vietnam_gdp_pc_comparison.csv"
     df_gdp_pc_final.to_csv(gdp_pc_csv)
     print(f"  -> Saved GDP per Capita CSV to: {gdp_pc_csv}")
     
@@ -298,7 +298,7 @@ def main():
     df_exp_growth_final = df_exp_growth_wide.loc[2010:2025]
     
     # Save CSV
-    exports_growth_csv = "output/data/transformed/vietnam_exports_growth_comparison.csv"
+    exports_growth_csv = "output/data/vietnam_exports_growth_comparison.csv"
     df_exp_growth_final.to_csv(exports_growth_csv)
     print(f"  -> Saved Exports Growth CSV to: {exports_growth_csv}")
     

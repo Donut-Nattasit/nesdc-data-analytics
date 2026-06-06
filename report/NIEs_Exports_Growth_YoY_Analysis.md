@@ -121,4 +121,4 @@ Thailand's export structure shares moderate similarities with the NIEs, particul
     *   Transformed Dataset: [nies_exports_growth_yoy.csv](../data/transformed/nies_exports_growth_yoy.csv)
     *   Comparative Chart: [nies_exports_growth_yoy.png](../chart/nies_exports_growth_yoy.png)
     *   Formal Report: [NIEs_Exports_Growth_YoY_Analysis.md](NIEs_Exports_Growth_YoY_Analysis.md)
-*   **Registry Status:** Manifest updated in `database/PROJECT_STATE.json`
+*   **Registry Status:** Manifest updated in `PROJECT_STATE.json`

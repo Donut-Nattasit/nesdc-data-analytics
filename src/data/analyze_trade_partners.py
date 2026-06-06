@@ -7,7 +7,7 @@ def run_partner_analysis():
     
     project_root = Path.cwd()
     raw_path = project_root / 'output/data/thailand_top5_exports_refreshed_raw.csv'
-    report_path = project_root / 'output/report/Thailand_Top5_Trade_Partner_Analysis.md'
+    report_path = project_root / 'report/Thailand_Top5_Trade_Partner_Analysis.md'
     
     if not raw_path.exists():
         print(f"[Error] Raw data not found at {raw_path}")

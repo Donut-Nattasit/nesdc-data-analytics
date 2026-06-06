@@ -3,7 +3,7 @@ import sys
 
 def run_query():
     csv_path = "input/GTA/combined.csv"
-    output_report = "output/report/thailand_fertilizer_imports_2025.md"
+    output_report = "report/thailand_fertilizer_imports_2025.md"
     output_log = "temp/fertilizer_results.txt"
     
     # Standard Middle East ISO3 country codes

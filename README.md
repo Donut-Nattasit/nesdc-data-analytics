@@ -39,33 +39,13 @@ data-analysis/
 
 ## 🤖 AI & Agent Integration Blueprint (Onboarding Context)
 
-> [!NOTE]
-> **To any AI Assistant loading this project**: 
-> You are in a highly structured agentic environment. To ensure safety, consistency, and machine-independent portability, you must strictly follow these workspace protocols.
-
-### 1. Zero Absolute Paths
-* Never hardcode absolute paths (e.g., `C:\Users\natta\...`).
-* Always resolve file paths dynamically relative to the project root. In Python, utilize `pathlib.Path.cwd()` or `pathlib.Path(__file__).parent` references.
-
-### 2. Python Execution Protocol
-To avoid module import conflicts and guarantee that the local virtual environment dependencies are always used correctly, execute all Python processes using the following template:
-
-* **Interpreter Path**: `.\.venv\Scripts\python.exe` (relative from workspace root).
-* **Python Path**: Set the environment variable `PYTHONPATH` to `.` (the current directory) so modular imports (e.g., `from src.api.bot_client import BOTClient`) resolve flawlessly.
-* **Unified PowerShell Template**:
-  ```powershell
-  powershell -Command "$env:PYTHONPATH='.'; .\.venv\Scripts\python.exe path/to/script.py"
-  ```
-
-### 3. Sibling Pathing in Reports
-* When editing formal reports under `output/report/` that reference charts under `output/chart/`, always embed using relative sibling paths:
-  `![Chart Caption](../chart/filename.png)`
-* Do not use absolute paths or root-relative paths. Sibling paths are required for Markdown compilers and previews to render images correctly.
-
-### 4. Resampling & Aggregation Conventions
-* **Frequency Conversions**: When resampling time-series data to a quarterly frequency, apply:
-  * **Method**: **Mean** (Average of observations).
-  * **Temporal Alignment**: **Quarter-End ('QE')** (e.g., `2026-03-31`, `2026-06-30`).
+> [!IMPORTANT]  
+> **To any AI Assistant loading this project**: You are in a highly structured agentic environment. To ensure safety, consistency, and machine-independent portability, you must strictly follow our workspace protocols.
+> 
+> **Do not guess or assume conventions.** All instructions regarding Python execution, pathing, charting, and data resampling have been decoupled into formal rule files.
+> 
+> - **Cursor IDE AI**: Read `.cursorrules` and `.cursor/rules/*.mdc`.
+> - **Gemini / Antigravity Agents**: Adhere to the rules auto-loaded from `.agents/rules/*.md`.
 
 ---
 
@@ -94,8 +74,7 @@ powershell -Command "$env:PYTHONPATH='.'; .\.venv\Scripts\python.exe src/validat
 
 ## 📊 Central Databases
 
-The workspace houses two central SQLite analytical databases:
-* **`World_Trend_Plus.db`** (stored in `database/core/`): Local repository for global trend indicators and historical time series.
-* **`GTA.db`** (stored in `database/core/`): Contains Global Trade Atlas records, import/export series, and transaction details.
+The workspace houses central SQLite analytical databases directly in `database/` (e.g., `GTA.db`, `DBD.db`, `IMF.db`, `CEIC.db`, `MOC.db`, and `api_cache.db`).
 
-For detailed schema details, index guides, and sample queries optimized for SQL-generating AI assistants, refer to **[database/README.md](file:///C:/Users/natta/OneDrive%20-%20nesdc.go.th/NESDC/Gemini/data-analysis/database/README.md)**.
+> [!NOTE]
+> **Database Rules**: For schema references, index guides, and SQL optimization instructions, AI agents must consult `.agents/rules/central-databases.md` and `database/README.md`.

@@ -63,7 +63,7 @@ The dual-subplot layout is structured as follows:
 ## Execution Protocol
 
 ### Step 1 — Check Freshness (Cache-First)
-Before running, check `.gemini/PROJECT_STATE.json` for the last update date of:
+Before running, check `PROJECT_STATE.json` for the last update date of:
 - `output/data/transformed/eia_world_balance_quarterly.csv`
 
 If the **Last Update** is **less than 1 month old**, the cache is still fresh. Ask the user if they want to force a refresh.
@@ -85,7 +85,7 @@ This script automatically:
 - Renders and saves the Thai chart: `output/chart/eia_world_balance_quarterly_thai.png`.
 
 ### Step 3 — Update the Project State Registry
-After successful execution, update `.gemini/PROJECT_STATE.json` using `src/utils/registry.py`:
+After successful execution, update `PROJECT_STATE.json` using `src/utils/registry.py`:
 
 ---
 

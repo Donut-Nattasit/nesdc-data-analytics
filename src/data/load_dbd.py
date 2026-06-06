@@ -27,7 +27,7 @@ def clean_dataframe(df):
 
 def main():
     project_root = Path(__file__).resolve().parents[2]
-    db_dir = project_root / "database" / "core"
+    db_dir = project_root / "database"
     db_dir.mkdir(parents=True, exist_ok=True)
     db_path = db_dir / "DBD.db"
     
@@ -112,7 +112,7 @@ def main():
         series_id="DBD Financial Statements",
         source="Department of Business Development (DBD)",
         raw_path="input/งบการเงิน",
-        transformed_path="database/core/DBD.db",
+        transformed_path="database/DBD.db",
         forecast_path="",
         status="Ready"
     )

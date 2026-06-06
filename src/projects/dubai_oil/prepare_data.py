@@ -115,7 +115,7 @@ def main():
             print(f"  - {col:30} : {len(col_valid):4} valid, range: {col_valid['date'].min().strftime('%Y-%m')} to {col_valid['date'].max().strftime('%Y-%m')}")
             
     # Save the transformed dataset to wide format csv
-    out_dir = project_root / "output" / "report" / "price_forecast" / current_yyyy_mm / "data" / "transformed"
+    out_dir = project_root / "output" / "data"
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / "dubai_oil_master.csv"
     df_master.to_csv(out_path, index=False)
@@ -127,7 +127,7 @@ def main():
             series_id="Dubai Oil Forecasting Master",
             source="Excel/EIA STEO",
             raw_path="input/projects/dubai_oil/dubai_price.xlsx",
-            transformed_path=f"output/report/price_forecast/{current_yyyy_mm}/data/transformed/dubai_oil_master.csv",
+            transformed_path="output/data/dubai_oil_master.csv",
             forecast_path="",
             status="Ready",
             last_update=pd.Timestamp.now().strftime('%Y-%m-%d')

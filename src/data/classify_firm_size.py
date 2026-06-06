@@ -10,7 +10,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 def main():
     project_root = Path(__file__).resolve().parents[2]
-    db_path = project_root / "database" / "core" / "DBD.db"
+    db_path = project_root / "database" / "DBD.db"
     
     if not db_path.exists():
         print(f"Error: Database {db_path} not found.")

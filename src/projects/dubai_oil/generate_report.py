@@ -14,11 +14,9 @@ def main():
     print("==========================================================")
     
     project_root = Path(__file__).resolve().parent.parent.parent.parent
-    from datetime import datetime
-    current_yyyy_mm = datetime.now().strftime('%Y-%m')
-    data_path = project_root / "output" / "report" / "price_forecast" / current_yyyy_mm / "data" / "forecast" / "dubai_oil_forecast_production.csv"
-    situation_path = project_root / "output" / "report" / "price_forecast" / current_yyyy_mm / "data" / "transformed" / "dubai_situation_2026.csv"
-    arimax_summary_path = project_root / "output" / "report" / "price_forecast" / current_yyyy_mm / "model" / "dubai_arimax_summary.txt"
+    data_path = project_root / "output" / "data" / "dubai_oil_forecast_production.csv"
+    situation_path = project_root / "output" / "data" / "dubai_situation_2026.csv"
+    arimax_summary_path = project_root / "output" / "model_summary" / "dubai_arimax_summary.txt"
     
     if not data_path.exists():
         print(f"[Error] Production forecast dataset not found at: {data_path}")
@@ -276,7 +274,7 @@ These physical disruptions were overlaid on a market heavily regulated by volunt
 
 Figure 1.1 illustrates the monthly historical spot actual price trajectories of Dubai Fateh, Brent, and West Texas Intermediate (WTI) benchmarks from January 2024 through May 2026, marked with key market-shaping events.
 
-<img src="chart/global_oil_prices_comparison.png" alt="Global Crude Oil Price Benchmarks" width="700">
+<img src="../../output/chart/global_oil_prices_comparison.png" alt="Global Crude Oil Price Benchmarks" width="700">
 
 *Figure 1.1: Historical monthly spot prices of Dubai Fateh, Brent, and WTI crude benchmarks with key market-shaping events marked (January 2024 – May 2026).*
 
@@ -290,7 +288,7 @@ The supply-side responses and policies of major crude producers reflect distinct
 ### Global Petroleum Supply and Demand
 To analyze the structural market balance, we evaluate the monthly world petroleum supply and demand series from the U.S. EIA STEO database. Figure 1.2 illustrates monthly production vs. consumption and net inventory changes.
 
-<img src="../../../chart/eia_world_balance_quarterly.png" alt="EIA World Monthly Petroleum Balance" width="700">
+<img src="../../output/chart/eia_world_balance_quarterly.png" alt="EIA World Monthly Petroleum Balance" width="700">
 
 *Figure 1.2: EIA Monthly World Petroleum Production (Supply) vs. Consumption (Demand) and Net Stock Changes from 2020 through 2027, highlighting the shaded STEO Forecast projection period starting June 2026.*
 
@@ -381,7 +379,7 @@ We deploy our production-grade time-series forecasting engine to project the mon
 
 Figure 3.1 illustrates the daily spot Dubai prices since January 2026, their resampled monthly averages, and the expanding cumulative Year-to-Date (YTD) average.
 
-<img src="chart/dubai_oil_situation.png" alt="Daily, Monthly & YTD Trajectories in 2026" width="700">
+<img src="../../output/chart/dubai_oil_situation.png" alt="Daily, Monthly & YTD Trajectories in 2026" width="700">
 
 *Figure 3.1: Daily Bloomberg spot Dubai price, monthly averages, and expanding cumulative Year-to-Date (YTD) average in 2026.*
 
@@ -394,7 +392,7 @@ Table 3.1 summarizes the official physical spot actuals and cumulative YTD price
 
 Figure 3.2 illustrates our official monthly forecasting trajectory compared to historical spot prices and the raw traded futures curve.
 
-<img src="chart/dubai_oil_forecast_comparison.png" alt="Dubai Crude Oil Forecast comparison" width="700">
+<img src="../../output/chart/dubai_oil_forecast_comparison.png" alt="Dubai Crude Oil Forecast comparison" width="700">
 
 *Figure 3.2: Historical spot Dubai crude price, official forecast trajectory, and raw futures curve baseline through December 2027.*
 
@@ -445,11 +443,8 @@ To analyze the divergence between our official projections and raw market consen
 *Report successfully compiled, updated, and registered in workspace registry.*
 """
     
-    from datetime import datetime
-    current_yyyy_mm = datetime.now().strftime('%Y-%m')
-    
     # Write report file
-    report_dir = project_root / "output" / "report" / "price_forecast" / current_yyyy_mm
+    report_dir = project_root / "report" / "dubai_oil"
     report_dir.mkdir(parents=True, exist_ok=True)
     report_path = report_dir / "01_dubai_price.md"
     
@@ -463,7 +458,7 @@ To analyze the divergence between our official projections and raw market consen
         add_report(
             title="Dubai Oil Price Forecast Report (2026-2027)",
             author="Chief Economist",
-            path=f"output/report/price_forecast/{current_yyyy_mm}/01_dubai_price.md",
+            path="report/dubai_oil/01_dubai_price.md",
             status="Published"
         )
         print("✅ Report registered successfully in PROJECT_STATE.json.")

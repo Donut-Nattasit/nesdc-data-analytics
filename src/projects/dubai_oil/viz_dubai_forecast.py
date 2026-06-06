@@ -17,8 +17,7 @@ def main():
     print("==========================================================")
     
     project_root = Path(__file__).resolve().parent.parent.parent.parent
-    current_yyyy_mm = datetime.now().strftime("%Y-%m")
-    data_path = project_root / "output" / "report" / "price_forecast" / current_yyyy_mm / "data" / "forecast" / "dubai_oil_forecast_production.csv"
+    data_path = project_root / "output" / "data" / "dubai_oil_forecast_production.csv"
     
     if not data_path.exists():
         print(f"[Error] Production forecast dataset not found at: {data_path}")
@@ -120,7 +119,7 @@ def main():
     plt.tight_layout()
     
     # 4. Save figure using standard viz engine
-    out_path = f"output/report/price_forecast/{current_yyyy_mm}/chart/dubai_oil_forecast_comparison.png"
+    out_path = "output/chart/dubai_oil_forecast_comparison.png"
     save_chart(fig, out_path, save_html=False)
     print("Successfully generated and saved line chart!")
     

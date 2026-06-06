@@ -18,7 +18,7 @@ def main():
     print("==========================================================")
     
     project_root = Path(__file__).resolve().parent.parent.parent
-    master_path = project_root / "output" / "data" / "transformed" / "dubai_oil_master.csv"
+    master_path = project_root / "output" / "data" / "dubai_oil_master.csv"
     
     if not master_path.exists():
         print(f"[Error] Master dataset not found at: {master_path}")
@@ -165,8 +165,8 @@ def main():
     best_model_name = min(models_metrics, key=lambda k: models_metrics[k][0])
     print(f"\n🥇 The statistically superior model is: **{best_model_name}**")
     
-    # Save the final results to output/model/
-    summary_path = project_root / "output" / "model" / "dubai_rolling_backtest_summary.txt"
+    # Save the final results to output/model_summary/
+    summary_path = project_root / "output" / "model_summary" / "dubai_rolling_backtest_summary.txt"
     with open(summary_path, 'w', encoding='utf-8') as f:
         f.write("==========================================================\n")
         f.write("     EXPANDING WINDOW ROLLING BACKTEST DIAGNOSTIC REPORT\n")
@@ -188,8 +188,8 @@ def main():
         add_model(
             name="Dubai Oil Best Rolling Forecast Model",
             model_type="Expanding Window Backtest Winner",
-            source_data="output/data/transformed/dubai_oil_master.csv",
-            summary_path="output/model/dubai_rolling_backtest_summary.txt",
+            source_data="output/data/dubai_oil_master.csv",
+            summary_path="output/model_summary/dubai_rolling_backtest_summary.txt",
             status="Finalized"
         )
         print("✅ Registry updated successfully.")
