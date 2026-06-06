@@ -8,13 +8,19 @@ __pycache__/
 .ipynb_checkpoints/
 
 # Local & Temporary Folders
-temp/
+temp/*
+!temp/.gitkeep
 
 # Large Datasets & Local Database Files
+database/
 output/data/database/
 *.db
+*.sqlite
+*.sqlite3
 *.xlsx
 *.csv
+!database/README.md
+!database/metadata/
 !database/metadata/moc_product_metadata.csv
 
 # Compiled Executables
