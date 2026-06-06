@@ -1,38 +1,64 @@
 import os
 import shutil
+import logging
+import time
 from pathlib import Path
 
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+
+# Files that should never be deleted
+IGNORE_FILES = {'.gitkeep', '.gitignore'}
+
+# Optional: Only delete files older than this many seconds (e.g., 1 hour = 3600)
+# Set to 0 to delete everything immediately
+MAX_AGE_SECONDS = 0 
+
 def clean_temp_directory():
-    print("Starting cleanup of the temp/ directory...")
-    # Determine project root relative to this script
-    # This script is at: project_root / src / utils / clean_temp.py
+    logger.info("Starting cleanup of the temp/ directory...")
+    
     project_root = Path(__file__).resolve().parent.parent.parent
     temp_dir = project_root / "temp"
     
     if not temp_dir.exists():
-        print(f"Temp directory does not exist at: {temp_dir}")
+        logger.warning(f"Temp directory does not exist at: {temp_dir}")
         return
         
-    print(f"Cleaning contents of: {temp_dir}")
+    logger.info(f"Cleaning contents of: {temp_dir}")
     
     success_count = 0
     fail_count = 0
+    current_time = time.time()
     
     for item in temp_dir.iterdir():
+        if item.name in IGNORE_FILES:
+            continue
+            
         try:
+            # Check file age if a threshold is set
+            item_stat = item.stat()
+            age_seconds = current_time - item_stat.st_mtime
+            if age_seconds < MAX_AGE_SECONDS:
+                continue
+
             if item.is_file() or item.is_symlink():
                 item.unlink()
-                print(f"Deleted file: {item.name}")
+                logger.info(f"Deleted file: {item.name}")
                 success_count += 1
             elif item.is_dir():
                 shutil.rmtree(item)
-                print(f"Deleted directory and its contents: {item.name}")
+                logger.info(f"Deleted directory: {item.name}")
                 success_count += 1
+                
+        except PermissionError:
+            logger.error(f"Permission denied: {item.name}. It may be in use by another process.")
+            fail_count += 1
         except Exception as e:
-            print(f"Failed to delete {item.name}: {e}")
+            logger.error(f"Failed to delete {item.name}: {e}")
             fail_count += 1
             
-    print(f"Cleanup finished. Successfully deleted: {success_count} items. Failed to delete: {fail_count} items.")
+    logger.info(f"Cleanup finished. Successfully deleted: {success_count} items. Failed to delete: {fail_count} items.")
 
 if __name__ == "__main__":
     clean_temp_directory()
