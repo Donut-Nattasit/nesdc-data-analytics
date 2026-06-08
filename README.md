@@ -43,7 +43,7 @@ To maintain a pristine environment, the lab operates on a strict **Modular Direc
 ```text
 data-analysis/
 ├── .agents/               # AI Agent definitions, rules, and skill playbooks
-├── .cursorrules           # Chief Economist system mandates and conventions
+
 ├── .env.example           # Non-sensitive template for local API key configs
 ├── README.md              # This master workspace introduction portal
 ├── assets/                # Visual assets, logos, and custom localized typography
