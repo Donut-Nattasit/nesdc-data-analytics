@@ -12,6 +12,8 @@ The `./database/` folder is organized as follows:
 *   **`MOC.db`**: Ministry of Commerce database (Thailand product prices).
 *   **`WB.db`**: World Bank database (global development indicators and macroeconomic metadata).
 *   **`api_cache.db`**: API client query cache (caching responses from IMF, MOC, BOT, World Bank, EIA).
+*   **`energy_price_forecast/energy_price_forecast.db`**: SQLite database cache specific to the energy price forecast pipeline.
+*   **`ex_im_price_forecast/ex_im_price_forecast.db`**: SQLite database cache specific to the export and import price forecast pipeline.
 *   **`data_dict/`**: Directory for static reference metadata and data dictionaries (formerly `metadata/`).
 *   **`README.md`**: This entry point schema registry.
 
@@ -128,3 +130,22 @@ Contains macroeconomic indicators and global development metadata fetched via th
 | 1 | **iso3c** | `TEXT` | 🔑 PRIMARY KEY | Country ISO3 Code |
 | 2 | **date** | `TEXT` | 🔑 PRIMARY KEY | Date / Year of the observation |
 | 3 | **value** | `REAL` | | Indicator value |
+
+---
+
+## 📁 Pipeline Database: `energy_price_forecast/energy_price_forecast.db`
+* **Workspace Path**: `./database/energy_price_forecast/energy_price_forecast.db`
+Contains local cached datasets specifically for the energy price forecasting pipeline (fetched from the U.S. EIA STEO API).
+
+### 📋 Table: `api_cache`
+Follows the standard cache table schema.
+
+---
+
+## 📁 Pipeline Database: `ex_im_price_forecast/ex_im_price_forecast.db`
+* **Workspace Path**: `./database/ex_im_price_forecast/ex_im_price_forecast.db`
+Contains local cached datasets specifically for the export and import price index forecasting pipeline (fetched from the BOT API).
+
+### 📋 Table: `api_cache`
+Follows the standard cache table schema.
+

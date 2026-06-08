@@ -94,6 +94,7 @@ class BOTClient:
         all_data = []
         current_start = start_dt
         chunk_years = 5 
+        has_error = False
 
         while current_start <= today:
             try:
@@ -102,6 +103,7 @@ class BOTClient:
                     all_data.append(df_temp)
             except Exception as e:
                 print(f"[BOT Client Warning] Failed to fetch chunk starting {current_start.strftime('%Y-%m-%d')}: {e}")
+                has_error = True
             current_start = current_start + pd.DateOffset(years=chunk_years)
 
         if not all_data:
@@ -113,7 +115,10 @@ class BOTClient:
             df_combined = df_combined.drop_duplicates(subset=['date']).sort_values('date')
             df_combined['date'] = pd.to_datetime(df_combined['date'])
             
-            # Save to local cache
-            self.cache.set(cache_key, df_combined, frequency=frequency)
+            # Save to local cache ONLY if all chunks fetched successfully
+            if not has_error:
+                self.cache.set(cache_key, df_combined, frequency=frequency)
+            else:
+                print(f"[BOT Client Warning] Bypassing cache registration for {cache_key} due to chunk fetch failures.")
             
         return df_combined

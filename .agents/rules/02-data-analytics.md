@@ -22,7 +22,7 @@ description: Enforce wide format standardization, resampling rules, competitive 
 
 ## 3. Database Architecture & Centralization
 The workspace follows a strict, flat structure for its central SQLite analytical databases.
-* **Database Folder Strict Flatness**: The `database/` directory must remain completely flat. Never create subdirectories such as `core/`, `cache/`, or `metadata/` inside it.
+* **Database Folder Flatness**: The root `database/` directory must remain flat for central database files. Never create arbitrary subdirectories such as `core/`, `cache/`, or `metadata/` inside it. However, pipeline-specific databases MUST be stored in dedicated pipeline subfolders (e.g., `database/[pipeline_name]/`).
 * **Central Databases**:
   * `GTA.db`: Global Trade Atlas records.
   * `DBD.db`: Department of Business Development firm financial statements.

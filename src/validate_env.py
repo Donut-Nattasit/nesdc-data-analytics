@@ -82,23 +82,29 @@ def check_workspace_assets():
     else:
         results.append(["Binary: bin/x13as.exe", "Not Found", "❌ Required for X-13 ARIMA! Please download and place in bin/"])
         
-    # Check API Cache DB
-    db_path = project_root / "database" / "api_cache.db"
-    if db_path.exists():
-        try:
-            conn = sqlite3.connect(db_path)
-            cursor = conn.cursor()
-            cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='api_cache';")
-            tbl = cursor.fetchone()
-            conn.close()
-            if tbl:
-                results.append(["Database: api_cache.db", "Healthy", "✅ Cache table exists and is readable"])
-            else:
-                results.append(["Database: api_cache.db", "Needs Init", "⚠️ SQLite DB exists but table 'api_cache' not found"])
-        except Exception as e:
-            results.append(["Database: api_cache.db", "Corrupt", f"❌ Failed to connect: {e}"])
-    else:
-        results.append(["Database: api_cache.db", "Not Created Yet", "⚠️ Database file will be created on first API cache operation"])
+    # Check API Cache DBs
+    databases_to_check = [
+        ("api_cache.db", project_root / "database" / "api_cache.db"),
+        ("energy_price_forecast.db", project_root / "database" / "energy_price_forecast" / "energy_price_forecast.db"),
+        ("ex_im_price_forecast.db", project_root / "database" / "ex_im_price_forecast" / "ex_im_price_forecast.db")
+    ]
+    
+    for db_name, db_path in databases_to_check:
+        if db_path.exists():
+            try:
+                conn = sqlite3.connect(str(db_path))
+                cursor = conn.cursor()
+                cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='api_cache';")
+                tbl = cursor.fetchone()
+                conn.close()
+                if tbl:
+                    results.append([f"Database: {db_name}", "Healthy", "✅ Cache table exists and is readable"])
+                else:
+                    results.append([f"Database: {db_name}", "Needs Init", "⚠️ SQLite DB exists but table 'api_cache' not found"])
+            except Exception as e:
+                results.append([f"Database: {db_name}", "Corrupt", f"❌ Failed to connect: {e}"])
+        else:
+            results.append([f"Database: {db_name}", "Not Created Yet", "⚠️ Database file will be created on first API cache operation"])
         
     return results
 
