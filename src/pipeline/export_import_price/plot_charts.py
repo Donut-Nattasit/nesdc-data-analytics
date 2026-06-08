@@ -26,7 +26,7 @@ c_maya = "#60B1E7"      # Accent
 c_saffron = "#FFA300"   # Highlight
 
 # 2. Load data
-data_path = "output/data/export_import_monthly_wide.csv"
+data_path = "output/data/export_import_price_monthly_wide.csv"
 if not os.path.exists(data_path):
     print(f"Error: {data_path} not found. Please run prepare_data.py first.")
     sys.exit(1)
@@ -70,7 +70,7 @@ ax2.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
 plt.xticks(rotation=30, ha='right')
 
 plt.tight_layout()
-chart1_path = "output/chart/export_import_composite_yoy.png"
+chart1_path = "output/chart/export_import_price_composite_yoy.png"
 plt.savefig(chart1_path, dpi=300, bbox_inches='tight')
 plt.close()
 print(f"Saved Chart 1 to {chart1_path}")

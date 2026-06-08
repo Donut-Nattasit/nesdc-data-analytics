@@ -399,7 +399,7 @@
     {
       "series_id": "Dubai Oil Forecasting Master",
       "source": "Excel/EIA STEO",
-      "raw_path": "input/projects/dubai_oil/dubai_price.xlsx",
+      "raw_path": "input/pipeline/dubai_oil/dubai_price.xlsx",
       "transformed_path": "output/data/dubai_oil_master.csv",
       "forecast_path": "",
       "status": "Ready",
@@ -436,7 +436,7 @@
       "series_id": "Export and Import Price Index",
       "source": "CEIC (212 Series)",
       "raw_path": "input/Export and Import Price Index.xlsx",
-      "transformed_path": "output/data/export_import_series_metadata.json",
+      "transformed_path": "output/data/export_import_price_series_metadata.json",
       "forecast_path": "",
       "status": "Ready",
       "last_update": "2026-06-02"
@@ -445,19 +445,19 @@
       "series_id": "Export & Import Prices - Monthly Wide",
       "source": "BOT (EC_EI_020) & CEIC (18 Series)",
       "raw_path": "",
-      "transformed_path": "output/data/export_import_monthly_wide.csv",
+      "transformed_path": "output/data/export_import_price_monthly_wide.csv",
       "forecast_path": "",
       "status": "Ready",
-      "last_update": "2026-06-06"
+      "last_update": "2026-06-08"
     },
     {
       "series_id": "Export & Import Prices - Quarterly Wide",
       "source": "BOT (EC_EI_020) & CEIC (18 Series) Resampled",
-      "raw_path": "output/data/export_import_monthly_wide.csv",
-      "transformed_path": "output/data/export_import_quarterly_wide.csv",
+      "raw_path": "output/data/export_import_price_monthly_wide.csv",
+      "transformed_path": "output/data/export_import_price_quarterly_wide.csv",
       "forecast_path": "",
       "status": "Ready",
-      "last_update": "2026-06-06"
+      "last_update": "2026-06-08"
     },
     {
       "series_id": "DBD Financial Statements",
@@ -692,7 +692,7 @@
       "source_data": "Export & Import Prices - Monthly Wide",
       "summary_path": "output/model_summary/forecast_statsforecast_summary.txt",
       "status": "Deployed",
-      "last_update": "2026-06-06"
+      "last_update": "2026-06-08"
     },
     {
       "name": "Exogenous Price Forecasts to Dec 2027",
@@ -700,12 +700,12 @@
       "source_data": "Export & Import Prices - Monthly Wide, Dubai Crude Spot Forecasts",
       "summary_path": "output/model_summary/forecast_statsforecast_summary.txt",
       "status": "Deployed",
-      "last_update": "2026-06-06"
+      "last_update": "2026-06-08"
     },
     {
       "name": "Composite Price Indices Aggregated Forecast",
       "type": "Weighted Composite Aggregation (Naive weights from 2026-04)",
-      "source_data": "export_import_forecast_statsforecast.csv, export_import_monthly_wide.csv",
+      "source_data": "export_import_price_forecast_statsforecast.csv, export_import_price_monthly_wide.csv",
       "summary_path": "output/model_summary/forecast_composite_summary.md",
       "status": "Deployed",
       "last_update": "2026-06-02"
@@ -713,26 +713,26 @@
     {
       "name": "BOT Official Price Indices Forecast",
       "type": "Growth Spliced Composite Aggregation",
-      "source_data": "export_import_forecast_statsforecast.csv, export_import_monthly_wide.csv",
+      "source_data": "export_import_price_forecast_statsforecast.csv, export_import_price_monthly_wide.csv",
       "summary_path": "output/model_summary/forecast_composite_summary.txt",
       "status": "Deployed",
-      "last_update": "2026-06-06"
+      "last_update": "2026-06-08"
     },
     {
       "name": "Quarterly Resampled Price Indices",
       "type": "Volume-Weighted Aggregation (Quarterly)",
-      "source_data": "export_import_forecast_statsforecast.csv",
+      "source_data": "export_import_price_forecast_statsforecast.csv",
       "summary_path": "output/model_summary/forecast_resampled_summary.txt",
       "status": "Deployed",
-      "last_update": "2026-06-06"
+      "last_update": "2026-06-08"
     },
     {
       "name": "Annual Resampled Price Indices",
       "type": "Volume-Weighted Aggregation (Annual)",
-      "source_data": "export_import_forecast_statsforecast.csv",
+      "source_data": "export_import_price_forecast_statsforecast.csv",
       "summary_path": "output/model_summary/forecast_resampled_summary.txt",
       "status": "Deployed",
-      "last_update": "2026-06-06"
+      "last_update": "2026-06-08"
     }
   ],
   "visualizations": [
@@ -1195,15 +1195,15 @@
     {
       "name": "Export & Import Composite YoY Growth",
       "type": "Subplots (Line)",
-      "source_data": "output/data/export_import_monthly_wide.csv",
-      "png_path": "output/chart/export_import_composite_yoy.png",
+      "source_data": "output/data/export_import_price_monthly_wide.csv",
+      "png_path": "output/chart/export_import_price_composite_yoy.png",
       "status": "Rendered",
       "last_update": "2026-06-02"
     },
     {
       "name": "Export Price Index by Component",
       "type": "Line",
-      "source_data": "output/data/export_import_monthly_wide.csv",
+      "source_data": "output/data/export_import_price_monthly_wide.csv",
       "png_path": "output/chart/export_price_by_component.png",
       "status": "Rendered",
       "last_update": "2026-06-02"
@@ -1211,7 +1211,7 @@
     {
       "name": "Import Price Index by Component",
       "type": "Line",
-      "source_data": "output/data/export_import_monthly_wide.csv",
+      "source_data": "output/data/export_import_price_monthly_wide.csv",
       "png_path": "output/chart/import_price_by_component.png",
       "status": "Rendered",
       "last_update": "2026-06-02"
@@ -1219,7 +1219,7 @@
     {
       "name": "Export Weights Structure & Recent Weights",
       "type": "Subplots (Area + Bar)",
-      "source_data": "output/data/export_import_monthly_wide.csv",
+      "source_data": "output/data/export_import_price_monthly_wide.csv",
       "png_path": "output/chart/export_weights_structure.png",
       "status": "Rendered",
       "last_update": "2026-06-02"
@@ -1227,7 +1227,7 @@
     {
       "name": "Import Weights Structure & Recent Weights",
       "type": "Subplots (Area + Bar)",
-      "source_data": "output/data/export_import_monthly_wide.csv",
+      "source_data": "output/data/export_import_price_monthly_wide.csv",
       "png_path": "output/chart/import_weights_structure.png",
       "status": "Rendered",
       "last_update": "2026-06-02"
@@ -1235,7 +1235,7 @@
     {
       "name": "Export Price Growth Contributions",
       "type": "Stacked Bar + Line",
-      "source_data": "output/data/export_import_monthly_wide.csv",
+      "source_data": "output/data/export_import_price_monthly_wide.csv",
       "png_path": "output/chart/export_contribution_to_growth.png",
       "status": "Rendered",
       "last_update": "2026-06-02"
@@ -1243,7 +1243,7 @@
     {
       "name": "Import Price Growth Contributions",
       "type": "Stacked Bar + Line",
-      "source_data": "output/data/export_import_monthly_wide.csv",
+      "source_data": "output/data/export_import_price_monthly_wide.csv",
       "png_path": "output/chart/import_contribution_to_growth.png",
       "status": "Rendered",
       "last_update": "2026-06-02"
@@ -1251,7 +1251,7 @@
     {
       "name": "Export Weights by Sub-component (Appendix)",
       "type": "Horizontal Bar",
-      "source_data": "output/data/export_import_monthly_wide.csv",
+      "source_data": "output/data/export_import_price_monthly_wide.csv",
       "png_path": "output/chart/export_subcomponent_weights.png",
       "status": "Rendered",
       "last_update": "2026-06-02"
@@ -1259,7 +1259,7 @@
     {
       "name": "Import Weights by Sub-component (Appendix)",
       "type": "Horizontal Bar",
-      "source_data": "output/data/export_import_monthly_wide.csv",
+      "source_data": "output/data/export_import_price_monthly_wide.csv",
       "png_path": "output/chart/import_subcomponent_weights.png",
       "status": "Rendered",
       "last_update": "2026-06-02"
@@ -1267,7 +1267,7 @@
     {
       "name": "Baseline Univariate Forecasts by Component",
       "type": "Grid (Line)",
-      "source_data": "output/data/export_import_forecast_baseline.csv",
+      "source_data": "output/data/export_import_price_forecast_baseline.csv",
       "png_path": "output/chart/forecast_baseline.png",
       "status": "Rendered",
       "last_update": "2026-06-02"
@@ -1275,23 +1275,23 @@
     {
       "name": "StatsForecast Projections - Export Components",
       "type": "Grid (Line)",
-      "source_data": "output/data/export_import_forecast_statsforecast.csv",
+      "source_data": "output/data/export_import_price_forecast_statsforecast.csv",
       "png_path": "output/chart/forecast_export_components.png",
       "status": "Rendered",
-      "last_update": "2026-06-06"
+      "last_update": "2026-06-08"
     },
     {
       "name": "StatsForecast Projections - Import Components",
       "type": "Grid (Line)",
-      "source_data": "output/data/export_import_forecast_statsforecast.csv",
+      "source_data": "output/data/export_import_price_forecast_statsforecast.csv",
       "png_path": "output/chart/forecast_import_components.png",
       "status": "Rendered",
-      "last_update": "2026-06-06"
+      "last_update": "2026-06-08"
     },
     {
       "name": "Composite Price Indices Projections",
       "type": "Line Grid",
-      "source_data": "output/data/export_import_forecast_statsforecast.csv",
+      "source_data": "output/data/export_import_price_forecast_statsforecast.csv",
       "png_path": "output/chart/forecast_composites.png",
       "status": "Rendered",
       "last_update": "2026-06-02"
@@ -1299,18 +1299,18 @@
     {
       "name": "BOT Official Price Indices Projections",
       "type": "Line Grid",
-      "source_data": "output/data/export_import_forecast_statsforecast.csv",
+      "source_data": "output/data/export_import_price_forecast_statsforecast.csv",
       "png_path": "output/chart/forecast_composites.png",
       "status": "Rendered",
-      "last_update": "2026-06-06"
+      "last_update": "2026-06-08"
     },
     {
       "name": "BOT Official Price Indices Frequency Aggregations",
       "type": "Line Grid (Multi-frequency)",
-      "source_data": "output/data/export_import_forecast_quarterly.csv",
+      "source_data": "output/data/export_import_price_forecast_quarterly.csv",
       "png_path": "output/chart/forecast_resampled_composites.png",
       "status": "Rendered",
-      "last_update": "2026-06-06"
+      "last_update": "2026-06-08"
     },
     {
       "name": "Firm Size Shares by TSIC Category",

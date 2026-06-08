@@ -15,7 +15,7 @@ This skill orchestrates the entire monthly workflow for the NESDC Dubai Oil Fore
 
 ### Step 1 — Verify Local Input Files
 Before running the pipeline, ensure the user has updated the local Excel file. Ask the user to confirm they have updated:
-- `input/projects/dubai_oil/dubai_price.xlsx`
+- `input/pipeline/dubai_oil/dubai_price.xlsx`
   - **`spot` sheet**: Ensure latest daily observations for the month are added.
   - **`future` sheet**: Ensure daily traded futures curve contracts are priced as of the latest day/month.
 
@@ -23,13 +23,13 @@ Before running the pipeline, ensure the user has updated the local Excel file. A
 Execute the complete pipeline script from the root workspace directory using the standard runner:
 
 ```powershell
-cd src\projects\dubai_oil
+cd src\pipeline\dubai_oil
 .\run_pipeline.ps1
 ```
 
 *Alternative if ps1 execution fails:*
 ```powershell
-powershell -Command "Set-Item env:PYTHONPATH '.'; .\.venv\Scripts\python.exe src\projects\dubai_oil\orchestrator.py"
+powershell -Command "Set-Item env:PYTHONPATH '.'; .\.venv\Scripts\python.exe src\pipeline\dubai_oil\orchestrator.py"
 ```
 
 ### Step 3 — Verify Output Artifacts

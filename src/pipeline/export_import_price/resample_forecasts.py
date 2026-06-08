@@ -22,10 +22,10 @@ plt.rcParams['grid.alpha'] = 0.7
 def main():
     print("Loading datasets...")
     # Load historical wide monthly dataset
-    df_wide = pd.read_csv("output/data/export_import_monthly_wide.csv", index_col=0, parse_dates=True).sort_index()
+    df_wide = pd.read_csv("output/data/export_import_price_monthly_wide.csv", index_col=0, parse_dates=True).sort_index()
     
     # Load forecasted monthly dataset
-    forecast_path = "output/data/export_import_forecast_statsforecast.csv"
+    forecast_path = "output/data/export_import_price_forecast_statsforecast.csv"
     if not os.path.exists(forecast_path):
         print(f"Error: {forecast_path} not found. Please run the forecasting scripts first.")
         sys.exit(1)
@@ -92,7 +92,7 @@ def main():
     df_q["bot_import_price_index"] = (df_q["bot_import_value_index"] / df_q["bot_import_quantity_index"]) * 100
     
     # Save quarterly dataset
-    q_out_path = "output/data/export_import_forecast_quarterly.csv"
+    q_out_path = "output/data/export_import_price_forecast_quarterly.csv"
     df_q.to_csv(q_out_path)
     print(f"Saved quarterly aggregated dataset to {q_out_path} (Shape: {df_q.shape})")
     
@@ -109,7 +109,7 @@ def main():
     df_a["bot_import_price_index"] = (df_a["bot_import_value_index"] / df_a["bot_import_quantity_index"]) * 100
     
     # Save annual dataset
-    a_out_path = "output/data/export_import_forecast_annual.csv"
+    a_out_path = "output/data/export_import_price_forecast_annual.csv"
     df_a.to_csv(a_out_path)
     print(f"Saved annual aggregated dataset to {a_out_path} (Shape: {df_a.shape})")
     
@@ -192,7 +192,7 @@ def main():
         add_model(
             name="Quarterly Resampled Price Indices",
             model_type="Volume-Weighted Aggregation (Quarterly)",
-            source_data="export_import_forecast_statsforecast.csv",
+            source_data="export_import_price_forecast_statsforecast.csv",
             summary_path=summary_path,
             status="Deployed",
             last_update=datetime.now().strftime('%Y-%m-%d')
@@ -200,7 +200,7 @@ def main():
         add_model(
             name="Annual Resampled Price Indices",
             model_type="Volume-Weighted Aggregation (Annual)",
-            source_data="export_import_forecast_statsforecast.csv",
+            source_data="export_import_price_forecast_statsforecast.csv",
             summary_path=summary_path,
             status="Deployed",
             last_update=datetime.now().strftime('%Y-%m-%d')
@@ -208,7 +208,7 @@ def main():
         add_visualization(
             name="BOT Official Price Indices Frequency Aggregations",
             chart_type="Line Grid (Multi-frequency)",
-            source_data="output/data/export_import_forecast_quarterly.csv",
+            source_data="output/data/export_import_price_forecast_quarterly.csv",
             png_path=chart_path,
             status="Rendered",
             last_update=datetime.now().strftime('%Y-%m-%d')

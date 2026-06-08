@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thailand Industrial Market Concentration Analysis (TSIC 4-Digit, 2566 B.E.)</title>
+    <!-- Styles -->
+
+    <style>
+        :root {
+            --primary: #00109E;
+            --primary-hover: #000c80;
+            --secondary: #78DED4;
+            --accent: #60B1E7;
+            --highlight: #FFA300;
+            --danger: #E74C3C;
+            --success: #2ECC71;
+            --bg-main: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --text-main: #1E293B;
+            --text-muted: #64748B;
+            --border: #E2E8F0;
+            --radius-lg: 16px;
+            --radius-md: 8px;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            --shadow-hover: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px;
+            background: linear-gradient(135deg, #00109E 0%, #000854 100%);
+            color: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(120,222,212,0.1) 0%, rgba(0,0,0,0) 80%);
+            pointer-events: none;
+        }
+
+        .header-logo {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            line-height: 1.25;
+            margin-bottom: 15px;
+        }
+
+        .header-meta {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        h2 {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #0F172A;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #1E293B;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #334155;
+            font-size: 1.05rem;
+        }
+
+        ul, ol {
+            margin-bottom: 25px;
+            padding-left: 20px;
+            color: #334155;
+        }
+
+        li {
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+        }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .metric-card {
+            background-color: var(--bg-main);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .metric-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+
+        .badge-danger {
+            background-color: rgba(231, 76, 60, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(231, 76, 60, 0.2);
+        }
+
+        .badge-warning {
+            background-color: rgba(255, 163, 0, 0.1);
+            color: var(--highlight);
+            border: 1px solid rgba(255, 163, 0, 0.2);
+        }
+
+        .badge-success {
+            background-color: rgba(46, 204, 113, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(46, 204, 113, 0.2);
+        }
+
+        /* Visualizations */
+        .visual-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .visual-item {
+            text-align: center;
+            background-color: var(--bg-main);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 20px;
+        }
+
+        .visual-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+            background-color: white;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .visual-item img:hover {
+            transform: scale(1.01);
+        }
+
+        .visual-caption {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        /* Tables */
+        .table-responsive {
+            overflow-x: auto;
+            margin: 25px 0;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background-color: #0F172A;
+            color: white;
+            padding: 14px 18px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #1E293B;
+        }
+
+        td {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border);
+            color: #334155;
+        }
+
+        tr:nth-child(even) td {
+            background-color: var(--bg-main);
+        }
+
+        tr:hover td {
+            background-color: #F1F5F9;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .font-semibold {
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px;
+            margin-top: 50px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 10px;
+            }
+            .card {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
+            header {
+                padding: 25px 15px;
+            }
+            th, td {
+                padding: 10px 12px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <header>
+        <div class="header-logo">NESDC Economic Policy Lab</div>
+        <h1>Thailand Industrial Market Concentration Report</h1>
+        <div class="header-meta">
+            <span><strong>Analysis Period:</strong> Fiscal Year 2566 (2023)</span>
+            <span>•</span>
+            <span><strong>Scope:</strong> TSIC 4-Digit Level</span>
+        </div>
+    </header>
+
+    <!-- Executive Summary Card -->
+    <section class="card">
+        <h2>📊 Executive Summary</h2>
+        <p>This report presents an empirical analysis of market concentration and competitive structure in the Thai economy for the fiscal year 2566 B.E. (2023). Utilizing the Department of Business Development (DBD) corporate registry database, we compute the Herfindahl-Hirschman Index (HHI) and Concentration Ratios (CR1, CR4, CR8) for <strong>422</strong> industries at the 4-digit Thailand Standard Industrial Classification (TSIC) level. The study encompasses <strong>690,955</strong> active firms, of which <strong>507,474</strong> reported positive operating revenue from sales or services.</p>
+        
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-title">Active Registered Firms</div>
+                <div class="metric-value">690,955</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-title">Firms with Revenue</div>
+                <div class="metric-value">507,474</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-title">Analyzed Industries</div>
+                <div class="metric-value">422</div>
+            </div>
+        </div>
+
+        <p>Key structural takeaways include:</p>
+        <ul>
+            <li><strong>Market Concentration Profile</strong>: Out of 422 industries, <span class="badge badge-danger">87 (20.6%)</span> are classified as <strong>highly concentrated</strong> (HHI &ge; 2,500), <span class="badge badge-warning">23 (5.5%)</span> are <strong>moderately concentrated</strong> (1,500 &le; HHI &lt; 2,500), and <span class="badge badge-success">312 (73.9%)</span> are <strong>competitive</strong> (HHI &lt; 1,500).</li>
+            <li><strong>Infrastructure Monopolies</strong>: Gaseous fuel distribution (TSIC 3520), steam supply (TSIC 3530), crude extraction (TSIC 0610), and air transport (TSIC 5120) represent the most concentrated sectors with HHI values exceeding 5,500.</li>
+            <li><strong>Concentration in Major Sectors</strong>: The retail sector is highly competitive (TSIC 4773, HHI = 822.4), while wholesale household goods (TSIC 4649) displays substantial concentration (HHI = 2,893.2) dominated by a few massive players.</li>
+        </ul>
+    </section>
+
+    <!-- Industry Concentration Visualizations Card -->
+    <section class="card">
+        <h2>📈 Industry Concentration Visualizations</h2>
+        <p>To visualize the market structure, we have generated two charts located in the <code>output/chart/</code> folder:</p>
+        
+        <div class="visual-container">
+            <div class="visual-item">
+                <h3>1. Top 10 Most Concentrated Industries</h3>
+                <p style="font-size: 0.95rem; margin-bottom: 15px;">This chart highlights the sectors with the lowest competitive pressure, filtering for industries with at least 20 active firms to exclude small-sample anomalies. The red dashed line denotes the standard regulatory threshold of 2,500 HHI.</p>
+                <img src="../output/chart/hhi_top10_concentrated.png" alt="Top 10 Concentrated Industries">
+                <div class="visual-caption">Chart 1: Top 10 Concentrated Industries (Min. 20 Active Firms)</div>
+            </div>
+            
+            <div class="visual-item">
+                <h3>2. Market Concentration vs. Firm Count</h3>
+                <p style="font-size: 0.95rem; margin-bottom: 15px;">This scatter plot maps the HHI of all 422 industries against their active firm count (on a log scale). The size of each bubble corresponds to the log-revenue of that industry, allowing a dual evaluation of market size and market concentration.</p>
+                <img src="../output/chart/hhi_vs_firms_scatter.png" alt="Market Concentration vs. Firm Count">
+                <div class="visual-caption">Chart 2: Market Concentration vs. Firm Count (Log Scale)</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Concentration Tables Card -->
+    <section class="card">
+        <h2>📊 Detailed Concentration Tables</h2>
+        
+        <h3>1. Highly Concentrated Industries (HHI &ge; 2,500) with &ge; 20 Active Firms</h3>
+        <p>The following table lists the top 10 most concentrated sectors in the Thai economy with a substantial firm population:</p>
+        
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="text-center">TSIC</th>
+                        <th>Industry Description (EN)</th>
+                        <th class="text-right">HHI</th>
+                        <th class="text-right">CR1</th>
+                        <th class="text-right">CR4</th>
+                        <th class="text-right">CR8</th>
+                        <th class="text-right">Active Firms</th>
+                        <th class="text-right">Total Revenue (THB)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center font-semibold">3520</td>
+                        <td>Manufacture of gas; distribution of gaseous fuels</td>
+                        <td class="text-right font-semibold">8,944.9</td>
+                        <td class="text-right">94.4%</td>
+                        <td class="text-right">99.4%</td>
+                        <td class="text-right">99.8%</td>
+                        <td class="text-right">27</td>
+                        <td class="text-right">37,288,272,328.09</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center font-semibold">0510</td>
+                        <td>Mining of hard coal</td>
+                        <td class="text-right font-semibold">8,879.3</td>
+                        <td class="text-right">94.2%</td>
+                        <td class="text-right">94.7%</td>
+                        <td class="text-right">96.0%</td>
+                        <td class="text-right">34</td>
+                        <td class="text-right">436,547,402.16</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center font-semibold">3530</td>
+                        <td>Steam and air conditioning supply</td>
+                        <td class="text-right font-semibold">8,298.1</td>
+                        <td class="text-right">91.0%</td>
+                        <td class="text-right">96.0%</td>
+                        <td class="text-right">97.4%</td>
+                        <td class="text-right">33</td>
+                        <td class="text-right">43,267,863,607.72</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center font-semibold">0610</td>
+                        <td>Extraction of crude petroleum</td>
+                        <td class="text-right font-semibold">7,820.6</td>
+                        <td class="text-right">88.3%</td>
+                        <td class="text-right">99.8%</td>
+                        <td class="text-right">100.0%</td>
+                        <td class="text-right">20</td>
+                        <td class="text-right">1,061,048,460.52</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center font-semibold">1910</td>
+                        <td>Manufacture of coke oven products</td>
+                        <td class="text-right font-semibold">6,423.8</td>
+                        <td class="text-right">79.9%</td>
+                        <td class="text-right">100.0%</td>
+                        <td class="text-right">100.0%</td>
+                        <td class="text-right">28</td>
+                        <td class="text-right">134,310,035.79</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center font-semibold">1200</td>
+                        <td>Manufacture of tobacco products</td>
+                        <td class="text-right font-semibold">6,056.4</td>
+                        <td class="text-right">76.5%</td>
+                        <td class="text-right">98.9%</td>
+                        <td class="text-right">99.9%</td>
+                        <td class="text-right">25</td>
+                        <td class="text-right">1,162,185,152.01</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center font-semibold">5120</td>
+                        <td>Air transport</td>
+                        <td class="text-right font-semibold">5,595.6</td>
+                        <td class="text-right">71.9%</td>
+                        <td class="text-right">94.8%</td>
+                        <td class="text-right">97.7%</td>
+                        <td class="text-right">100</td>
+                        <td class="text-right">179,036,929,483.92</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center font-semibold">2011</td>
+                        <td>Manufacture of basic chemicals</td>
+                        <td class="text-right font-semibold">5,417.8</td>
+                        <td class="text-right">71.3%</td>
+                        <td class="text-right">89.2%</td>
+                        <td class="text-right">93.3%</td>
+                        <td class="text-right">400</td>
+                        <td class="text-right">832,238,819,006.18</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center font-semibold">6010</td>
+                        <td>Satellite telecommunications activities</td>
+                        <td class="text-right font-semibold">5,385.0</td>
+                        <td class="text-right">71.5%</td>
+                        <td class="text-right">98.1%</td>
+                        <td class="text-right">99.3%</td>
+                        <td class="text-right">80</td>
+                        <td class="text-right">19,091,739,788.67</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center font-semibold">6411</td>
+                        <td>Central banking</td>
+                        <td class="text-right font-semibold">5,116.7</td>
+                        <td class="text-right">71.4%</td>
+                        <td class="text-right">93.3%</td>
+                        <td class="text-right">95.8%</td>
+                        <td class="text-right">61</td>
+                        <td class="text-right">306,478,574.63</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>2. Large Scale Industries (&gt;500 Billion THB Revenue)</h3>
+        <p>This table details the concentration structure of the largest sectors driving Thailand's GDP:</p>
+        
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="text-center">TSIC</th>
+                        <th>Industry Description (EN)</th>
+                        <th class="text-right">Total Revenue (THB)</th>
+                        <th class="text-right">HHI</th>
+                        <th class="text-right">CR1</th>
+                        <th class="text-right">CR4</th>
+                        <th class="text-right">CR8</th>
+                        <th class="text-right">Active Firms</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center font-semibold">4649</td>
+                        <td>Wholesale of other household goods</td>
+                        <td class="text-right font-semibold">3,227,923,713,158.60</td>
+                        <td class="text-right">2,893.2</td>
+                        <td class="text-right">52.8%</td>
+                        <td class="text-right">60.5%</td>
+                        <td class="text-right">66.8%</td>
+                        <td class="text-right">4,926</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center font-semibold">4773</td>
+                        <td>Other retail sale of new goods in specialized stores</td>
+                        <td class="text-right font-semibold">2,628,473,268,985.15</td>
+                        <td class="text-right">822.4</td>
+                        <td class="text-right">24.3%</td>
+                        <td class="text-right">46.5%</td>
+                        <td class="text-right">55.4%</td>
+                        <td class="text-right">14,091</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center font-semibold">1920</td>
+                        <td>Manufacture of refined petroleum products</td>
+                        <td class="text-right font-semibold">2,340,422,697,328.93</td>
+                        <td class="text-right">1,386.0</td>
+                        <td class="text-right">30.1%</td>
+                        <td class="text-right">69.3%</td>
+                        <td class="text-right">94.4%</td>
+                        <td class="text-right">360</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center font-semibold">2910</td>
+                        <td>Manufacture of motor vehicles</td>
+                        <td class="text-right font-semibold">1,830,321,064,853.02</td>
+                        <td class="text-right">1,271.0</td>
+                        <td class="text-right">28.5%</td>
+                        <td class="text-right">66.8%</td>
+                        <td class="text-right">85.9%</td>
+                        <td class="text-right">277</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center font-semibold">2930</td>
+                        <td>Manufacture of parts and accessories for motor vehicles</td>
+                        <td class="text-right font-semibold">1,679,154,243,979.52</td>
+                        <td class="text-right">148.7</td>
+                        <td class="text-right">6.8%</td>
+                        <td class="text-right">19.3%</td>
+                        <td class="text-right">29.5%</td>
+                        <td class="text-right">1,739</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center font-semibold">4663</td>
+                        <td>Wholesale of construction materials, hardware, plumbing</td>
+                        <td class="text-right font-semibold">1,029,915,221,411.39</td>
+                        <td class="text-right">134.1</td>
+                        <td class="text-right">6.8%</td>
+                        <td class="text-right">18.0%</td>
+                        <td class="text-right">26.5%</td>
+                        <td class="text-right">9,935</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center font-semibold">4100</td>
+                        <td>Construction of buildings</td>
+                        <td class="text-right font-semibold">924,964,286,220.08</td>
+                        <td class="text-right">37.0</td>
+                        <td class="text-right">2.5%</td>
+                        <td class="text-right">8.8%</td>
+                        <td class="text-right">14.2%</td>
+                        <td class="text-right">18,970</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center font-semibold">2011</td>
+                        <td>Manufacture of basic chemicals</td>
+                        <td class="text-right font-semibold">832,238,819,006.18</td>
+                        <td class="text-right">5,417.8</td>
+                        <td class="text-right">71.3%</td>
+                        <td class="text-right">89.2%</td>
+                        <td class="text-right">93.3%</td>
+                        <td class="text-right">400</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center font-semibold">4690</td>
+                        <td>Non-specialized wholesale trade</td>
+                        <td class="text-right font-semibold">772,019,252,654.85</td>
+                        <td class="text-right">359.8</td>
+                        <td class="text-right">13.9%</td>
+                        <td class="text-right">27.2%</td>
+                        <td class="text-right">37.6%</td>
+                        <td class="text-right">4,683</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center font-semibold">6419</td>
+                        <td>Other monetary intermediation (Commercial Banking)</td>
+                        <td class="text-right font-semibold">682,752,994,228.48</td>
+                        <td class="text-right">1,299.7</td>
+                        <td class="text-right">25.1%</td>
+                        <td class="text-right">68.7%</td>
+                        <td class="text-right">90.7%</td>
+                        <td class="text-right">376</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Methodological Notes Card -->
+    <section class="card">
+        <h2>🔍 Methodological Notes</h2>
+        <ol>
+            <li><strong>Definitions & Classifications</strong>: Industries are classified using the 4-digit level of TSIC (obtained by slicing the first 4 characters of the 5-digit <code>รหัสวัตถุประสงค์</code>).</li>
+            <li><strong>Data Inclusions</strong>: Only corporate entities registered as active (<code>สถานะนิติบุคคล = '1'</code>) with valid, non-null financial statements filed for the fiscal year 2566 are included.</li>
+            <li><strong>HHI Formula</strong>:
+                HHI = &Sigma; (s<sub>i</sub>)<sup>2</sup>, where s<sub>i</sub> is the market share of firm i as a percentage of total industry revenue. HHI values range from near 0 (perfect competition) to 10,000 (monopoly).
+            </li>
+            <li><strong>Concentration Thresholds (US DOJ/FTC Standards)</strong>:
+                <ul>
+                    <li><strong>Unconcentrated Markets</strong>: HHI &lt; 1,500</li>
+                    <li><strong>Moderately Concentrated Markets</strong>: 1,500 &le; HHI &lt; 2,500</li>
+                    <li><strong>Highly Concentrated Markets</strong>: HHI &ge; 2,500</li>
+                </ul>
+            </li>
+        </ol>
+    </section>
+</div>
+
+<footer>
+    <p>National Economic and Social Development Council (NESDC) • 2569 B.E.</p>
+</footer>
+
+</body>
+</html>

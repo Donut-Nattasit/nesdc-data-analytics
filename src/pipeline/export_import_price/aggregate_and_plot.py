@@ -22,10 +22,10 @@ plt.rcParams['grid.alpha'] = 0.7
 def main():
     print("Loading datasets...")
     # Load historical wide dataset
-    df_wide = pd.read_csv("output/data/export_import_monthly_wide.csv", index_col=0, parse_dates=True).sort_index()
+    df_wide = pd.read_csv("output/data/export_import_price_monthly_wide.csv", index_col=0, parse_dates=True).sort_index()
     
     # Load forecasted components dataset
-    forecast_path = "output/data/export_import_forecast_statsforecast.csv"
+    forecast_path = "output/data/export_import_price_forecast_statsforecast.csv"
     if not os.path.exists(forecast_path):
         print(f"Error: {forecast_path} not found. Please run the forecasting scripts first.")
         sys.exit(1)
@@ -176,7 +176,7 @@ def main():
         add_model(
             name="BOT Official Price Indices Forecast",
             model_type="Growth Spliced Composite Aggregation",
-            source_data="export_import_forecast_statsforecast.csv, export_import_monthly_wide.csv",
+            source_data="export_import_price_forecast_statsforecast.csv, export_import_price_monthly_wide.csv",
             summary_path=summary_path,
             status="Deployed",
             last_update=datetime.now().strftime('%Y-%m-%d')

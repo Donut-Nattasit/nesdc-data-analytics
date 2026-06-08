@@ -61,7 +61,7 @@ data-analysis/
 │   ├── analysis/          # Analytical scripts and notebooks
 │   ├── api/               # API Clients (CEIC, BOT, EIA, PortWatch, World Bank)
 │   ├── data/              # Resampling, cleaning, and seasonal adjustment pipelines
-│   ├── projects/          # Dedicated project orchestrators (e.g., Dubai Oil Prediction)
+│   ├── pipeline/          # Dedicated project orchestrators (e.g., Dubai Oil Prediction)
 │   ├── utils/             # Helper utilities and registry automation
 │   ├── visualization/     # Styling engines, chart utilities, and font localizers
 │   └── validate_env.py    # Environment diagnostic and sanity checking suite

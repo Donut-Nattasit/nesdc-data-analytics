@@ -224,7 +224,7 @@ def main():
 
     # Save monthly wide dataset
     os.makedirs("output/data", exist_ok=True)
-    monthly_path = "output/data/export_import_monthly_wide.csv"
+    monthly_path = "output/data/export_import_price_monthly_wide.csv"
     merged_monthly.to_csv(monthly_path)
     print(f"Saved monthly wide dataset to {monthly_path} (Shape: {merged_monthly.shape})")
 
@@ -262,7 +262,7 @@ def main():
         weighted_price = (merged_quarterly[val_col] / merged_quarterly[q_col]) * 100
         merged_quarterly[price_col] = weighted_price.fillna(merged_quarterly[price_col])
     
-    quarterly_path = "output/data/export_import_quarterly_wide.csv"
+    quarterly_path = "output/data/export_import_price_quarterly_wide.csv"
     merged_quarterly.to_csv(quarterly_path)
     print(f"Saved quarterly wide dataset to {quarterly_path} (Shape: {merged_quarterly.shape})")
 

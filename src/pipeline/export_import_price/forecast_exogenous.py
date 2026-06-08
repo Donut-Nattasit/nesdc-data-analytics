@@ -150,7 +150,7 @@ def fit_forecast_ardl(train_endog, train_exog, lags, order, steps, future_exog):
 def main():
     print("Loading data...")
     # Load targets wide dataset
-    df_wide = pd.read_csv("output/data/export_import_monthly_wide.csv", index_col=0, parse_dates=True).sort_index()
+    df_wide = pd.read_csv("output/data/export_import_price_monthly_wide.csv", index_col=0, parse_dates=True).sort_index()
     
     # Load dubai oil forecast dataset
     dubai_path = "output/data/dubai_oil_forecast_production.csv"
@@ -268,7 +268,7 @@ def main():
         new_forecasts[comp] = fc.values
         
     # Update baseline forecast CSV
-    forecast_csv_path = "output/data/export_import_forecast_statsforecast.csv"
+    forecast_csv_path = "output/data/export_import_price_forecast_statsforecast.csv"
     if not os.path.exists(forecast_csv_path):
         print(f"Error: {forecast_csv_path} not found. Please run baseline statsforecast script first.")
         sys.exit(1)

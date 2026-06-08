@@ -82,7 +82,7 @@ COLOR_MAP = {
 
 def main():
     print("Loading wide monthly dataset...")
-    data_path = "output/data/export_import_monthly_wide.csv"
+    data_path = "output/data/export_import_price_monthly_wide.csv"
     if not os.path.exists(data_path):
         print(f"Error: {data_path} not found. Please run prepare_data.py first.")
         sys.exit(1)
@@ -234,7 +234,7 @@ def main():
             print(f"Generated forecast for {comp} using {best_model_name}.")
         
     # Save forecast dataset
-    forecast_path = "output/data/export_import_forecast_statsforecast.csv"
+    forecast_path = "output/data/export_import_price_forecast_statsforecast.csv"
     forecast_df.to_csv(forecast_path)
     print(f"Saved forecast dataset to {forecast_path} (Shape: {forecast_df.shape})")
     
