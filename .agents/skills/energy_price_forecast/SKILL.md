@@ -13,6 +13,33 @@ This skill orchestrates the entire monthly workflow for the NESDC Dubai Oil Fore
 
 ---
 
+## 🔴 Mandatory Grill-Me Mode (Pre-Execution Gate)
+
+> **STOP. Do NOT proceed to any pipeline step until this pre-flight interview is complete.**
+
+Before invoking any pipeline script or agent, the Chief Economist MUST ask the user the following clarifying question and wait for an explicit answer:
+
+### Question 1 — Forecast Horizon
+
+**"What is your desired forecasting horizon (in months)?"**
+
+**Dynamic Default Rule**: Before presenting options, compute the recommended default as **December of (current execution year + 1)**. For example, if the skill is invoked in any month of 2026, the suggested default is **December 2027**. Always display this computed end-month/year in the recommendation label below.
+
+Present the following structured options:
+- **(Recommended Default) Option A — Through December [current_year + 1]**: Projects to the end of next calendar year (e.g., December 2027 if run in 2026). Covers the rest of the current year plus the full following year — the standard NESDC planning horizon.
+- **Option B — Short-term (6 months)**: Project through the next 2 quarters. Suitable for near-term policy briefings.
+- **Option C — Long-term (through December [current_year + 2])**: Project through end of the year after next (e.g., December 2028 if run in 2026). Suitable for multi-year strategic planning. *(Note: forecast uncertainty widens significantly beyond 18 months.)*
+- **Option D — Custom**: User specifies an exact target end month and year.
+
+> ⚠️ **Do NOT silently assume a horizon.** Pipeline execution is BLOCKED until the user explicitly confirms or accepts the recommended default.
+
+Once the user confirms the horizon:
+1. Compute the exact number of months from the **current month** to the confirmed end month/year (inclusive) and echo back: *"Confirmed: Forecast horizon set to **N months** through **[Month Year]**."*
+2. Pass the horizon value to all relevant pipeline scripts as appropriate (update `orchestrator.py` arguments or relevant script config if required).
+3. Only then proceed to **Step 1** of the Monthly Update Workflow below.
+
+---
+
 ## 📅 Monthly Update Workflow
 
 Whenever a new month of crude oil spot/futures prices or EIA STEO statistics is released, follow this 3-step workflow to update the entire workspace:
@@ -34,7 +61,7 @@ cd src\pipeline\energy_price_forecast
 
 *Alternative (standard CMD/PowerShell from workspace root):*
 ```powershell
-powershell -Command "Set-Item env:PYTHONPATH '.'; .\.venv\Scripts\python.exe src\pipeline\energy_price_forecast\orchestrator.py"
+$env:PYTHONPATH='.'; .\.venv\Scripts\python.exe src/pipeline/energy_price_forecast/orchestrator.py
 ```
 
 ### Step 3: Verify and Review Outputs

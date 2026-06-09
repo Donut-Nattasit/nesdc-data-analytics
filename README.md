@@ -87,6 +87,6 @@ powershell -File .\bin\check_env.ps1
 ### Step 3: Run the Diagnostics Suite
 Confirm that all third-party analytical libraries, local SQLite database engines, and binary dependencies are healthy:
 ```powershell
-powershell -Command "$env:PYTHONPATH='.'; .\.venv\Scripts\python.exe src/validate_env.py"
+$env:PYTHONPATH='.'; .\.venv\Scripts\python.exe src/validate_env.py
 ```
 *A successful diagnostic run will print a clean, green status audit table of all workspace modules.*

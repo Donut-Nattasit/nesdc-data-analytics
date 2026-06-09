@@ -15,6 +15,8 @@ Thailand's trade pricing dynamics are structurally asymmetric, heavily dominated
 
 ![Historical YoY Composite Price Index Growth](../../output/chart/ex_im_price_forecast/export_import_price_composite_yoy.png)
 
+**Figure 1: Historical Year-on-Year composite export and import price index growth rates.**
+
 ### Splicing and Basket Weights
 To resolve discrepancies between historical chain-weighted index series, we use spliced composite indexes with the latest weights updated as of **April 2026**:
 
@@ -22,7 +24,12 @@ To resolve discrepancies between historical chain-weighted index series, we use 
 *   **Import Weight Structure**: The import basket is more diversified but concentrated in inputs: **Raw Materials (RM)** at **42.19%**, **Capital Goods (CA)** at **25.70%**, **Fuel Product (FP)** at **17.69%**, **Consumer Goods (CO)** at **10.91%**, and **Vehicle & Equipment (VE)** at **3.51%**.
 
 ![Export Price Trends by Component](../../output/chart/ex_im_price_forecast/export_import_price_export_price_by_component.png)
+
+**Figure 2: Historical monthly export price index trends decomposed by sub-component.**
+
 ![Import Price Trends by Component](../../output/chart/ex_im_price_forecast/export_import_price_import_price_by_component.png)
+
+**Figure 3: Historical monthly import price index trends decomposed by sub-component.**
 
 ---
 
@@ -35,6 +42,8 @@ Univariate models often generate naive flat forecasts for highly volatile commod
 We run an **Expanding Rolling Window** validation starting in **January 2023** and ending in **April 2025** to select the model with the lowest 12-month-ahead out-of-sample Root Mean Squared Error (RMSE).
 
 ### Out-of-Sample Performance (12-Month-Ahead RMSE)
+
+**Table 1: Out-of-Sample Model Selection Performance — 12-Month-Ahead RMSE by Trade Price Component**
 
 | Component | Selected Model | Method Type | 12-Month-Ahead Validation RMSE | Model/Lag Order Details |
 | :--- | :--- | :--- | :---: | :--- |
@@ -58,12 +67,19 @@ We run an **Expanding Rolling Window** validation starting in **January 2023** a
 Monthly component projections are aggregated into the official Bank of Thailand (BOT) series using spliced indices.
 
 ![Forecasted Export Components](../../output/chart/ex_im_price_forecast/export_import_price_forecast_export_components.png)
+
+**Figure 4: Forecasted monthly export price index by sub-component through December 2027.**
+
 ![Forecasted Import Components](../../output/chart/ex_im_price_forecast/export_import_price_forecast_import_components.png)
+
+**Figure 5: Forecasted monthly import price index by sub-component through December 2027.**
 
 ### Quarterly Volume-Weighted Projections
 In national accounting, arithmetic averages fail to capture variations in monthly trade volumes. We apply standard **Volume-Weighted Resampling** to calculate the quarterly indicators.
 
 The table below presents the quarterly price index projections and their corresponding Year-on-Year (YoY) growth rates from Q1-2026 to Q4-2027:
+
+**Table 2: Quarterly Volume-Weighted Export and Import Price Index Projections with YoY Growth Rates (2026Q1–2027Q4)**
 
 | Quarter | Export Price Index | Import Price Index | Export YoY Growth (%) | Import YoY Growth (%) | Export Quantity | Import Quantity |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -80,8 +96,12 @@ The table below presents the quarterly price index projections and their corresp
 
 ![Quarterly YoY Price Index Growth Forecast](../../output/chart/ex_im_price_forecast/export_import_price_forecast_quarterly_yoy.png)
 
+**Figure 6: Quarterly Year-on-Year export and import price index growth forecast (2026Q1–2027Q4).**
+
 ### Annual Forecast & YoY Growth (2020–2027)
 The table below displays the annual resampled indicators from 2020 to 2027 along with their Year-on-Year (YoY) growth rates:
+
+**Table 3: Annual Export and Import Price Index Projections with YoY Growth Rates (2020–2027)**
 
 | Year | Export Price Index | Import Price Index | Export YoY Growth (%) | Import YoY Growth (%) | Export Quantity | Import Quantity |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -97,6 +117,8 @@ The table below displays the annual resampled indicators from 2020 to 2027 along
 *Note: YoY growth rate for year t is computed relative to year t-1.*
 
 ![Annual YoY Price Index Growth Forecast](../../output/chart/ex_im_price_forecast/export_import_price_forecast_annual_yoy.png)
+
+**Figure 7: Annual Year-on-Year export and import price index growth forecast (2020–2027).**
 
 ---
 
@@ -120,3 +142,5 @@ To resample the monthly price indexes to quarterly and annual periods using volu
 These quantity projections represent the underlying physical trade volumes and are used as weights to calculate the volume-weighted composites.
 
 ![Quantity Index Projections](../../output/chart/ex_im_price_forecast/export_import_price_forecast_quantities.png)
+
+**Figure 8: Forecasted export and import quantity index projections used as volume weights for quarterly and annual resampling.**

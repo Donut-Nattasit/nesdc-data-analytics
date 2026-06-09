@@ -33,4 +33,4 @@ Markdown reports (`.md`) must be organized based on their scope:
 *   **Mandatory Updates**: You MUST update `PROJECT_STATE.json` every time you work on, create, or modify any datasets, models, visualizations, or reports.
 *   **Registry Helper API**: Always use the programmatic utility `src/utils/registry.py` to perform these updates rather than editing JSON manually.
     *   Python: `from src.utils.registry import add_dataset, add_model, add_visualization, add_report`
-    *   Shell: `powershell -Command "$env:PYTHONPATH='.'; .\.venv\Scripts\python.exe src/utils/registry.py"`
+    *   Shell: `$env:PYTHONPATH='.'; .\.venv\Scripts\python.exe src/utils/registry.py`

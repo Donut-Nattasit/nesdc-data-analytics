@@ -26,7 +26,7 @@ Figure 1.1 illustrates the monthly historical spot actual price trajectories of 
 
 <img src="../../output/chart/energy_price_forecast/dubai_oil_global_oil_prices_comparison.png" alt="Global Crude Oil Price Benchmarks" width="700">
 
-*Figure 1.1: Historical monthly spot prices of Dubai Fateh, Brent, and WTI crude benchmarks with key market-shaping events marked (January 2024 – May 2026).*
+**Figure 1: Historical monthly spot prices of Dubai Fateh, Brent, and WTI crude benchmarks with key market-shaping events marked (January 2024 – May 2026).**
 
 ### Major Oil Suppliers and Production Stances
 The supply-side responses and policies of major crude producers reflect distinct domestic, corporate, and geopolitical priorities:
@@ -40,7 +40,7 @@ To analyze the structural market balance, we evaluate the monthly world petroleu
 
 <img src="../../output/chart/eia_world_balance_quarterly.png" alt="EIA World Monthly Petroleum Balance" width="700">
 
-*Figure 1.2: EIA Monthly World Petroleum Production (Supply) vs. Consumption (Demand) and Net Stock Changes from 2020 through 2027, highlighting the shaded STEO Forecast projection period starting June 2026.*
+**Figure 2: EIA Monthly World Petroleum Production (Supply) vs. Consumption (Demand) and Net Stock Changes from 2020 through 2027, highlighting the shaded STEO Forecast projection period starting June 2026.**
 
 Our quantitative analysis of the monthly petroleum balance indicates:
 *   **Tight Market Buffer**: Global supply and demand are projected to remain tightly balanced, hovering between 102.5 and 104.5 mb/d through late 2026. 
@@ -53,7 +53,7 @@ Our quantitative analysis of the monthly petroleum balance indicates:
 
 To benchmark our projections, we analyze the annual average forecasts for Brent, WTI, and Dubai crude from three leading international institutions: the U.S. EIA STEO, the World Bank Commodity Markets Outlook, and the IMF World Economic Outlook (WEO).
 
-*Table 2.1: Institutional Crude Oil Price Projections (2026–2027)*
+**Table 1: Institutional Crude Oil Price Projections (2026–2027)**
 
 | Institution | Benchmark | 2026 Forecast (USD/bbl) | 2026 YoY (%) | 2027 Forecast (USD/bbl) | 2027 YoY (%) | Key Assumptions & Analytical Narrative |
 | :--- | :--- | :---: | :---: | :---: | :---: | :--- |
@@ -76,11 +76,11 @@ Figure 3.1 illustrates the daily spot Dubai prices since January 2026, their res
 
 <img src="../../output/chart/energy_price_forecast/dubai_oil_situation.png" alt="Daily, Monthly & YTD Trajectories in 2026" width="700">
 
-*Figure 3.1: Daily Bloomberg spot Dubai price, monthly averages, and expanding cumulative Year-to-Date (YTD) average in 2026.*
+**Figure 3: Daily Bloomberg spot Dubai price, monthly averages, and expanding cumulative Year-to-Date (YTD) average in 2026.**
 
 Table 3.1 summarizes the official physical spot actuals and cumulative YTD prices for 2026. This YTD average acts as a core input for government trade balance calculations and domestic retail fuel structures.
 
-*Table 3.1: Dubai Crude Spot Prices and Cumulative YTD Average in 2026*
+**Table 2: Dubai Crude Spot Prices and Cumulative YTD Average in 2026**
 
 | Period | Monthly Average (USD/bbl) | Month-on-Month (%) | Year-on-Year (%) | Cumulative YTD Price (USD/bbl) |
 | :--- | :---: | :---: | :---: | :---: |
@@ -96,11 +96,11 @@ Figure 3.2 illustrates our official monthly forecasting trajectory compared to h
 
 <img src="../../output/chart/energy_price_forecast/dubai_oil_forecast_comparison.png" alt="Dubai Crude Oil Forecast comparison" width="700">
 
-*Figure 3.2: Historical spot Dubai crude price, official forecast trajectory, and raw futures curve baseline through December 2027.*
+**Figure 4: Historical spot Dubai crude price, official forecast trajectory, and raw futures curve baseline through December 2027.**
 
 Table 3.2 summarizes the computed annual averages and YoY percentage growth rates for Dubai Crude prices over the 2024–2027 planning horizon.
 
-*Table 3.2: Annual Average Dubai Crude Price Projections (2024–2027)*
+**Table 3: Annual Average Dubai Crude Price Projections (2024–2027)**
 
 | Year | Official Forecast (USD/bbl) | YoY Growth (%) | Raw Futures Curve (USD/bbl) | YoY Growth (%) | Status |
 | :--- | :---: | :---: | :---: | :---: | :---: |
@@ -219,7 +219,7 @@ Model Reasoning:
 
 To analyze the divergence between our official projections and raw market consensus over a longer planning interval, Table C.1 details the quarterly averages and spreads for both series.
 
-*Table C.1: Quarterly Average Price Projections and Spreads (2024–2027)*
+**Table 4: Quarterly Average Price Projections and Spreads (2024–2027)**
 
 | Quarter | Official Forecast (USD/bbl) | Raw Futures Baseline (USD/bbl) | Spread Diff (Model - Market) |
 | :--- | :---: | :---: | :---: |

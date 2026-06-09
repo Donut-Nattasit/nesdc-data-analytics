@@ -539,6 +539,78 @@
       "forecast_path": "",
       "status": "Ready",
       "last_update": "2026-06-06"
+    },
+    {
+      "series_id": "Thailand CPI Subcomponents - Series ID Wide",
+      "source": "CEIC Global Database (Trade Policy and Strategy Office)",
+      "raw_path": "database/CEIC.db",
+      "transformed_path": "output/data/ceic_th_cpi_subcomponents_wide.csv",
+      "forecast_path": "",
+      "status": "Ready",
+      "last_update": "2026-06-09"
+    },
+    {
+      "series_id": "Thailand CPI Subcomponents - Name Wide",
+      "source": "CEIC Global Database (Trade Policy and Strategy Office)",
+      "raw_path": "database/CEIC.db",
+      "transformed_path": "output/data/ceic_th_cpi_subcomponents_names_wide.csv",
+      "forecast_path": "",
+      "status": "Ready",
+      "last_update": "2026-06-09"
+    },
+    {
+      "series_id": "Thailand CPI Weights - Series ID Wide",
+      "source": "CEIC Global Database (Trade Policy and Strategy Office)",
+      "raw_path": "database/CEIC.db",
+      "transformed_path": "output/data/ceic_th_cpi_weights_wide.csv",
+      "forecast_path": "",
+      "status": "Ready",
+      "last_update": "2026-06-09"
+    },
+    {
+      "series_id": "Thailand CPI Weights - Name Wide",
+      "source": "CEIC Global Database (Trade Policy and Strategy Office)",
+      "raw_path": "database/CEIC.db",
+      "transformed_path": "output/data/ceic_th_cpi_weights_names_wide.csv",
+      "forecast_path": "",
+      "status": "Ready",
+      "last_update": "2026-06-09"
+    },
+    {
+      "series_id": "CPI Forecasting Historical Master Wide",
+      "source": "CEIC API & Dubai Crude Forecast",
+      "raw_path": "database/cpi_forecast/cpi_forecast.db (table: cpi_raw_long)",
+      "transformed_path": "output/data/cpi_forecast/cpi_historical_master.csv",
+      "forecast_path": "",
+      "status": "Ready",
+      "last_update": "2026-06-09"
+    },
+    {
+      "series_id": "CPI Forecast Monthly",
+      "source": "auto_ARIMA Forecast",
+      "raw_path": "output/data/cpi_forecast/cpi_historical_master.csv",
+      "transformed_path": "output/data/cpi_forecast/cpi_forecast_monthly.csv",
+      "forecast_path": "output/data/cpi_forecast/cpi_forecast_monthly.csv",
+      "status": "Finalized",
+      "last_update": "2026-06-09"
+    },
+    {
+      "series_id": "CPI Forecast Quarterly",
+      "source": "auto_ARIMA Forecast & QE Resampling",
+      "raw_path": "output/data/cpi_forecast/cpi_historical_master.csv",
+      "transformed_path": "output/data/cpi_forecast/cpi_forecast_quarterly.csv",
+      "forecast_path": "output/data/cpi_forecast/cpi_forecast_quarterly.csv",
+      "status": "Finalized",
+      "last_update": "2026-06-09"
+    },
+    {
+      "series_id": "CPI Forecast Annual",
+      "source": "auto_ARIMA Forecast & YE Resampling",
+      "raw_path": "output/data/cpi_forecast/cpi_historical_master.csv",
+      "transformed_path": "output/data/cpi_forecast/cpi_forecast_annual.csv",
+      "forecast_path": "output/data/cpi_forecast/cpi_forecast_annual.csv",
+      "status": "Finalized",
+      "last_update": "2026-06-09"
     }
   ],
   "models": [
@@ -732,6 +804,134 @@
       "source_data": "export_import_price_forecast_statsforecast.csv",
       "summary_path": "output/model_summary/ex_im_price_forecast/export_import_price_forecast_resampled_summary.txt",
       "status": "Deployed",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "index_Rice_Flour_Cereal",
+      "type": "ARIMA (2, 1, 1)x(0, 0, 0, 12)",
+      "source_data": "cpi_historical_master.csv",
+      "summary_path": "output/model_summary/cpi_forecast/index_Rice_Flour_Cereal_summary.txt",
+      "status": "Finalized",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "index_Meats_Poultry_Fish",
+      "type": "ARIMA (2, 1, 2)x(1, 0, 1, 12)",
+      "source_data": "cpi_historical_master.csv",
+      "summary_path": "output/model_summary/cpi_forecast/index_Meats_Poultry_Fish_summary.txt",
+      "status": "Finalized",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "index_Eggs_Dairy_Products",
+      "type": "ARIMA (0, 1, 1)x(2, 0, 1, 12)",
+      "source_data": "cpi_historical_master.csv",
+      "summary_path": "output/model_summary/cpi_forecast/index_Eggs_Dairy_Products_summary.txt",
+      "status": "Finalized",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "index_Vegetables_Fruits",
+      "type": "ARIMA (1, 1, 2)x(1, 0, 2, 12)",
+      "source_data": "cpi_historical_master.csv",
+      "summary_path": "output/model_summary/cpi_forecast/index_Vegetables_Fruits_summary.txt",
+      "status": "Finalized",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "index_Seasoning_Condiments",
+      "type": "ARIMA (3, 1, 0)x(1, 0, 0, 12)",
+      "source_data": "cpi_historical_master.csv",
+      "summary_path": "output/model_summary/cpi_forecast/index_Seasoning_Condiments_summary.txt",
+      "status": "Finalized",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "index_Non_Alcoholic_Beverages",
+      "type": "ARIMA (3, 1, 2)x(0, 0, 0, 12)",
+      "source_data": "cpi_historical_master.csv",
+      "summary_path": "output/model_summary/cpi_forecast/index_Non_Alcoholic_Beverages_summary.txt",
+      "status": "Finalized",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "index_Sugar_Product",
+      "type": "ARIMA (1, 1, 0)x(0, 0, 0, 12)",
+      "source_data": "cpi_historical_master.csv",
+      "summary_path": "output/model_summary/cpi_forecast/index_Sugar_Product_summary.txt",
+      "status": "Finalized",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "index_Prepared_Food",
+      "type": "ARIMA (1, 1, 2)x(1, 0, 1, 12)",
+      "source_data": "cpi_historical_master.csv",
+      "summary_path": "output/model_summary/cpi_forecast/index_Prepared_Food_summary.txt",
+      "status": "Finalized",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "index_Apparel_Footwears",
+      "type": "ARIMA (1, 2, 2)x(0, 0, 0, 12)",
+      "source_data": "cpi_historical_master.csv",
+      "summary_path": "output/model_summary/cpi_forecast/index_Apparel_Footwears_summary.txt",
+      "status": "Finalized",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "index_Housing_Furnishing_ex_Utility",
+      "type": "ARIMA (0, 1, 0)x(0, 0, 0, 12)",
+      "source_data": "cpi_historical_master.csv",
+      "summary_path": "output/model_summary/cpi_forecast/index_Housing_Furnishing_ex_Utility_summary.txt",
+      "status": "Finalized",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "index_Housing_Furnishing_Utility",
+      "type": "ARIMA (3, 1, 4)x(0, 0, 0, 12)",
+      "source_data": "cpi_historical_master.csv",
+      "summary_path": "output/model_summary/cpi_forecast/index_Housing_Furnishing_Utility_summary.txt",
+      "status": "Finalized",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "index_Medical_Personal_Care",
+      "type": "ARIMA (0, 2, 2)x(0, 0, 2, 12)",
+      "source_data": "cpi_historical_master.csv",
+      "summary_path": "output/model_summary/cpi_forecast/index_Medical_Personal_Care_summary.txt",
+      "status": "Finalized",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "index_Transport_Communication_ex_Motor_Fuel",
+      "type": "ARIMA (2, 0, 0)x(0, 0, 0, 12)",
+      "source_data": "cpi_historical_master.csv",
+      "summary_path": "output/model_summary/cpi_forecast/index_Transport_Communication_ex_Motor_Fuel_summary.txt",
+      "status": "Finalized",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "index_Transport_Communication_Motor_Fuel",
+      "type": "ARIMAX (1, 1, 1)x(0, 0, 0, 12)",
+      "source_data": "cpi_historical_master.csv",
+      "summary_path": "output/model_summary/cpi_forecast/index_Transport_Communication_Motor_Fuel_summary.txt",
+      "status": "Finalized",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "index_Recreation_Reading_Education_Religion",
+      "type": "ARIMA (1, 2, 1)x(1, 0, 1, 12)",
+      "source_data": "cpi_historical_master.csv",
+      "summary_path": "output/model_summary/cpi_forecast/index_Recreation_Reading_Education_Religion_summary.txt",
+      "status": "Finalized",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "index_Tobacco_Alcoholic_Beverages",
+      "type": "ARIMA (0, 1, 1)x(0, 0, 0, 12)",
+      "source_data": "cpi_historical_master.csv",
+      "summary_path": "output/model_summary/cpi_forecast/index_Tobacco_Alcoholic_Beverages_summary.txt",
+      "status": "Finalized",
       "last_update": "2026-06-09"
     }
   ],
@@ -1391,6 +1591,134 @@
       "png_path": "output/chart/ex_im_price_forecast/export_import_price_forecast_annual_yoy.png",
       "status": "Rendered",
       "last_update": "2026-06-09"
+    },
+    {
+      "name": "CPI Composite Forecast",
+      "type": "Line Chart",
+      "source_data": "output/data/cpi_forecast/cpi_forecast_monthly.csv",
+      "png_path": "output/chart/cpi_forecast/cpi_composite_forecast.png",
+      "status": "Rendered",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "CPI Core Components Forecast",
+      "type": "Line Chart",
+      "source_data": "output/data/cpi_forecast/cpi_forecast_monthly.csv",
+      "png_path": "output/chart/cpi_forecast/cpi_core_components_forecast.png",
+      "status": "Rendered",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "CPI Non-Core Components Forecast",
+      "type": "Line Chart",
+      "source_data": "output/data/cpi_forecast/cpi_forecast_monthly.csv",
+      "png_path": "output/chart/cpi_forecast/cpi_non_core_components_forecast.png",
+      "status": "Rendered",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "CPI Forecast — Exec Annual",
+      "type": "Mixed",
+      "source_data": "output/data/cpi_forecast/",
+      "png_path": "output/chart/cpi_forecast/chart_exec_annual_growth_bar.png",
+      "status": "Rendered",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "CPI Forecast — Overview Index",
+      "type": "Mixed",
+      "source_data": "output/data/cpi_forecast/",
+      "png_path": "output/chart/cpi_forecast/chart_overview_index_level.png",
+      "status": "Rendered",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "CPI Forecast — Overview Yoy",
+      "type": "Mixed",
+      "source_data": "output/data/cpi_forecast/",
+      "png_path": "output/chart/cpi_forecast/chart_overview_yoy_growth.png",
+      "status": "Rendered",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "CPI Forecast — Weight Pie",
+      "type": "Mixed",
+      "source_data": "output/data/cpi_forecast/",
+      "png_path": "output/chart/cpi_forecast/chart_weight_pie.png",
+      "status": "Rendered",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "CPI Forecast — Contribution Composite",
+      "type": "Mixed",
+      "source_data": "output/data/cpi_forecast/",
+      "png_path": "output/chart/cpi_forecast/chart_contribution_composite.png",
+      "status": "Rendered",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "CPI Forecast — Contribution Component",
+      "type": "Mixed",
+      "source_data": "output/data/cpi_forecast/",
+      "png_path": "output/chart/cpi_forecast/chart_contribution_component.png",
+      "status": "Rendered",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "CPI Forecast — Forecast Monthly Yoy",
+      "type": "Mixed",
+      "source_data": "output/data/cpi_forecast/",
+      "png_path": "output/chart/cpi_forecast/chart_forecast_monthly_composite_yoy.png",
+      "status": "Rendered",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "CPI Forecast — Forecast Quarterly Yoy",
+      "type": "Mixed",
+      "source_data": "output/data/cpi_forecast/",
+      "png_path": "output/chart/cpi_forecast/chart_forecast_quarterly_composite_yoy.png",
+      "status": "Rendered",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "CPI Forecast — Forecast Annual Yoy",
+      "type": "Mixed",
+      "source_data": "output/data/cpi_forecast/",
+      "png_path": "output/chart/cpi_forecast/chart_forecast_annual_composite_yoy.png",
+      "status": "Rendered",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "CPI Forecast — Appendix Weight Comp",
+      "type": "Mixed",
+      "source_data": "output/data/cpi_forecast/",
+      "png_path": "output/chart/cpi_forecast/chart_appendix_weight_area_composite.png",
+      "status": "Rendered",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "CPI Forecast — Appendix Weight Ind",
+      "type": "Mixed",
+      "source_data": "output/data/cpi_forecast/",
+      "png_path": "output/chart/cpi_forecast/chart_appendix_weight_area_component.png",
+      "status": "Rendered",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "CPI Forecast — Appendix Component Yoy",
+      "type": "Mixed",
+      "source_data": "output/data/cpi_forecast/",
+      "png_path": "output/chart/cpi_forecast/chart_appendix_component_yoy.png",
+      "status": "Rendered",
+      "last_update": "2026-06-09"
+    },
+    {
+      "name": "CPI Forecast — Appendix Component Level",
+      "type": "Mixed",
+      "source_data": "output/data/cpi_forecast/",
+      "png_path": "output/chart/cpi_forecast/chart_appendix_component_level.png",
+      "status": "Rendered",
+      "last_update": "2026-06-09"
     }
   ],
   "reports": [
@@ -1504,6 +1832,13 @@
       "author": "Chief Economist",
       "date": "2026-06-09",
       "path": "report/ex_im_price_forecast/ex_im_price_forecast.md",
+      "status": "Published"
+    },
+    {
+      "title": "Thailand CPI Forecasting Report",
+      "author": "Chief Economist",
+      "date": "2026-06-09",
+      "path": "report/cpi_forecast/cpi_forecast.md",
       "status": "Published"
     }
   ]
