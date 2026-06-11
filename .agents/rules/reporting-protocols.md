@@ -47,3 +47,11 @@ To avoid module import conflicts and guarantee the local virtual environment dep
   ```
 * **Numbering**: Figures and Tables are numbered in **two independent sequences** (Figure 1, Figure 2 … and Table 1, Table 2 …), both restarting from 1 in each report document.
 * **No Exceptions**: This rule applies to every report format — pipeline reports, research briefs, model summaries, and ad-hoc outputs alike.
+
+## 7. Table Source Citations — External Placement (Mandatory)
+* **Never** embed the data source as a row inside a table (e.g., a merged `| Source: ... |` last row). Doing so forces an abnormally tall final row and breaks table aesthetics.
+* **Always** place the source attribution **outside and immediately below** the table as a small italic note, using the format:
+  ```
+  *Source: [Organisation / Database name], [Year or date range].*
+  ```
+* This rule applies equally to Markdown (`.md`) and HTML (`.html`) reports.
