@@ -1,33 +1,58 @@
 ---
 name: trade-analyst
-description: Expert in global trade analysis using the GTA database. Use when searching for HS-code descriptions, calculating trade metrics (RCA, market share), or analyzing bilateral trade flows and competitiveness.
+description: >
+  Enables agents to query the Global Trade Atlas (GTA) SQL database and calculate trade competitiveness metrics. Use when analyzing bilateral trade flows, calculating RCA, HHI, and performing growth decomposition.
 ---
 
 # Trade Analyst Skill
 
-## Overview
-This skill empowers the `trade_analyst` to perform high-fidelity trade research using the **Global Trade Atlas (GTA)** database and specialized economic formulas.
+## Purpose
+This skill equips the agent to perform database audits and structural trade competitiveness analysis. It queries regional/partner trade indices using SQL schemas, aggregates classifications, and calculates standardized export growth models.
 
-## Key Workflows
+## Decision Tree: Competitiveness Metrics Selection
+Select the correct trade metric based on the analysis goal:
 
-### 1. GTA Data Exploration
-When queried about trade flows or HS codes, use the schema and SQL patterns defined in [references/gta_reference.md](references/gta_reference.md).
+```
+                            What is the objective of the study?
+                                             │
+                  ┌──────────────────────────┼──────────────────────────┐
+                  ▼                          ▼                          ▼
+      [Assess Supply Risk / Concentration] [Analyze Country Advantage] [Explain Export Growth]
+                  │                          │                          │
+                  ▼                          ▼                          ▼
+     [Herfindahl-Hirschman (HHI)]   [Revealed Comparative (RCA)]  [Constant Market Share (CMSA)]
+```
 
-### 2. Trade Competitiveness Analysis
-*   **RCA (Revealed Comparative Advantage)**: Calculate this to determine if a country has a structural advantage in a product.
-*   **Market Concentration (HHI)**: Use to assess supply chain risk.
-*   **Growth Decomposition**: Analyze if export growth is driven by market share gains or global demand growth.
+1. **Market Concentration (HHI)**:
+   - Use when evaluating import dependencies or supply chain vulnerability.
+   - Formula: $HHI = \sum (s_i)^2$ where $s_i$ is the market share of country $i$.
+2. **Revealed Comparative Advantage (RCA)**:
+   - Use to assess if a country has a comparative export strength in a specific product group.
+   - Formula: $RCA = \frac{X_{c,p} / X_c}{X_{w,p} / X_w}$.
+3. **Growth Decomposition (CMSA)**:
+   - Use when explaining changes in export values over time (decoupling global demand vs. competitiveness).
 
-### 3. Reporting Standards
-*   Always use ISO3 country codes for data processing, but translate to full names in final reports.
-*   Group HS codes into logical clusters (e.g., Electronics, Agri-products) for better synthesis.
-*   Highlight "Top 5" partners or products unless specified otherwise.
+## Execution Protocol
 
-## Specialized Tools
-- **GTA Database**: `database/core/GTA.db`
-- **Metadata**: `meta_hs2` (HS descriptions), `meta_iso` (Country names)
+### Step 1 — Check SQL Database Availability
+* Connect to `database/core/GTA.db` using standard sqlite libraries.
+* Verify availability of metadata tables: `meta_hs2` (HS descriptions) and `meta_iso` (Country descriptors).
 
-## SQL Best Practices for Trade
-*   Always filter by `Year` and `Flow` (Import/Export) to avoid double-counting.
-*   Use `printf('%02d', HS_Code)` to ensure HS2 codes have leading zeros for correct string matching if necessary.
-*   Perform aggregations (SUM) on `Value` when grouping by year or region.
+### Step 2 — Run Queries (Filter Mandate)
+* Always filter SQL queries by `Year` and `Flow` (Import vs. Export) to prevent duplicate sums.
+* Pad HS-codes with leading zeros if they are represented as strings using:
+  ```sql
+  printf('%02d', HS_Code)
+  ```
+
+### Step 3 — Report Generation
+* Group codes into logical aggregates (e.g. Agri-products, Automotive) for high-level brief synthesis.
+* Map ISO3 codes to full country names before rendering tables or text to the user.
+
+## Troubleshooting
+
+| Issue / Error | Cause | Resolution |
+| :--- | :--- | :--- |
+| `Database Locked` | Concurrent process holding file handle on `GTA.db` | Close any open DB visualizers or scripts and retry. |
+| `ZeroDivisionError in RCA` | Global export value for a product is zero or missing | Catch nulls/zeros in the denominator and return an RCA of 0. |
+| `Mismatched ISO3 mapping` | Outdated country code dictionary | Fallback to raw ISO3 code if full name mapping is missing in `meta_iso`. |

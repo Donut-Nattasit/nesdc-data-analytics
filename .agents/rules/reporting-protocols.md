@@ -16,7 +16,7 @@ To avoid module import conflicts and guarantee the local virtual environment dep
 * **Python Path**: Set the environment variable `PYTHONPATH` to `.` (the current directory).
 * **Unified PowerShell Template**:
   ```powershell
-  $env:PYTHONPATH='.'; .\.venv\Scripts\python.exe path/to/script.py
+  $env:PYTHONPATH='.'; $env:PYTHONUTF8='1'; .\.venv\Scripts\python.exe path/to/script.py
   ```
   *(Do NOT wrap the execution in a nested `powershell -Command "..."` string because the workspace shell is already PowerShell. Doing so causes variable expansion and quote escaping errors like parser and terminator failures.)*
 

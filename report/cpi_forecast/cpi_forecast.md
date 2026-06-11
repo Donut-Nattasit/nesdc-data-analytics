@@ -2,7 +2,7 @@
 
 > **Pipeline**: `cpi_forecast` | **Forecast Horizon**: June 2026 – December 2027  
 > **Source**: CEIC API (Thailand NSO CPI Data) | **Model**: auto-ARIMA / ARIMAX  
-> **Generated**: 09 June 2026
+> **Generated**: 11 June 2026
 
 ---
 
@@ -258,8 +258,8 @@ The charts below focus on the composite-level monthly forecast.
 ==============================================================================
 Dep. Variable:                      y   No. Observations:                  605
 Model:               SARIMAX(2, 1, 1)   Log Likelihood                -584.033
-Date:                Tue, 09 Jun 2026   AIC                           1178.066
-Time:                        14:36:37   BIC                           1200.084
+Date:                Thu, 11 Jun 2026   AIC                           1178.066
+Time:                        15:29:32   BIC                           1200.084
 Sample:                    01-01-1976   HQIC                          1186.634
                          - 05-01-2026                                         
 Covariance Type:                  opg                                         
@@ -289,8 +289,8 @@ Warnings:
 ============================================================================================
 Dep. Variable:                                    y   No. Observations:                  605
 Model:             SARIMAX(2, 1, 2)x(1, 0, [1], 12)   Log Likelihood                -556.782
-Date:                              Tue, 09 Jun 2026   AIC                           1129.563
-Time:                                      14:36:54   BIC                           1164.792
+Date:                              Thu, 11 Jun 2026   AIC                           1129.563
+Time:                                      15:29:50   BIC                           1164.792
 Sample:                                  01-01-1976   HQIC                          1143.273
                                        - 05-01-2026                                         
 Covariance Type:                                opg                                         
@@ -323,8 +323,8 @@ Warnings:
 ==========================================================================================
 Dep. Variable:                                  y   No. Observations:                  605
 Model:             SARIMAX(0, 1, 1)x(2, 0, 1, 12)   Log Likelihood                -695.464
-Date:                            Tue, 09 Jun 2026   AIC                           1402.928
-Time:                                    14:37:05   BIC                           1429.350
+Date:                            Thu, 11 Jun 2026   AIC                           1402.928
+Time:                                    15:30:02   BIC                           1429.350
 Sample:                                01-01-1976   HQIC                          1413.211
                                      - 05-01-2026                                         
 Covariance Type:                              opg                                         
@@ -355,8 +355,8 @@ Warnings:
 ==========================================================================================
 Dep. Variable:                                  y   No. Observations:                  605
 Model:             SARIMAX(1, 1, 2)x(1, 0, 2, 12)   Log Likelihood               -1131.594
-Date:                            Tue, 09 Jun 2026   AIC                           2277.189
-Time:                                    14:37:42   BIC                           2308.014
+Date:                            Thu, 11 Jun 2026   AIC                           2277.189
+Time:                                    15:30:43   BIC                           2308.014
 Sample:                                01-01-1976   HQIC                          2289.185
                                      - 05-01-2026                                         
 Covariance Type:                              opg                                         
@@ -388,8 +388,8 @@ Warnings:
 ==========================================================================================
 Dep. Variable:                                  y   No. Observations:                  605
 Model:             SARIMAX(3, 1, 0)x(1, 0, 0, 12)   Log Likelihood                -433.325
-Date:                            Tue, 09 Jun 2026   AIC                            878.651
-Time:                                    14:37:55   BIC                            905.072
+Date:                            Thu, 11 Jun 2026   AIC                            878.651
+Time:                                    15:30:57   BIC                            905.072
 Sample:                                01-01-1976   HQIC                           888.933
                                      - 05-01-2026                                         
 Covariance Type:                              opg                                         
@@ -420,8 +420,8 @@ Warnings:
 ==============================================================================
 Dep. Variable:                      y   No. Observations:                  605
 Model:               SARIMAX(3, 1, 2)   Log Likelihood                -320.841
-Date:                Tue, 09 Jun 2026   AIC                            655.681
-Time:                        14:38:06   BIC                            686.506
+Date:                Thu, 11 Jun 2026   AIC                            655.681
+Time:                        15:31:08   BIC                            686.506
 Sample:                    01-01-1976   HQIC                           667.677
                          - 05-01-2026                                         
 Covariance Type:                  opg                                         
@@ -453,8 +453,8 @@ Warnings:
 ==============================================================================
 Dep. Variable:                      y   No. Observations:                  294
 Model:               SARIMAX(1, 1, 0)   Log Likelihood                -207.263
-Date:                Tue, 09 Jun 2026   AIC                            420.526
-Time:                        14:38:07   BIC                            431.567
+Date:                Thu, 11 Jun 2026   AIC                            420.526
+Time:                        15:31:09   BIC                            431.567
 Sample:                    12-01-2001   HQIC                           424.948
                          - 05-01-2026                                         
 Covariance Type:                  opg                                         
@@ -482,8 +482,8 @@ Warnings:
 ============================================================================================
 Dep. Variable:                                    y   No. Observations:                  605
 Model:             SARIMAX(1, 1, 2)x(1, 0, [1], 12)   Log Likelihood                 -95.507
-Date:                              Tue, 09 Jun 2026   AIC                            205.013
-Time:                                      14:38:32   BIC                            235.838
+Date:                              Thu, 11 Jun 2026   AIC                            205.013
+Time:                                      15:31:36   BIC                            235.838
 Sample:                                  01-01-1976   HQIC                           217.009
                                        - 05-01-2026                                         
 Covariance Type:                                opg                                         
@@ -515,8 +515,8 @@ Warnings:
 ==============================================================================
 Dep. Variable:                      y   No. Observations:                  605
 Model:               SARIMAX(1, 2, 2)   Log Likelihood                 -46.176
-Date:                Tue, 09 Jun 2026   AIC                            100.352
-Time:                        14:38:36   BIC                            117.959
+Date:                Thu, 11 Jun 2026   AIC                            100.352
+Time:                        15:31:40   BIC                            117.959
 Sample:                    01-01-1976   HQIC                           107.205
                          - 05-01-2026                                         
 Covariance Type:                  opg                                         
@@ -545,8 +545,8 @@ Warnings:
 ==============================================================================
 Dep. Variable:                      y   No. Observations:                  233
 Model:               SARIMAX(0, 1, 0)   Log Likelihood                -301.473
-Date:                Tue, 09 Jun 2026   AIC                            604.946
-Time:                        14:38:37   BIC                            608.393
+Date:                Thu, 11 Jun 2026   AIC                            604.946
+Time:                        15:31:41   BIC                            608.393
 Sample:                    01-01-2007   HQIC                           606.336
                          - 05-01-2026                                         
 Covariance Type:                  opg                                         
@@ -572,8 +572,8 @@ Warnings:
 ==============================================================================
 Dep. Variable:                      y   No. Observations:                  605
 Model:               SARIMAX(3, 1, 4)   Log Likelihood               -1406.414
-Date:                Tue, 09 Jun 2026   AIC                           2830.827
-Time:                        14:38:56   BIC                           2870.459
+Date:                Thu, 11 Jun 2026   AIC                           2830.827
+Time:                        15:32:01   BIC                           2870.459
 Sample:                    01-01-1976   HQIC                          2846.251
                          - 05-01-2026                                         
 Covariance Type:                  opg                                         
@@ -607,8 +607,8 @@ Warnings:
 ==========================================================================================
 Dep. Variable:                                  y   No. Observations:                  605
 Model:             SARIMAX(0, 2, 2)x(0, 0, 2, 12)   Log Likelihood                 -11.284
-Date:                            Tue, 09 Jun 2026   AIC                             32.568
-Time:                                    14:39:06   BIC                             54.578
+Date:                            Thu, 11 Jun 2026   AIC                             32.568
+Time:                                    15:32:13   BIC                             54.578
 Sample:                                01-01-1976   HQIC                            41.134
                                      - 05-01-2026                                         
 Covariance Type:                              opg                                         
@@ -638,8 +638,8 @@ Warnings:
 ==============================================================================
 Dep. Variable:                      y   No. Observations:                  233
 Model:               SARIMAX(2, 0, 0)   Log Likelihood                -566.719
-Date:                Tue, 09 Jun 2026   AIC                           1141.437
-Time:                        14:39:09   BIC                           1155.241
+Date:                Thu, 11 Jun 2026   AIC                           1141.437
+Time:                        15:32:16   BIC                           1155.241
 Sample:                    01-01-2007   HQIC                          1147.004
                          - 05-01-2026                                         
 Covariance Type:                  opg                                         
@@ -668,8 +668,8 @@ Warnings:
 ==============================================================================
 Dep. Variable:                      y   No. Observations:                  221
 Model:               SARIMAX(1, 1, 1)   Log Likelihood                -559.240
-Date:                Tue, 09 Jun 2026   AIC                           1126.479
-Time:                        14:39:12   BIC                           1140.054
+Date:                Thu, 11 Jun 2026   AIC                           1126.479
+Time:                        15:32:19   BIC                           1140.054
 Sample:                    01-01-2008   HQIC                          1131.961
                          - 05-01-2026                                         
 Covariance Type:                  opg                                         
@@ -698,8 +698,8 @@ Warnings:
 ==========================================================================================
 Dep. Variable:                                  y   No. Observations:                  605
 Model:             SARIMAX(1, 2, 1)x(1, 0, 1, 12)   Log Likelihood                -541.526
-Date:                            Tue, 09 Jun 2026   AIC                           1093.053
-Time:                                    14:39:39   BIC                           1115.062
+Date:                            Thu, 11 Jun 2026   AIC                           1093.053
+Time:                                    15:32:47   BIC                           1115.062
 Sample:                                01-01-1976   HQIC                          1101.619
                                      - 05-01-2026                                         
 Covariance Type:                              opg                                         
@@ -729,8 +729,8 @@ Warnings:
 ==============================================================================
 Dep. Variable:                      y   No. Observations:                  605
 Model:               SARIMAX(0, 1, 1)   Log Likelihood                -489.607
-Date:                Tue, 09 Jun 2026   AIC                            985.214
-Time:                        14:39:41   BIC                            998.425
+Date:                Thu, 11 Jun 2026   AIC                            985.214
+Time:                        15:32:49   BIC                            998.425
 Sample:                    01-01-1976   HQIC                           990.355
                          - 05-01-2026                                         
 Covariance Type:                  opg                                         

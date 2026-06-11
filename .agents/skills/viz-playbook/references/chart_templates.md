@@ -36,7 +36,7 @@ import matplotlib.pyplot as plt
 from src.visualization.thai_utils import to_thai_year
 
 # Set Thai Font
-plt.rcParams['font.family'] = 'TH Sarabun New'
+plt.rcParams['font.family'] = 'FC Vision'
 plt.rcParams['font.size'] = 16
 
 # Convert years to B.E.

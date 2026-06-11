@@ -32,10 +32,10 @@ from src.utils.registry import add_visualization, add_report
 
 # ── Style constants ───────────────────────────────────────────────────────────
 COMPOSITE_COLORS = {
-    "Headline_CPI":  "#2c3e50",
-    "Core_CPI":      "#2980b9",
-    "Raw_Food_CPI":  "#27ae60",
-    "Energy_CPI":    "#c0392b",
+    "Headline_CPI":  "#00109E",
+    "Core_CPI":      "#60B1E7",
+    "Raw_Food_CPI":  "#BFB997",
+    "Energy_CPI":    "#FFA300",
 }
 COMPOSITE_LABELS = {
     "Headline_CPI": "Headline CPI",
@@ -74,7 +74,7 @@ COMPONENT_GROUPS = {
     "index_Recreation_Reading_Education_Religion":     "Core",
     "index_Tobacco_Alcoholic_Beverages":               "Core",
 }
-GROUP_COLORS = {"Core": "#2980b9", "Raw Food": "#27ae60", "Energy": "#c0392b"}
+GROUP_COLORS = {"Core": "#60B1E7", "Raw Food": "#BFB997", "Energy": "#FFA300"}
 
 WEIGHT_COLS = [c.replace("index_", "weight_") for c in COMPONENT_COLS]
 
@@ -86,8 +86,6 @@ def apply_style(ax):
         ax.spines[sp].set_visible(False)
     ax.spines["left"].set_color("#cccccc")
     ax.spines["bottom"].set_color("#cccccc")
-    ax.text(0.99, 0.01, WATERMARK, transform=ax.transAxes,
-            fontsize=7, color="#7f8c8d", alpha=0.7, ha="right")
 
 def shade_forecast(ax, df_plot, forecast_col="is_forecast"):
     """Draw red dashed separator + grey shading for forecast region."""
@@ -98,17 +96,24 @@ def shade_forecast(ax, df_plot, forecast_col="is_forecast"):
     if pd.isna(fc_start):
         return
     sep = fc_start - pd.Timedelta(days=15)
-    ax.axvline(sep, color="#e74c3c", linestyle="--", linewidth=1.2, alpha=0.8)
+    ax.axvline(sep, color="#FFA300", linestyle="--", linewidth=1.2, alpha=0.8)
     ax.axvspan(sep, df_plot.index.max(), color="#f5f6fa", alpha=0.9, zorder=0)
     ylim = ax.get_ylim()
     y_pos = ylim[0] + (ylim[1] - ylim[0]) * 0.93
     ax.text(fc_start + pd.Timedelta(days=10), y_pos, "FORECAST",
-            color="#e74c3c", fontweight="bold", fontsize=9, alpha=0.8)
+            color="#FFA300", fontweight="bold", fontsize=9, alpha=0.8)
 
-def save(fig, name, tight=True):
+def save(fig, name, tight=True, rect=None):
     path = CHART_DIR / name
     if tight:
-        fig.tight_layout()
+        if rect is not None:
+            fig.tight_layout(rect=rect)
+        elif fig._suptitle is not None:
+            fig.tight_layout(rect=[0, 0.03, 1, 0.95])
+        else:
+            fig.tight_layout()
+    # Add watermark once at the bottom left of the figure outside the axes box
+    fig.text(0.02, 0.015, WATERMARK, fontsize=7.5, color="#7f8c8d", alpha=0.7, ha="left")
     fig.savefig(path, dpi=180)
     plt.close(fig)
     print(f"  [OK] {name}")
@@ -145,18 +150,18 @@ def chart_exec_annual_growth(annual):
     offsets_hist = np.linspace(-0.32, 0.08, len(years_hist))
     offsets_fc   = [0.22, 0.34]
 
-    hist_cmap = plt.get_cmap("Blues")
-    fc_cmap   = [plt.get_cmap("Oranges")(0.5), plt.get_cmap("Oranges")(0.75)]
+    hist_colors = ["#cbd5e1", "#94a3b8", "#64748b", "#334155", "#00109E"]
+    fc_colors   = ["#ffca80", "#FFA300"]
 
     handles = []
     for i, (yr, off) in enumerate(zip(years_hist, offsets_hist)):
-        color = hist_cmap(0.35 + i * 0.13)
+        color = hist_colors[i]
         vals  = [df_hist.loc[yr, c] for c in composites]
         bars  = ax.bar(x + off, vals, width=width, color=color, label=str(yr), zorder=3)
         handles.append(mpatches.Patch(color=color, label=str(yr)))
 
     for i, (yr, off) in enumerate(zip(years_fc, offsets_fc)):
-        color = fc_cmap[i]
+        color = fc_colors[i]
         vals  = [df_fc.loc[yr, c] for c in composites]
         bars  = ax.bar(x + off, vals, width=width, color=color,
                        label=f"{yr} (F)", hatch="//", edgecolor="white", zorder=3)
@@ -184,7 +189,7 @@ def chart_overview_index(monthly):
 
     fig, axes = plt.subplots(4, 1, figsize=(12, 14), dpi=180, sharex=True)
     fig.suptitle("Thailand CPI Monthly Index Level (2021–Latest Actual)",
-                 fontsize=13, fontweight="bold", y=1.001, color="#2c3e50")
+                 fontsize=13, fontweight="bold", y=0.98, color="#2c3e50")
 
     for ax, col in zip(axes, composites):
         color = COMPOSITE_COLORS[col]
@@ -220,7 +225,7 @@ def chart_overview_yoy(monthly):
 
     fig, axes = plt.subplots(4, 1, figsize=(12, 14), dpi=180, sharex=True)
     fig.suptitle("Thailand CPI Monthly YoY Growth (%) (2021–Latest Actual)",
-                 fontsize=13, fontweight="bold", y=1.001, color="#2c3e50")
+                 fontsize=13, fontweight="bold", y=0.98, color="#2c3e50")
 
     for ax, col in zip(axes, composites):
         color = COMPOSITE_COLORS[col]
@@ -384,19 +389,19 @@ def chart_contribution_component(monthly):
 
     hl_yoy = hist["Headline_CPI"].pct_change(12) * 100
     hl_yoy = hl_yoy.loc[yoy_idx.index]
-    ax.plot(xs, hl_yoy, color="#2c3e50", linewidth=2, label="Headline", zorder=5)
-    handles.insert(0, mpatches.Patch(color="#2c3e50", label="Headline CPI (YoY)"))
+    ax.plot(xs, hl_yoy, color="#00109E", linewidth=2, label="Headline", zorder=5)
+    handles.insert(0, mpatches.Patch(color="#00109E", label="Headline CPI (YoY)"))
     ax.axhline(0, color="#7f8c8d", linewidth=0.8)
     ax.set_title("Contribution to Headline CPI Growth (YoY) by Component",
                  fontsize=13, fontweight="bold", pad=12, color="#2c3e50")
     ax.set_ylabel("Contribution (ppt)", fontsize=10, color="#2c3e50")
     ax.xaxis.set_major_locator(mdates.YearLocator())
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
-    ax.legend(handles=handles, loc="upper right", fontsize=7.5,
-              frameon=True, facecolor="white", edgecolor="none",
-              ncol=2, bbox_to_anchor=(1, 1))
+    ax.legend(handles=handles, loc="upper left", bbox_to_anchor=(1.02, 1), fontsize=7.5,
+              frameon=True, facecolor="white", edgecolor="none", ncol=1)
+    fig.subplots_adjust(right=0.78, bottom=0.15, left=0.08, top=0.9)
     apply_style(ax)
-    return save(fig, "chart_contribution_component.png")
+    return save(fig, "chart_contribution_component.png", tight=False)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # CHART 7 — Forecast: Monthly YoY composite (Jan 2026 → Dec 2027)
@@ -545,7 +550,7 @@ def chart_appendix_weight_area_component(monthly):
     print("\n[11] Appendix weight area — component...")
     hist = monthly[monthly["is_forecast"] == 0].copy()
     w_cols = [c for c in WEIGHT_COLS if c in hist.columns]
-    df_w = hist[w_cols].loc["2007":].replace(0, np.nan).dropna(how="all").fillna(method="ffill")
+    df_w = hist[w_cols].loc["2018-01-01":].replace(0, np.nan).dropna(how="all").fillna(method="ffill")
     total = df_w.sum(axis=1).replace(0, np.nan)
     df_pct = df_w.div(total, axis=0) * 100
 
@@ -568,10 +573,11 @@ def chart_appendix_weight_area_component(monthly):
     ax.set_ylabel("Share (%)", fontsize=10, color="#2c3e50")
     ax.xaxis.set_major_locator(mdates.YearLocator(2))
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%Y"))
-    ax.legend(loc="lower right", fontsize=6.5, frameon=True, facecolor="white",
-              edgecolor="none", ncol=2)
+    ax.legend(loc="upper left", bbox_to_anchor=(1.02, 1), fontsize=7, frameon=True, facecolor="white",
+              edgecolor="none", ncol=1)
+    fig.subplots_adjust(right=0.78, bottom=0.15, left=0.08, top=0.9)
     apply_style(ax)
-    return save(fig, "chart_appendix_weight_area_component.png")
+    return save(fig, "chart_appendix_weight_area_component.png", tight=False)
 
 # ─────────────────────────────────────────────────────────────────────────────
 # CHART 12 — Appendix: Component YoY multi-panel
@@ -611,9 +617,9 @@ def chart_appendix_component_yoy(monthly):
         axes[j].set_visible(False)
 
     fig.suptitle("CPI Component YoY Growth (%) — Monthly (2021–Forecast)",
-                 fontsize=13, fontweight="bold", y=1.002, color="#2c3e50")
+                 fontsize=13, fontweight="bold", y=0.96, color="#2c3e50")
     fig.autofmt_xdate(rotation=30)
-    return save(fig, "chart_appendix_component_yoy.png")
+    return save(fig, "chart_appendix_component_yoy.png", rect=[0, 0.03, 1, 0.92])
 
 # ─────────────────────────────────────────────────────────────────────────────
 # CHART 13 — Appendix: Component Index Level multi-panel (with forecast)
@@ -670,9 +676,9 @@ def chart_appendix_component_level(monthly):
         axes[j].set_visible(False)
 
     fig.suptitle("CPI Component Index Level — Monthly (2021–Forecast, dashed)",
-                 fontsize=13, fontweight="bold", y=1.002, color="#2c3e50")
+                 fontsize=13, fontweight="bold", y=0.96, color="#2c3e50")
     fig.autofmt_xdate(rotation=30)
-    return save(fig, "chart_appendix_component_level.png")
+    return save(fig, "chart_appendix_component_level.png", rect=[0, 0.03, 1, 0.92])
 
 # ─────────────────────────────────────────────────────────────────────────────
 # TABLE BUILDERS

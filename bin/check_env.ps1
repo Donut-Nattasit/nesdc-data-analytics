@@ -3,31 +3,27 @@ Write-Host "==========================================" -ForegroundColor Cyan
 Write-Host "   Workspace Environment Quality Check" -ForegroundColor Cyan
 Write-Host "==========================================" -ForegroundColor Cyan
 
-# 1. Run venv resilience check using system Python
-$pythonCmd = "python"
-try {
-    # Test if 'python' works in the path
-    $null = Get-Command python -ErrorAction Stop
-} catch {
-    # If python is not found, try typical AppData location
-    $userProfile = $env:USERPROFILE
-    $localPython = Join-Path $userProfile "AppData\Local\Programs\Python\Python312\python.exe"
-    if (Test-Path $localPython) {
-        $pythonCmd = $localPython
-    } else {
-        # Search for any python.exe under AppData
-        $found = Get-ChildItem -Path (Join-Path $userProfile "AppData\Local\Programs\Python") -Filter "python.exe" -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
-        if ($found) {
-            $pythonCmd = $found.FullName
+# Self-healing: Repair .venv/pyvenv.cfg if username mismatch exists (OneDrive sync resilience)
+$possibleCfgPaths = @(
+    (Join-Path $PSScriptRoot "..\.venv\pyvenv.cfg"),
+    (Join-Path (Get-Location) ".venv\pyvenv.cfg")
+)
+foreach ($path in $possibleCfgPaths) {
+    if (Test-Path $path) {
+        $cfgFile = [System.IO.Path]::GetFullPath($path)
+        $content = Get-Content $cfgFile -Raw
+        $currentUser = $env:USERNAME
+        $newContent = $content -replace "([cC]:[/\\][uU]sers[/\\])([^/\\]+)", "`$1$currentUser"
+        if ($content -ne $newContent) {
+            Set-Content $cfgFile $newContent -NoNewline
+            Write-Host "[Venv Resilience] Repaired virtual environment path in $cfgFile for user: $currentUser" -ForegroundColor Green
         } else {
-            Write-Warning "Could not find global python.exe to run resilience script. Attempting to use virtual environment's python directly..."
-            $pythonCmd = ".\.venv\Scripts\python.exe"
+            Write-Host "[Venv Resilience] Virtual environment path is already correct." -ForegroundColor Green
         }
+        break
     }
 }
 
-Write-Host "Running venv resilience script with: $pythonCmd"
-& $pythonCmd src/api/venv_resilience.py
 
 # 2. Verify venv works now and list main packages
 Write-Host ""

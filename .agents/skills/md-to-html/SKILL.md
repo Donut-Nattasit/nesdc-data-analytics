@@ -1,83 +1,60 @@
 ---
 name: md-to-html
-description: Converts any Markdown report to a portable, self-contained HTML file with base64-embedded images and MathJax math rendering. Invoke this skill whenever the user asks to export, share, or email a .md report as HTML.
+description: >
+  Converts Markdown reports to single, portable, self-contained HTML files with base64-embedded images and MathJax LaTeX math rendering. Use when exporting reports for sharing or email distribution.
 ---
 
-# Skill: Markdown → Self-Contained HTML Export
+# Markdown to HTML Export Skill
 
-## When to Invoke This Skill
+## Purpose
+This skill converts standard markdown reports into portable HTML documents. It embeds all local image assets as base64 data URIs and integrates MathJax v3 for offline/online mathematical equation rendering, resolving broken links in emails or shares.
 
-Trigger this skill automatically when the user says any of the following (or similar intent):
-- "export to HTML", "convert to HTML", "make it self-contained"
-- "email the report", "share the report"
-- "export .md to .html", "HTML version of the report"
+## Decision Tree: Export Output Selection
+Use this logic to define input and output paths for the conversion:
 
-The `@report_writer` agent MUST invoke this skill as the final step after writing any `.md` report, if the user requests an HTML export.
-
-## What the Skill Does
-
-Runs `scripts/md_to_html.py` (inside this skill folder) to produce a **single `.html` file** that:
-
-- **Embeds all chart images as base64** — no relative paths, no broken images when emailed.
-- **Renders LaTeX math** (`$...$` and `$$...$$`) via MathJax v3 CDN — opens in any browser.
-- **Includes clean professional CSS** — paper-style layout, styled tables and headings.
-- **Strips YAML front-matter** — the `---` header block is removed from the HTML output.
-
-## Execution Steps
-
-### Step 1 — Identify paths
-
-| Variable | Value |
-|---|---|
-| `<INPUT_MD>` | Relative path to the source Markdown file (e.g., `report/my_report.md`) |
-| `<OUTPUT_HTML>` | Same path but with `.html` extension (e.g., `report/my_report.html`) |
-
-### Step 2 — Run the converter
-
-Execute from the **workspace root** using the standard Python execution protocol:
-
-```powershell
-$env:PYTHONPATH='.'; .\.venv\Scripts\python.exe .agents/skills/md-to-html/scripts/md_to_html.py <INPUT_MD> <OUTPUT_HTML>
+```
+                            Is the report project-specific?
+                                         │
+                  ┌──────────────────────┴──────────────────────┐
+                  ▼ (Yes)                                       ▼ (No)
+     Input: report/[project_name]/[file].md           Input: report/[file].md
+     Output: report/[project_name]/[file].html        Output: report/[file].html
+                  │                                             │
+                  └──────────────────────┬──────────────────────┘
+                                         ▼
+                            Run Black-Box Python Script
+                        (Embeds base64 charts & MathJax CDN)
 ```
 
-**Example** for `report/Thailand_HHI_Market_Concentration_2566.md`:
+## Execution Protocol
 
-```powershell
-$env:PYTHONPATH='.'; .\.venv\Scripts\python.exe .agents/skills/md-to-html/scripts/md_to_html.py report/Thailand_HHI_Market_Concentration_2566.md report/Thailand_HHI_Market_Concentration_2566.html
-```
+### Step 1 — Check Dependencies
+* Run the validation snippet to ensure the required python libraries (`markdown`, `pymdown-extensions`) are installed:
+  ```powershell
+  $env:PYTHONPATH='.'; .\.venv\Scripts\python.exe -c "import markdown; import pymdownx; print('Dependencies OK')"
+  ```
+* If this command fails, install them:
+  ```powershell
+  $env:PYTHONPATH='.'; .\.venv\Scripts\python.exe -m pip install markdown pymdown-extensions
+  ```
 
-### Step 3 — Verify & Report
+### Step 2 — Execute the Conversion
+* Call the python converter script with the input and output arguments using the relative environment template:
+  ```powershell
+  $env:PYTHONPATH='.'; .\.venv\Scripts\python.exe .agents/skills/md-to-html/scripts/md_to_html.py <INPUT_MD_PATH> <OUTPUT_HTML_PATH>
+  ```
+  *Example*:
+  ```powershell
+  $env:PYTHONPATH='.'; .\.venv\Scripts\python.exe .agents/skills/md-to-html/scripts/md_to_html.py report/energy_price_forecast/energy_price_forecast.md report/energy_price_forecast/energy_price_forecast.html
+  ```
 
-After running, confirm to the user:
-- The output `.html` file path
-- File size in KB
-- Number of images embedded
-- Whether MathJax is included
+### Step 3 — Post-Flight Verification
+* Verify that the generated HTML has base64 data strings instead of relative paths for all visual figures, ensuring it is self-contained.
 
-### Step 4 — Advise the user
+## Troubleshooting
 
-Always close with this advisory note:
-
-> **Email tip**: Attach the `.html` file directly. Your recipient opens it in any browser — no Python, no missing images. MathJax math renders on first open (requires internet); subsequent opens are cached for offline use.
-
-## Error Handling
-
-| Problem | Action |
-|---|---|
-| Image not found (WARN in output) | Report which image path was missing; check `output/chart/` folder exists |
-| `ModuleNotFoundError: markdown` | Run `.\.venv\Scripts\python.exe -m pip install markdown pymdown-extensions` first |
-| Unicode/encoding errors | The script always writes UTF-8; ensure the `.html` is opened as UTF-8 in the email client |
-
-## Dependency Check
-
-Before first run, verify packages are installed:
-
-```powershell
-$env:PYTHONPATH='.'; .\.venv\Scripts\python.exe -c "import markdown; import pymdownx; print('Dependencies OK')"
-```
-
-If the check fails, install:
-
-```powershell
-$env:PYTHONPATH='.'; .\.venv\Scripts\python.exe -m pip install markdown pymdown-extensions
-```
+| Issue / Error | Cause | Resolution |
+| :--- | :--- | :--- |
+| `ModuleNotFoundError: markdown` | Dependencies not installed in the active virtual environment | Run the pip install commands specified in Step 1. |
+| `Warning: Image path not found` | Chart image does not exist at the relative path specified in markdown | Verify that the chart PNG exists in `output/chart/` and is referenced correctly relative to the project root. |
+| `Math equations display raw LaTeX code` | MathJax CDN blocked or offline | Open the HTML file in a browser with active internet connection. On first load, MathJax resources are cached locally. |

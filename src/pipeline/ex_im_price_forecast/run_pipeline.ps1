@@ -9,6 +9,25 @@ Write-Host "==========================================================" -Foregro
 # Set PYTHONPATH to project root to resolve modules correctly
 $env:PYTHONPATH = "..\..\.."
 
+# Self-healing: Repair .venv/pyvenv.cfg if username mismatch exists (OneDrive sync resilience)
+$possibleCfgPaths = @(
+    (Join-Path $PSScriptRoot "..\..\..\.venv\pyvenv.cfg"),
+    (Join-Path (Get-Location) ".venv\pyvenv.cfg")
+)
+foreach ($path in $possibleCfgPaths) {
+    if (Test-Path $path) {
+        $cfgFile = [System.IO.Path]::GetFullPath($path)
+        $content = Get-Content $cfgFile -Raw
+        $currentUser = $env:USERNAME
+        $newContent = $content -replace "([cC]:[/\\][uU]sers[/\\])([^/\\]+)", "`$1$currentUser"
+        if ($content -ne $newContent) {
+            Set-Content $cfgFile $newContent -NoNewline
+            Write-Host "[Venv Resilience] Repaired virtual environment path in $cfgFile for user: $currentUser" -ForegroundColor Green
+        }
+        break
+    }
+}
+
 # Define paths
 $PythonExec = "..\..\..\.venv\Scripts\python.exe"
 $Orchestrator = "orchestrator.py"
