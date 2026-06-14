@@ -26,7 +26,7 @@ def main():
     
     if not data_path.exists():
         print(f"[Error] Forecast dataset not found at: {data_path}")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
         
     # Load Forecast CSV
     df = pd.read_csv(data_path)
@@ -38,7 +38,7 @@ def main():
     
     if df_filtered.empty:
         print("[Error] No data found in specified range. Exiting.")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
         
     # Dynamically find forecast origin
     forecast_origin = df_filtered[df_filtered['dubai_spot'].notna()]['date'].max()

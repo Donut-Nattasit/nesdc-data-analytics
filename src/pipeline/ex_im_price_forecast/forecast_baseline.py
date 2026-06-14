@@ -158,7 +158,7 @@ def main():
     data_path = "output/data/ex_im_price_forecast/export_import_price_monthly_wide.csv"
     if not os.path.exists(data_path):
         print(f"Error: {data_path} not found. Please run prepare_data.py first.")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
         
     df = pd.read_csv(data_path, index_col=0, parse_dates=True)
     df = df.sort_index()

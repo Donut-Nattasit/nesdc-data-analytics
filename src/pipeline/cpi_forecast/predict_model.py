@@ -30,10 +30,10 @@ def main():
     # Check paths
     if not master_path.exists():
         print(f"[FAIL] Historical master dataset not found at: {master_path}")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
     if not dubai_path.exists():
         print(f"[FAIL] Exogenous Dubai crude oil forecast not found at: {dubai_path}")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
         
     # 1. Load historical master data
     df_master = pd.read_csv(master_path, index_col='date', parse_dates=True).sort_index()
@@ -150,7 +150,7 @@ def main():
                 )
             except Exception as e:
                 print(f"  [FAIL] auto_arima failed for {col}: {e}")
-                sys.exit(1)
+                raise RuntimeError("Pipeline step failed")
                 
     # 4. Forecast Weights using Naive method (last value)
     print("\n--- Forecasting Weights (Naive) ---")

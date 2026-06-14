@@ -2,6 +2,7 @@ import os
 import json
 from pathlib import Path
 from datetime import datetime
+from typing import Optional
 
 # Define standard paths
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -179,6 +180,38 @@ def add_report(title, author, path, date=None, status="Published"):
     save_registry(registry)
     print(f"Report '{title}' registered successfully in PROJECT_STATE.json.")
 
+def get_dataset(series_id: str) -> Optional[dict]:
+    """Retrieve dataset metadata by series_id."""
+    registry = load_registry()
+    for d in registry.get("datasets", []):
+        if d.get("series_id") == series_id:
+            return d
+    return None
+
+def get_model(name: str) -> Optional[dict]:
+    """Retrieve model metadata by name."""
+    registry = load_registry()
+    for m in registry.get("models", []):
+        if m.get("name") == name:
+            return m
+    return None
+
+def get_visualization(name: str) -> Optional[dict]:
+    """Retrieve visualization metadata by name."""
+    registry = load_registry()
+    for v in registry.get("visualizations", []):
+        if v.get("name") == name:
+            return v
+    return None
+
+def get_report(title: str) -> Optional[dict]:
+    """Retrieve report metadata by title."""
+    registry = load_registry()
+    for r in registry.get("reports", []):
+        if r.get("title") == title:
+            return r
+    return None
+
 # Kept for backward compatibility if any external legacy process calls sync/init
 def generate_markdown_from_json():
     """No-op for backward compatibility. Markdown view is deprecated."""
@@ -189,7 +222,40 @@ def parse_markdown_to_json():
     pass
 
 if __name__ == "__main__":
+    import argparse
     import sys
+    
     # Initialize registry file if it doesn't exist
     load_registry()
-    print("PROJECT_STATE.json is active and up to date.")
+    
+    parser = argparse.ArgumentParser(description="NESDC Project Registry CLI")
+    subparsers = parser.add_subparsers(dest="command", help="Subcommand to run")
+    
+    # query subcommand
+    query_parser = subparsers.add_parser("query", help="Query the registry for an entry")
+    query_parser.add_argument("--type", choices=["dataset", "model", "visualization", "report"], required=True, help="Type of registry entry")
+    query_parser.add_argument("--id", required=True, help="ID/Name of the entry to search")
+    
+    args = parser.parse_args()
+    
+    if args.command == "query":
+        res = None
+        if args.type == "dataset":
+            res = get_dataset(args.id)
+        elif args.type == "model":
+            res = get_model(args.id)
+        elif args.type == "visualization":
+            res = get_visualization(args.id)
+        elif args.type == "report":
+            res = get_report(args.id)
+            
+        if res:
+            # Print only JSON block
+            print(json.dumps(res, indent=2, ensure_ascii=False))
+            sys.exit(0)
+        else:
+            print(f"Error: {args.type.capitalize()} with ID '{args.id}' not found.", file=sys.stderr)
+            sys.exit(1)
+    else:
+        print("PROJECT_STATE.json is active and up to date.")
+

@@ -24,8 +24,8 @@ def manage_data_lifecycle():
     chart_dir = output_dir / 'chart'
     if chart_dir.exists():
         charts_to_archive = []
-        for file in chart_dir.glob('*.png'):
-            if file.stat().st_mtime < threshold_timestamp:
+        for file in chart_dir.rglob('*.png'):
+            if file.is_file() and file.stat().st_mtime < threshold_timestamp:
                 charts_to_archive.append(file)
                 
         if charts_to_archive:
@@ -34,7 +34,9 @@ def manage_data_lifecycle():
             
             with zipfile.ZipFile(archive_name, 'a', zipfile.ZIP_DEFLATED) as zipf:
                 for file in charts_to_archive:
-                    zipf.write(file, arcname=file.name)
+                    # Preserve subfolder structure in the ZIP archive
+                    arcname = file.relative_to(chart_dir)
+                    zipf.write(file, arcname=arcname)
                     
             # Delete archived charts
             for file in charts_to_archive:
@@ -47,8 +49,8 @@ def manage_data_lifecycle():
     data_dir = output_dir / 'data'
     if data_dir.exists():
         purged_forecasts = 0
-        for file in data_dir.glob('*forecast*'):
-            if file.stat().st_mtime < threshold_timestamp:
+        for file in data_dir.rglob('*forecast*'):
+            if file.is_file() and file.stat().st_mtime < threshold_timestamp:
                 file.unlink()
                 purged_forecasts += 1
         print(f"Purged {purged_forecasts} transient forecast files.")
@@ -57,12 +59,28 @@ def manage_data_lifecycle():
     model_dir = output_dir / 'model_summary'
     if model_dir.exists():
         purged_models = 0
-        for file in model_dir.glob('*.*'):
-            if file.stat().st_mtime < threshold_timestamp:
+        for file in model_dir.rglob('*.*'):
+            if file.is_file() and file.stat().st_mtime < threshold_timestamp:
                 file.unlink()
                 purged_models += 1
         print(f"Purged {purged_models} transient model summaries.")
-        
+
+    # 4. Clean up empty subdirectories
+    print("Cleaning up empty subdirectories...")
+    for d in [chart_dir, data_dir, model_dir]:
+        if d.exists():
+            for root, dirs, files in os.walk(str(d), topdown=False):
+                for name in dirs:
+                    p = Path(root) / name
+                    # Avoid deleting archive folder itself
+                    if p == archive_dir:
+                        continue
+                    if p.exists() and p.is_dir() and not any(p.iterdir()):
+                        try:
+                            p.rmdir()
+                            print(f"Removed empty directory: {p.relative_to(project_root)}")
+                        except Exception as e:
+                            pass
     print("DLM complete.")
 
 if __name__ == "__main__":

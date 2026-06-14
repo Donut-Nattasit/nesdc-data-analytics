@@ -89,7 +89,7 @@ def main():
     
     if not data_path.exists():
         print(f"[FAIL] Ingested forecast data not found at: {data_path}")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
         
     df = pd.read_csv(data_path, index_col='date', parse_dates=True).sort_index()
     

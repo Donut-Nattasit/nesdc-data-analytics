@@ -38,13 +38,13 @@ def main():
             df = session.get_data(["355221677", "520147117", "43155301"])
             if df.empty:
                 print("[Error] Failed to fetch data from CEIC. Exiting.")
-                sys.exit(1)
+                raise RuntimeError("Pipeline step failed")
             # Save raw cache
             raw_path.parent.mkdir(parents=True, exist_ok=True)
             df.to_csv(raw_path, index=False)
         else:
             print("[Error] Failed to authenticate with CEIC. Exiting.")
-            sys.exit(1)
+            raise RuntimeError("Pipeline step failed")
             
     # 2. Filter for weekly series (ID 355221677) and transform
     df['date'] = pd.to_datetime(df['date'])
@@ -52,7 +52,7 @@ def main():
     
     if df_weekly.empty:
         print("[Error] Weekly series 355221677 data not found in cache. Exiting.")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
         
     print(f"Loaded {len(df_weekly)} weekly observations from {df_weekly['date'].min().strftime('%Y-%m-%d')} to {df_weekly['date'].max().strftime('%Y-%m-%d')}.")
     

@@ -156,7 +156,7 @@ def main():
     dubai_path = "output/data/energy_price_forecast/dubai_oil_forecast_production.csv"
     if not os.path.exists(dubai_path):
         print(f"Error: {dubai_path} not found. Please run Dubai Oil forecasts first.")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
         
     df_dubai = pd.read_csv(dubai_path, index_col=0, parse_dates=True).sort_index()
     
@@ -271,7 +271,7 @@ def main():
     forecast_csv_path = "output/data/ex_im_price_forecast/export_import_price_forecast_statsforecast.csv"
     if not os.path.exists(forecast_csv_path):
         print(f"Error: {forecast_csv_path} not found. Please run baseline statsforecast script first.")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
         
     df_fc_wide = pd.read_csv(forecast_csv_path, index_col=0, parse_dates=True)
     

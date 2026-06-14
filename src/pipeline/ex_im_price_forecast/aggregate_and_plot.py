@@ -28,7 +28,7 @@ def main():
     forecast_path = "output/data/ex_im_price_forecast/export_import_price_forecast_statsforecast.csv"
     if not os.path.exists(forecast_path):
         print(f"Error: {forecast_path} not found. Please run the forecasting scripts first.")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
         
     df_fc = pd.read_csv(forecast_path, index_col=0, parse_dates=True).sort_index()
     

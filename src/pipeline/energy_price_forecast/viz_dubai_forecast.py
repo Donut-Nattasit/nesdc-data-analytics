@@ -21,7 +21,7 @@ def main():
     
     if not data_path.exists():
         print(f"[Error] Production forecast dataset not found at: {data_path}")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
         
     df = pd.read_csv(data_path)
     df['date'] = pd.to_datetime(df['date'])

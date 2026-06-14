@@ -172,7 +172,7 @@ def main():
     # ------------------ 3. Merge Datasets ------------------
     if bot_combined.empty and ceic_combined.empty:
         print("Error: Both BOT and CEIC datasets are empty. Aborting.")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
 
     print("\nMerging BOT and CEIC datasets...")
     # Outer join to preserve all date observations, then sort

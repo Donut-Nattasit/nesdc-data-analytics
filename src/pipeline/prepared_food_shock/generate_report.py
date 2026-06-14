@@ -29,7 +29,7 @@ def main():
     if not csv_path.exists():
         print(f"[FAIL] Comparison dataset not found at: {csv_path}")
         print("Please run run_analysis.py first.")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
         
     df = pd.read_csv(csv_path, index_col='date', parse_dates=True).sort_index()
     
@@ -37,7 +37,7 @@ def main():
     csv_annual_path = DATA_DIR / "prepared_food_shock_annual_growth.csv"
     if not csv_annual_path.exists():
         print(f"[FAIL] Annual growth dataset not found at: {csv_annual_path}")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
         
     df_annual = pd.read_csv(csv_annual_path, index_col='year').sort_index()
     

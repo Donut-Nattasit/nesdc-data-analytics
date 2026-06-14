@@ -80,7 +80,7 @@ def main():
     if not cpi_fc_path.exists():
         print(f"[FAIL] Baseline monthly forecast not found at: {cpi_fc_path}")
         print("Please run the cpi_forecast pipeline first.")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
         
     df = pd.read_csv(cpi_fc_path, index_col='date', parse_dates=True).sort_index()
     print(f"Loaded monthly forecast data. Date range: {df.index.min().strftime('%Y-%m-%d')} to {df.index.max().strftime('%Y-%m-%d')}")

@@ -25,7 +25,7 @@ def main():
         run_prep()
     except Exception as e:
         print(f"\n[FAIL] Pipeline failed during Phase 1 (Data Prep): {e}")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
 
     # 2. Run Forecasting & Aggregation
     print("\n>>> Phase 2: Component Forecasting & Aggregation")
@@ -34,7 +34,7 @@ def main():
         run_forecast()
     except Exception as e:
         print(f"\n[FAIL] Pipeline failed during Phase 2 (Forecasting): {e}")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
 
     # 3. Generate Composite / Component Line Charts
     print("\n>>> Phase 3: Chart Generation (Composite & Component Lines)")
@@ -43,7 +43,7 @@ def main():
         run_charts()
     except Exception as e:
         print(f"\n[FAIL] Pipeline failed during Phase 3 (Charts): {e}")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
 
     # 4. Generate Full Report (all remaining charts + Markdown)
     print("\n>>> Phase 4: Report Generation")
@@ -52,7 +52,7 @@ def main():
         run_report()
     except Exception as e:
         print(f"\n[FAIL] Pipeline failed during Phase 4 (Report): {e}")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
 
     duration = time.time() - start_time
     print("\n==========================================================")

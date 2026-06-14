@@ -11,4 +11,10 @@ vl-convert-python
 altair
 tabulate
 plotly
-
+matplotlib
+seaborn
+openpyxl
+Markdown
+pymdown-extensions
+kaleido
+python-docx

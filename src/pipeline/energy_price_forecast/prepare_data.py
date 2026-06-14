@@ -21,7 +21,7 @@ def main():
     
     if not excel_path.exists():
         print(f"[Error] Excel file not found at: {excel_path}")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
         
     # 1. Ingest Spot Dubai Prices
     print("\n[Step 1] Ingesting Spot Dubai Prices...")

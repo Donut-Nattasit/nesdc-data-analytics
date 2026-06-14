@@ -403,7 +403,7 @@
       "transformed_path": "output/data/energy_price_forecast/dubai_oil_master.csv",
       "forecast_path": "",
       "status": "Ready",
-      "last_update": "2026-06-09"
+      "last_update": "2026-06-14"
     },
     {
       "series_id": "Dubai Crude Production Forecast",
@@ -412,7 +412,7 @@
       "transformed_path": "",
       "forecast_path": "output/data/energy_price_forecast/dubai_oil_forecast_production.csv",
       "status": "Finalized",
-      "last_update": "2026-06-09"
+      "last_update": "2026-06-14"
     },
     {
       "series_id": "EIA STEO World Petroleum Balance Monthly",
@@ -583,7 +583,7 @@
       "transformed_path": "output/data/cpi_forecast/cpi_historical_master.csv",
       "forecast_path": "",
       "status": "Ready",
-      "last_update": "2026-06-11"
+      "last_update": "2026-06-14"
     },
     {
       "series_id": "CPI Forecast Monthly",
@@ -592,7 +592,7 @@
       "transformed_path": "output/data/cpi_forecast/cpi_forecast_monthly.csv",
       "forecast_path": "output/data/cpi_forecast/cpi_forecast_monthly.csv",
       "status": "Finalized",
-      "last_update": "2026-06-11"
+      "last_update": "2026-06-14"
     },
     {
       "series_id": "CPI Forecast Quarterly",
@@ -601,7 +601,7 @@
       "transformed_path": "output/data/cpi_forecast/cpi_forecast_quarterly.csv",
       "forecast_path": "output/data/cpi_forecast/cpi_forecast_quarterly.csv",
       "status": "Finalized",
-      "last_update": "2026-06-11"
+      "last_update": "2026-06-14"
     },
     {
       "series_id": "CPI Forecast Annual",
@@ -610,7 +610,7 @@
       "transformed_path": "output/data/cpi_forecast/cpi_forecast_annual.csv",
       "forecast_path": "output/data/cpi_forecast/cpi_forecast_annual.csv",
       "status": "Finalized",
-      "last_update": "2026-06-11"
+      "last_update": "2026-06-14"
     },
     {
       "series_id": "hhi_tsic4",
@@ -640,58 +640,13 @@
       "last_update": "2026-06-11"
     },
     {
-      "series_id": "taiwan_top_exports_2025",
-      "source": "Global Trade Atlas (GTA) SQL Database",
-      "raw_path": "",
-      "transformed_path": "output/data/taiwan_blockade_impact/taiwan_top_exports_2025.csv",
-      "forecast_path": "",
-      "status": "Ready",
-      "last_update": "2026-06-11"
-    },
-    {
-      "series_id": "th_bilateral_exposure_2025",
-      "source": "Global Trade Atlas (GTA) SQL Database",
-      "raw_path": "",
-      "transformed_path": "output/data/taiwan_blockade_impact/th_bilateral_exposure_2025.csv",
-      "forecast_path": "",
-      "status": "Ready",
-      "last_update": "2026-06-11"
-    },
-    {
-      "series_id": "th_electronics_imports_2025",
-      "source": "Global Trade Atlas (GTA) SQL Database",
-      "raw_path": "",
-      "transformed_path": "output/data/taiwan_blockade_impact/th_electronics_imports_2025.csv",
-      "forecast_path": "",
-      "status": "Ready",
-      "last_update": "2026-06-11"
-    },
-    {
-      "series_id": "th_automotive_imports_2025",
-      "source": "Global Trade Atlas (GTA) SQL Database",
-      "raw_path": "",
-      "transformed_path": "output/data/taiwan_blockade_impact/th_automotive_imports_2025.csv",
-      "forecast_path": "",
-      "status": "Ready",
-      "last_update": "2026-06-11"
-    },
-    {
-      "series_id": "th_automotive_exports_2025",
-      "source": "Global Trade Atlas (GTA) SQL Database",
-      "raw_path": "",
-      "transformed_path": "output/data/taiwan_blockade_impact/th_automotive_exports_2025.csv",
-      "forecast_path": "",
-      "status": "Ready",
-      "last_update": "2026-06-11"
-    },
-    {
       "series_id": "Prepared Food CPI Shock Scenario Comparison",
       "source": "MOC & NESDC Geopolitical Shock Simulation",
       "raw_path": "output/data/cpi_forecast/cpi_forecast_monthly.csv",
       "transformed_path": "output/data/prepared_food_shock/prepared_food_shock_comparison.csv",
       "forecast_path": "",
       "status": "Ready",
-      "last_update": "2026-06-11"
+      "last_update": "2026-06-14"
     },
     {
       "series_id": "Prepared Food CPI Shock Annual Growth Comparison",
@@ -700,25 +655,7 @@
       "transformed_path": "output/data/prepared_food_shock/prepared_food_shock_annual_growth.csv",
       "forecast_path": "",
       "status": "Ready",
-      "last_update": "2026-06-11"
-    },
-    {
-      "series_id": "th_detailed_auto_subsectors",
-      "source": "DBD Firm Registry SQL Database",
-      "raw_path": "output/data/taiwan_blockade_impact/th_detailed_auto_subsectors.csv",
-      "transformed_path": "",
-      "forecast_path": "",
-      "status": "Ready",
-      "last_update": "2026-06-11"
-    },
-    {
-      "series_id": "th_auto_firms_summary",
-      "source": "DBD Firm Registry SQL Database",
-      "raw_path": "output/data/taiwan_blockade_impact/th_auto_firms_summary.csv",
-      "transformed_path": "",
-      "forecast_path": "",
-      "status": "Ready",
-      "last_update": "2026-06-11"
+      "last_update": "2026-06-14"
     },
     {
       "series_id": "CPI Forecasting Historical Master Wide (LR)",
@@ -952,131 +889,131 @@
     },
     {
       "name": "index_Rice_Flour_Cereal",
-      "type": "ARIMA (2, 1, 1)x(0, 0, 0, 12) (LR)",
+      "type": "ARIMA (2, 1, 1)x(0, 0, 0, 12)",
       "source_data": "cpi_historical_master.csv",
-      "summary_path": "output/model_summary/energy_price_forecast_LR/index_Rice_Flour_Cereal_summary.txt",
+      "summary_path": "output/model_summary/cpi_forecast/index_Rice_Flour_Cereal_summary.txt",
       "status": "Finalized",
-      "last_update": "2026-06-12"
+      "last_update": "2026-06-14"
     },
     {
       "name": "index_Meats_Poultry_Fish",
-      "type": "ARIMA (2, 1, 2)x(1, 0, 1, 12) (LR)",
+      "type": "ARIMA (2, 1, 2)x(1, 0, 1, 12)",
       "source_data": "cpi_historical_master.csv",
-      "summary_path": "output/model_summary/energy_price_forecast_LR/index_Meats_Poultry_Fish_summary.txt",
+      "summary_path": "output/model_summary/cpi_forecast/index_Meats_Poultry_Fish_summary.txt",
       "status": "Finalized",
-      "last_update": "2026-06-12"
+      "last_update": "2026-06-14"
     },
     {
       "name": "index_Eggs_Dairy_Products",
-      "type": "ARIMA (0, 1, 1)x(2, 0, 1, 12) (LR)",
+      "type": "ARIMA (0, 1, 1)x(2, 0, 1, 12)",
       "source_data": "cpi_historical_master.csv",
-      "summary_path": "output/model_summary/energy_price_forecast_LR/index_Eggs_Dairy_Products_summary.txt",
+      "summary_path": "output/model_summary/cpi_forecast/index_Eggs_Dairy_Products_summary.txt",
       "status": "Finalized",
-      "last_update": "2026-06-12"
+      "last_update": "2026-06-14"
     },
     {
       "name": "index_Vegetables_Fruits",
-      "type": "ARIMA (1, 1, 2)x(1, 0, 2, 12) (LR)",
+      "type": "ARIMA (1, 1, 2)x(1, 0, 2, 12)",
       "source_data": "cpi_historical_master.csv",
-      "summary_path": "output/model_summary/energy_price_forecast_LR/index_Vegetables_Fruits_summary.txt",
+      "summary_path": "output/model_summary/cpi_forecast/index_Vegetables_Fruits_summary.txt",
       "status": "Finalized",
-      "last_update": "2026-06-12"
+      "last_update": "2026-06-14"
     },
     {
       "name": "index_Seasoning_Condiments",
-      "type": "ARIMA (3, 1, 0)x(1, 0, 0, 12) (LR)",
+      "type": "ARIMA (3, 1, 0)x(1, 0, 0, 12)",
       "source_data": "cpi_historical_master.csv",
-      "summary_path": "output/model_summary/energy_price_forecast_LR/index_Seasoning_Condiments_summary.txt",
+      "summary_path": "output/model_summary/cpi_forecast/index_Seasoning_Condiments_summary.txt",
       "status": "Finalized",
-      "last_update": "2026-06-12"
+      "last_update": "2026-06-14"
     },
     {
       "name": "index_Non_Alcoholic_Beverages",
-      "type": "ARIMA (3, 1, 2)x(0, 0, 0, 12) (LR)",
+      "type": "ARIMA (3, 1, 2)x(0, 0, 0, 12)",
       "source_data": "cpi_historical_master.csv",
-      "summary_path": "output/model_summary/energy_price_forecast_LR/index_Non_Alcoholic_Beverages_summary.txt",
+      "summary_path": "output/model_summary/cpi_forecast/index_Non_Alcoholic_Beverages_summary.txt",
       "status": "Finalized",
-      "last_update": "2026-06-12"
+      "last_update": "2026-06-14"
     },
     {
       "name": "index_Sugar_Product",
-      "type": "ARIMA (1, 1, 0)x(0, 0, 0, 12) (LR)",
+      "type": "ARIMA (1, 1, 0)x(0, 0, 0, 12)",
       "source_data": "cpi_historical_master.csv",
-      "summary_path": "output/model_summary/energy_price_forecast_LR/index_Sugar_Product_summary.txt",
+      "summary_path": "output/model_summary/cpi_forecast/index_Sugar_Product_summary.txt",
       "status": "Finalized",
-      "last_update": "2026-06-12"
+      "last_update": "2026-06-14"
     },
     {
       "name": "index_Prepared_Food",
-      "type": "ARIMA (1, 1, 2)x(1, 0, 1, 12) (LR)",
+      "type": "ARIMA (1, 1, 2)x(1, 0, 1, 12)",
       "source_data": "cpi_historical_master.csv",
-      "summary_path": "output/model_summary/energy_price_forecast_LR/index_Prepared_Food_summary.txt",
+      "summary_path": "output/model_summary/cpi_forecast/index_Prepared_Food_summary.txt",
       "status": "Finalized",
-      "last_update": "2026-06-12"
+      "last_update": "2026-06-14"
     },
     {
       "name": "index_Apparel_Footwears",
-      "type": "ARIMA (1, 2, 2)x(0, 0, 0, 12) (LR)",
+      "type": "ARIMA (1, 2, 2)x(0, 0, 0, 12)",
       "source_data": "cpi_historical_master.csv",
-      "summary_path": "output/model_summary/energy_price_forecast_LR/index_Apparel_Footwears_summary.txt",
+      "summary_path": "output/model_summary/cpi_forecast/index_Apparel_Footwears_summary.txt",
       "status": "Finalized",
-      "last_update": "2026-06-12"
+      "last_update": "2026-06-14"
     },
     {
       "name": "index_Housing_Furnishing_ex_Utility",
-      "type": "ARIMA (0, 1, 0)x(0, 0, 0, 12) (LR)",
+      "type": "ARIMA (0, 1, 0)x(0, 0, 0, 12)",
       "source_data": "cpi_historical_master.csv",
-      "summary_path": "output/model_summary/energy_price_forecast_LR/index_Housing_Furnishing_ex_Utility_summary.txt",
+      "summary_path": "output/model_summary/cpi_forecast/index_Housing_Furnishing_ex_Utility_summary.txt",
       "status": "Finalized",
-      "last_update": "2026-06-12"
+      "last_update": "2026-06-14"
     },
     {
       "name": "index_Housing_Furnishing_Utility",
-      "type": "ARIMA (3, 1, 4)x(0, 0, 0, 12) (LR)",
+      "type": "ARIMA (3, 1, 4)x(0, 0, 0, 12)",
       "source_data": "cpi_historical_master.csv",
-      "summary_path": "output/model_summary/energy_price_forecast_LR/index_Housing_Furnishing_Utility_summary.txt",
+      "summary_path": "output/model_summary/cpi_forecast/index_Housing_Furnishing_Utility_summary.txt",
       "status": "Finalized",
-      "last_update": "2026-06-12"
+      "last_update": "2026-06-14"
     },
     {
       "name": "index_Medical_Personal_Care",
-      "type": "ARIMA (0, 2, 2)x(0, 0, 2, 12) (LR)",
+      "type": "ARIMA (0, 2, 2)x(0, 0, 2, 12)",
       "source_data": "cpi_historical_master.csv",
-      "summary_path": "output/model_summary/energy_price_forecast_LR/index_Medical_Personal_Care_summary.txt",
+      "summary_path": "output/model_summary/cpi_forecast/index_Medical_Personal_Care_summary.txt",
       "status": "Finalized",
-      "last_update": "2026-06-12"
+      "last_update": "2026-06-14"
     },
     {
       "name": "index_Transport_Communication_ex_Motor_Fuel",
-      "type": "ARIMA (2, 0, 0)x(0, 0, 0, 12) (LR)",
+      "type": "ARIMA (2, 0, 0)x(0, 0, 0, 12)",
       "source_data": "cpi_historical_master.csv",
-      "summary_path": "output/model_summary/energy_price_forecast_LR/index_Transport_Communication_ex_Motor_Fuel_summary.txt",
+      "summary_path": "output/model_summary/cpi_forecast/index_Transport_Communication_ex_Motor_Fuel_summary.txt",
       "status": "Finalized",
-      "last_update": "2026-06-12"
+      "last_update": "2026-06-14"
     },
     {
       "name": "index_Transport_Communication_Motor_Fuel",
-      "type": "ARIMAX (1, 1, 1)x(0, 0, 0, 12) (LR)",
+      "type": "ARIMAX (1, 1, 1)x(0, 0, 0, 12)",
       "source_data": "cpi_historical_master.csv",
-      "summary_path": "output/model_summary/energy_price_forecast_LR/index_Transport_Communication_Motor_Fuel_summary.txt",
+      "summary_path": "output/model_summary/cpi_forecast/index_Transport_Communication_Motor_Fuel_summary.txt",
       "status": "Finalized",
-      "last_update": "2026-06-12"
+      "last_update": "2026-06-14"
     },
     {
       "name": "index_Recreation_Reading_Education_Religion",
-      "type": "ARIMA (1, 2, 1)x(1, 0, 1, 12) (LR)",
+      "type": "ARIMA (1, 2, 1)x(1, 0, 1, 12)",
       "source_data": "cpi_historical_master.csv",
-      "summary_path": "output/model_summary/energy_price_forecast_LR/index_Recreation_Reading_Education_Religion_summary.txt",
+      "summary_path": "output/model_summary/cpi_forecast/index_Recreation_Reading_Education_Religion_summary.txt",
       "status": "Finalized",
-      "last_update": "2026-06-12"
+      "last_update": "2026-06-14"
     },
     {
       "name": "index_Tobacco_Alcoholic_Beverages",
-      "type": "ARIMA (0, 1, 1)x(0, 0, 0, 12) (LR)",
+      "type": "ARIMA (0, 1, 1)x(0, 0, 0, 12)",
       "source_data": "cpi_historical_master.csv",
-      "summary_path": "output/model_summary/energy_price_forecast_LR/index_Tobacco_Alcoholic_Beverages_summary.txt",
+      "summary_path": "output/model_summary/cpi_forecast/index_Tobacco_Alcoholic_Beverages_summary.txt",
       "status": "Finalized",
-      "last_update": "2026-06-12"
+      "last_update": "2026-06-14"
     }
   ],
   "visualizations": [
@@ -1526,7 +1463,7 @@
       "source_data": "output/data/energy_price_forecast/dubai_oil_forecast_production.csv",
       "png_path": "output/chart/energy_price_forecast/dubai_oil_global_oil_prices_comparison.png",
       "status": "Rendered",
-      "last_update": "2026-06-09"
+      "last_update": "2026-06-14"
     },
     {
       "name": "U.S. Crude Oil Production and Plateau Phase",
@@ -1742,7 +1679,7 @@
       "source_data": "output/data/cpi_forecast/cpi_forecast_monthly.csv",
       "png_path": "output/chart/cpi_forecast/cpi_composite_forecast.png",
       "status": "Rendered",
-      "last_update": "2026-06-11"
+      "last_update": "2026-06-14"
     },
     {
       "name": "CPI Core Components Forecast",
@@ -1750,7 +1687,7 @@
       "source_data": "output/data/cpi_forecast/cpi_forecast_monthly.csv",
       "png_path": "output/chart/cpi_forecast/cpi_core_components_forecast.png",
       "status": "Rendered",
-      "last_update": "2026-06-11"
+      "last_update": "2026-06-14"
     },
     {
       "name": "CPI Non-Core Components Forecast",
@@ -1758,7 +1695,7 @@
       "source_data": "output/data/cpi_forecast/cpi_forecast_monthly.csv",
       "png_path": "output/chart/cpi_forecast/cpi_non_core_components_forecast.png",
       "status": "Rendered",
-      "last_update": "2026-06-11"
+      "last_update": "2026-06-14"
     },
     {
       "name": "CPI Forecast — Exec Annual",
@@ -1766,7 +1703,7 @@
       "source_data": "output/data/cpi_forecast/",
       "png_path": "output/chart/cpi_forecast/chart_exec_annual_growth_bar.png",
       "status": "Rendered",
-      "last_update": "2026-06-11"
+      "last_update": "2026-06-14"
     },
     {
       "name": "CPI Forecast — Overview Index",
@@ -1774,7 +1711,7 @@
       "source_data": "output/data/cpi_forecast/",
       "png_path": "output/chart/cpi_forecast/chart_overview_index_level.png",
       "status": "Rendered",
-      "last_update": "2026-06-11"
+      "last_update": "2026-06-14"
     },
     {
       "name": "CPI Forecast — Overview Yoy",
@@ -1782,7 +1719,7 @@
       "source_data": "output/data/cpi_forecast/",
       "png_path": "output/chart/cpi_forecast/chart_overview_yoy_growth.png",
       "status": "Rendered",
-      "last_update": "2026-06-11"
+      "last_update": "2026-06-14"
     },
     {
       "name": "CPI Forecast — Weight Pie",
@@ -1790,7 +1727,7 @@
       "source_data": "output/data/cpi_forecast/",
       "png_path": "output/chart/cpi_forecast/chart_weight_pie.png",
       "status": "Rendered",
-      "last_update": "2026-06-11"
+      "last_update": "2026-06-14"
     },
     {
       "name": "CPI Forecast — Contribution Composite",
@@ -1798,7 +1735,7 @@
       "source_data": "output/data/cpi_forecast/",
       "png_path": "output/chart/cpi_forecast/chart_contribution_composite.png",
       "status": "Rendered",
-      "last_update": "2026-06-11"
+      "last_update": "2026-06-14"
     },
     {
       "name": "CPI Forecast — Contribution Component",
@@ -1806,7 +1743,7 @@
       "source_data": "output/data/cpi_forecast/",
       "png_path": "output/chart/cpi_forecast/chart_contribution_component.png",
       "status": "Rendered",
-      "last_update": "2026-06-11"
+      "last_update": "2026-06-14"
     },
     {
       "name": "CPI Forecast — Forecast Monthly Yoy",
@@ -1814,7 +1751,7 @@
       "source_data": "output/data/cpi_forecast/",
       "png_path": "output/chart/cpi_forecast/chart_forecast_monthly_composite_yoy.png",
       "status": "Rendered",
-      "last_update": "2026-06-11"
+      "last_update": "2026-06-14"
     },
     {
       "name": "CPI Forecast — Forecast Quarterly Yoy",
@@ -1822,7 +1759,7 @@
       "source_data": "output/data/cpi_forecast/",
       "png_path": "output/chart/cpi_forecast/chart_forecast_quarterly_composite_yoy.png",
       "status": "Rendered",
-      "last_update": "2026-06-11"
+      "last_update": "2026-06-14"
     },
     {
       "name": "CPI Forecast — Forecast Annual Yoy",
@@ -1830,7 +1767,7 @@
       "source_data": "output/data/cpi_forecast/",
       "png_path": "output/chart/cpi_forecast/chart_forecast_annual_composite_yoy.png",
       "status": "Rendered",
-      "last_update": "2026-06-11"
+      "last_update": "2026-06-14"
     },
     {
       "name": "CPI Forecast — Appendix Weight Comp",
@@ -1838,7 +1775,7 @@
       "source_data": "output/data/cpi_forecast/",
       "png_path": "output/chart/cpi_forecast/chart_appendix_weight_area_composite.png",
       "status": "Rendered",
-      "last_update": "2026-06-11"
+      "last_update": "2026-06-14"
     },
     {
       "name": "CPI Forecast — Appendix Weight Ind",
@@ -1846,7 +1783,7 @@
       "source_data": "output/data/cpi_forecast/",
       "png_path": "output/chart/cpi_forecast/chart_appendix_weight_area_component.png",
       "status": "Rendered",
-      "last_update": "2026-06-11"
+      "last_update": "2026-06-14"
     },
     {
       "name": "CPI Forecast — Appendix Component Yoy",
@@ -1854,7 +1791,7 @@
       "source_data": "output/data/cpi_forecast/",
       "png_path": "output/chart/cpi_forecast/chart_appendix_component_yoy.png",
       "status": "Rendered",
-      "last_update": "2026-06-11"
+      "last_update": "2026-06-14"
     },
     {
       "name": "CPI Forecast — Appendix Component Level",
@@ -1862,31 +1799,7 @@
       "source_data": "output/data/cpi_forecast/",
       "png_path": "output/chart/cpi_forecast/chart_appendix_component_level.png",
       "status": "Rendered",
-      "last_update": "2026-06-11"
-    },
-    {
-      "name": "taiwan_blockade_trade_exposure",
-      "type": "Grouped Bar Chart",
-      "source_data": "th_bilateral_exposure_2025",
-      "png_path": "output/chart/taiwan_blockade_impact/trade_exposure.png",
-      "status": "Rendered",
-      "last_update": "2026-06-11"
-    },
-    {
-      "name": "taiwan_blockade_electronics_dependency",
-      "type": "Horizontal Bar Chart",
-      "source_data": "th_electronics_imports_2025",
-      "png_path": "output/chart/taiwan_blockade_impact/electronics_dependency.png",
-      "status": "Rendered",
-      "last_update": "2026-06-11"
-    },
-    {
-      "name": "taiwan_blockade_automotive_mapping",
-      "type": "Dual Horizontal Bar Chart",
-      "source_data": "th_automotive_imports_2025, th_automotive_exports_2025",
-      "png_path": "output/chart/taiwan_blockade_impact/automotive_mapping.png",
-      "status": "Rendered",
-      "last_update": "2026-06-11"
+      "last_update": "2026-06-14"
     },
     {
       "name": "Prepared Food Index Comparison",
@@ -1894,7 +1807,7 @@
       "source_data": "prepared_food_shock_comparison.csv",
       "png_path": "output/chart/prepared_food_shock/prepared_food_index_comparison.png",
       "status": "Rendered",
-      "last_update": "2026-06-11"
+      "last_update": "2026-06-14"
     },
     {
       "name": "Prepared Food YoY Comparison",
@@ -1902,7 +1815,7 @@
       "source_data": "prepared_food_shock_comparison.csv",
       "png_path": "output/chart/prepared_food_shock/prepared_food_yoy_comparison.png",
       "status": "Rendered",
-      "last_update": "2026-06-11"
+      "last_update": "2026-06-14"
     },
     {
       "name": "CPI Aggregates YoY Comparison",
@@ -1910,15 +1823,7 @@
       "source_data": "prepared_food_shock_comparison.csv",
       "png_path": "output/chart/prepared_food_shock/cpi_aggregates_yoy_comparison.png",
       "status": "Rendered",
-      "last_update": "2026-06-11"
-    },
-    {
-      "name": "automotive_subsectors_revenue",
-      "type": "Horizontal Bar Chart",
-      "source_data": "th_detailed_auto_subsectors",
-      "png_path": "output/chart/taiwan_blockade_impact/automotive_subsectors_revenue.png",
-      "status": "Rendered",
-      "last_update": "2026-06-11"
+      "last_update": "2026-06-14"
     },
     {
       "name": "CPI Composite Forecast (LR)",
@@ -2159,7 +2064,7 @@
     {
       "title": "Dubai Oil Price Forecast Report (2026-2027)",
       "author": "Chief Economist",
-      "date": "2026-06-09",
+      "date": "2026-06-14",
       "path": "report/energy_price_forecast/energy_price_forecast.md",
       "status": "Published"
     },
@@ -2173,7 +2078,7 @@
     {
       "title": "Thailand CPI Forecasting Report",
       "author": "Chief Economist",
-      "date": "2026-06-11",
+      "date": "2026-06-14",
       "path": "report/cpi_forecast/cpi_forecast.md",
       "status": "Published"
     },
@@ -2185,23 +2090,9 @@
       "status": "Published"
     },
     {
-      "title": "Special Economic Brief: Geopolitical Disruption Scenario: Naval Blockade of Taiwan and Impact on Thailand's Trade and Supply Chains",
-      "author": "Chief Economist, NESDC",
-      "date": "2026-06-11",
-      "path": "report/taiwan_blockade_impact/taiwan_blockade_impact.md",
-      "status": "Published"
-    },
-    {
-      "title": "Special Economic Brief HTML: Geopolitical Disruption Scenario: Naval Blockade of Taiwan and Impact on Thailand's Trade and Supply Chains",
-      "author": "Chief Economist, NESDC",
-      "date": "2026-06-11",
-      "path": "report/taiwan_blockade_impact/taiwan_blockade_impact.html",
-      "status": "Published"
-    },
-    {
       "title": "Prepared Food Price Shock Scenario Analysis (Iran War)",
       "author": "Chief Economist & Report Writer",
-      "date": "2026-06-11",
+      "date": "2026-06-14",
       "path": "report/prepared_food_shock/prepared_food_shock.md",
       "status": "Published"
     },
@@ -2210,20 +2101,6 @@
       "author": "Chief Economist & Report Writer",
       "date": "2026-06-11",
       "path": "report/prepared_food_shock/prepared_food_shock.html",
-      "status": "Published"
-    },
-    {
-      "title": "Economic Dependencies Mitigation: Automotive Exports Group Brief",
-      "author": "Automotive Exports Group",
-      "date": "2026-06-11",
-      "path": "report/taiwan_blockade_impact/automotive_exports_brief.md",
-      "status": "Published"
-    },
-    {
-      "title": "Special Economic Brief: Geopolitical Risk Analysis (Taiwan Blockade)",
-      "author": "Chief Economist, NESDC",
-      "date": "2026-06-11",
-      "path": "report/taiwan_blockade_impact/taiwan_blockade_impact.md",
       "status": "Published"
     },
     {

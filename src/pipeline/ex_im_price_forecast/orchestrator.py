@@ -8,40 +8,14 @@ import json
 if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8')
 
-def run_script(script_path: Path, python_path: str, venv_python: Path) -> bool:
-    """Run a python script in a clean subprocess with PYTHONPATH configured."""
-    print(f"\n[Running] {script_path.name}...")
-    
-    env = os.environ.copy()
-    env["PYTHONPATH"] = python_path
-    
-    try:
-        res = subprocess.run(
-            [str(venv_python), str(script_path)],
-            env=env,
-            cwd=python_path,
-            capture_output=True,
-            text=True,
-            encoding='utf-8'
-        )
-        if res.returncode == 0:
-            print(f"✅ [Success] {script_path.name}")
-            # Print last few lines of output
-            lines = res.stdout.strip().split('\n')
-            last_lines = [l for l in lines[-4:] if l]
-            for l in last_lines:
-                print(f"   > {l}")
-            return True
-        else:
-            print(f"❌ [Failed] {script_path.name} (Exit code: {res.returncode})")
-            print("--- Standard Error Output ---")
-            print(res.stderr)
-            print("--- Standard Output ---")
-            print(res.stdout)
-            return False
-    except Exception as e:
-        print(f"❌ [Exception] Failed to run {script_path.name}: {e}")
-        return False
+from src.pipeline.ex_im_price_forecast import (
+    prepare_data,
+    plot_charts,
+    forecast_statsforecast,
+    forecast_exogenous,
+    aggregate_and_plot,
+    resample_forecasts
+)
 
 def main():
     print("======================================================================")
@@ -49,45 +23,40 @@ def main():
     print("======================================================================")
     
     project_root = Path(__file__).resolve().parent.parent.parent.parent
-    venv_python = project_root / ".venv" / "Scripts" / "python.exe"
-    
-    if not venv_python.exists():
-        print(f"[Error] Virtual environment python not found at: {venv_python}")
-        sys.exit(1)
-        
     print(f"Project Root: {project_root}")
-    print(f"Venv Python:  {venv_python}")
-    
-    pipeline_dir = project_root / "src" / "pipeline" / "ex_im_price_forecast"
     
     steps = [
         # Phase 1: Data Acquisition & Preprocessing
-        {"name": "Data Preparation & Ingestion", "path": pipeline_dir / "prepare_data.py"},
+        {"name": "Data Preparation & Ingestion", "func": prepare_data.main},
         
         # Phase 2: Historical Asset Styling & Visualization
-        {"name": "Historical Charts & Contributions", "path": pipeline_dir / "plot_charts.py"},
+        {"name": "Historical Charts & Contributions", "func": plot_charts.main},
         
         # Phase 3: Rolling Window Validation & Baseline Forecasts
-        {"name": "StatsForecast Baseline Models", "path": pipeline_dir / "forecast_statsforecast.py"},
+        {"name": "StatsForecast Baseline Models", "func": forecast_statsforecast.main},
         
         # Phase 4: Cointegration & Exogenous Model Calibration
-        {"name": "ARIMAX/ARDL Exogenous Projections (Dubai Oil)", "path": pipeline_dir / "forecast_exogenous.py"},
+        {"name": "ARIMAX/ARDL Exogenous Projections (Dubai Oil)", "func": forecast_exogenous.main},
         
         # Phase 5: Weight Aggregation & BOT Splicing
-        {"name": "Composite Aggregation & BOT Projection", "path": pipeline_dir / "aggregate_and_plot.py"},
+        {"name": "Composite Aggregation & BOT Projection", "func": aggregate_and_plot.main},
         
         # Phase 6: Volume-Weighted Resampling & Reporting
-        {"name": "Quarterly/Annual Resampling & Report Update", "path": pipeline_dir / "resample_forecasts.py"}
+        {"name": "Quarterly/Annual Resampling & Report Update", "func": resample_forecasts.main}
     ]
     
     failed_steps = []
     
     for idx, step in enumerate(steps, 1):
         print(f"\n--- STEP {idx}/{len(steps)}: {step['name']} ---")
-        success = run_script(step["path"], str(project_root), venv_python)
-        if not success:
+        try:
+            step["func"]()
+            print(f"✅ [Success] {step['name']}")
+        except Exception as e:
             failed_steps.append(step["name"])
-            print("\n⚠️ [Pipeline Alert] Subprocess encountered an error. Stopping pipeline.")
+            print(f"\n⚠️ [Pipeline Alert] Step failed: {e}. Stopping pipeline.")
+            import traceback
+            traceback.print_exc()
             break
             
     print("\n======================================================================")
@@ -95,7 +64,7 @@ def main():
     print("======================================================================")
     if failed_steps:
         print(f"❌ PIPELINE RUN FAILED. Failed on step: {failed_steps[0]}")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
     else:
         print("✅ PIPELINE RUN COMPLETED SUCCESSFULLY!")
         print("   Primary Artifacts Saved:")

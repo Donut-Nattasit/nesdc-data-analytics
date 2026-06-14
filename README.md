@@ -70,22 +70,30 @@ data-analysis/
 
 ---
 
-## ⚙️ Onboarding & Environment Resilience
+## ⚙️ Onboarding & Environment Setup
 
-This workspace is designed to sync seamlessly via OneDrive across different machine architectures and usernames. 
+This workspace uses a strict virtual environment (`.venv`) to ensure dependencies are perfectly synchronized across different machines. When a teammate clones or downloads this repository, they must set up their own local environment.
 
 ### Step 1: Provision Configuration
 1. Duplicate `.env.example` and rename it to `.env` in the project root.
-2. Fill in the required API keys for CEIC, BOT, EIA, and other connected external platforms.
+2. Fill in the required API keys for CEIC, BOT, EIA, and other connected platforms.
 
-### Step 2: Environment Resilience Check
-If virtual environment paths break due to directory or machine differences, run the automated resilience utility to repair and align username-specific paths in the configuration (`pyvenv.cfg`):
+### Step 2: Initialize the Virtual Environment
+Do not copy the `.venv` folder from another machine. Create a fresh, isolated environment and install the verified dependencies:
+
 ```powershell
-powershell -File .\bin\check_env.ps1
+# 1. Create the virtual environment
+python -m venv .venv
+
+# 2. Activate it
+.\.venv\Scripts\Activate.ps1
+
+# 3. Install all required dependencies
+pip install -r requirements.txt
 ```
 
 ### Step 3: Run the Diagnostics Suite
-Confirm that all third-party analytical libraries, local SQLite database engines, and binary dependencies are healthy:
+Confirm that all third-party analytical libraries, local SQLite database engines, and binary dependencies are successfully installed and healthy:
 ```powershell
 $env:PYTHONPATH='.'; .\.venv\Scripts\python.exe src/validate_env.py
 ```

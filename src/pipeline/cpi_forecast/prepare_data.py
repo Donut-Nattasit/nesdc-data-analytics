@@ -61,7 +61,7 @@ def main():
     config_path = project_root / "src" / "pipeline" / "cpi_forecast" / "config" / "cpi_mapping.json"
     if not config_path.exists():
         print(f"[Error] Config file not found at: {config_path}")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
         
     with open(config_path, "r", encoding="utf-8") as f:
         config = json.load(f)
@@ -106,7 +106,7 @@ def main():
         ceic_session = CeicSession()
         if not ceic_session.authenticate():
             print("[FAIL] CEIC Authentication failed.")
-            sys.exit(1)
+            raise RuntimeError("Pipeline step failed")
             
         print(f"Fetching {len(missing_sids)} missing series individually with retries...")
         retry_dfs = []
@@ -136,7 +136,7 @@ def main():
                 
         if critically_missing:
             print(f"[FAIL] Still missing critical series required for forecasting: {critically_missing}")
-            sys.exit(1)
+            raise RuntimeError("Pipeline step failed")
         else:
             if still_missing:
                 print(f"[Warning] Skipped missing non-critical series: {[(sid, mapping_dict.get(sid)) for sid in still_missing]}")
@@ -149,7 +149,7 @@ def main():
         df_raw = df_raw.drop_duplicates(subset=['date', 'series_id']).reset_index(drop=True)
     else:
         print("[FAIL] No data available (cache and API fetch both empty).")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
         
     print(f"Total raw dataset contains {len(df_raw)} observations across {df_raw['series_id'].nunique()} series.")
     
@@ -199,7 +199,7 @@ def main():
     if not dubai_path.exists():
         print(f"[FAIL] Exogenous Dubai Oil forecast file not found at: {dubai_path}")
         print("Please run the energy_price_forecast pipeline first.")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
         
     df_dubai = pd.read_csv(dubai_path, index_col=0, parse_dates=True).sort_index()
     print(f"Loaded Dubai Crude Oil forecast. Shape: {df_dubai.shape}")
@@ -292,7 +292,7 @@ def main():
     missing_cols = [col for col in targets_map.keys() if col not in df_clean.columns]
     if missing_cols:
         print(f"[FAIL] Missing expected columns for target mapping: {missing_cols}")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
         
     df_targets = df_clean[list(targets_map.keys())].rename(columns=targets_map)
     

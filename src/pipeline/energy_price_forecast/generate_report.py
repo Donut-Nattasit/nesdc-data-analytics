@@ -20,10 +20,10 @@ def main():
     
     if not data_path.exists():
         print(f"[Error] Production forecast dataset not found at: {data_path}")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
     if not situation_path.exists():
         print(f"[Error] Situation actuals dataset not found at: {situation_path}")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
         
     df = pd.read_csv(data_path)
     df['date'] = pd.to_datetime(df['date'])
@@ -171,6 +171,30 @@ def main():
     
     from datetime import datetime
     published_date_str = datetime.now().strftime('%B %d, %Y')
+    
+    # 4.5. Load Prepared Food Shock Comparison data if available
+    print("\n[Step 4.5] Loading Prepared Food Shock data and generating Table 4...")
+    pf_shock_path = project_root / "output" / "data" / "prepared_food_shock" / "prepared_food_shock_comparison.csv"
+    pf_table = ""
+    if pf_shock_path.exists():
+        df_pf = pd.read_csv(pf_shock_path, index_col='date', parse_dates=True).sort_index()
+        dates_to_show = ['2026-06-01', '2026-11-01', '2026-12-01', '2027-06-01', '2027-12-01']
+        
+        t4_rows = []
+        for d in dates_to_show:
+            d_ts = pd.to_datetime(d)
+            if d_ts in df_pf.index:
+                row = df_pf.loc[d_ts]
+                t4_rows.append(
+                    f"| {d_ts.strftime('%b %Y')} "
+                    f"| {row['Prepared_Food_YoY_baseline']:.2f}% | {row['Prepared_Food_YoY_shock']:.2f}% | {row['Prepared_Food_YoY_shock'] - row['Prepared_Food_YoY_baseline']:+.2f}ppt "
+                    f"| {row['Headline_YoY_baseline']:.2f}% | {row['Headline_YoY_shock']:.2f}% | {row['Headline_YoY_shock'] - row['Headline_YoY_baseline']:+.2f}ppt "
+                    f"| {row['Core_YoY_baseline']:.2f}% | {row['Core_YoY_shock']:.2f}% | {row['Core_YoY_shock'] - row['Core_YoY_baseline']:+.2f}ppt |"
+                )
+        pf_table = "\n".join(t4_rows)
+    else:
+        print("[Warning] Prepared Food Shock comparison data not found. Using placeholder for Table 4.")
+        pf_table = "| No data | - | - | - | - | - | - | - | - | - |"
         
     # 5. Assemble Report
     print("\n[Step 5] Assembling Report...")
@@ -194,15 +218,14 @@ Based on global macroeconomic assumptions and underlying supply-demand balances,
 
 Global crude oil prices in early 2026 have been shaped by profound geopolitical disruptions and physical supply shocks. The primary catalyst for price hikes has been maritime transit constraints in the Middle East. Geopolitical escalations led to a physical blockade and shipping disruption through the Strait of Hormuz—the world's most critical energy chokepoint through which approximately 20% of global petroleum transit passes. This bottleneck triggered an acute supply contraction, driving international spot prices to historic peaks. 
 
-Concurrently, persistent Houthi attacks on commercial shipping in the Red Sea forced oil tankers to bypass the Suez Canal, routing around Africa's Cape of Good Hope instead. This diversion increased container freight rates, expanded shipping transit times by 10 to 14 days, and locked up substantial volumes of crude "on the water," further tightening short-term regional supplies. 
+Concurrently, physical disruptions in the Red Sea forced oil tankers to bypass the Suez Canal, routing around Africa's Cape of Good Hope instead. This diversion increased container freight rates, expanded shipping transit times by 10 to 14 days, and locked up substantial volumes of crude "on the water," further tightening short-term regional supplies. 
 
 These physical disruptions were overlaid on a market heavily regulated by voluntary OPEC+ production constraints, creating a high-friction supply landscape. As a result, global benchmark actuals spiked in early 2026. In March 2026, Dubai spot prices surged to a monthly average of \$128.78 per barrel, with Brent climbing to \$103.13 per barrel and WTI to \$91.06 per barrel. 
 
 Figure 1.1 illustrates the monthly historical spot actual price trajectories of Dubai Fateh, Brent, and West Texas Intermediate (WTI) benchmarks from January 2024 through May 2026, marked with key market-shaping events.
 
-<img src="../../output/chart/energy_price_forecast/dubai_oil_global_oil_prices_comparison.png" alt="Global Crude Oil Price Benchmarks" width="700">
-
-*Figure 1.1: Historical monthly spot prices of Dubai Fateh, Brent, and WTI crude benchmarks with key market-shaping events marked (January 2024 – May 2026).*
+![Historical monthly spot prices of Dubai Fateh, Brent, and WTI crude benchmarks with key market-shaping events marked](../../output/chart/energy_price_forecast/dubai_oil_global_oil_prices_comparison.png)
+**Figure 1: Historical monthly spot prices of Dubai Fateh, Brent, and WTI crude benchmarks with key market-shaping events marked (January 2024 – May 2026)**
 
 ### Major Oil Suppliers and Production Stances
 The supply-side responses and policies of major crude producers reflect distinct domestic, corporate, and geopolitical priorities:
@@ -214,13 +237,12 @@ The supply-side responses and policies of major crude producers reflect distinct
 ### Global Petroleum Supply and Demand
 To analyze the structural market balance, we evaluate the monthly world petroleum supply and demand series from the U.S. EIA STEO database. Figure 1.2 illustrates monthly production vs. consumption and net inventory changes.
 
-<img src="../../output/chart/eia_world_balance_quarterly.png" alt="EIA World Monthly Petroleum Balance" width="700">
-
-*Figure 1.2: EIA Monthly World Petroleum Production (Supply) vs. Consumption (Demand) and Net Stock Changes from 2020 through 2027, highlighting the shaded STEO Forecast projection period starting June 2026.*
+![EIA Monthly World Petroleum Production vs. Consumption and Net Stock Changes](../../output/chart/eia_world_balance_quarterly.png)
+**Figure 2: EIA Monthly World Petroleum Production (Supply) vs. Consumption (Demand) and Net Stock Changes from 2020 through 2027, highlighting the shaded STEO Forecast projection period starting June 2026**
 
 Our quantitative analysis of the monthly petroleum balance indicates:
 *   **Tight Market Buffer**: Global supply and demand are projected to remain tightly balanced, hovering between 102.5 and 104.5 mb/d through late 2026. 
-*   **Inventory Depletions**: Persistent inventory draws (withdrawals, illustrated by the green bars in Figure 1.2) throughout the first quarter of 2026 depleted commercial stocks in major importing nations. This thin buffer made spot prices highly sensitive to transit disruptions.
+*   **Inventory Depletions**: Persistent inventory draws (withdrawals, illustrated by the green bars in Figure 2) throughout the first quarter of 2026 depleted commercial stocks in major importing nations. This thin buffer made spot prices highly sensitive to transit disruptions.
 *   **Transition to Surplus**: As Strait of Hormuz shipping blockades dissolve and U.S./non-OPEC+ supply gradually expands in late 2026, inventory builds (represented by grey bars in the highlighted projection region) are expected to resume, initiating a global price normalization cycle.
 
 ---
@@ -229,8 +251,7 @@ Our quantitative analysis of the monthly petroleum balance indicates:
 
 To benchmark our projections, we analyze the annual average forecasts for Brent, WTI, and Dubai crude from three leading international institutions: the U.S. EIA STEO, the World Bank Commodity Markets Outlook, and the IMF World Economic Outlook (WEO).
 
-*Table 2.1: Institutional Crude Oil Price Projections (2026–2027)*
-
+**Table 1: Institutional Crude Oil Price Projections (2026–2027)**
 | Institution | Benchmark | 2026 Forecast (USD/bbl) | 2026 YoY (%) | 2027 Forecast (USD/bbl) | 2027 YoY (%) | Key Assumptions & Analytical Narrative |
 | :--- | :--- | :---: | :---: | :---: | :---: | :--- |
 | **U.S. EIA STEO** (May 2026 Outlook) | Brent Spot | \$94.49 | +36.7% | \$79.50 | -15.9% | Assumes shipping constraints in the Strait of Hormuz persist through mid-2026, keeping Brent near \$100 before voluntary cuts ease and non-OPEC production gains pull prices down to \$79.50/bbl in late 2027. |
@@ -239,8 +260,9 @@ To benchmark our projections, we analyze the annual average forecasts for Brent,
 | | WTI Spot | \$82.00 | +25.3% | \$66.00 | -19.5% | |
 | | Dubai Fateh | \$85.00 | +22.4% | \$69.00 | -18.8% | |
 | **IMF WEO** (April 2026 Outlook) | Simple Average (Brent/WTI/Dubai) | \$82.22 | +20.9% | \$75.97 | -7.6% | Technical working assumptions derived directly from futures market pricing. Warns that a protracted geopolitical crisis keeping average prices at \$125/bbl would depress global growth and re-ignite inflation. |
+*Source: U.S. EIA STEO (May 2026), World Bank Commodity Markets Outlook (April 2026), and IMF WEO (April 2026).*
 
-These projections highlight a consensus that oil prices will peak in 2026 due to supply disruptions before easing in 2027. The EIA presents the most conservative policy benchmark by assuming slower transit resolution and higher physical tightness, whereas the World Bank assumes rapid shipping normalization, resulting in a lower Brent average of $86.00 per barrel. We align our exogenous price assumptions with the EIA STEO price pathways, ensuring our Dubai projections are backed by a structurally detailed global supply-demand framework.
+These projections highlight a consensus that oil prices will peak in 2026 due to supply disruptions before easing in 2027. The EIA presents the most conservative policy benchmark by assuming slower transit resolution and higher physical tightness, whereas the World Bank assumes rapid shipping normalization, resulting in a lower Brent average of \$86.00 per barrel. We align our exogenous price assumptions with the EIA STEO price pathways, ensuring our Dubai projections are backed by a structurally detailed global supply-demand framework.
 
 ---
 
@@ -250,29 +272,27 @@ We deploy our production-grade time-series forecasting engine to project the mon
 
 Figure 3.1 illustrates the daily spot Dubai prices since January 2026, their resampled monthly averages, and the expanding cumulative Year-to-Date (YTD) average.
 
-<img src="../../output/chart/energy_price_forecast/dubai_oil_situation.png" alt="Daily, Monthly & YTD Trajectories in 2026" width="700">
-
-*Figure 3.1: Daily Bloomberg spot Dubai price, monthly averages, and expanding cumulative Year-to-Date (YTD) average in 2026.*
+![Daily, Monthly & YTD Trajectories in 2026](../../output/chart/energy_price_forecast/dubai_oil_situation.png)
+**Figure 3: Daily Bloomberg spot Dubai price, monthly averages, and expanding cumulative Year-to-Date (YTD) average in 2026**
 
 Table 3.1 summarizes the official physical spot actuals and cumulative YTD prices for 2026. This YTD average acts as a core input for government trade balance calculations and domestic retail fuel structures.
 
-*Table 3.1: Dubai Crude Spot Prices and Cumulative YTD Average in 2026*
-
+**Table 2: Dubai Crude Spot Prices and Cumulative YTD Average in 2026**
 {sit_table}
+*Source: Bloomberg Financial LP, 2026. Data covers daily observations updated to {latest_date_str}.*
 
 *Note: Expanding YTD cumulative price is calculated daily since January 1, 2026. The latest YTD actual average stands at \\${latest_ytd:.2f} per barrel as of {latest_date_str}.*
 
 Figure 3.2 illustrates our official monthly forecasting trajectory compared to historical spot prices and the raw traded futures curve.
 
-<img src="../../output/chart/energy_price_forecast/dubai_oil_forecast_comparison.png" alt="Dubai Crude Oil Forecast comparison" width="700">
-
-*Figure 3.2: Historical spot Dubai crude price, official forecast trajectory, and raw futures curve baseline through December 2027.*
+![Dubai Crude Oil Forecast comparison](../../output/chart/energy_price_forecast/dubai_oil_forecast_comparison.png)
+**Figure 4: Historical spot Dubai crude price, official forecast trajectory, and raw futures curve baseline through December 2027**
 
 Table 3.2 summarizes the computed annual averages and YoY percentage growth rates for Dubai Crude prices over the 2024–2027 planning horizon.
 
-*Table 3.2: Annual Average Dubai Crude Price Projections (2024–2027)*
-
+**Table 3: Annual Average Dubai Crude Price Projections (2024–2027)**
 {md_annual_table}
+*Source: NESDC Economic Research projections and Bloomberg futures records, 2026.*
 
 ### Economic Insights & Policy Justifications
 
@@ -280,6 +300,34 @@ Table 3.2 summarizes the computed annual averages and YoY percentage growth rate
 *   **Short-Term Spread Correction**: For 2026, we project that Dubai crude will average \\${avg_2026:.2f} per barrel, which is \\${spread_2026:+.2f} per barrel higher than the raw financial futures curve baseline of \\${base_avg_2026:.2f} per barrel. This positive spread correction is economically justified. Financial futures represent pure traded consensus, which frequently underprices short-term physical bottlenecks. By regressing directly on Brent and WTI spot levels, we capture the physical supply-demand tightness in early 2026, correcting the underpricing bias of the futures market.
 *   **Spatial Arbitrage Bounds**: By late 2027, we project that Dubai crude will average \\${avg_2027:.2f} per barrel, converging closely with the raw futures average of \\${base_avg_2027:.2f} per barrel. This long-term convergence is driven by spatial crude arbitrage. In a normalized market, the price gap between Middle Eastern crudes (Dubai) and North Sea crudes (Brent) is tightly bound by shipping costs and refinery yields. As Brent converges to \$75 per barrel and WTI to \$70 per barrel in late 2027, Dubai prices are mathematically pulled down into their cointegrated equilibrium.
 *   **Subsidy & Trade Impact**: For Thailand's public policy planning, utilizing our projection (\\${avg_2026:.2f} per barrel in 2026) rather than the raw futures curve (\\${base_avg_2026:.2f} per barrel) provides a conservative and risk-resilient planning benchmark. It prevents the underestimation of oil import costs and ensures the State Oil Fund maintains adequate liquid reserves to handle potential price friction.
+
+---
+
+## 4. Downstream Macroeconomic Impact: Prepared Food CPI Shock Scenario
+
+The global energy price spike is a major driver of domestic consumer inflation. However, the transmission of energy shocks is not limited to retail fuel prices. It propagates throughout the domestic economy, particularly impacting food production, logistics, and packaging costs. 
+
+During unusual economic periods, univariate linear models (like auto-ARIMA) forecast a smooth baseline normalization for consumer food prices. To evaluate the risk of non-linear price transmission, we simulate a **Prepared Food CPI Shock Scenario** calibrated on the 2022 Russia-Ukraine energy crisis using a **1.5x Dampened Scaling** factor (adjusting for price controls and electricity subsidies).
+
+Under this scenario, we project a substantial step-up in domestic inflation:
+* **Immediate Pass-Through**: The Prepared Food CPI index is projected to experience a sharp **6.49% MoM jump** in June 2026 (the first forecast month), climbing to a level of 113.68 (compared to the baseline linear projection of 107.21).
+* **Prepared Food Inflation Peak**: YoY growth for the Prepared Food component is projected to peak at **13.75% YoY** in November 2026, a +9.75ppt increase over the baseline forecast of 4.00%.
+* **Headline CPI Impact**: The aggregate Headline inflation rate is pushed up immediately from the baseline forecast of **2.66% YoY** to **3.73% YoY** in June 2026 (+1.07ppt), peaking at **4.15% YoY** in November 2026 (+1.69ppt over baseline).
+* **Core CPI Push**: Core inflation is also affected, ending the planning horizon in December 2027 at **1.04% YoY** (compared to the baseline forecast of **0.78% YoY**).
+
+Table 4 compares the baseline and shocked year-on-year inflation trajectories across key months of the forecasting horizon.
+
+**Table 4: Prepared Food & Aggregate CPI Inflation Impact Comparison (YoY %)**
+| Month | Prepared Food Baseline | Prepared Food Shock | Prepared Food Diff | Headline Baseline | Headline Shock | Headline Diff | Core Baseline | Core Shock | Core Diff |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+{pf_table}
+
+*Source: MOC and NESDC Geopolitical Shock Scenario Model, 2026.*
+
+Figure 5 displays the comparison of Headline and Core CPI inflation paths under the baseline and the shock scenarios.
+
+![Headline and Core CPI aggregate inflation impact](../../output/chart/prepared_food_shock/cpi_aggregates_yoy_comparison.png)
+**Figure 5: Inflation Impact of Prepared Food Shock — Baseline vs. Iran War Scenario (June 2026 – December 2027)**
 
 ---
 
@@ -306,9 +354,9 @@ The detailed coefficient weights and diagnostics generated by the production eng
 
 To analyze the divergence between our official projections and raw market consensus over a longer planning interval, Table C.1 details the quarterly averages and spreads for both series.
 
-*Table C.1: Quarterly Average Price Projections and Spreads (2024–2027)*
-
+**Table 5: Quarterly Average Price Projections and Spreads (2024–2027)**
 {md_q_table}
+*Source: NESDC Econometric modeling suite calculations and Bloomberg futures contracts, 2026.*
 
 *Note: Spreads are calculated as the difference between our Official Forecast and the Raw Futures Baseline. A positive spread reflects the model's correction for physical market tightness in early 2026.*
 

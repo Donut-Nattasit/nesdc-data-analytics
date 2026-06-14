@@ -21,7 +21,7 @@ def main():
     
     if not master_path.exists():
         print(f"[Error] Master dataset not found at: {master_path}")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
         
     # Load dataset
     df = pd.read_csv(master_path)

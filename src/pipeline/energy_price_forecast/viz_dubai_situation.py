@@ -26,7 +26,7 @@ def main():
     
     if not excel_path.exists():
         print(f"[Error] Excel file not found at: {excel_path}")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
         
     # Load Spot Sheet
     print("Loading daily spot price data...")
@@ -39,7 +39,7 @@ def main():
     
     if df_2026.empty:
         print("[Error] No spot data found for 2026. Exiting.")
-        sys.exit(1)
+        raise RuntimeError("Pipeline step failed")
         
     print(f"Loaded {len(df_2026)} actual trading days from {df_2026['date'].min().strftime('%Y-%m-%d')} to {df_2026['date'].max().strftime('%Y-%m-%d')}.")
     
