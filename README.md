@@ -72,7 +72,7 @@ data-analysis/
 
 ## ⚙️ How to Set Up This Project (For Economists)
 
-Welcome! If you are new to coding, don't worry. This project is designed to run automatically. You just need to complete a one-time, 3-step setup process to get your computer ready.
+Welcome! If you are new to coding, don't worry. This project is designed to run automatically. You just need to complete a one-time, automated setup process to get your computer ready.
 
 Think of this setup like building a small "sandbox" on your computer. This sandbox will hold all the specific math calculators, charting tools, and AI agents the project needs, without messing up anything else on your computer.
 
