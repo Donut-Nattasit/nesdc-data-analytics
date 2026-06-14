@@ -13,7 +13,7 @@ if hasattr(sys.stdout, 'reconfigure'):
 
 # Add project root to path
 project_root = Path(__file__).resolve().parent.parent.parent.parent
-    current_yyyy_mm = datetime.now().strftime("%Y-%m")
+current_yyyy_mm = datetime.now().strftime("%Y-%m")
 sys.path.append(str(project_root))
 
 from src.visualization.charts import configure_matplotlib_font, save_chart

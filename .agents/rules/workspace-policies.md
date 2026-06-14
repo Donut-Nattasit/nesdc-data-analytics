@@ -34,3 +34,9 @@ Markdown reports (`.md`) must be organized based on their scope:
 *   **Registry Helper API**: Always use the programmatic utility `src/utils/registry.py` to perform these updates rather than editing JSON manually.
     *   Python: `from src.utils.registry import add_dataset, add_model, add_visualization, add_report`
     *   Shell: `$env:PYTHONPATH='.'; .\.venv\Scripts\python.exe src/utils/registry.py`
+
+## 5. `src/` Directory Architecture & Ad-Hoc Scripts
+To ensure maximum scalability and prevent clutter, the codebase must strictly adhere to the following **Package by Feature/Project** structure:
+*   **Core Libraries**: Directories like `src/api/`, `src/analysis/`, `src/data/`, `src/visualization/`, and `src/utils/` must **ONLY** contain reusable modules, helper functions, and shared logic. Do NOT place execution-level or ad-hoc scripts here.
+*   **Pipeline Workflows**: Mature, recurring, and automated workflows must be placed inside `src/pipeline/[pipeline_name]/`.
+*   **Project-Specific / Ad-Hoc Scripts**: All standalone research, exploratory data fetching, ad-hoc plotting, and one-off analyses must **INITIALLY** be created and executed in `temp/`. **ONLY** move these scripts to a logical subdirectory under `src/projects/` (e.g., `src/projects/interest_rate_analysis/`) when explicitly instructed by the user, as many analyses are strictly one-timers. **After finishing any temporary ad-hoc task in `temp/`, you MUST explicitly ask the user whether they want to save and promote this code to a formal project in `src/projects/`.** Do not mix these into the core libraries.

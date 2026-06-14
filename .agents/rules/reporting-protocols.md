@@ -28,6 +28,7 @@ To avoid module import conflicts and guarantee the local virtual environment dep
 ## 4. Localization Standards
 * **Default Language**: Use English for all reports, charts, datasets, and Gregorian calendar years (YYYY).
 * **Thai Localization**: Only use the `TH Sarabun New` font, Buddhist Era (B.E.) calendar standards, and Thai language utilities in `src/visualization/` if the user explicitly requests "Thai localization" or "Thai language".
+* **Thai Reporting Model Recommendation**: When the user requests a report to be written in Thai, you should gently remind the user that they can manually switch the model to **Claude 3.5 Sonnet** in their IDE settings, as it performs significantly better at Thai language generation. This is optional; if the user prefers to proceed with the current model, you may generate the Thai text as requested.
 
 ## 5. File Renaming & Path Integrity
 * Every time the user makes any changes to files or folder names, you MUST search for them and make sure changes do not break any path, especially for charts embedded in reports.
