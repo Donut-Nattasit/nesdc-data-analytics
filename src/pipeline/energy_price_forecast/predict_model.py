@@ -6,6 +6,7 @@ import numpy as np
 import statsmodels.api as sm
 from statsmodels.tsa.stattools import adfuller
 from src.utils.registry import add_model, add_dataset
+from pathlib import Path
 
 # Enforce UTF-8 encoding for standard console output on Windows
 if hasattr(sys.stdout, 'reconfigure'):

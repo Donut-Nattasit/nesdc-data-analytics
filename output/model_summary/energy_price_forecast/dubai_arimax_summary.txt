@@ -11,7 +11,7 @@ Dep. Variable:             dubai_spot   R-squared:                       0.974
 Model:                            OLS   Adj. R-squared:                  0.973
 Method:                 Least Squares   F-statistic:                     2471.
 Date:                Sun, 14 Jun 2026   Prob (F-statistic):          1.78e-106
-Time:                        14:57:18   Log-Likelihood:                -346.26
+Time:                        15:35:24   Log-Likelihood:                -346.26
 No. Observations:                 137   AIC:                             698.5
 Df Residuals:                     134   BIC:                             707.3
 Df Model:                           2                                         
@@ -42,7 +42,7 @@ Dep. Variable:                     dy   R-squared:                       0.847
 Model:                            OLS   Adj. R-squared:                  0.844
 Method:                 Least Squares   F-statistic:                     243.6
 Date:                Sun, 14 Jun 2026   Prob (F-statistic):           1.31e-53
-Time:                        14:57:18   Log-Likelihood:                -342.55
+Time:                        15:35:24   Log-Likelihood:                -342.55
 No. Observations:                 136   AIC:                             693.1
 Df Residuals:                     132   BIC:                             704.7
 Df Model:                           3                                         

@@ -70,31 +70,17 @@ data-analysis/
 
 ---
 
-## ⚙️ Onboarding & Environment Setup
+## ⚙️ How to Set Up This Project (For Economists)
 
-This workspace uses a strict virtual environment (`.venv`) to ensure dependencies are perfectly synchronized across different machines. When a teammate clones or downloads this repository, they must set up their own local environment.
+Welcome! If you are new to coding, don't worry. This project is designed to run automatically. You just need to complete a one-time, 3-step setup process to get your computer ready.
 
-### Step 1: Provision Configuration
-1. Duplicate `.env.example` and rename it to `.env` in the project root.
-2. Fill in the required API keys for CEIC, BOT, EIA, and other connected platforms.
+Think of this setup like building a small "sandbox" on your computer. This sandbox will hold all the specific math calculators, charting tools, and AI agents the project needs, without messing up anything else on your computer.
 
-### Step 2: Initialize the Virtual Environment
-Do not copy the `.venv` folder from another machine. Create a fresh, isolated environment and install the verified dependencies:
+### The 1-Step Setup Process
+**Important:** Do not copy the sandbox from another teammate's computer! You must build your own.
 
-```powershell
-# 1. Create the virtual environment
-python -m venv .venv
+To configure your computer, open your File Explorer, go to the project folder, and **double-click the `setup.bat` file**.
 
-# 2. Activate it
-.\.venv\Scripts\Activate.ps1
+*(This will open a black Terminal window and run a Setup Wizard. It will automatically build your sandbox, install the math tools, ask you to paste your secret API passwords, and run a final health check!)*
 
-# 3. Install all required dependencies
-pip install -r requirements.txt
-```
-
-### Step 3: Run the Diagnostics Suite
-Confirm that all third-party analytical libraries, local SQLite database engines, and binary dependencies are successfully installed and healthy:
-```powershell
-$env:PYTHONPATH='.'; .\.venv\Scripts\python.exe src/validate_env.py
-```
-*A successful diagnostic run will print a clean, green status audit table of all workspace modules.*
+That's it! Once the wizard finishes and shows a green "Health Check" table, you are 100% ready to start asking the AI to analyze data.
