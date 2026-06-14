@@ -11,9 +11,12 @@ __pycache__/
 temp/*
 !temp/.gitkeep
 
+# Outputs & Reports
+output/
+report/
+
 # Large Datasets & Local Database Files
 database/
-output/data/database/
 *.db
 *.sqlite
 *.sqlite3

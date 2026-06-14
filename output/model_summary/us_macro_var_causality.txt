@@ -1,9 +1,0 @@
-Granger Causality Test Results (F-test)
-========================================
-   Causing     Caused   F-Stat  P-Value  Significant_05
-GDP_Growth  Inflation 0.177309 0.911788           False
-GDP_Growth  dFedFunds 5.241540 0.001383            True
- Inflation GDP_Growth 1.919978 0.124829           False
- Inflation  dFedFunds 2.402804 0.066373           False
- dFedFunds GDP_Growth 2.520161 0.056815           False
- dFedFunds  Inflation 4.760141 0.002694            True
