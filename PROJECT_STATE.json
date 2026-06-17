@@ -764,6 +764,15 @@
       "forecast_path": "",
       "status": "Ready",
       "last_update": "2026-06-17"
+    },
+    {
+      "series_id": "India_Real_GDP_YoY_Quarterly",
+      "source": "CEIC Database",
+      "raw_path": "",
+      "transformed_path": "output/data/india_gdp_yoy.csv",
+      "forecast_path": "",
+      "status": "Ready",
+      "last_update": "2026-06-17"
     }
   ],
   "models": [
@@ -2032,6 +2041,14 @@
       "png_path": "output/chart/energy_price_forecast_LR/chart_forecast_annual_contribution.png",
       "status": "Rendered",
       "last_update": "2026-06-12"
+    },
+    {
+      "name": "India_Real_GDP_YoY_Quarterly_Chart",
+      "type": "Line",
+      "source_data": "India_Real_GDP_YoY_Quarterly",
+      "png_path": "output/chart/india_gdp_yoy.png",
+      "status": "Rendered",
+      "last_update": "2026-06-17"
     }
   ],
   "reports": [
@@ -2201,6 +2218,13 @@
       "author": "Chief Economist",
       "date": "2026-06-17",
       "path": "report/gdp_comparison_report.md",
+      "status": "Published"
+    },
+    {
+      "title": "Economic Brief: India's Latest Quarterly GDP Performance (Q1 2026)",
+      "author": "Office of the Chief Economist",
+      "date": "2026-06-17",
+      "path": "report/india_gdp_brief.md",
       "status": "Published"
     }
   ]
