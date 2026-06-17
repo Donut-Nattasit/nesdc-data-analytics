@@ -1,67 +1,39 @@
-import os
 import sys
 import time
 from pathlib import Path
 
-# Override print to automatically flush stdout for background log visibility
-_print = print
-def print(*args, **kwargs):
-    _print(*args, **kwargs)
-    sys.stdout.flush()
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(encoding='utf-8')
 
-# Add project root to sys.path to allow src imports
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..")))
+sys.path.append(str(Path(__file__).resolve().parents[3]))
+
+from src.pipeline.energy_price_forecast_LR import prepare_data, predict_model, generate_charts, generate_report
+from src.pipeline.base_orchestrator import run_steps
+
 
 def main():
     print("==========================================================")
-    print("      NESDC Thailand CPI Forecasting Pipeline Orchestrator (LR)")
+    print("      NESDC Energy Price Forecast — Long Range (LR)")
     print("==========================================================")
     start_time = time.time()
 
-    # 1. Run Data Preparation / Ingestion
-    print("\n>>> Phase 1: Data Ingestion & Seeding")
-    try:
-        from src.pipeline.energy_price_forecast_LR.prepare_data import main as run_prep
-        run_prep()
-    except Exception as e:
-        print(f"\n[FAIL] Pipeline failed during Phase 1 (Data Prep): {e}")
-        raise RuntimeError("Pipeline step failed")
+    steps = [
+        {"name": "Data Ingestion & Seeding", "func": prepare_data.main},
+        {"name": "Long-Range Forecasting & Aggregation", "func": predict_model.main},
+        {"name": "Chart Generation", "func": generate_charts.main},
+        {"name": "Report Generation (Long-Range Scenario)", "func": generate_report.main},
+    ]
 
-    # 2. Run Forecasting & Aggregation
-    print("\n>>> Phase 2: Long-Range Component Forecasting & Aggregation")
-    try:
-        from src.pipeline.energy_price_forecast_LR.predict_model import main as run_forecast
-        run_forecast()
-    except Exception as e:
-        print(f"\n[FAIL] Pipeline failed during Phase 2 (Forecasting): {e}")
-        raise RuntimeError("Pipeline step failed")
-
-    # 3. Generate Composite / Component Line Charts
-    print("\n>>> Phase 3: Chart Generation (Composite & Component Lines)")
-    try:
-        from src.pipeline.energy_price_forecast_LR.generate_charts import main as run_charts
-        run_charts()
-    except Exception as e:
-        print(f"\n[FAIL] Pipeline failed during Phase 3 (Charts): {e}")
-        raise RuntimeError("Pipeline step failed")
-
-    # 4. Generate Full Report
-    print("\n>>> Phase 4: Report Generation (Long-Range Scenario)")
-    try:
-        from src.pipeline.energy_price_forecast_LR.generate_report import main as run_report
-        run_report()
-    except Exception as e:
-        print(f"\n[FAIL] Pipeline failed during Phase 4 (Report): {e}")
-        raise RuntimeError("Pipeline step failed")
+    run_steps(steps)
 
     duration = time.time() - start_time
     print("\n==========================================================")
-    print(f"[OK] Full pipeline executed successfully in {duration:.1f} seconds.")
-    print("  Outputs:")
-    print("    Charts  : output/chart/energy_price_forecast_LR/")
-    print("    Report  : report/energy_price_forecast_LR/energy_price_forecast_LR.md")
-    print("    Registry: PROJECT_STATE.json updated")
+    print(f"[OK] Pipeline completed in {duration:.1f} seconds.")
+    print("   Charts  : output/chart/energy_price_forecast_LR/")
+    print("   Report  : report/energy_price_forecast_LR/energy_price_forecast_LR.md")
+    print("   Registry: PROJECT_STATE.json updated")
     print("==========================================================")
+
 
 if __name__ == "__main__":
     main()

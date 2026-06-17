@@ -1,0 +1,22 @@
+{
+  "pipeline_name": "thailand_price_system",
+  "description": "Thailand Price System Forecast — umbrella synthesis of all price pipelines",
+  "required_inputs": {
+    "Dubai Oil Forecast": "output/data/energy_price_forecast/dubai_oil_forecast_production.csv",
+    "CPI Monthly Forecast": "output/data/cpi_forecast/cpi_forecast_monthly.csv",
+    "CPI Quarterly Forecast": "output/data/cpi_forecast/cpi_forecast_quarterly.csv",
+    "CPI Annual Forecast": "output/data/cpi_forecast/cpi_forecast_annual.csv",
+    "Ex/Im Price Monthly": "output/data/ex_im_price_forecast/export_import_price_forecast_monthly.csv",
+    "Ex/Im Price Quarterly": "output/data/ex_im_price_forecast/export_import_price_forecast_quarterly.csv",
+    "Ex/Im Price Annual": "output/data/ex_im_price_forecast/export_import_price_forecast_annual.csv"
+  },
+  "optional_inputs": {
+    "Food Shock Scenario": "output/data/prepared_food_shock/prepared_food_shock_comparison.csv",
+    "Deflator Forecast": "output/data/deflator_forecast/deflator_forecast_quarterly.csv"
+  },
+  "outputs": {
+    "synthesis_monthly": "output/data/thailand_price_system/thailand_price_system_monthly.csv",
+    "synthesis_quarterly": "output/data/thailand_price_system/thailand_price_system_quarterly.csv",
+    "report": "report/thailand_price_system/thailand_price_system.md"
+  }
+}

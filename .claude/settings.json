@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Write",
+      "Edit",
+      "Bash",
+      "PowerShell",
+      "Read",
+      "Glob",
+      "Grep",
+      "NotebookEdit",
+      "WebFetch",
+      "WebSearch"
+    ],
+    "defaultMode": "acceptEdits"
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell.exe -NonInteractive -Command \"if (Test-Path '.venv\\Scripts\\python.exe') { & '.venv\\Scripts\\python.exe' 'src/utils/clean_temp.py' 2>$null }\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
