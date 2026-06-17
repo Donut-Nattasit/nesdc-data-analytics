@@ -23,6 +23,8 @@ database/
 *.sqlite3
 *.xlsx
 *.csv
+*.zip
+input/
 !database/README.md
 !database/metadata/
 !database/metadata/moc_product_metadata.csv

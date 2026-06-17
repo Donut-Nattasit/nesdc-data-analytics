@@ -8,17 +8,63 @@ $ProjectRoot = Resolve-Path "$PSScriptRoot\.."
 
 # Step 1: Virtual Environment
 Write-Host "[1/5] Building the Python sandbox (.venv)..." -ForegroundColor Yellow
+$VenvPython = "$ProjectRoot\.venv\Scripts\python.exe"
+$NeedsRebuild = $false
+
 if (-Not (Test-Path "$ProjectRoot\.venv")) {
-    python -m venv "$ProjectRoot\.venv"
+    $NeedsRebuild = $true
+} else {
+    if (-Not (Test-Path $VenvPython)) {
+        Write-Host "  -> Virtual environment exists but is missing python.exe. Rebuilding..." -ForegroundColor Yellow
+        $NeedsRebuild = $true
+    } else {
+        # Test if the venv python executable can run (will fail if the base python interpreter path in pyvenv.cfg is invalid)
+        & $VenvPython -V *>$null
+        if (-Not $?) {
+            Write-Host "  -> Virtual environment is broken (base Python path missing). Rebuilding..." -ForegroundColor Yellow
+            $NeedsRebuild = $true
+        }
+    }
+}
+
+if ($NeedsRebuild) {
+    if (Test-Path "$ProjectRoot\.venv") {
+        Remove-Item -Path "$ProjectRoot\.venv" -Recurse -Force -ErrorAction SilentlyContinue
+    }
+    
+    # Try using system 'python', but fallback to default installer locations if path hasn't refreshed yet
+    $SysPython = "python"
+    & $SysPython -V *>$null
+    if (-Not $?) {
+        $DefaultPaths = @(
+            "$env:USERPROFILE\AppData\Local\Programs\Python\Python312\python.exe",
+            "C:\Users\nattasit\AppData\Local\Programs\Python\Python312\python.exe",
+            "C:\Program Files\Python312\python.exe"
+        )
+        foreach ($Path in $DefaultPaths) {
+            if (Test-Path $Path) {
+                $SysPython = $Path
+                break
+            }
+        }
+    }
+    
+    Write-Host "  -> Using Python interpreter: $SysPython" -ForegroundColor Gray
+    & $SysPython -m venv "$ProjectRoot\.venv"
     if ($?) {
         Write-Host "  -> Sandbox created successfully." -ForegroundColor Green
+        # Exclude .venv from OneDrive sync to prevent conflicts between PCs with different usernames
+        if (Test-Path "$ProjectRoot\.venv") {
+            Set-Content -Path "$ProjectRoot\.venv" -Value "  " -Stream "com.microsoft.OneDrive.Ignore" -ErrorAction SilentlyContinue
+            Write-Host "  -> Excluded .venv from OneDrive sync." -ForegroundColor Gray
+        }
     } else {
         Write-Host "  -> Error: Python is not installed or not in your system PATH." -ForegroundColor Red
-        Write-Host "  -> Please install Python 3.10+ and try again." -ForegroundColor Red
+        Write-Host "  -> Please install Python 3.10+ (recommend 3.12) and check 'Add Python to PATH'." -ForegroundColor Red
         Exit
     }
 } else {
-    Write-Host "  -> Sandbox already exists. Skipping." -ForegroundColor Green
+    Write-Host "  -> Sandbox already exists and is healthy. Skipping." -ForegroundColor Green
 }
 
 # Step 2: Initialize Workspace Directories

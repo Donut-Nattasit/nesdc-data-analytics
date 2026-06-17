@@ -472,10 +472,10 @@
       "series_id": "TSIC Industry Descriptions",
       "source": "Department of Business Development (DBD) / TSIC",
       "raw_path": "input/งบการเงิน/TSIC_descriptions.xlsx",
-      "transformed_path": "database/DBD.db",
+      "transformed_path": "database/TSIC.db",
       "forecast_path": "",
       "status": "Ready",
-      "last_update": "2026-06-04"
+      "last_update": "2026-06-15"
     },
     {
       "series_id": "Firm Size Shares by TSIC Category",
@@ -692,6 +692,24 @@
       "forecast_path": "output/data/energy_price_forecast_LR/cpi_forecast_annual.csv",
       "status": "Finalized",
       "last_update": "2026-06-12"
+    },
+    {
+      "series_id": "MOC Product Metadata",
+      "source": "Thailand MOC",
+      "raw_path": "",
+      "transformed_path": "database/MOC.db (table: moc_product_metadata)",
+      "forecast_path": "",
+      "status": "Ready",
+      "last_update": "2026-06-15"
+    },
+    {
+      "series_id": "LFS_DATABASE",
+      "source": "National Statistical Office (NSO) of Thailand",
+      "raw_path": "database/LFS.db",
+      "transformed_path": "",
+      "forecast_path": "",
+      "status": "Ready",
+      "last_update": "2026-06-15"
     }
   ],
   "models": [
@@ -2115,6 +2133,13 @@
       "author": "weekly_news_writer",
       "date": "2026-06-12",
       "path": "report/weekly_econ_news/2026-06-12_weekly_brief.md",
+      "status": "Published"
+    },
+    {
+      "title": "Buriram Provincial Profile Report",
+      "author": "Chief Economist",
+      "date": "2026-06-15",
+      "path": "report/buriram_provincial_profile.md",
       "status": "Published"
     }
   ]

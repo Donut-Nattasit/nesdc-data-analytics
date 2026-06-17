@@ -6,15 +6,15 @@ This file documents the structures, tables, and columns of the central SQLite da
 
 The `./database/` folder is organized as follows:
 *   **`GTA.db`**: Global Trade Atlas database (HS2 meta, ISO meta, and transaction series).
-*   **`DBD.db`**: Department of Business Development database (TSIC sector hierarchies and firm financial statements).
+*   **`DBD.db`**: Department of Business Development database (firm financial statements).
 *   **`IMF.db`**: International Monetary Fund database (World GDP growth, Thailand inflation, ASEAN-4 GDP growth).
 *   **`CEIC.db`**: CEIC database (World Trend Plus metadata and series, Middle East GDP growth, Dubai oil prices).
-*   **`MOC.db`**: Ministry of Commerce database (Thailand product prices).
+*   **`MOC.db`**: Ministry of Commerce database (Thailand product prices and product metadata).
 *   **`WB.db`**: World Bank database (global development indicators and macroeconomic metadata).
-*   **`api_cache.db`**: API client query cache (caching responses from IMF, MOC, BOT, World Bank, EIA).
+*   **`TSIC.db`**: Thailand Standard Industrial Classification database (TSIC sector hierarchies and descriptions).
+*   **`api_cache.db`**: Central cache for API responses.
 *   **`energy_price_forecast/energy_price_forecast.db`**: SQLite database cache specific to the energy price forecast pipeline.
 *   **`ex_im_price_forecast/ex_im_price_forecast.db`**: SQLite database cache specific to the export and import price forecast pipeline.
-*   **`data_dict/`**: Directory for static reference metadata and data dictionaries (formerly `metadata/`).
 *   **`README.md`**: This entry point schema registry.
 
 ---
@@ -105,10 +105,16 @@ Real GDP growth (YoY % change) resampled at annual periods for Thailand, Indones
 
 ## 📁 Database: `MOC.db`
 * **Workspace Path**: `./database/MOC.db`
-Contains price data from Ministry of Commerce.
-
 ### 📋 Table: `moc_product_prices_wide`
 Daily product price series compiled in wide format (Columns are product IDs, rows are dates).
+
+### 📋 Table: `moc_product_metadata`
+| CID | Column Name | Type | Primary Key | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| 0 | **product_id** | `TEXT` | 🔑 PRIMARY KEY | Product ID code (e.g. P11009) |
+| 1 | **product_name_th** | `TEXT` | | Product Name in Thai |
+| 2 | **category** | `TEXT` | | Product Category |
+| 3 | **sale_type** | `TEXT` | | Product Sale Type (e.g. Retail) |
 
 ---
 
@@ -130,6 +136,56 @@ Contains macroeconomic indicators and global development metadata fetched via th
 | 1 | **iso3c** | `TEXT` | 🔑 PRIMARY KEY | Country ISO3 Code |
 | 2 | **date** | `TEXT` | 🔑 PRIMARY KEY | Date / Year of the observation |
 | 3 | **value** | `REAL` | | Indicator value |
+
+---
+
+## 📁 Database: `TSIC.db`
+* **Workspace Path**: `./database/TSIC.db`
+Contains Thailand Standard Industrial Classification (TSIC) sector hierarchy and descriptions.
+
+### 📋 Table: `tsic_mapping`
+| CID | Column Name | Type | Primary Key | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| 0 | **หมวดใหญ่** | `TEXT` | | Category letter (A-U) |
+| 1 | **หมวดย่อย** | `TEXT` | | 2-digit division code |
+| 2 | **หมู่ใหญ่** | `TEXT` | | 3-digit group code |
+| 3 | **หมู่ย่อย** | `TEXT` | | 4-digit class code |
+| 4 | **กิจกรรม** | `TEXT` | | 5-digit activity code |
+
+### 📋 Table: `tsic_category`
+| CID | Column Name | Type | Primary Key | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| 0 | **หมวดใหญ่** | `TEXT` | | Category letter (A-U) |
+| 1 | **คำอธิบาย** | `TEXT` | | Description in Thai |
+| 2 | **Description** | `TEXT` | | Description in English |
+
+### 📋 Table: `tsic_division`
+| CID | Column Name | Type | Primary Key | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| 0 | **หมวดย่อย** | `TEXT` | | 2-digit division code |
+| 1 | **คำอธิบาย** | `TEXT` | | Description in Thai |
+| 2 | **Description** | `TEXT` | | Description in English |
+
+### 📋 Table: `tsic_group`
+| CID | Column Name | Type | Primary Key | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| 0 | **หมู่ใหญ่** | `TEXT` | | 3-digit group code |
+| 1 | **คำอธิบาย** | `TEXT` | | Description in Thai |
+| 2 | **Description** | `TEXT` | | Description in English |
+
+### 📋 Table: `tsic_class`
+| CID | Column Name | Type | Primary Key | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| 0 | **หมู่ย่อย** | `TEXT` | | 4-digit class code |
+| 1 | **คำอธิบาย** | `TEXT` | | Description in Thai |
+| 2 | **Description** | `TEXT` | | Description in English |
+
+### 📋 Table: `tsic_activity`
+| CID | Column Name | Type | Primary Key | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| 0 | **กิจกรรม** | `TEXT` | | 5-digit activity code |
+| 1 | **คำอธิบาย** | `TEXT` | | Description in Thai |
+| 2 | **Description** | `TEXT` | | Description in English |
 
 ---
 

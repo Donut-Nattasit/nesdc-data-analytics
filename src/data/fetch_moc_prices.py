@@ -1,5 +1,6 @@
 import os
 import sys
+import sqlite3
 import argparse
 import pandas as pd
 from pathlib import Path
@@ -27,31 +28,34 @@ def fetch_moc_prices(all_products=False, force_refresh=False, from_date="2026-01
     print("Initializing MOC Product Prices Fetcher...")
     project_root = Path.cwd()
     
-    # Resolve and load metadata
-    meta_path = project_root / 'database/metadata/moc_product_metadata.csv'
+    # Resolve and load metadata from MOC.db
+    db_path = project_root / 'database/MOC.db'
     output_dir = project_root / 'output/data/moc_prices'
     output_dir.mkdir(parents=True, exist_ok=True)
     
-    print(f"Loading metadata from {meta_path.name}...")
+    print(f"Loading metadata from database {db_path.name}...")
+    meta_mapping = {}
     try:
-        # Load CSV and clean columns
-        meta_df = pd.read_csv(meta_path, encoding='utf-8')
-        # Handle trailing commas/empty columns
-        meta_df = meta_df.loc[:, ~meta_df.columns.str.contains('^Unnamed')]
-        # Rename columns to ensure standard mapping
-        meta_df.columns = [c.strip() for c in meta_df.columns]
-        meta_mapping = {}
-        for _, row in meta_df.iterrows():
-            prod_code = str(row['รหัสสินค้า']).strip()
-            meta_mapping[prod_code] = {
-                'product_name_th': str(row['ชื่อสินค้า']).strip(),
-                'category': str(row['หมวดหมู่สินค้า']).strip(),
-                'sale_type': str(row['รูปแบบการขาย']).strip()
-            }
-        print(f"Loaded metadata for {len(meta_mapping)} product codes.")
+        if db_path.exists():
+            with sqlite3.connect(db_path) as conn:
+                cursor = conn.cursor()
+                cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='moc_product_metadata';")
+                if cursor.fetchone():
+                    meta_df = pd.read_sql_query("SELECT product_id, product_name_th, category, sale_type FROM moc_product_metadata", conn)
+                    for _, row in meta_df.iterrows():
+                        prod_code = str(row['product_id']).strip()
+                        meta_mapping[prod_code] = {
+                            'product_name_th': str(row['product_name_th']).strip(),
+                            'category': str(row['category']).strip(),
+                            'sale_type': str(row['sale_type']).strip()
+                        }
+                    print(f"Loaded metadata for {len(meta_mapping)} product codes from database.")
+                else:
+                    print("[Warning] Table 'moc_product_metadata' not found in MOC.db. Proceeding without mappings.")
+        else:
+            print(f"[Warning] Database {db_path.name} does not exist. Proceeding without mappings.")
     except Exception as e:
-        print(f"[Warning] Failed to load or parse metadata: {e}. Proceeding without mappings.")
-        meta_mapping = {}
+        print(f"[Warning] Failed to load metadata from database: {e}. Proceeding without mappings.")
 
     # Determine product IDs to fetch
     product_ids = FULL_PRODUCTS if all_products else TARGETED_PRODUCTS
