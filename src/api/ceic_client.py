@@ -122,6 +122,10 @@ class CeicSession:
         if not series_ids:
             return pd.DataFrame()
 
+        if len(series_ids) == 1:
+            # Optimize: Avoid ThreadPoolExecutor overhead for a single series ID
+            return self._fetch_single_series(series_ids[0], count)
+
         if not with_historical_extension:
             # Batch fetch is already fast
             try:
@@ -227,3 +231,45 @@ class CeicSession:
                 pass
             print(f"Failed to fetch source for {series_id}: {e}")
             return 'Unknown'
+
+
+if __name__ == "__main__":
+    import argparse
+    import sys
+    
+    parser = argparse.ArgumentParser(description="CEIC API Client CLI Utility")
+    subparsers = parser.add_subparsers(dest="command", required=True, help="Subcommand to run")
+    
+    # search command
+    search_parser = subparsers.add_parser("search", help="Search for series in CEIC")
+    search_parser.add_argument("keyword", help="Search keyword")
+    search_parser.add_argument("--limit", type=int, default=10, help="Maximum number of results (default: 10)")
+    
+    # fetch command
+    fetch_parser = subparsers.add_parser("fetch", help="Fetch series data from CEIC")
+    fetch_parser.add_argument("series_ids", nargs="+", help="One or more series IDs")
+    fetch_parser.add_argument("--limit", type=int, default=1000, dest="count", help="Limit number of data points per series")
+    fetch_parser.add_argument("--no-history", action="store_false", dest="history", help="Disable historical extensions")
+    
+    args = parser.parse_args()
+    
+    session = CeicSession()
+    if not session.authenticate():
+        sys.exit(1)
+        
+    if args.command == "search":
+        print(f"Searching for '{args.keyword}'...")
+        results = session.search_series(args.keyword, limit=args.limit)
+        if not results:
+            print("No matching series found.")
+        for r in results:
+            print(f"ID: {r['id']} | Name: {r['name']} | Country: {r['country']} | Freq: {r['frequency']} | Unit: {r['unit']} | DB: {r['database']}")
+            
+    elif args.command == "fetch":
+        print(f"Fetching series: {args.series_ids}...")
+        df = session.get_data(args.series_ids, with_historical_extension=args.history, count=args.count)
+        if df.empty:
+            print("No data retrieved.")
+        else:
+            print(df.to_string(index=False))
+

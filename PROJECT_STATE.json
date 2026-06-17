@@ -709,7 +709,61 @@
       "transformed_path": "",
       "forecast_path": "",
       "status": "Ready",
-      "last_update": "2026-06-15"
+      "last_update": "2026-06-17"
+    },
+    {
+      "series_id": "Thailand Selected Indicators - Economic",
+      "source": "S&P Global Ratings (Thailand DRAFT FA Report June 2026.pdf)",
+      "raw_path": "input/Thailand DRAFT FA Report June 2026.pdf",
+      "transformed_path": "output/data/thailand_selected_indicators_economic.csv",
+      "forecast_path": "",
+      "status": "Ready",
+      "last_update": "2026-06-17"
+    },
+    {
+      "series_id": "Thailand Selected Indicators - External",
+      "source": "S&P Global Ratings (Thailand DRAFT FA Report June 2026.pdf)",
+      "raw_path": "input/Thailand DRAFT FA Report June 2026.pdf",
+      "transformed_path": "output/data/thailand_selected_indicators_external.csv",
+      "forecast_path": "",
+      "status": "Ready",
+      "last_update": "2026-06-17"
+    },
+    {
+      "series_id": "Thailand Selected Indicators - Fiscal",
+      "source": "S&P Global Ratings (Thailand DRAFT FA Report June 2026.pdf)",
+      "raw_path": "input/Thailand DRAFT FA Report June 2026.pdf",
+      "transformed_path": "output/data/thailand_selected_indicators_fiscal.csv",
+      "forecast_path": "",
+      "status": "Ready",
+      "last_update": "2026-06-17"
+    },
+    {
+      "series_id": "Thailand Selected Indicators - Monetary",
+      "source": "S&P Global Ratings (Thailand DRAFT FA Report June 2026.pdf)",
+      "raw_path": "input/Thailand DRAFT FA Report June 2026.pdf",
+      "transformed_path": "output/data/thailand_selected_indicators_monetary.csv",
+      "forecast_path": "",
+      "status": "Ready",
+      "last_update": "2026-06-17"
+    },
+    {
+      "series_id": "Thailand_GDP_CEIC_Cross_Check",
+      "source": "CEIC API / NESDC",
+      "raw_path": "temp/ceic_raw_fetched.csv",
+      "transformed_path": "report/gdp_comparison_report.md",
+      "forecast_path": "",
+      "status": "Ready",
+      "last_update": "2026-06-17"
+    },
+    {
+      "series_id": "211636502",
+      "source": "CEIC Data",
+      "raw_path": "database/CEIC.db",
+      "transformed_path": "",
+      "forecast_path": "",
+      "status": "Ready",
+      "last_update": "2026-06-17"
     }
   ],
   "models": [
@@ -2140,6 +2194,13 @@
       "author": "Chief Economist",
       "date": "2026-06-15",
       "path": "report/buriram_provincial_profile.md",
+      "status": "Published"
+    },
+    {
+      "title": "GDP Indicator Comparison Report: S&P Draft vs NESDC",
+      "author": "Chief Economist",
+      "date": "2026-06-17",
+      "path": "report/gdp_comparison_report.md",
       "status": "Published"
     }
   ]

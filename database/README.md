@@ -205,3 +205,65 @@ Contains local cached datasets specifically for the export and import price inde
 ### 📋 Table: `api_cache`
 Follows the standard cache table schema.
 
+---
+
+## 📁 Database: `LFS.db`
+* **Workspace Path**: `./database/LFS.db`
+Contains the Labor Force Survey (LFS) database with over 22 million survey records and standard reference classification codebooks.
+
+### 📋 Table: `lfs_data`
+Contains individual survey response microdata. Key columns include:
+| Column Name | Type | Description |
+| :--- | :--- | :--- |
+| **year_gregorian** | `INTEGER` | Gregorian Calendar Year (e.g. 2025) |
+| **quarter** | `INTEGER` | Quarter (1, 2, 3, 4) |
+| **area** | `INTEGER` | Area Code (1 = Municipal, 2 = Non-Municipal) |
+| **cwt** | `TEXT` | Province code (cwt), matching `lfs_province_codes.code` |
+| **age** | `INTEGER` | Age of individual |
+| **age_01** | `INTEGER` | Raw age input from 2025 survey |
+| **occup** | `TEXT` | Occupation code (ISCO) |
+| **indus_group** | `TEXT` | Industry code (ISIC) |
+| **grade_a** | `TEXT` | Educational level completed code |
+| **grade_b** | `TEXT` | Educational subject/type code |
+| **weight** | `REAL` | Expansion weight |
+
+### 📋 Table: `lfs_province_codes`
+| Column Name | Type | Description |
+| :--- | :--- | :--- |
+| **code** | `TEXT` | 2-digit Province code |
+| **name_th** | `TEXT` | Province name in Thai |
+| **name_en** | `TEXT` | Province name in English |
+
+### 📋 Table: `lfs_metadata_columns`
+Metadata dictionary mapping database columns to human-readable names and descriptions.
+
+### 📋 Table: `lfs_occupation_codes`
+| Column Name | Type | Description |
+| :--- | :--- | :--- |
+| **code** | `TEXT` | 1-digit category or 2-digit division occupation code |
+| **name_th** | `TEXT` | Occupation name in Thai |
+| **level** | `INTEGER` | Classification level (1 = Major Group, 2 = Sub-Major Group) |
+
+### 📋 Table: `lfs_industry_codes`
+| Column Name | Type | Description |
+| :--- | :--- | :--- |
+| **code** | `TEXT` | 1-letter category (A-Q) or 2-digit division industry code |
+| **name_th** | `TEXT` | Industry name in Thai |
+| **level** | `INTEGER` | Classification level (1 = Category, 2 = Division) |
+
+### 📋 Table: `lfs_education_recodes`
+Maps original survey education codes to the recoded target classification.
+| Column Name | Type | Description |
+| :--- | :--- | :--- |
+| **original_grade_a** | `TEXT` | Original education level completed (F8 / grade_a) |
+| **original_grade_b** | `TEXT` | Original education subject/type (F10 / grade_b), or `NULL` if matches all subjects |
+| **recode_code** | `TEXT` | Recoded educational classification code (01 to 20) |
+| **recode_name** | `TEXT` | Recoded educational name in Thai |
+
+### 📋 Table: `lfs_education_recode_labels`
+| Column Name | Type | Description |
+| :--- | :--- | :--- |
+| **recode_code** | `TEXT` | Primary key recode code |
+| **recode_name** | `TEXT` | Recoded educational classification name in Thai |
+
+
