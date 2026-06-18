@@ -1,3 +1,4 @@
+--find-links wheels/
 adagio==0.2.6
 altair==6.1.0
 annotated-types==0.7.0
@@ -5,7 +6,7 @@ anyio==4.13.0
 arch==8.0.0
 asttokens==3.0.1
 attrs==26.1.0
-ceic-api-client @ file:///C:/Users/natta/AppData/Local/pip/cache/wheels/5d/93/67/eb5c520eaa4a2f0c7a565b66beff723109170f3d5c3a2ea2bb/ceic_api_client-2.11.5.396-py3-none-any.whl#sha256=26daba424b0ddf20e746124f46ef708edf73a1c1c23fede79acc108c56a2cd79
+ceic-api-client==2.11.5.396
 certifi==2026.4.22
 cffi==2.0.0
 charset-normalizer==3.4.7
