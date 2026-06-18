@@ -1,6 +1,6 @@
 Convert a Markdown report to a self-contained HTML file with all images embedded as base64.
 
-**Show the user recent reports** from `PROJECT_STATE.json` (reports section, last 10 by date) and ask which one to convert.
+**Show the user recent reports** by listing files in `report/` (and pipeline subdirectories) sorted by modification date, then ask which one to convert.
 
 **Follow the instructions in `.claude/skills/md-to-html/SKILL.md`** for the exact command to run.
 

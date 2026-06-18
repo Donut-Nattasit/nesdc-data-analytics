@@ -11,7 +11,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".
 
 from src.api.ceic_client import CeicSession
 from src.visualization.charts import configure_matplotlib_font
-from src.utils.registry import add_dataset, add_visualization
 
 def main():
     print("==========================================================")
@@ -189,25 +188,9 @@ def main():
     
     print(f"\n[SUCCESS] Saved premium grid chart to: {chart_path}")
     
-    # 5. Programmatic Registry Update
-    print("\n[Phase 6] Registering dataset and visualization in PROJECT_STATE.json...")
     
     series_ids_str = ", ".join(series_ids)
-    add_dataset(
-        series_id="World Bank Commodity Price Forecasts (Nominal)",
-        source=f"CEIC (10 Series: {series_ids_str})",
-        raw_path="database/CEIC.db (table: world_bank_commodity_forecasts)",
-        transformed_path="database/CEIC.db (table: world_bank_commodity_forecasts)",
-        status="Ready"
-    )
     
-    add_visualization(
-        name="World Bank Commodity Price Forecasts",
-        chart_type="Subplot Grid (5x2)",
-        source_data="database/CEIC.db (table: world_bank_commodity_forecasts)",
-        png_path=chart_path,
-        status="Rendered"
-    )
     
     print("==========================================================")
     print("   PIPELINE COMPLETION: SUCCESS                           ")

@@ -56,10 +56,9 @@ After generating each chart, display the PNG to yourself and verify:
 - Source attribution present at bottom-left
 - Only NESDC palette colors used
 
-Fix and regenerate if any check fails. Only then register in PROJECT_STATE.json.
+Fix and regenerate if any check fails.
 
 ## Execution
 
 Write scripts to `temp/viz_task.py`, run via PowerShell tool, delete after success.
 Save charts to `output/chart/[pipeline_name]/` or `output/chart/projects/[task_name]/`.
-Update `PROJECT_STATE.json` via `src/utils/registry.add_visualization(...)`.

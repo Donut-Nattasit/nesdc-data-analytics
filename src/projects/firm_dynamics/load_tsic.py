@@ -6,7 +6,6 @@ import sys
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from src.utils.registry import add_dataset
 
 def pad_code(val, length):
     if pd.isna(val):
@@ -107,15 +106,6 @@ def main():
     conn.close()
     print("Successfully processed all TSIC sheets.")
     
-    # Register the dataset in the manifest
-    add_dataset(
-        series_id="TSIC Industry Descriptions",
-        source="Department of Business Development (DBD) / TSIC",
-        raw_path="input/งบการเงิน/TSIC_descriptions.xlsx",
-        transformed_path="database/DBD.db",
-        forecast_path="",
-        status="Ready"
-    )
 
 if __name__ == "__main__":
     main()

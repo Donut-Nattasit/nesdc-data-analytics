@@ -6,7 +6,6 @@ from pathlib import Path
 from pmdarima import auto_arima
 from sklearn.linear_model import Ridge
 from sklearn.preprocessing import StandardScaler
-from src.utils.registry import add_model, add_dataset
 
 # Enforce UTF-8 encoding for standard console output on Windows
 if hasattr(sys.stdout, 'reconfigure'):
@@ -230,25 +229,8 @@ def main():
             row = df_fc_only.iloc[i]
             print(f"  {row['date'].strftime('%Y-%m')}    | ${row['dubai_baseline']:16.2f} | ${row['arimax_forecast']:22.2f} | ${row['ridge_forecast']:22.2f}")
             
-    # Register models in PROJECT_STATE.json
     try:
-        add_model(
-            name="Dubai Oil ARIMAX Forecast",
-            model_type=f"ARIMAX {final_arimax.order}",
-            source_data="output/data/dubai_oil_master.csv",
-            summary_path="output/model_summary/dubai_arimax_summary.txt",
-            status="Finalized"
-        )
-        add_model(
-            name="Dubai Oil Ridge ML Forecast",
-            model_type="Ridge Regression",
-            source_data="output/data/dubai_oil_master.csv",
-            summary_path="output/model_summary/dubai_ml_summary.txt",
-            status="Finalized"
-        )
-        print("✅ Models registered successfully in PROJECT_STATE.json.")
     except Exception as e:
-        print(f"⚠️ Failed to register models: {e}")
 
 if __name__ == "__main__":
     main()

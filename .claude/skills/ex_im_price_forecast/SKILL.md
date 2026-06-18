@@ -39,9 +39,6 @@ Before running the pipeline, execute the following validations:
   ```
 * The pipeline runs components sequentially (Prepare -> Plot -> StatsForecast -> Exogenous -> Aggregate -> Resample & Report) and outputs data files to `output/data/ex_im_price_forecast/` and the report to `report/ex_im_price_forecast/`.
 
-### Step 3 — Register Outputs
-* Register all generated files in `PROJECT_STATE.json` using `src/utils/registry.py`.
-
 ## Troubleshooting
 
 | Issue / Error | Cause | Resolution |

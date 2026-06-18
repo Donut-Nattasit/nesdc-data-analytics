@@ -10,7 +10,6 @@ from datetime import datetime
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..")))
 
 from src.visualization.charts import configure_matplotlib_font
-from src.utils.registry import add_model, add_visualization, add_report
 
 # Setup styling
 configure_matplotlib_font('FC Vision')
@@ -288,58 +287,8 @@ def main():
         else:
             print("Error: Could not find start or end marker in report.")
 
-    # Register in central registry
-    print("\nRegistering models and visualizations in central registry...")
     try:
-        add_model(
-            name="Quarterly Resampled Price Indices",
-            model_type="Volume-Weighted Aggregation (Quarterly)",
-            source_data="export_import_price_forecast_statsforecast.csv",
-            summary_path=summary_path,
-            status="Deployed",
-            last_update=datetime.now().strftime('%Y-%m-%d')
-        )
-        add_model(
-            name="Annual Resampled Price Indices",
-            model_type="Volume-Weighted Aggregation (Annual)",
-            source_data="export_import_price_forecast_statsforecast.csv",
-            summary_path=summary_path,
-            status="Deployed",
-            last_update=datetime.now().strftime('%Y-%m-%d')
-        )
-        add_visualization(
-            name="BOT Official Price Indices Quarterly YoY Growth",
-            chart_type="Bar Chart (Quarterly)",
-            source_data="output/data/ex_im_price_forecast/export_import_price_forecast_quarterly.csv",
-            png_path=q_chart_path,
-            status="Rendered",
-            last_update=datetime.now().strftime('%Y-%m-%d')
-        )
-        add_visualization(
-            name="BOT Official Price Indices Annual YoY Growth",
-            chart_type="Bar Chart (Annual)",
-            source_data="output/data/ex_im_price_forecast/export_import_price_forecast_annual.csv",
-            png_path=a_chart_path,
-            status="Rendered",
-            last_update=datetime.now().strftime('%Y-%m-%d')
-        )
-        add_visualization(
-            name="BOT Quantity Indices Projections",
-            chart_type="Line Grid (Quantity)",
-            source_data=forecast_path,
-            png_path=qty_chart_path,
-            status="Rendered",
-            last_update=datetime.now().strftime('%Y-%m-%d')
-        )
-        add_report(
-            title="Export & Import Price Forecast Report",
-            author="Chief Economist",
-            path="report/ex_im_price_forecast/ex_im_price_forecast.md",
-            status="Published"
-        )
-        print("Registration successful.")
     except Exception as e:
-        print(f"Error registering: {e}")
 
 if __name__ == "__main__":
     main()

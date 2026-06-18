@@ -6,7 +6,6 @@ from pathlib import Path
 from pmdarima import auto_arima
 from sklearn.linear_model import Ridge
 from sklearn.preprocessing import StandardScaler
-from src.utils.registry import add_model
 
 # Enforce UTF-8 encoding for standard console output on Windows
 if hasattr(sys.stdout, 'reconfigure'):
@@ -183,18 +182,8 @@ def main():
         f.write("- The model with the lowest cumulative out-of-sample RMSE is selected as the production model.\n")
     print(f"✅ Diagnostic report successfully saved to: {summary_path}")
     
-    # Update registry
     try:
-        add_model(
-            name="Dubai Oil Best Rolling Forecast Model",
-            model_type="Expanding Window Backtest Winner",
-            source_data="output/data/dubai_oil_master.csv",
-            summary_path="output/model_summary/dubai_rolling_backtest_summary.txt",
-            status="Finalized"
-        )
-        print("✅ Registry updated successfully.")
     except Exception as e:
-        print(f"⚠️ Failed to update registry: {e}")
 
 if __name__ == "__main__":
     main()

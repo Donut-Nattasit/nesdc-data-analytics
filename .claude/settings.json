@@ -23,6 +23,11 @@
             "type": "command",
             "command": "powershell.exe -NonInteractive -Command \"if (Test-Path '.venv\\Scripts\\python.exe') { & '.venv\\Scripts\\python.exe' 'src/utils/clean_temp.py' 2>$null }\"",
             "timeout": 30
+          },
+          {
+            "type": "command",
+            "command": "powershell.exe -NonInteractive -Command \"(New-Object Media.SoundPlayer 'C:\\Windows\\Media\\Windows Notify System Generic.wav').PlaySync()\"",
+            "timeout": 10
           }
         ]
       }

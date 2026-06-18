@@ -11,7 +11,6 @@ from datetime import datetime
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..")))
 
 from src.visualization.charts import configure_matplotlib_font
-from src.utils.registry import add_model, add_visualization
 
 # Ignore warnings
 warnings.filterwarnings("ignore")
@@ -408,21 +407,8 @@ def main():
     plt.close()
     print(f"Saved Import forecast chart to {import_chart_path}")
     
-    # ------------------ Register in central registry ------------------
-    print("\nRegistering baseline model in central registry...")
     try:
-        # Register forecast dataset
-        add_model(
-            name="Exogenous Price Forecasts to Dec 2027",
-            model_type="Univariate + Exogenous Selection (AutoARIMA / Naive / AutoETS / ARIMAX / ARDL)",
-            source_data="Export & Import Prices - Monthly Wide, Dubai Crude Spot Forecasts",
-            summary_path=summary_path,
-            status="Deployed",
-            last_update=datetime.now().strftime('%Y-%m-%d')
-        )
-        print("Registration successful.")
     except Exception as e:
-        print(f"Error registering model: {e}")
 
 if __name__ == "__main__":
     main()

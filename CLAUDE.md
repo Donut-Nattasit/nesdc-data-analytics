@@ -58,16 +58,6 @@ Every output must go into a pipeline-namespaced or project-namespaced subdirecto
 
 When creating a new pipeline, create all five subdirectories (`database/`, `output/chart/`, `output/data/`, `output/model_summary/`, `report/`) before running anything.
 
-## Registry (Mandatory)
-
-After every task that creates or modifies a dataset, model, chart, or report — update `PROJECT_STATE.json`:
-
-```python
-from src.utils.registry import add_dataset, add_model, add_visualization, add_report
-```
-
-Never edit `PROJECT_STATE.json` manually. Never skip the registry update.
-
 ## Pipeline Dependency Chain
 
 ```

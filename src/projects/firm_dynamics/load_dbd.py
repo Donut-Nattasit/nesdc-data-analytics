@@ -7,7 +7,6 @@ import sys
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
-from src.utils.registry import add_dataset
 
 def clean_value(val):
     if isinstance(val, str):
@@ -107,15 +106,6 @@ def main():
     conn.close()
     print(f"Successfully wrote {total_rows} total rows to table '{table_name}' in DBD.db.")
     
-    # Register the dataset in the manifest
-    add_dataset(
-        series_id="DBD Financial Statements",
-        source="Department of Business Development (DBD)",
-        raw_path="input/งบการเงิน",
-        transformed_path="database/DBD.db",
-        forecast_path="",
-        status="Ready"
-    )
 
 if __name__ == "__main__":
     main()

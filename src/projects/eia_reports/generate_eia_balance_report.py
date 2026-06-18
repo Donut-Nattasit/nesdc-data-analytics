@@ -223,7 +223,6 @@ def main():
         print(f"  Thai chart saved: {saved_thai}")
     
     print("\n=========================================================")
-    print("[EIA World Balance Skill] All done. Update PROJECT_STATE.json registry.")
     print("==========================================================")
 
 if __name__ == "__main__":

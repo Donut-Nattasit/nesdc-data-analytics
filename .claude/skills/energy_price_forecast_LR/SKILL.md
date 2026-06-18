@@ -46,7 +46,6 @@ This runs the full workflow:
 *   **Charts**: `output/chart/energy_price_forecast_LR/` (contains forecast lines, weight pies, and YoY growth bar charts)
 *   **Datasets**: `output/data/energy_price_forecast_LR/` (contains monthly, quarterly, and annual `.csv` files)
 *   **Database**: `database/energy_price_forecast_LR/energy_price_forecast_LR.db` (contains monthly, quarterly, and annual SQLite tables)
-*   **Registry Status**: Programmatic helper updates `PROJECT_STATE.json` automatically on run.
 
 ---
 

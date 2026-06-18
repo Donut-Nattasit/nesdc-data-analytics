@@ -14,8 +14,6 @@ def print(*args, **kwargs):
 # Add project root to sys.path to allow src imports
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..")))
 
-from src.utils.registry import add_visualization
-
 def plot_cpi_series(df, columns, title, filename, output_dir, colors=None, start_date="2021-01-01"):
     df_plot = df.loc[start_date:].copy()
     
@@ -133,32 +131,8 @@ def main():
         output_dir=chart_out_dir
     )
     
-    # 4. Register Visualizations in PROJECT_STATE.json
     try:
-        add_visualization(
-            name="CPI Composite Forecast (LR)",
-            chart_type="Line Chart",
-            source_data="output/data/energy_price_forecast_LR/cpi_forecast_monthly.csv",
-            png_path="output/chart/energy_price_forecast_LR/cpi_composite_forecast.png",
-            status="Rendered"
-        )
-        add_visualization(
-            name="CPI Core Components Forecast (LR)",
-            chart_type="Line Chart",
-            source_data="output/data/energy_price_forecast_LR/cpi_forecast_monthly.csv",
-            png_path="output/chart/energy_price_forecast_LR/cpi_core_components_forecast.png",
-            status="Rendered"
-        )
-        add_visualization(
-            name="CPI Non-Core Components Forecast (LR)",
-            chart_type="Line Chart",
-            source_data="output/data/energy_price_forecast_LR/cpi_forecast_monthly.csv",
-            png_path="output/chart/energy_price_forecast_LR/cpi_non_core_components_forecast.png",
-            status="Rendered"
-        )
-        print("[OK] Registered charts in PROJECT_STATE.json.")
     except Exception as e:
-        print(f"[Warning] Failed to update visualizations in registry: {e}")
 
 if __name__ == "__main__":
     main()

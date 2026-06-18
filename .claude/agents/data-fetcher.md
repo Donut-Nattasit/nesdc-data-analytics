@@ -52,5 +52,4 @@ Run: `& '.venv\Scripts\python.exe' 'temp\fetch_task.py'`
 - Save to pipeline-specific database: `database/[pipeline_name]/[pipeline].db`
 - Or central databases: `database/CEIC.db`, `database/IMF.db`, etc.
 - Convert to **wide format** before saving CSV (dates as rows, series as columns)
-- Update `PROJECT_STATE.json` via `src/utils/registry.py`
 - Ask: "Do you also need a CSV exported for Excel?"

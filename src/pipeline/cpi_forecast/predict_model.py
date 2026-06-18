@@ -16,8 +16,6 @@ def print(*args, **kwargs):
 # Add project root to sys.path to allow src imports
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..")))
 
-from src.utils.registry import add_dataset, add_model
-
 def main():
     print("==========================================================")
     print("[CPI Modeling] Training auto_ARIMA and forecasting components...")
@@ -102,14 +100,6 @@ def main():
                 with open(summary_path, "w", encoding="utf-8") as f:
                     f.write(str(model.summary()))
                     
-                # Register model
-                add_model(
-                    name=col,
-                    model_type=f"ARIMAX {model.order}x{model.seasonal_order}",
-                    source_data="cpi_historical_master.csv",
-                    summary_path=f"output/model_summary/cpi_forecast/{col}_summary.txt",
-                    status="Finalized"
-                )
             except Exception as e:
                 print(f"  [Warning] ARIMAX fit failed for {col}: {e}. Falling back to univariate auto_arima...")
                 model = pm.auto_arima(
@@ -140,14 +130,6 @@ def main():
                 with open(summary_path, "w", encoding="utf-8") as f:
                     f.write(str(model.summary()))
                     
-                # Register model
-                add_model(
-                    name=col,
-                    model_type=f"ARIMA {model.order}x{model.seasonal_order}",
-                    source_data="cpi_historical_master.csv",
-                    summary_path=f"output/model_summary/cpi_forecast/{col}_summary.txt",
-                    status="Finalized"
-                )
             except Exception as e:
                 print(f"  [FAIL] auto_arima failed for {col}: {e}")
                 raise RuntimeError("Pipeline step failed")
@@ -261,35 +243,8 @@ def main():
     finally:
         conn.close()
         
-    # 10. Register datasets in PROJECT_STATE.json
     try:
-        add_dataset(
-            series_id="CPI Forecast Monthly",
-            source="auto_ARIMA Forecast",
-            raw_path="output/data/cpi_forecast/cpi_historical_master.csv",
-            transformed_path="output/data/cpi_forecast/cpi_forecast_monthly.csv",
-            forecast_path="output/data/cpi_forecast/cpi_forecast_monthly.csv",
-            status="Finalized"
-        )
-        add_dataset(
-            series_id="CPI Forecast Quarterly",
-            source="auto_ARIMA Forecast & QE Resampling",
-            raw_path="output/data/cpi_forecast/cpi_historical_master.csv",
-            transformed_path="output/data/cpi_forecast/cpi_forecast_quarterly.csv",
-            forecast_path="output/data/cpi_forecast/cpi_forecast_quarterly.csv",
-            status="Finalized"
-        )
-        add_dataset(
-            series_id="CPI Forecast Annual",
-            source="auto_ARIMA Forecast & YE Resampling",
-            raw_path="output/data/cpi_forecast/cpi_historical_master.csv",
-            transformed_path="output/data/cpi_forecast/cpi_forecast_annual.csv",
-            forecast_path="output/data/cpi_forecast/cpi_forecast_annual.csv",
-            status="Finalized"
-        )
-        print("[OK] Registered forecast datasets in PROJECT_STATE.json.")
     except Exception as e:
-        print(f"[Warning] Failed to update PROJECT_STATE.json: {e}")
 
 if __name__ == "__main__":
     main()

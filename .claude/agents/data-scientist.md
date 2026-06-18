@@ -34,5 +34,4 @@ Run: `& '.venv\Scripts\python.exe' 'temp\ds_task.py'`
 
 - Save predictions to `output/data/[pipeline_name]/` in wide format
 - Save model summaries, metrics, and feature importance to `output/model_summary/[pipeline_name]/`
-- Update `PROJECT_STATE.json` via `src/utils/registry.py`
 - End every task with a "Strategic Data Science Audit": technique, out-of-sample accuracy, top driver

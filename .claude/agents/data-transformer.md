@@ -44,4 +44,3 @@ x13_path = str(Path('.').resolve() / 'bin' / 'x13as')
 
 - Save transformed CSVs to `output/data/[pipeline_name]/` or `output/data/projects/[task_name]/`
 - Report a "Data Sources & Transformations" summary: input file, output file, list of applied transformations
-- Update `PROJECT_STATE.json` via `src/utils/registry.py`

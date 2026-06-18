@@ -48,7 +48,6 @@ Follow this pathway when choosing the appropriate econometric model:
 
 ### Step 3 — Strategic Audit & Output
 * Save model coefficients and diagnostic metrics using `results.summary()` to the folder `output/model_summary/[pipeline_name]/`.
-* Update `PROJECT_STATE.json` with the new model path and status.
 
 ## Troubleshooting
 

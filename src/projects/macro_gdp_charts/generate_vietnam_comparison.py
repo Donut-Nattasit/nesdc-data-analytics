@@ -10,7 +10,6 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../.
 from src.api.ceic_client import CeicSession
 from src.api.imf_client import IMFClient
 from src.visualization.charts import configure_matplotlib_font
-from src.utils.registry import add_dataset, add_visualization
 
 def main():
     print("==================================================")
@@ -343,18 +342,8 @@ def main():
     print(f"  -> Saved Exports Growth Chart to: {exports_growth_chart}")
 
     # -----------------------------------------------------------------
-    # REGISTRY INTEGRATION
     # -----------------------------------------------------------------
-    print("\n[Phase 4] Registering datasets and visualizations in PROJECT_STATE.json...")
-    # Register datasets
-    add_dataset("Vietnam_Peers_Real_GDP_Growth_Annual", "CEIC Global Database & IMF WEO", transformed_path=gdp_growth_csv, status="Ready")
-    add_dataset("Vietnam_Peers_GDP_Per_Capita_Yearly", "CEIC Global/ASEAN Database & World Bank", transformed_path=gdp_pc_csv, status="Ready")
-    add_dataset("Vietnam_Peers_Exports_Value_Growth_Annual", "CEIC Global Database (Monthly sum to annual)", transformed_path=exports_growth_csv, status="Ready")
     
-    # Register visualizations
-    add_visualization("Vietnam_Peers_Real_GDP_Growth_Annual_Chart", "Line", "Vietnam_Peers_Real_GDP_Growth_Annual", gdp_growth_chart, status="Rendered")
-    add_visualization("Vietnam_Peers_GDP_Per_Capita_Yearly_Chart", "Line", "Vietnam_Peers_GDP_Per_Capita_Yearly", gdp_pc_chart, status="Rendered")
-    add_visualization("Vietnam_Peers_Exports_Value_Growth_Annual_Chart", "Line", "Vietnam_Peers_Exports_Value_Growth_Annual", exports_growth_chart, status="Rendered")
     
     print("\n==================================================")
     print("      PIPELINE COMPLETED SUCCESSFULLY             ")

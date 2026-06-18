@@ -10,7 +10,6 @@ from datetime import datetime
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..")))
 
 from src.visualization.charts import configure_matplotlib_font
-from src.utils.registry import add_model, add_visualization
 
 # Setup styling
 configure_matplotlib_font('FC Vision')
@@ -170,28 +169,8 @@ def main():
             
     print("Summary written successfully.")
     
-    # Register in central registry
-    print("\nRegistering composite model and visualization in central registry...")
     try:
-        add_model(
-            name="BOT Official Price Indices Forecast",
-            model_type="Growth Spliced Composite Aggregation",
-            source_data="export_import_price_forecast_statsforecast.csv, export_import_price_monthly_wide.csv",
-            summary_path=summary_path,
-            status="Deployed",
-            last_update=datetime.now().strftime('%Y-%m-%d')
-        )
-        add_visualization(
-            name="BOT Official Price Indices Projections",
-            chart_type="Line Grid",
-            source_data=forecast_path,
-            png_path=chart_path,
-            status="Rendered",
-            last_update=datetime.now().strftime('%Y-%m-%d')
-        )
-        print("Registration successful.")
     except Exception as e:
-        print(f"Error registering model/visualization: {e}")
 
 if __name__ == "__main__":
     main()

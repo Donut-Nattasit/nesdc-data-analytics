@@ -63,7 +63,6 @@ Use this tree to configure the simulation scaling and execution flow:
 
 ### Step 4 — Verification
 * Verify that comparison charts and datasets are saved to `output/chart/prepared_food_shock/` and `output/data/prepared_food_shock/`.
-* Confirm that `PROJECT_STATE.json` registers the datasets, visualizations, and reports correctly.
 
 ## Troubleshooting
 

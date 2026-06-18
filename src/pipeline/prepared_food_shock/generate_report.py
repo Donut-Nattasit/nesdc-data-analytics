@@ -14,8 +14,6 @@ def print(*args, **kwargs):
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.append(str(ROOT))
 
-from src.utils.registry import add_report
-
 DATA_DIR = ROOT / "output" / "data" / "prepared_food_shock"
 REPORT_DIR = ROOT / "report" / "prepared_food_shock"
 REPORT_DIR.mkdir(parents=True, exist_ok=True)
@@ -201,14 +199,6 @@ The following tables show the index levels and YoY growth rates under the Baseli
         
     print(f"[OK] Generated Markdown report: {report_path}")
     
-    # Register report in PROJECT_STATE.json
-    add_report(
-        title="Prepared Food Price Shock Scenario Analysis (Iran War)",
-        author="Chief Economist & Report Writer",
-        path="report/prepared_food_shock/prepared_food_shock.md",
-        status="Published"
-    )
-    print("Report registered in PROJECT_STATE.json.")
 
 if __name__ == "__main__":
     main()

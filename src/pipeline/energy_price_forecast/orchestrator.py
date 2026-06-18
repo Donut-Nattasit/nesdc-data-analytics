@@ -15,7 +15,6 @@ from src.pipeline.energy_price_forecast import (
 )
 from src.pipeline.base_orchestrator import run_steps
 
-
 def main():
     print("======================================================================")
     print("      NESDC DUBAI OIL ANALYSIS & FORECAST PIPE ORCHESTRATOR")
@@ -43,14 +42,6 @@ def main():
     print("   - forecast: output/data/energy_price_forecast/dubai_oil_forecast_production.csv")
     print("   - charts  : output/chart/energy_price_forecast/")
     print("   - report  : report/energy_price_forecast/energy_price_forecast.md")
-
-    state_path = project_root / "PROJECT_STATE.json"
-    if state_path.exists():
-        with open(state_path, 'r', encoding='utf-8') as f:
-            state = json.load(f)
-        last_report = state.get("reports", [])[-1] if state.get("reports") else {}
-        print(f"\n   Registry: [{last_report.get('title', 'N/A')} — {last_report.get('status', 'N/A')}]")
-
 
 if __name__ == "__main__":
     main()

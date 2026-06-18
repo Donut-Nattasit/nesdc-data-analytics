@@ -21,8 +21,6 @@ warnings.filterwarnings("ignore")
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.append(str(ROOT))
 
-from src.utils.registry import add_dataset, add_visualization
-
 # Output directories
 DATA_IN_DIR = ROOT / "output" / "data" / "cpi_forecast"
 OUT_DATA_DIR = ROOT / "output" / "data" / "prepared_food_shock"
@@ -238,23 +236,6 @@ def main():
     finally:
         conn.close()
         
-    # Register datasets in PROJECT_STATE.json
-    add_dataset(
-        series_id="Prepared Food CPI Shock Scenario Comparison",
-        source="MOC & NESDC Geopolitical Shock Simulation",
-        raw_path="output/data/cpi_forecast/cpi_forecast_monthly.csv",
-        transformed_path="output/data/prepared_food_shock/prepared_food_shock_comparison.csv",
-        forecast_path="",
-        status="Ready"
-    )
-    add_dataset(
-        series_id="Prepared Food CPI Shock Annual Growth Comparison",
-        source="MOC & NESDC Geopolitical Shock Simulation",
-        raw_path="output/data/prepared_food_shock/prepared_food_shock_comparison.csv",
-        transformed_path="output/data/prepared_food_shock/prepared_food_shock_annual_growth.csv",
-        forecast_path="",
-        status="Ready"
-    )
     
     # 5. Generate Comparison Plots
     plt.rcParams['font.family'] = 'sans-serif'
@@ -325,25 +306,6 @@ def main():
     fig.autofmt_xdate(rotation=0)
     chart3_path = save(fig, "cpi_aggregates_yoy_comparison.png", rect=[0, 0.04, 1, 0.93])
     
-    # Register Visualizations
-    add_visualization(
-        name="Prepared Food Index Comparison",
-        chart_type="Line Chart",
-        source_data="prepared_food_shock_comparison.csv",
-        png_path="output/chart/prepared_food_shock/prepared_food_index_comparison.png"
-    )
-    add_visualization(
-        name="Prepared Food YoY Comparison",
-        chart_type="Line Chart",
-        source_data="prepared_food_shock_comparison.csv",
-        png_path="output/chart/prepared_food_shock/prepared_food_yoy_comparison.png"
-    )
-    add_visualization(
-        name="CPI Aggregates YoY Comparison",
-        chart_type="Multi-Panel Line Chart",
-        source_data="prepared_food_shock_comparison.csv",
-        png_path="output/chart/prepared_food_shock/cpi_aggregates_yoy_comparison.png"
-    )
     
     print("\nAnalysis phase completed successfully!")
 

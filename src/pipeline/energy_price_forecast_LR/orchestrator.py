@@ -10,7 +10,6 @@ sys.path.append(str(Path(__file__).resolve().parents[3]))
 from src.pipeline.energy_price_forecast_LR import prepare_data, predict_model, generate_charts, generate_report
 from src.pipeline.base_orchestrator import run_steps
 
-
 def main():
     print("==========================================================")
     print("      NESDC Energy Price Forecast — Long Range (LR)")
@@ -31,9 +30,7 @@ def main():
     print(f"[OK] Pipeline completed in {duration:.1f} seconds.")
     print("   Charts  : output/chart/energy_price_forecast_LR/")
     print("   Report  : report/energy_price_forecast_LR/energy_price_forecast_LR.md")
-    print("   Registry: PROJECT_STATE.json updated")
     print("==========================================================")
-
 
 if __name__ == "__main__":
     main()

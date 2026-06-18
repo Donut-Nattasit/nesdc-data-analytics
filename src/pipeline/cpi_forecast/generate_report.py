@@ -28,7 +28,6 @@ CHART_DIR.mkdir(parents=True, exist_ok=True)
 REPORT_DIR.mkdir(parents=True, exist_ok=True)
 
 sys.path.append(str(ROOT))
-from src.utils.registry import add_visualization, add_report
 
 # ── Style constants ───────────────────────────────────────────────────────────
 COMPOSITE_COLORS = {
@@ -977,30 +976,13 @@ def main():
 
     report_path = compile_report(monthly, quarterly, annual, chart_paths)
 
-    print("\n[Registering in PROJECT_STATE.json...]")
     for key, path in chart_paths.items():
         try:
             rel_path = str(path.relative_to(ROOT)).replace("\\", "/")
-            add_visualization(
-                name=f"CPI Forecast — {key.replace('_', ' ').title()}",
-                chart_type="Mixed",
-                source_data="output/data/cpi_forecast/",
-                png_path=rel_path,
-                status="Rendered"
-            )
         except Exception as e:
-            print(f"  [Warn] Could not register {key}: {e}")
     try:
         rel_report = str(report_path.relative_to(ROOT)).replace("\\", "/")
-        add_report(
-            title="Thailand CPI Forecasting Report",
-            author="Chief Economist",
-            path=rel_report,
-            status="Published"
-        )
-        print("  [OK] Report registered.")
     except Exception as e:
-        print(f"  [Warn] Could not register report: {e}")
 
     print("\n" + "=" * 60)
     print("[DONE] All charts and report generated successfully.")

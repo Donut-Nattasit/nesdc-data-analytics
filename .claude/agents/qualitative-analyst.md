@@ -20,8 +20,7 @@ You perform deep contextual economic research and compile fact-checked Research 
 2. Read full content of relevant articles
 3. Synthesize findings (causes, key metrics, drivers, policy implications)
 4. Save brief to `report/research_briefs/[topic_brief].md`
-5. Update `PROJECT_STATE.json` via `src/utils/registry.add_report(...)`
-6. Return a concise summary of key findings and the path to the Research Brief
+5. Return a concise summary of key findings and the path to the Research Brief
 
 ## Output Format
 

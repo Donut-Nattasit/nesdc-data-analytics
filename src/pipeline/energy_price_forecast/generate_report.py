@@ -2,7 +2,6 @@ import os
 import sys
 import pandas as pd
 from pathlib import Path
-from src.utils.registry import add_report
 
 # Enforce UTF-8 encoding for standard console output on Windows
 if hasattr(sys.stdout, 'reconfigure'):
@@ -374,17 +373,8 @@ To analyze the divergence between our official projections and raw market consen
         
     print(f"✅ Final restructured report compiled and saved to: {report_path}")
     
-    # Register report
     try:
-        add_report(
-            title="Dubai Oil Price Forecast Report (2026-2027)",
-            author="Chief Economist",
-            path="report/energy_price_forecast/energy_price_forecast.md",
-            status="Published"
-        )
-        print("✅ Report registered successfully in PROJECT_STATE.json.")
     except Exception as e:
-        print(f"⚠️ Failed to register report: {e}")
 
 if __name__ == "__main__":
     main()

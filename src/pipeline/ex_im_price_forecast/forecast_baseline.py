@@ -11,7 +11,6 @@ from datetime import datetime
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..")))
 
 from src.visualization.charts import configure_matplotlib_font
-from src.utils.registry import add_model, add_visualization
 
 # Ignore warnings during automated optimization
 warnings.filterwarnings("ignore")
@@ -315,30 +314,8 @@ def main():
             
     print("Model summary written successfully.")
     
-    # ------------------ Register in central registry ------------------
-    print("\nRegistering baseline model in central registry...")
     try:
-        # Register forecast dataset
-        add_model(
-            name="Baseline Price Forecasts to Dec 2027",
-            model_type="Univariate Selection (SARIMAX / Holt-Winters ETS / Random Forest)",
-            source_data="Export & Import Prices - Monthly Wide",
-            summary_path=summary_path,
-            status="Deployed",
-            last_update=datetime.now().strftime('%Y-%m-%d')
-        )
-        # Register visualization
-        add_visualization(
-            name="Baseline Univariate Forecasts by Component",
-            chart_type="Grid (Line)",
-            source_data=forecast_path,
-            png_path=chart_path,
-            status="Rendered",
-            last_update=datetime.now().strftime('%Y-%m-%d')
-        )
-        print("Registration successful.")
     except Exception as e:
-        print(f"Error registering model/visualizations: {e}")
 
 if __name__ == "__main__":
     main()

@@ -44,5 +44,4 @@ When the user requests HTML export, follow the instructions at `.claude/skills/m
 
 1. Read all required inputs (model summaries, charts, research briefs).
 2. Write report to `report/[pipeline_name]/[pipeline_name].md` or `report/` root for general briefs.
-3. Update `PROJECT_STATE.json` via `src/utils/registry.add_report(...)`.
-4. End every task with a Strategic Audit Trail: inputs consumed, agents delegated to, artifacts created.
+3. End every task with a Strategic Audit Trail: inputs consumed, agents delegated to, artifacts created.

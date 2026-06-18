@@ -13,7 +13,7 @@ def plot_iran_war_impact():
     project_root = Path.cwd()
     
     # Paths
-    csv_path = project_root / 'output/data/moc_prices_wide.csv'
+    csv_path = project_root / 'output/data/moc_prices/moc_prices_wide.csv'
     chart_dir = project_root / 'output/chart'
     chart_dir.mkdir(parents=True, exist_ok=True)
     chart_path = chart_dir / 'indexed_prices_post_iran_war.png'

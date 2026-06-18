@@ -4,7 +4,6 @@ from datetime import datetime
 import pandas as pd
 from pathlib import Path
 from src.api.eia_client import EIAClient
-from src.utils.registry import add_dataset
 
 # Enforce UTF-8 encoding for standard console output on Windows
 if hasattr(sys.stdout, 'reconfigure'):
@@ -124,20 +123,8 @@ def main():
     df_master.to_csv(out_path, index=False)
     print(f"\n✅ Master dataset successfully saved to: {out_path}")
     
-    # Update registry
     try:
-        add_dataset(
-            series_id="Dubai Oil Forecasting Master",
-            source="Excel/EIA STEO",
-            raw_path="input/pipeline/dubai_oil/dubai_price.xlsx",
-            transformed_path="output/data/energy_price_forecast/dubai_oil_master.csv",
-            forecast_path="",
-            status="Ready",
-            last_update=pd.Timestamp.now().strftime('%Y-%m-%d')
-        )
-        print("✅ Registry updated successfully.")
     except Exception as e:
-        print(f"⚠️ Failed to update registry: {e}")
         
 if __name__ == "__main__":
     main()

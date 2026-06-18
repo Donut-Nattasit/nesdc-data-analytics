@@ -46,9 +46,6 @@ When executing the pipeline, follow this path to configure parameters:
   ```
 * The pipeline will sequentially run the 6 component scripts (Prepare -> Model -> Viz -> Report) and save the outputs to `output/data/energy_price_forecast/` and `report/energy_price_forecast/`.
 
-### Step 4 — Register Artifacts
-* Log the models, datasets, and charts to `PROJECT_STATE.json` by running the registry script.
-
 ## Troubleshooting
 
 | Issue / Error | Cause | Resolution |

@@ -10,7 +10,6 @@ import sys
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from src.visualization.charts import configure_matplotlib_font
-from src.utils.registry import add_visualization, add_dataset
 
 def main():
     project_root = Path(__file__).resolve().parents[2]
@@ -88,14 +87,6 @@ def main():
     print(f"Saving CSV to: {csv_path}")
     result_df.to_csv(csv_path, index=False, encoding='utf-8-sig')
     
-    # Register the output CSV dataset
-    add_dataset(
-        series_id="Revenue Shares by TSIC Category",
-        source="Department of Business Development (DBD)",
-        raw_path="database/DBD.db",
-        transformed_path="output/data/revenue_share_by_category.csv",
-        status="Ready"
-    )
     
     # Configure Matplotlib fonts and styles to ensure Thai renders correctly
     print("Configuring Matplotlib font styles...")
@@ -177,13 +168,6 @@ def main():
     plt.savefig(chart_path, dpi=300, bbox_inches='tight')
     plt.close()
     
-    # Register the visualization
-    add_visualization(
-        name="Revenue Shares by TSIC Category",
-        chart_type="Stacked Horizontal Bar Chart",
-        source_data="database/DBD.db",
-        png_path="output/chart/revenue_share_by_category.png"
-    )
     
     print("Plotting and export complete!")
 

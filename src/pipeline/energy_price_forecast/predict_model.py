@@ -5,7 +5,6 @@ import pandas as pd
 import numpy as np
 import statsmodels.api as sm
 from statsmodels.tsa.stattools import adfuller
-from src.utils.registry import add_model, add_dataset
 from pathlib import Path
 
 # Enforce UTF-8 encoding for standard console output on Windows
@@ -197,20 +196,8 @@ def main():
             sign = "+" if diff >= 0 else ""
             print(f"  {row['date'].strftime('%Y-%m')} | ${row['dubai_baseline']:16.2f} | ${row['dubai_spot_forecast']:14.2f} ({sign}{diff:.2f})")
             
-    # Register dataset in PROJECT_STATE.json
     try:
-        add_dataset(
-            series_id="Dubai Crude Production Forecast",
-            source="Error Correction Model (Engle-Granger)",
-            raw_path="output/data/energy_price_forecast/dubai_oil_master.csv",
-            transformed_path="",
-            forecast_path="output/data/energy_price_forecast/dubai_oil_forecast_production.csv",
-            status="Finalized",
-            last_update=pd.Timestamp.now().strftime('%Y-%m-%d')
-        )
-        print("✅ Production forecast registered successfully in registry.")
     except Exception as e:
-        print(f"⚠️ Failed to register production dataset: {e}")
 
 if __name__ == "__main__":
     from pathlib import Path

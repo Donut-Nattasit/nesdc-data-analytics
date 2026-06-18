@@ -12,13 +12,11 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[3]
 
-
 def _load_if_exists(path: Path) -> pd.DataFrame:
     if path.exists():
         df = pd.read_csv(path, index_col=0, parse_dates=True)
         return df
     return pd.DataFrame()
-
 
 def main() -> None:
     config_path = ROOT / "src/pipeline/thailand_price_system/config/pipeline_config.json"
@@ -50,19 +48,8 @@ def main() -> None:
         out_q = ROOT / config["outputs"]["synthesis_quarterly"]
         synthesis_q.to_csv(out_q)
         print(f"[OK] Quarterly synthesis: {out_q.relative_to(ROOT)}")
-
-    # ── Registry update ────────────────────────────────────────────────────────
     import sys
     sys.path.insert(0, str(ROOT))
-    from src.utils.registry import add_dataset
-    add_dataset(
-        series_id="Thailand Price System Synthesis",
-        source="All sub-pipelines",
-        transformed_path=str(out_m.relative_to(ROOT)) if frames_m else "",
-        status="Ready",
-    )
-    print("[OK] Registry updated.")
-
 
 if __name__ == "__main__":
     main()

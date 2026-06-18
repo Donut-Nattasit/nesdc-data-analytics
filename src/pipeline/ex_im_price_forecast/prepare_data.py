@@ -9,7 +9,6 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".
 
 from src.api.bot_client import BOTClient
 from src.api.ceic_client import CeicSession
-from src.utils.registry import add_dataset
 
 # Configuration
 START_DATE = "2000-01-01"
@@ -270,30 +269,8 @@ def main():
     merged_quarterly.to_csv(quarterly_path)
     print(f"Saved quarterly wide dataset to {quarterly_path} (Shape: {merged_quarterly.shape})")
 
-    # ------------------ 5. Register in Central Registry ------------------
-    print("\nRegistering datasets in central registry...")
     try:
-        # Register monthly dataset
-        add_dataset(
-            series_id="Export & Import Prices - Monthly Wide",
-            source="BOT (EC_EI_020) & CEIC (18 Series)",
-            raw_path="",
-            transformed_path=monthly_path,
-            status="Ready",
-            last_update=datetime.now().strftime('%Y-%m-%d')
-        )
-        # Register quarterly dataset
-        add_dataset(
-            series_id="Export & Import Prices - Quarterly Wide",
-            source="BOT (EC_EI_020) & CEIC (18 Series) Resampled",
-            raw_path=monthly_path,
-            transformed_path=quarterly_path,
-            status="Ready",
-            last_update=datetime.now().strftime('%Y-%m-%d')
-        )
-        print("Registration successful.")
     except Exception as e:
-        print(f"Error updating registry: {e}")
 
 if __name__ == "__main__":
     main()

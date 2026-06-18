@@ -30,7 +30,7 @@ When executing the EIA update, follow this conditional pipeline flow:
 ## Execution Protocol
 
 ### Step 1 — Verify Cache
-* Check the "Last Update" date of `output/data/transformed/eia_world_balance_quarterly.csv` in `PROJECT_STATE.json`.
+* Check the modification date of `output/data/transformed/eia_world_balance_quarterly.csv` to determine when the pipeline last ran.
 * If a new STEO has been published since the last run (typically the 2nd week of each month), proceed to Step 2 with `force_refresh=True`.
 
 ### Step 2 — Run the Black-Box Script
@@ -39,12 +39,6 @@ When executing the EIA update, follow this conditional pipeline flow:
   $env:PYTHONPATH='.'; .\.venv\Scripts\python.exe src/visualization/generate_eia_balance_report.py
   ```
 * The script automatically handles API fetches, filters, and renders both English (`output/chart/eia_world_balance_quarterly.png`) and Thai (`output/chart/eia_world_balance_quarterly_thai.png`) visual charts.
-
-### Step 3 — Registry Update
-* Run the registry script to log visual updates:
-  ```powershell
-  $env:PYTHONPATH='.'; .\.venv\Scripts\python.exe src/utils/registry.py
-  ```
 
 ## Troubleshooting
 

@@ -51,7 +51,6 @@ Follow this tree to determine execution steps and parameters:
   4. `generate_report.py`: Builds Figure 10 to Figure 13 (including the Figure 11 component weight area chart) and compiles the Markdown report `report/cpi_forecast/cpi_forecast.md`.
 
 ### Step 3 — Post-Flight Verification
-* Check that `PROJECT_STATE.json` has been updated with the latest dataset, model, and chart registrations.
 * Check that Figure 11 (`chart_appendix_weight_area_component.png`) starts at year 2018 to avoid pre-2018 weight series gaps.
 
 ## Troubleshooting

@@ -14,7 +14,6 @@ if hasattr(sys.stdout, 'reconfigure'):
 # Add project root to path
 sys.path.append(str(Path(__file__).resolve().parent.parent.parent))
 from src.visualization.charts import configure_matplotlib_font, save_chart
-from src.utils.registry import add_visualization
 
 def main():
     print("==========================================================")
@@ -188,18 +187,8 @@ def main():
     save_chart(fig, out_chart_path, save_html=False)
     print(f"✅ Successfully generated and saved global prices chart to: {out_chart_path}")
     
-    # Register visualization
     try:
-        add_visualization(
-            name="Global Crude Price Comparison",
-            chart_type="Multi-Series Line with Annotations",
-            source_data="output/data/energy_price_forecast/dubai_oil_forecast_production.csv",
-            png_path=out_chart_path,
-            status="Rendered"
-        )
-        print("✅ Registered new visualization in registry.")
     except Exception as e:
-        print(f"⚠️ Failed to register visualization: {e}")
 
 if __name__ == "__main__":
     main()

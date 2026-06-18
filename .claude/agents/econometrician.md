@@ -36,5 +36,4 @@ from src.analysis.forecasting import auto_arima_forecast
 
 - Save predictions to `output/data/[pipeline_name]/` in wide format
 - Save model coefficient tables and diagnostics to `output/model_summary/[pipeline_name]/`
-- Update `PROJECT_STATE.json` via `src/utils/registry.py`
 - End every task with model selection rationale and diagnostic results

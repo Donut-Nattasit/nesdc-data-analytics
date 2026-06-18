@@ -17,7 +17,6 @@ def print(*args, **kwargs):
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..")))
 
 from src.api.ceic_client import CeicSession
-from src.utils.registry import add_dataset
 
 def fetch_with_retry(sid, session, max_retries=5):
     from ceic_api_client.pyceic import Ceic
@@ -325,20 +324,8 @@ def main():
     finally:
         conn.close()
         
-    # Register dataset in PROJECT_STATE.json
     try:
-        add_dataset(
-            series_id="CPI Forecasting Historical Master Wide",
-            source="CEIC API & Dubai Crude Forecast",
-            raw_path="database/cpi_forecast/cpi_forecast.db (table: cpi_raw_long)",
-            transformed_path="output/data/cpi_forecast/cpi_historical_master.csv",
-            forecast_path="",
-            status="Ready",
-            last_update=pd.Timestamp.now().strftime('%Y-%m-%d')
-        )
-        print("[OK] Registered dataset in PROJECT_STATE.json.")
     except Exception as e:
-        print(f"[Warning] Registry update failed: {e}")
 
 if __name__ == "__main__":
     print("Execution timestamp:", datetime.now())
