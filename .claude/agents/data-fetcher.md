@@ -45,7 +45,7 @@ sys.path.insert(0, str(Path('.').resolve()))
 # ... fetch logic here
 ```
 
-Run: `& '.venv\Scripts\python.exe' 'temp\fetch_task.py'`
+Run: `& 'bin\python.ps1' 'temp\fetch_task.py'`
 
 ## 4. Output Standards
 

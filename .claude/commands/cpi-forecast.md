@@ -8,7 +8,7 @@ Run the Thailand CPI component forecasting pipeline.
 
 **Then execute:**
 ```powershell
-& '.venv\Scripts\python.exe' 'src\pipeline\cpi_forecast\orchestrator.py'
+& 'bin\python.ps1' 'src\pipeline\cpi_forecast\orchestrator.py'
 ```
 
 **Outputs produced:**

@@ -2,7 +2,7 @@
 # This runs silently in the background every Sunday at 3:00 AM
 
 $ProjectRoot = Resolve-Path "$PSScriptRoot\.."
-$PythonExe = "$ProjectRoot\.venv\Scripts\python.exe"
+$PythonExe = "$env:LOCALAPPDATA\venvs\data-analysis\Scripts\python.exe"
 $ScriptPath = "$ProjectRoot\src\utils\auto_maintain.py"
 
 if (-Not (Test-Path $PythonExe)) {

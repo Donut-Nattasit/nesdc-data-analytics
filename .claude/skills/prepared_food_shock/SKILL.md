@@ -49,16 +49,16 @@ Use this tree to configure the simulation scaling and execution flow:
 * Alternatively, execute the two Python scripts sequentially:
   ```powershell
   # Step 2a: Run simulation and plot charts
-  $env:PYTHONPATH='.'; $env:PYTHONUTF8='1'; .\.venv\Scripts\python.exe src/pipeline/prepared_food_shock/run_analysis.py
+  $env:PYTHONPATH='.'; $env:PYTHONUTF8='1'; .\bin\python.ps1 src/pipeline/prepared_food_shock/run_analysis.py
 
   # Step 2b: Generate Markdown scenario brief and register
-  $env:PYTHONPATH='.'; $env:PYTHONUTF8='1'; .\.venv\Scripts\python.exe src/pipeline/prepared_food_shock/generate_report.py
+  $env:PYTHONPATH='.'; $env:PYTHONUTF8='1'; .\bin\python.ps1 src/pipeline/prepared_food_shock/generate_report.py
   ```
 
 ### Step 3 — Export Portable HTML Report (Optional but Recommended)
 * To export the report as a portable, self-contained HTML file (with base64 embedded charts for email distribution), execute the conversion skill script:
   ```powershell
-  $env:PYTHONPATH='.'; .\.venv\Scripts\python.exe .agents/skills/md-to-html/scripts/md_to_html.py report/prepared_food_shock/prepared_food_shock.md report/prepared_food_shock/prepared_food_shock.html
+  $env:PYTHONPATH='.'; .\bin\python.ps1 .agents/skills/md-to-html/scripts/md_to_html.py report/prepared_food_shock/prepared_food_shock.md report/prepared_food_shock/prepared_food_shock.html
   ```
 
 ### Step 4 — Verification

@@ -6,7 +6,7 @@ Run the Dubai Crude Oil price forecasting pipeline.
 
 **Then execute:**
 ```powershell
-& '.venv\Scripts\python.exe' 'src\pipeline\energy_price_forecast\orchestrator.py'
+& 'bin\python.ps1' 'src\pipeline\energy_price_forecast\orchestrator.py'
 ```
 
 **Outputs produced:**

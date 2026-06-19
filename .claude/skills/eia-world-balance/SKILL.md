@@ -36,7 +36,7 @@ When executing the EIA update, follow this conditional pipeline flow:
 ### Step 2 — Run the Black-Box Script
 * Run the pipeline script from the root directory using the standard environment template:
   ```powershell
-  $env:PYTHONPATH='.'; .\.venv\Scripts\python.exe src/visualization/generate_eia_balance_report.py
+  $env:PYTHONPATH='.'; .\bin\python.ps1 src/visualization/generate_eia_balance_report.py
   ```
 * The script automatically handles API fetches, filters, and renders both English (`output/chart/eia_world_balance_quarterly.png`) and Thai (`output/chart/eia_world_balance_quarterly_thai.png`) visual charts.
 

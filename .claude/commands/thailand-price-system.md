@@ -18,7 +18,7 @@ This command does NOT re-run sub-pipelines. It assembles their existing outputs.
 
 **Then execute:**
 ```powershell
-& '.venv\Scripts\python.exe' 'src\pipeline\thailand_price_system\orchestrator.py'
+& 'bin\python.ps1' 'src\pipeline\thailand_price_system\orchestrator.py'
 ```
 
 **Outputs produced:**

@@ -35,7 +35,7 @@ Before running the pipeline, execute the following validations:
 ### Step 2 — Run the Pipeline Orchestrator
 * Trigger the pipeline runner script from the root workspace directory using the standard environment template:
   ```powershell
-  $env:PYTHONPATH='.'; .\.venv\Scripts\python.exe src/pipeline/ex_im_price_forecast/orchestrator.py
+  $env:PYTHONPATH='.'; .\bin\python.ps1 src/pipeline/ex_im_price_forecast/orchestrator.py
   ```
 * The pipeline runs components sequentially (Prepare -> Plot -> StatsForecast -> Exogenous -> Aggregate -> Resample & Report) and outputs data files to `output/data/ex_im_price_forecast/` and the report to `report/ex_im_price_forecast/`.
 

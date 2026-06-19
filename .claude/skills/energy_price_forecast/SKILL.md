@@ -42,7 +42,7 @@ When executing the pipeline, follow this path to configure parameters:
 ### Step 3 — Run the Pipeline Orchestrator
 * Execute the orchestrator script using the Python template:
   ```powershell
-  $env:PYTHONPATH='.'; .\.venv\Scripts\python.exe src/pipeline/energy_price_forecast/orchestrator.py
+  $env:PYTHONPATH='.'; .\bin\python.ps1 src/pipeline/energy_price_forecast/orchestrator.py
   ```
 * The pipeline will sequentially run the 6 component scripts (Prepare -> Model -> Viz -> Report) and save the outputs to `output/data/energy_price_forecast/` and `report/energy_price_forecast/`.
 

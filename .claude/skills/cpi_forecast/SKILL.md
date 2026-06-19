@@ -42,7 +42,7 @@ Follow this tree to determine execution steps and parameters:
 ### Step 2 — Run the Pipeline Orchestrator
 * Execute the orchestrator script using the PowerShell environment template:
   ```powershell
-  $env:PYTHONPATH='.'; $env:PYTHONUTF8='1'; .\.venv\Scripts\python.exe src/pipeline/cpi_forecast/orchestrator.py
+  $env:PYTHONPATH='.'; $env:PYTHONUTF8='1'; .\bin\python.ps1 src/pipeline/cpi_forecast/orchestrator.py
   ```
 * The script will execute all phases in sequence:
   1. `prepare_data.py`: Fetches missing CPI actuals from CEIC API, reverse-engineers weights/indices, and saves `cpi_historical_master.csv`.

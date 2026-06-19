@@ -1,98 +1,81 @@
-# Bootstrap script -- run once per machine to set up the Python environment.
+# setup.ps1 -- run once per machine to build this workspace's Python environment.
 #
-# WHY: .venv stored inside OneDrive causes two problems:
-#   1. OneDrive syncs 100,000+ small package files between machines (very slow)
-#   2. Venv activation scripts contain absolute paths that break if usernames differ
+# WHY THIS DESIGN:
+#   The project folder syncs across machines via OneDrive. A virtual environment must
+#   NOT sync: it contains 100,000+ files (slow sync) and machine-specific absolute
+#   paths in pyvenv.cfg / Scripts (the recurring "path error" when switching laptops).
 #
-# SOLUTION: Store the real venv in %LOCALAPPDATA% (never synced), then create a
-# junction at .venv inside the project so all scripts that call .venv\Scripts\python
-# continue to work unchanged. OneDrive does not follow junctions.
+#   So the venv lives OUTSIDE OneDrive, in %LOCALAPPDATA%\venvs\data-analysis. Each
+#   machine builds its own. Nothing venv-related sits inside the synced folder -- no
+#   real folder, no junction, no symlink. Scripts reach it via bin\python.ps1.
+#
+# Run:  .\setup.ps1          (build / update the environment)
+#       .\setup.ps1 -Force   (delete and rebuild from scratch)
 
 param(
     [switch]$Force
 )
 
 $ErrorActionPreference = 'Continue'
-$ProjectRoot = $PSScriptRoot
-$LocalVenvPath = "$env:LOCALAPPDATA\venvs\data-analysis"
-$JunctionPath = Join-Path $ProjectRoot '.venv'
+$ProjectRoot   = $PSScriptRoot
+$VenvDir       = "$env:LOCALAPPDATA\venvs\data-analysis"
+$VenvPython    = "$VenvDir\Scripts\python.exe"
 
-# --- Find Python 3.12 ---
-$PythonExe = $null
+# --- 1. Find Python 3.12 ---
+$PythonLauncher = $null
 $PythonVer = ''
 foreach ($candidate in @('py -3.12', 'python3.12', 'python')) {
     try {
         $ver = & cmd /c "$candidate --version 2>&1"
-        if ($ver -match '3\.12') {
-            $PythonExe = $candidate
-            $PythonVer = $ver
-            break
-        }
+        if ($ver -match '3\.12') { $PythonLauncher = $candidate; $PythonVer = $ver; break }
     } catch {}
 }
-if (-not $PythonExe) {
-    Write-Error 'Python 3.12 not found. Install from https://python.org and ensure it is in PATH.'
+if (-not $PythonLauncher) {
+    Write-Error 'Python 3.12 not found. Install it from https://python.org and ensure it is on PATH, then re-run.'
     exit 1
 }
-Write-Host "Using Python: $PythonExe ($PythonVer)"
+Write-Host "Using Python: $PythonLauncher ($PythonVer)"
 
-# --- Remove old venv if -Force ---
+# --- 2. (Optional) wipe for a clean rebuild ---
 if ($Force) {
-    Write-Host "Removing existing venv at $LocalVenvPath ..."
-    Remove-Item -Recurse -Force $LocalVenvPath -ErrorAction SilentlyContinue
-    if (Test-Path $JunctionPath) {
-        cmd /c "rmdir `"$JunctionPath`""
-    }
+    Write-Host "Removing existing venv at $VenvDir ..."
+    Remove-Item -Recurse -Force $VenvDir -ErrorAction SilentlyContinue
 }
 
-# --- Create venv ---
-if (-not (Test-Path "$LocalVenvPath\Scripts\python.exe")) {
-    Write-Host "Creating virtual environment at $LocalVenvPath ..."
-    & cmd /c "$PythonExe -m venv `"$LocalVenvPath`""
-    if ($LASTEXITCODE -ne 0) {
-        Write-Error 'venv creation failed.'
-        exit 1
-    }
+# --- 3. Create the venv (outside OneDrive) ---
+if (-not (Test-Path $VenvPython)) {
+    Write-Host "Creating virtual environment at $VenvDir ..."
+    & cmd /c "$PythonLauncher -m venv `"$VenvDir`""
+    if (-not (Test-Path $VenvPython)) { Write-Error 'venv creation failed.'; exit 1 }
 } else {
-    Write-Host "Virtual environment already exists at $LocalVenvPath"
+    Write-Host "Virtual environment already exists at $VenvDir"
 }
 
-# --- Create junction .venv -> local venv ---
-# If .venv is a real directory (old OneDrive setup), remove it first.
-if (Test-Path $JunctionPath) {
-    $item = Get-Item $JunctionPath -Force
-    if ($item.LinkType -ne 'Junction') {
-        Write-Host '.venv is a real directory (old OneDrive setup). Removing to replace with junction...'
-        Write-Host '  Packages are safe -- they will be reinstalled from requirements.txt.'
-        Remove-Item -Recurse -Force $JunctionPath
-    }
-}
-if (-not (Test-Path $JunctionPath)) {
-    Write-Host "Creating junction .venv -> $LocalVenvPath ..."
-    cmd /c "mklink /J `"$JunctionPath`" `"$LocalVenvPath`""
-} else {
-    Write-Host '.venv junction already in place'
+# --- 4. Safety: make sure no .venv is lingering inside OneDrive ---
+$StaleVenv = Join-Path $ProjectRoot '.venv'
+if (Test-Path $StaleVenv) {
+    Write-Host "Removing stale .venv inside the OneDrive folder (it must not live here)..." -ForegroundColor Yellow
+    # rmdir removes a junction without touching its target; -Recurse handles a real folder.
+    cmd /c "rmdir /S /Q `"$StaleVenv`"" 2>$null
+    if (Test-Path $StaleVenv) { Remove-Item -Recurse -Force $StaleVenv -ErrorAction SilentlyContinue }
 }
 
-# --- Install dependencies ---
+# --- 5. Install dependencies ---
 Write-Host ''
-Write-Host 'Installing packages (this may take a few minutes on first run)...'
-& "$JunctionPath\Scripts\pip" install --upgrade pip -q
-& "$JunctionPath\Scripts\pip" install -r "$ProjectRoot\requirements.txt" --find-links "$ProjectRoot\wheels"
-if ($LASTEXITCODE -ne 0) {
-    Write-Error 'pip install failed.'
-    exit 1
-}
+Write-Host 'Installing packages (first run may take a few minutes)...'
+& $VenvPython -m pip install --upgrade pip -q
+& $VenvPython -m pip install -r "$ProjectRoot\requirements.txt" --find-links "$ProjectRoot\wheels"
+if ($LASTEXITCODE -ne 0) { Write-Error 'pip install failed.'; exit 1 }
 
-# --- Set PYTHONPATH user env var ---
+# --- 6. Persist PYTHONPATH for terminal sessions ---
 $Current = [Environment]::GetEnvironmentVariable('PYTHONPATH', 'User')
 if ($Current -ne $ProjectRoot) {
     [Environment]::SetEnvironmentVariable('PYTHONPATH', $ProjectRoot, 'User')
     Write-Host ''
-    Write-Host "PYTHONPATH set to $ProjectRoot"
-    Write-Host 'Restart your terminal for this to take effect.'
+    Write-Host "PYTHONPATH set to $ProjectRoot (restart your terminal for it to take effect)."
 }
 
 Write-Host ''
-Write-Host 'Done. Verify with:'
-Write-Host '  .venv\Scripts\python.exe -c "import sys; print(sys.executable)"'
+Write-Host 'Done. This machine is ready.' -ForegroundColor Green
+Write-Host 'Run scripts via:  .\bin\python.ps1 <script.py>'
+& $VenvPython -c "import sys; print('venv python ->', sys.executable)"

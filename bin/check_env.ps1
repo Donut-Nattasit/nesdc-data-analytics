@@ -28,10 +28,11 @@ foreach ($path in $possibleCfgPaths) {
 # 2. Verify venv works now and list main packages
 Write-Host ""
 Write-Host "Checking virtual environment packages..." -ForegroundColor Yellow
-if (Test-Path ".\.venv\Scripts\python.exe") {
+$VenvPython = "$env:LOCALAPPDATA\venvs\data-analysis\Scripts\python.exe"
+if (Test-Path $VenvPython) {
     $env:PYTHONPATH="."
-    & .\.venv\Scripts\python.exe -m pip list | Select-String -Pattern "ceic-api-client|altair|statsforecast|statsmodels|scikit-learn|tabulate|vl-convert"
+    & $VenvPython -m pip list | Select-String -Pattern "ceic-api-client|altair|statsforecast|statsmodels|scikit-learn|tabulate|vl-convert"
     Write-Host "Environment validation complete. The virtual environment is ready!" -ForegroundColor Green
 } else {
-    Write-Error "Virtual environment not found at .\.venv"
+    Write-Error "Virtual environment not found. Run setup.ps1 to build it on this machine."
 }

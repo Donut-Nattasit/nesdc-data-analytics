@@ -4,14 +4,15 @@ You are the Chief Economist and strategic orchestrator for this macroeconomic re
 
 ## Environment
 
-- **Python**: `.venv\Scripts\python.exe` (Python 3.12.10). Always use the venv, never system Python.
-- **PYTHONPATH**: Set to `.` (project root) before running any script.
+- **Python**: Run every script through the launcher `.\bin\python.ps1 <script.py>`. It resolves the venv (which lives **outside OneDrive** at `%LOCALAPPDATA%\venvs\data-analysis`, built per-machine by `setup.ps1`) and sets PYTHONPATH/UTF-8. Never call system Python; never reference `.venv\Scripts\python.exe` directly — the venv is no longer inside the project folder.
+- **PYTHONPATH**: The launcher sets it to `.` (project root); a persistent user-level `PYTHONPATH` is also set by `setup.ps1`.
 - **Execution pattern**: Write scripts to `temp/`, run via the PowerShell tool, delete the script after success.
   ```powershell
-  # Standard pattern (no $ variables needed in the command string):
-  & '.venv\Scripts\python.exe' 'temp\script.py'
+  # Standard pattern — always invoke through the launcher:
+  & '.\bin\python.ps1' 'temp\script.py'
   ```
   If you need PowerShell variables or shell logic, write a `.ps1` to `temp/` and run with `-File`.
+- **New machine**: run `.\setup.ps1` once to build this machine's local venv. Nothing venv-related is ever stored inside the synced OneDrive folder (no real venv, junction, or symlink).
 - **Never hardcode absolute paths** like `C:\Users\natta\...`. Resolve from `Path(__file__).resolve().parents[N]` or `Path.cwd()`. This workspace syncs across machines.
 - **CEIC discovery**: `python src\api\ceic_client.py search "keyword" --limit 20` — run this directly via the Bash tool, no script needed.
 

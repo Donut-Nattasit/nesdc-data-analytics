@@ -42,7 +42,7 @@ When requested to retrieve economic data, use the following logic to select the 
 * Do not inspect or read full Python client implementations under `src/api/` unless debugging a connection error.
 * Discover capability, query parameters, and endpoints by executing scripts with the `--help` flag from the command line:
   ```powershell
-  $env:PYTHONPATH='.'; .\.venv\Scripts\python.exe src/api/bot_client.py --help
+  $env:PYTHONPATH='.'; .\bin\python.ps1 src/api/bot_client.py --help
   ```
 
 ### Step 2 — Unified Retrieval Standards

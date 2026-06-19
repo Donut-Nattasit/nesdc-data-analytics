@@ -21,7 +21,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "powershell.exe -NonInteractive -Command \"if (Test-Path '.venv\\Scripts\\python.exe') { & '.venv\\Scripts\\python.exe' 'src/utils/clean_temp.py' 2>$null }\"",
+            "command": "powershell.exe -NonInteractive -Command \"if (Test-Path 'bin\\python.ps1') { & 'bin\\python.ps1' 'src/utils/clean_temp.py' 2>$null }\"",
             "timeout": 30
           },
           {

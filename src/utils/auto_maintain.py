@@ -54,7 +54,8 @@ def validate_system():
     print("\n[3] Running System Diagnostics & Healing...")
     try:
         import subprocess
-        venv_python = project_root / ".venv" / "Scripts" / "python.exe"
+        # venv lives outside OneDrive, per-machine; see bin/python.ps1 / setup.ps1
+        venv_python = Path(os.environ.get("LOCALAPPDATA", "")) / "venvs" / "data-analysis" / "Scripts" / "python.exe"
         validate_script = project_root / "src" / "validate_env.py"
         
         if venv_python.exists() and validate_script.exists():

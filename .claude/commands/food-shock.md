@@ -9,7 +9,7 @@ Run the Prepared Food CPI geopolitical price shock scenario analysis.
 
 **Then execute:**
 ```powershell
-& '.venv\Scripts\python.exe' 'src\pipeline\prepared_food_shock\run_analysis.py'
+& 'bin\python.ps1' 'src\pipeline\prepared_food_shock\run_analysis.py'
 ```
 
 **Outputs produced:**

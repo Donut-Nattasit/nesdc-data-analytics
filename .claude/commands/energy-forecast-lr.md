@@ -10,7 +10,7 @@ Run the Long-Range Energy Price Forecast (2–3 year horizon).
 
 **Then execute:**
 ```powershell
-& '.venv\Scripts\python.exe' 'src\pipeline\energy_price_forecast_LR\orchestrator.py'
+& 'bin\python.ps1' 'src\pipeline\energy_price_forecast_LR\orchestrator.py'
 ```
 
 **Outputs produced:**

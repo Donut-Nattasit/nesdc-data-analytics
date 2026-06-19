@@ -28,7 +28,7 @@ from src.analysis.machine_learning import fit_xgboost, fit_midas_model
 from sklearn.model_selection import TimeSeriesSplit
 ```
 
-Run: `& '.venv\Scripts\python.exe' 'temp\ds_task.py'`
+Run: `& 'bin\python.ps1' 'temp\ds_task.py'`
 
 ## Output Standards
 

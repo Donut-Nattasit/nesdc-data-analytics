@@ -24,7 +24,7 @@ Before running the pipeline, ensure the following input files are available and 
 ### Step 2 — Run the Orchestrator
 Execute the pipeline orchestrator in PowerShell from the project root directory:
 ```powershell
-$env:PYTHONPATH='.'; $env:PYTHONUTF8='1'; .\.venv\Scripts\python.exe src/pipeline/energy_price_forecast_LR/orchestrator.py
+$env:PYTHONPATH='.'; $env:PYTHONUTF8='1'; .\bin\python.ps1 src/pipeline/energy_price_forecast_LR/orchestrator.py
 ```
 This runs the full workflow:
 1. **Prepare Data (`prepare_data.py`)**: Fetches CEIC historical data and builds `cpi_historical_master.csv`.

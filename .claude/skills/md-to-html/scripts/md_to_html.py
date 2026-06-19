@@ -5,7 +5,7 @@
 #   - Tables, fenced code blocks, footnotes supported.
 #
 # Usage (from workspace root):
-#   $env:PYTHONPATH='.'; .\.venv\Scripts\python.exe .claude/skills/md-to-html/scripts/md_to_html.py <input.md> <output.html>
+#   $env:PYTHONPATH='.'; .\bin\python.ps1 .claude/skills/md-to-html/scripts/md_to_html.py <input.md> <output.html>
 #
 # If output path is omitted, replaces the .md extension with .html in the same directory.
 

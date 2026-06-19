@@ -9,7 +9,7 @@ Write-Host "  Starting Prepared Food CPI Shock Pipeline Execution" -ForegroundCo
 Write-Host "==========================================================" -ForegroundColor Green
 
 Write-Host "`n>>> Running Simulation & Analytical Model..." -ForegroundColor Cyan
-.\.venv\Scripts\python.exe src/pipeline/prepared_food_shock/run_analysis.py
+.\bin\python.ps1 src/pipeline/prepared_food_shock/run_analysis.py
 
 if ($LASTEXITCODE -ne 0) {
     Write-Host "`n[ERROR] Simulation failed!" -ForegroundColor Red
@@ -17,7 +17,7 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 Write-Host "`n>>> Generating Analytical Report..." -ForegroundColor Cyan
-.\.venv\Scripts\python.exe src/pipeline/prepared_food_shock/generate_report.py
+.\bin\python.ps1 src/pipeline/prepared_food_shock/generate_report.py
 
 if ($LASTEXITCODE -ne 0) {
     Write-Host "`n[ERROR] Report generation failed!" -ForegroundColor Red

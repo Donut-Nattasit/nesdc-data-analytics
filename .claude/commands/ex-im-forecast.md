@@ -8,7 +8,7 @@ Run the Export & Import Price Index forecasting pipeline.
 
 **Then execute:**
 ```powershell
-& '.venv\Scripts\python.exe' 'src\pipeline\ex_im_price_forecast\orchestrator.py'
+& 'bin\python.ps1' 'src\pipeline\ex_im_price_forecast\orchestrator.py'
 ```
 
 **Outputs produced:**

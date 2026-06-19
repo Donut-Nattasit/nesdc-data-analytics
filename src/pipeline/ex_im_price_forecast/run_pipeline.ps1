@@ -29,7 +29,7 @@ foreach ($path in $possibleCfgPaths) {
 }
 
 # Define paths
-$PythonExec = "..\..\..\.venv\Scripts\python.exe"
+$PythonExec = "$env:LOCALAPPDATA\venvs\data-analysis\Scripts\python.exe"
 $Orchestrator = "orchestrator.py"
 
 if (-not (Test-Path $PythonExec)) {

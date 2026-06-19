@@ -5,13 +5,16 @@ Write-Host "Welcome! This wizard will build your local sandbox and configure you
 Write-Host ""
 
 $ProjectRoot = Resolve-Path "$PSScriptRoot\.."
+# Venv lives OUTSIDE OneDrive (per-machine) so it never syncs and never carries
+# another laptop's username. See setup.ps1 / bin/python.ps1.
+$VenvDir = "$env:LOCALAPPDATA\venvs\data-analysis"
 
 # Step 1: Virtual Environment
-Write-Host "[1/5] Building the Python sandbox (.venv)..." -ForegroundColor Yellow
-$VenvPython = "$ProjectRoot\.venv\Scripts\python.exe"
+Write-Host "[1/5] Building the Python sandbox (local, outside OneDrive)..." -ForegroundColor Yellow
+$VenvPython = "$VenvDir\Scripts\python.exe"
 $NeedsRebuild = $false
 
-if (-Not (Test-Path "$ProjectRoot\.venv")) {
+if (-Not (Test-Path "$VenvDir")) {
     $NeedsRebuild = $true
 } else {
     if (-Not (Test-Path $VenvPython)) {
@@ -28,8 +31,8 @@ if (-Not (Test-Path "$ProjectRoot\.venv")) {
 }
 
 if ($NeedsRebuild) {
-    if (Test-Path "$ProjectRoot\.venv") {
-        Remove-Item -Path "$ProjectRoot\.venv" -Recurse -Force -ErrorAction SilentlyContinue
+    if (Test-Path "$VenvDir") {
+        Remove-Item -Path "$VenvDir" -Recurse -Force -ErrorAction SilentlyContinue
     }
     
     # Try using system 'python', but fallback to default installer locations if path hasn't refreshed yet
@@ -50,14 +53,9 @@ if ($NeedsRebuild) {
     }
     
     Write-Host "  -> Using Python interpreter: $SysPython" -ForegroundColor Gray
-    & $SysPython -m venv "$ProjectRoot\.venv"
+    & $SysPython -m venv "$VenvDir"
     if ($?) {
-        Write-Host "  -> Sandbox created successfully." -ForegroundColor Green
-        # Exclude .venv from OneDrive sync to prevent conflicts between PCs with different usernames
-        if (Test-Path "$ProjectRoot\.venv") {
-            Set-Content -Path "$ProjectRoot\.venv" -Value "  " -Stream "com.microsoft.OneDrive.Ignore" -ErrorAction SilentlyContinue
-            Write-Host "  -> Excluded .venv from OneDrive sync." -ForegroundColor Gray
-        }
+        Write-Host "  -> Sandbox created successfully (outside OneDrive, never synced)." -ForegroundColor Green
     } else {
         Write-Host "  -> Error: Python is not installed or not in your system PATH." -ForegroundColor Red
         Write-Host "  -> Please install Python 3.10+ (recommend 3.12) and check 'Add Python to PATH'." -ForegroundColor Red
@@ -90,7 +88,7 @@ Write-Host "  -> Directories initialized." -ForegroundColor Green
 
 # Step 3: Install Requirements
 Write-Host "`n[3/5] Installing Economist Tools (this may take a few minutes)..." -ForegroundColor Yellow
-$PythonExe = "$ProjectRoot\.venv\Scripts\python.exe"
+$PythonExe = "$VenvDir\Scripts\python.exe"
 & $PythonExe -m pip install --upgrade pip --quiet
 & $PythonExe -m pip install -r "$ProjectRoot\requirements.txt" --quiet
 Write-Host "  -> Tools installed successfully." -ForegroundColor Green

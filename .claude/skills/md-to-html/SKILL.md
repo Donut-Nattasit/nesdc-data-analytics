@@ -31,21 +31,21 @@ Use this logic to define input and output paths for the conversion:
 ### Step 1 — Check Dependencies
 * Run the validation snippet to ensure the required python libraries (`markdown`, `pymdown-extensions`) are installed:
   ```powershell
-  $env:PYTHONPATH='.'; .\.venv\Scripts\python.exe -c "import markdown; import pymdownx; print('Dependencies OK')"
+  $env:PYTHONPATH='.'; .\bin\python.ps1 -c "import markdown; import pymdownx; print('Dependencies OK')"
   ```
 * If this command fails, install them:
   ```powershell
-  $env:PYTHONPATH='.'; .\.venv\Scripts\python.exe -m pip install markdown pymdown-extensions
+  $env:PYTHONPATH='.'; .\bin\python.ps1 -m pip install markdown pymdown-extensions
   ```
 
 ### Step 2 — Execute the Conversion
 * Call the python converter script with the input and output arguments using the relative environment template:
   ```powershell
-  $env:PYTHONPATH='.'; .\.venv\Scripts\python.exe .agents/skills/md-to-html/scripts/md_to_html.py <INPUT_MD_PATH> <OUTPUT_HTML_PATH>
+  $env:PYTHONPATH='.'; .\bin\python.ps1 .agents/skills/md-to-html/scripts/md_to_html.py <INPUT_MD_PATH> <OUTPUT_HTML_PATH>
   ```
   *Example*:
   ```powershell
-  $env:PYTHONPATH='.'; .\.venv\Scripts\python.exe .agents/skills/md-to-html/scripts/md_to_html.py report/energy_price_forecast/energy_price_forecast.md report/energy_price_forecast/energy_price_forecast.html
+  $env:PYTHONPATH='.'; .\bin\python.ps1 .agents/skills/md-to-html/scripts/md_to_html.py report/energy_price_forecast/energy_price_forecast.md report/energy_price_forecast/energy_price_forecast.html
   ```
 
 ### Step 3 — Post-Flight Verification
