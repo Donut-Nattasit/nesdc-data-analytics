@@ -70,12 +70,17 @@ When creating a new pipeline, create all five subdirectories (`database/`, `outp
 EIA API + dubai_price.xlsx
     └── energy_price_forecast      (/energy-forecast)
             ├── cpi_forecast       (/cpi-forecast)
-            │       └── prepared_food_shock  (/food-shock)
+            │       └── prepared_food_shock  (/food-shock) ──┐
             │               └── energy_price_forecast_LR  (/energy-forecast-lr)
-            └── ex_im_price_forecast  (/ex-im-forecast)
-
-[Planned] deflator_forecast → thailand_price_system  (/thailand-price-system)
+            └── ex_im_price_forecast  (/ex-im-forecast) ─────┤
+                                                             ▼
+                                              deflator_prediction  (/deflator_prediction)
+                                                             │
+                                                             ▼
+                                              thailand_price_system  (/thailand-price-system)
 ```
+
+`deflator_prediction` forecasts the GDP Deflator (CEIC 367523747) via log-log auto-ARIMAX, using the actual long-history headline CPI (CEIC 541395757) spliced with the prepared-food shock forecast, plus the export/import price indices, as exogenous drivers. It therefore requires `prepared_food_shock` and `ex_im_price_forecast` outputs to be present.
 
 Pipelines are independent — run each via its slash command. The umbrella `/thailand-price-system` command assembles existing outputs without re-running sub-pipelines.
 
