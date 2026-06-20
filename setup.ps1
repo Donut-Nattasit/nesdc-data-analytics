@@ -60,6 +60,19 @@ if (Test-Path $StaleVenv) {
     if (Test-Path $StaleVenv) { Remove-Item -Recurse -Force $StaleVenv -ErrorAction SilentlyContinue }
 }
 
+# --- 4b. Reconstruct the workspace directory scaffold ---
+# output/, report/, database/, input/ are gitignored, so a fresh clone is missing
+# them. Pipelines self-create per-pipeline subdirs at runtime; here we lay down the
+# top-level structure so the workspace matches a fully-populated checkout.
+$Scaffold = @(
+    'temp', 'to_do_list', 'input', 'report', 'database',
+    'output', 'output\chart', 'output\data', 'output\model_summary', 'output\archive'
+)
+foreach ($Dir in $Scaffold) {
+    $DirPath = Join-Path $ProjectRoot $Dir
+    if (-not (Test-Path $DirPath)) { New-Item -ItemType Directory -Path $DirPath | Out-Null }
+}
+
 # --- 5. Install dependencies ---
 Write-Host ''
 Write-Host 'Installing packages (first run may take a few minutes)...'

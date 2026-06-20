@@ -42,15 +42,13 @@ To maintain a pristine environment, the lab operates on a strict **Modular Direc
 
 ```text
 data-analysis/
-├── .agents/               # AI Agent definitions, rules, and skill playbooks
-
+├── .claude/               # AI agent definitions, slash commands, and skill playbooks
 ├── .env.example           # Non-sensitive template for local API key configs
 ├── README.md              # This master workspace introduction portal
 ├── assets/                # Visual assets, logos, and custom localized typography
-├── bin/                   # Compiled binaries and environment resilience utilities
-├── database/              # Central SQLite Databases (GTA, DBD, CEIC, IMF, MOC, WB)
-│   └── data_dict/         # Static reference metadata and data dictionaries
-├── input/                 # Raw manual spreadsheets and user-supplied CSV files
+├── bin/                   # Launcher (python.ps1), setup utilities, and x13as.exe*
+├── database/              # Central SQLite Databases (GTA, DBD, CEIC, IMF, MOC, WB)†
+├── input/                 # Raw manual spreadsheets and user-supplied CSV files†
 ├── output/                # Consolidated artifact storage
 │   ├── archive/           # Storage optimized archives
 │   ├── chart/             # Standard, professional static visualizations (PNG)
@@ -67,6 +65,10 @@ data-analysis/
 │   └── validate_env.py    # Environment diagnostic and sanity checking suite
 └── temp/                  # Session-specific temp files and logs (ignored in Git)
 ```
+
+> **\* `bin/x13as.exe`** is required for X-13 ARIMA seasonal adjustment but is **not** stored in Git (it is a platform binary). Download the Windows X-13ARIMA-SEATS build from the [U.S. Census Bureau](https://www.census.gov/data/software/x13as.html) and place `x13as.exe` in `bin/`. The setup health check will flag it if missing.
+>
+> **† `database/`, `input/`, `output/`, and `report/`** hold large or machine-local artifacts and are gitignored. A fresh clone starts with these folders empty (the setup script recreates the structure). Source databases and raw input spreadsheets are shared out-of-band via OneDrive, not Git.
 
 ---
 

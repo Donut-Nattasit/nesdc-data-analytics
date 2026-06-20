@@ -1,6 +1,9 @@
 # Private Keys & Configurations
 .env
 
+# Per-user Claude Code overrides (machine-specific; shared settings.json IS tracked)
+.claude/settings.local.json
+
 # Virtual Environment & Python Caches
 .venv/
 __pycache__/

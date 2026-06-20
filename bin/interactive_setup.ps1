@@ -40,8 +40,8 @@ if ($NeedsRebuild) {
     & $SysPython -V *>$null
     if (-Not $?) {
         $DefaultPaths = @(
+            "$env:LOCALAPPDATA\Programs\Python\Python312\python.exe",
             "$env:USERPROFILE\AppData\Local\Programs\Python\Python312\python.exe",
-            "C:\Users\nattasit\AppData\Local\Programs\Python\Python312\python.exe",
             "C:\Program Files\Python312\python.exe"
         )
         foreach ($Path in $DefaultPaths) {
@@ -70,6 +70,7 @@ Write-Host "`n[2/5] Initializing Workspace Directories..." -ForegroundColor Yell
 $Directories = @(
     "temp",
     "to_do_list",
+    "input",
     "report",
     "database",
     "output",
@@ -90,7 +91,7 @@ Write-Host "  -> Directories initialized." -ForegroundColor Green
 Write-Host "`n[3/5] Installing Economist Tools (this may take a few minutes)..." -ForegroundColor Yellow
 $PythonExe = "$VenvDir\Scripts\python.exe"
 & $PythonExe -m pip install --upgrade pip --quiet
-& $PythonExe -m pip install -r "$ProjectRoot\requirements.txt" --quiet
+& $PythonExe -m pip install -r "$ProjectRoot\requirements.txt" --find-links "$ProjectRoot\wheels" --quiet
 Write-Host "  -> Tools installed successfully." -ForegroundColor Green
 
 # Step 4: API Keys (.env)
