@@ -100,20 +100,26 @@ def _growth_table(nipa, last_actual_q):
     return pd.DataFrame(rows)
 
 
-def run(forecast_quarters: int = 5, save: bool = True) -> dict:
+def run(forecast_quarters: int = 1, save: bool = True) -> dict:
+    """CQM is a current-quarter nowcaster: forecast_quarters defaults to 1 (the single
+    quarter after the last actual GDP). Do not raise this for production nowcasts —
+    multi-step projection is a separate model's job."""
     cfg = load_config()
     monthly = pd.read_csv(OUT_DATA / "monthly_indicators_raw.csv", index_col=0, parse_dates=True)
     nipa_raw = pd.read_csv(OUT_DATA / "nipa_quarterly_raw.csv", index_col=0, parse_dates=True)
     qframe = pd.read_csv(OUT_DATA / "indicators_quarterly_FQ.csv", index_col=0, parse_dates=True)
 
-    engine = BridgeEngine(nipa_raw, qframe, cfg)
+    engine = BridgeEngine(nipa_raw, qframe, cfg, max_forecast_quarters=forecast_quarters)
     engine.estimate()
     nipa_fc = engine.forecast()
     nipa_fc = _ensure_forecast(nipa_fc, engine)
     nipa_fc = _aggregate_gdp(nipa_fc, engine.last_actual_q)
 
     growth = _growth_table(nipa_fc, engine.last_actual_q)
-    annual = (nipa_fc[["GDP_real", "GDP_nom"]].resample("YE").sum())
+    # annual table: complete calendar years only (a 1-quarter nowcast cannot fill a year)
+    gnn = nipa_fc[["GDP_real", "GDP_nom"]].dropna()
+    counts = gnn.resample("YE").size()
+    annual = gnn.resample("YE").sum()[counts == 4]
     annual["GDP_real_yoy"] = annual["GDP_real"].pct_change() * 100
     annual["GDP_deflator"] = annual["GDP_nom"] / annual["GDP_real"] * 100
     annual.index = annual.index.year

@@ -116,7 +116,13 @@ def apply_identities(df: pd.DataFrame, identities: list[dict], passes: int = 6) 
 # engine
 # --------------------------------------------------------------------------- #
 class BridgeEngine:
-    def __init__(self, nipa_actual: pd.DataFrame, ind_fq: pd.DataFrame, cfg=None):
+    def __init__(self, nipa_actual: pd.DataFrame, ind_fq: pd.DataFrame, cfg=None,
+                 max_forecast_quarters: int | None = 1):
+        """CQM is a current-quarter nowcaster: by default it forecasts only the single
+        quarter immediately after the last actual GDP (`max_forecast_quarters=1`).
+        Multi-step (>1 quarter) projection is intentionally out of scope — use a
+        dedicated forecasting model for that. Set max_forecast_quarters=None to
+        un-cap (e.g. for backtesting diagnostics)."""
         self.cfg = cfg or load_config()
         # unify both frames to normalised quarter-END timestamps
         self.ind = ind_fq.copy()
@@ -126,7 +132,10 @@ class BridgeEngine:
         nipa_actual.index = pd.PeriodIndex(nipa_actual.index, freq="Q").to_timestamp(how="end").normalize()
         self.nipa_actual = apply_identities(nipa_actual, self.cfg.identities)
         self.last_actual_q = self.nipa_actual.dropna(how="all").index.max()
-        self.fq_index = self.ind.index[self.ind.index > self.last_actual_q]
+        fq = self.ind.index[self.ind.index > self.last_actual_q]
+        if max_forecast_quarters is not None:
+            fq = fq[:max_forecast_quarters]
+        self.fq_index = fq
         self.results = {}     # eqn name -> dict(params, terms, base, diff)
         self.fallback = []    # list of (lhs_base, diff)
 

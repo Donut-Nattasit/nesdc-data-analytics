@@ -32,8 +32,10 @@ warnings.filterwarnings("ignore")
 OUT_DATA = project_root() / "output" / "data" / "cqm"
 X13_PATH = str(project_root() / "bin")
 
-# Forecast this many quarters beyond the last full NIPA quarter (set by orchestrator).
-DEFAULT_FORECAST_QUARTERS = 5
+# Forecast monthly indicators just far enough to complete the current (nowcast) quarter.
+# CQM is a current-quarter nowcaster (≤1 quarter ahead); a small buffer keeps quarterly
+# aggregation/lag terms well-defined.
+DEFAULT_FORECAST_QUARTERS = 2
 
 
 # --------------------------------------------------------------------------- #

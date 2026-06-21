@@ -83,8 +83,10 @@ v1 caveats — these define the planned quality-improvement stage:
 ## Maintenance notes
 
 - **Re-fetch refresh:** run `fetch_data.py` → `forecast_indicators.py` → `orchestrator.py`.
-- **Forecast horizon:** controlled by `forecast_quarters` in `orchestrator.run()` /
-  `forecast_indicators.process_indicators()` (default 5 quarters beyond last NIPA quarter).
+- **Scope / horizon:** CQM is a **current-quarter nowcaster** — `orchestrator.run()` defaults
+  to `forecast_quarters=1` (the single quarter after the last actual GDP), enforced by
+  `BridgeEngine(max_forecast_quarters=1)`. Do not raise this for production nowcasts;
+  multi-quarter projection is a separate model's job. (Un-cap only for backtesting.)
 - **Government investment:** when NESDC supplies real monthly GCON/GEQ disbursement, add it as a
   manual input and remove those four components from the univariate fallback.
 - The model config is data-driven from `metadata.xlsx` — to add/replace an indicator or bridge

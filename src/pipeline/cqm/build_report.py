@@ -1,7 +1,10 @@
 r"""
-Assemble the CQM v1 nowcast report (Markdown) from the pipeline outputs:
-charts (output/chart/cqm), growth tables, report elements, and the readable
-bridge-equation summaries. Visualization-first; model summaries in the appendix.
+Assemble the CQM nowcast report (Markdown) from the pipeline outputs: charts
+(output/chart/cqm), growth tables, report elements, and the readable bridge-equation
+summaries. Visualization-first; model summaries in the appendix.
+
+CQM is a CURRENT-QUARTER nowcaster — the report focuses on the single quarter being
+nowcast (the forecast quarters present in the data), not a multi-year projection.
 
 Output: report/cqm/CQM_Nowcast_Report.md
 
@@ -19,11 +22,13 @@ SUMM = ROOT / "output" / "model_summary" / "cqm"
 REPORT_DIR = ROOT / "report" / "cqm"
 CH = "../../output/chart/cqm"          # relative path from report/cqm/
 
-FC_ORDER = ["2026Q2", "2026Q3", "2026Q4", "2027Q1", "2027Q2", "2027Q3"]
-
 
 def _fig(n, fname, caption):
     return f"![{caption}]({CH}/{fname})\n\n**Figure {n}: {caption}**\n"
+
+
+def _qsort(quarters):
+    return sorted(quarters, key=lambda q: (int(q[:4]), int(q[-1])))
 
 
 def main():
@@ -32,92 +37,89 @@ def main():
     el = pd.read_csv(OUT / "report_elements.csv")
 
     gdp = g[g["series"] == "GDP (production)"].set_index("quarter")
-    fc = [q for q in FC_ORDER if q in gdp.index]
+    fcq = _qsort(g.loc[g["is_forecast"], "quarter"].unique())   # forecast (nowcast) quarters
+    nowq = fcq[0]                                                # the current-quarter nowcast
 
     # ---- headline numbers ----
-    def row(q):
+    hl_rows = ["| Quarter | Real GDP YoY % | QoQ saar % |", "|---|---:|---:|"]
+    for q in fcq:
         r = gdp.loc[q]
-        return f"| {q} | {r['yoy_pct']:.1f} | {r['qoq_saar_pct']:.1f} |"
-    hl_tbl = "\n".join(["| Quarter | Real GDP YoY % | QoQ saar % |",
-                        "|---|---:|---:|"] + [row(q) for q in fc])
+        hl_rows.append(f"| {q} | {r['yoy_pct']:.1f} | {r['qoq_saar_pct']:.1f} |")
+    hl_tbl = "\n".join(hl_rows)
 
-    first, last = fc[0], fc[-1]
+    nfc = gdp.loc[nowq]
     summary = (
         f"The Current Quarterly Model nowcasts **Thailand real GDP growth of "
-        f"{gdp.loc[first,'yoy_pct']:.1f}% YoY in {first}**, "
-        f"{gdp.loc['2026Q3','yoy_pct']:.1f}% in 2026Q3 and "
-        f"{gdp.loc['2026Q4','yoy_pct']:.1f}% in 2026Q4, easing toward ~2% through {last}. "
+        f"{nfc['yoy_pct']:.1f}% YoY ({nfc['qoq_saar_pct']:.1f}% QoQ annualised) in {nowq}** "
+        f"— the current quarter, for which official GDP has not yet been released. "
         f"The estimate is built bottom-up from 20 production sectors and the expenditure "
         f"components, driven by monthly activity indicators (industrial production, tourism, "
-        f"trade, retail) that are seasonally adjusted and ARIMA-extended to complete each "
+        f"trade, retail) that are seasonally adjusted and ARIMA-extended to complete the "
         f"quarter, then mapped to GDP through bridge equations."
     )
 
-    # ---- forecast YoY by element (appendix A) ----
+    # ---- forecast YoY by element ----
     def pivot(group):
-        sub = el[(el["group"] == group) & (el["quarter"].isin(FC_ORDER))]
+        sub = el[(el["group"] == group) & (el["quarter"].isin(fcq))]
         p = sub.pivot_table(index="label", columns="quarter", values="yoy_pct")
-        p = p.reindex(columns=[q for q in FC_ORDER if q in p.columns])
-        return p
+        return p.reindex(columns=[q for q in fcq if q in p.columns])
 
     def tbl(p):
         cols = list(p.columns)
-        head = "| Component | " + " | ".join(cols) + " |"
+        head = "| Component | " + " | ".join(f"{c} YoY %" for c in cols) + " |"
         sep = "|---|" + "|".join(["---:"] * len(cols)) + "|"
-        body = []
-        for lab, r in p.iterrows():
-            body.append("| " + lab.strip() + " | " +
-                        " | ".join(f"{r[c]:.1f}" if pd.notna(r[c]) else "–" for c in cols) + " |")
+        body = ["| " + lab.strip() + " | " +
+                " | ".join(f"{r[c]:.1f}" if pd.notna(r[c]) else "–" for c in cols) + " |"
+                for lab, r in p.iterrows()]
         return "\n".join([head, sep] + body)
 
     prod_p, exp_p = pivot("Production"), pivot("Expenditure")
 
     summaries = (SUMM / "bridge_summaries_readable.md").read_text(encoding="utf-8")
-    # strip the file's own H1 so it nests under the appendix heading
-    summaries = "\n".join(summaries.split("\n")[1:]).strip()
+    summaries = "\n".join(summaries.split("\n")[1:]).strip()   # drop its H1
 
     md = f"""# Thailand GDP Nowcast — Current Quarterly Model (CQM)
 
-*NESDC · Forecast vintage: last actual 2026Q1, monthly indicators through May 2026 ·
-Model: CQM Python port v1*
+*NESDC · Current-quarter nowcast for **{nowq}** · monthly indicators through May 2026 ·
+Model: CQM Python port*
+
+> **Scope:** CQM is a **current-quarter nowcasting** model — it estimates GDP for the
+> quarter in progress (one quarter ahead of the latest official GDP). It is **not** a
+> multi-quarter forecaster; longer-horizon projections are produced by a separate model.
 
 ## Executive summary
 
 {summary}
 
-**Table 1: Real GDP nowcast — forecast quarters**
+**Table 1: Real GDP nowcast — {nowq}**
 
 {hl_tbl}
 
 *Source: NESDC CQM (Python port); CEIC data.*
 
-> **Reliability:** in a 17-quarter backtest (2022Q1–2026Q1) the model's one-quarter-ahead
+> **Reliability:** in a 17-quarter backtest (2022Q1–2026Q1) the model's current-quarter
 > real-GDP nowcast achieved **RMSE 0.64 pp** (MAE 0.53 pp), about 40% better than naive
-> random-walk (1.06 pp) or persistence (1.14 pp) benchmarks. The near-term quarters
-> (2026Q2–Q3) are the most reliable; longer horizons increasingly revert to trend.
+> random-walk (1.06 pp) or persistence (1.14 pp) benchmarks.
 
 ---
 
 ## 1. Headline GDP
 
-{_fig(1, "gdp_headline.png", "Thailand Real GDP — level and YoY growth, actual vs CQM forecast")}
-
-Real GDP is projected to keep expanding through the forecast horizon, with growth
-strongest in mid-2026 before easing toward its ~2% trend.
+{_fig(1, "gdp_headline.png", "Thailand Real GDP — level and YoY growth, history and current-quarter nowcast")}
 
 ---
 
 ## 2. GDP by production sector
 
-The model forecasts each of the 20 production sectors and sums them to GDP. Trade,
+The model nowcasts each of the 20 production sectors and sums them to GDP. Trade,
 manufacturing, tourism-related services (accommodation & transport) and electricity carry
 the most statistically reliable bridge relationships.
 
-{_fig(2, "production_grid.png", "GDP by production sector — real gross value added, actual vs forecast")}
+{_fig(2, "production_grid.png", "GDP by production sector — real gross value added, history and nowcast")}
 
-{_fig(3, "production_yoy_grid.png", "GDP by production sector — YoY % growth, actual vs forecast")}
+{_fig(3, "production_yoy_grid.png", "GDP by production sector — YoY % growth, history and nowcast")}
 
-**Table 2: Production sectors — forecast YoY % growth**
+**Table 2: Production sectors — {nowq} nowcast (YoY % growth)**
 
 {tbl(prod_p)}
 
@@ -127,9 +129,9 @@ the most statistically reliable bridge relationships.
 
 ## 3. GDP by expenditure
 
-{_fig(4, "expenditure_grid.png", "GDP by expenditure component — real, actual vs forecast")}
+{_fig(4, "expenditure_grid.png", "GDP by expenditure component — real, history and nowcast")}
 
-**Table 3: Expenditure components — forecast YoY % growth**
+**Table 3: Expenditure components — {nowq} nowcast (YoY % growth)**
 
 {tbl(exp_p)}
 
@@ -139,11 +141,11 @@ the most statistically reliable bridge relationships.
 
 ## 4. Prices — GDP deflator
 
-{_fig(5, "gdp_deflator.png", "GDP deflator and nominal vs real GDP, actual vs forecast")}
+{_fig(5, "gdp_deflator.png", "GDP deflator and nominal vs real GDP, history and nowcast")}
 
-> **Note:** the deflator (price) block is the weakest part of v1 — its bridge equations
-> have little out-of-sample skill and should be treated as indicative only. Rebuilding the
-> price block is the top item in the improvement plan.
+> **Note:** the deflator (price) block is the weakest part of the current model — its
+> bridge equations have little out-of-sample skill and should be treated as indicative
+> only. Rebuilding the price block is the top item in the improvement plan.
 
 ---
 
@@ -161,18 +163,18 @@ Improvement plan: `docs/cqm/IMPROVEMENT_STRATEGY.md`.
 
 ---
 
-## 6. Caveats (v1)
+## 6. Caveats
 
 - **Government investment** uses a statistical placeholder until NESDC supplies the monthly
   construction/equipment disbursement series.
 - **Seasonal adjustment** currently uses full-sample X13 (a mild future peek); a real-time
   concurrent adjustment is planned.
-- **Deflator / price** forecasts are indicative only (see §4).
-- Beyond ~2 quarters the forecast increasingly reverts to trend (no exogenous scenario yet).
+- **Deflator / price** nowcasts are indicative only (see §4).
+- **Scope:** current quarter only — this model does not produce multi-quarter forecasts.
 
 ---
 
-## Appendix A — Forecast tables (YoY % growth, all elements)
+## Appendix A — Nowcast tables ({nowq}, YoY % growth)
 
 ### A.1 Production sectors
 
@@ -182,7 +184,7 @@ Improvement plan: `docs/cqm/IMPROVEMENT_STRATEGY.md`.
 
 {tbl(exp_p)}
 
-*Source: NESDC CQM (Python port); CEIC data. Forecast quarters 2026Q2–2027Q3.*
+*Source: NESDC CQM (Python port); CEIC data.*
 
 ---
 
@@ -192,7 +194,7 @@ Improvement plan: `docs/cqm/IMPROVEMENT_STRATEGY.md`.
 """
     path = REPORT_DIR / "CQM_Nowcast_Report.md"
     path.write_text(md, encoding="utf-8")
-    print(f"Report written -> {path} ({len(md):,} chars)")
+    print(f"Report written -> {path} ({len(md):,} chars). Nowcast quarter: {nowq}")
 
 
 if __name__ == "__main__":

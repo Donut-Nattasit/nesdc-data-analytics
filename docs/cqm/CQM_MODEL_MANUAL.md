@@ -12,16 +12,19 @@
 
 ## 1. What the model does (purpose)
 
-CQM **nowcasts current/next-quarter Thai GDP every month** as new monthly indicators
+CQM **nowcasts the current quarter's Thai GDP every month** as new monthly indicators
 are released. It produces the full National Income (NIPA) account — GDP by **production
 side** (20 ISIC industries) and **expenditure side** (C, G, I, X, M) — in nominal, real
 (chain-volume measure, 2002 prices), and deflator terms, with QoQ-annualised (sa) and
 YoY growth tables.
 
-Although it was built for nowcasting, it mechanically extends 1–2+ quarters into the
-future, so it doubles as a short-horizon forecast. It is re-run **monthly** when any
-monthly indicator updates, and **re-anchored quarterly** when NESDC releases a new GDP
-figure.
+**Scope (decided 2026-06):** CQM is a **current-quarter nowcaster only** — it forecasts
+the single quarter immediately after the latest official GDP (≤ 1 quarter ahead). It is
+deliberately **not** used for multi-quarter projection; longer-horizon forecasts are
+produced by a separate, dedicated model. (The engine *can* be un-capped for backtesting,
+but production runs use a 1-quarter horizon: `max_forecast_quarters=1`.) It is re-run
+**monthly** when any monthly indicator updates, and **re-anchored quarterly** when NESDC
+releases a new GDP figure.
 
 **Core idea — a bridge between fast data and slow data.** Quarterly GDP arrives slowly
 and late; dozens of monthly indicators (industrial production, retail sales, tourist
