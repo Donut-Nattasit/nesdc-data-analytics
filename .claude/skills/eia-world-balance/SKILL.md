@@ -1,7 +1,7 @@
 ---
 name: eia-world-balance
 description: >
-  Executes a monthly refresh and visual rendering of the EIA Short-Term Energy Outlook (STEO) World Petroleum Balance. Use when the EIA publishes a new STEO report.
+  Executes a monthly refresh and visual rendering of the EIA Short-Term Energy Outlook (STEO) World Petroleum Balance. Make sure to use this skill whenever the user asks to update the EIA data, check world petroleum balances, refresh the STEO report, or generate oil market charts, even if they don't explicitly say "use the EIA world balance skill."
 ---
 
 # EIA World Petroleum Balance Skill
@@ -10,7 +10,7 @@ description: >
 EIA publishes an updated Short-Term Energy Outlook (STEO) report every month. This skill automates the retrieval of quarterly production, consumption, and inventory withdrawal data, computes wide-format matrices, and renders localized dual-subplot visualizations.
 
 ## Decision Tree: Refresh Logic
-When executing the EIA update, follow this conditional pipeline flow:
+When executing the EIA update, follow this conditional pipeline flow. **Why?** Adhering to this logic minimizes redundant network calls and speeds up data access.
 
 ```
                       Is there a new monthly STEO released?
@@ -31,14 +31,24 @@ When executing the EIA update, follow this conditional pipeline flow:
 
 ### Step 1 — Verify Cache
 * Check the modification date of `output/data/transformed/eia_world_balance_quarterly.csv` to determine when the pipeline last ran.
-* If a new STEO has been published since the last run (typically the 2nd week of each month), proceed to Step 2 with `force_refresh=True`.
+* If a new STEO has been published since the last run (typically the 2nd week of each month), proceed to Step 2 with `force_refresh=True`. **Why?** It ensures we only pull the heavy API data when a real update has occurred, protecting our API rate limits.
 
-### Step 2 — Run the Black-Box Script
+### Step 2 — Treat Script as Black Box
 * Run the pipeline script from the root directory using the standard environment template:
   ```powershell
   $env:PYTHONPATH='.'; .\bin\python.ps1 src/visualization/generate_eia_balance_report.py
   ```
-* The script automatically handles API fetches, filters, and renders both English (`output/chart/eia_world_balance_quarterly.png`) and Thai (`output/chart/eia_world_balance_quarterly_thai.png`) visual charts.
+* **Why?** Reading the internal Python implementation consumes unnecessary context window tokens. The script automatically handles API fetches, filters, and renders both English (`output/chart/eia_world_balance_quarterly.png`) and Thai (`output/chart/eia_world_balance_quarterly_thai.png`) visual charts.
+
+## Examples
+
+**Example 1:**
+*Input:* "The new STEO report is out. Update our charts."
+*Action:* Notice that a new report implies force refreshing. Execute `.\bin\python.ps1 src/visualization/generate_eia_balance_report.py`. Check the outputs in `output/chart/` and verify that the `eia_world_balance_quarterly.csv` has today's timestamp.
+
+**Example 2:**
+*Input:* "Show me the current world petroleum balance chart."
+*Action:* Check the file modification date of the cached CSV. If it's less than 30 days old, you don't necessarily need to refresh the data. You can just serve the chart from `output/chart/eia_world_balance_quarterly.png`.
 
 ## Troubleshooting
 

@@ -1,0 +1,81 @@
+# =============================================================================
+# Country Economic Report — per-country settings
+# =============================================================================
+# This file is the memory of a country report. It is created on the FIRST run
+# for a country and reused/edited on every later run, so re-runs are fast and
+# consistent. Edit it by hand to:
+#   - pin the exact CEIC series IDs once they are confirmed (avoids re-searching)
+#   - turn sections on/off
+#   - add country-UNIQUE sectors under `custom_sections`
+#
+# Anything left blank/null tells the skill to resolve it at run time (e.g. search
+# CEIC) and then write the resolved value back here.
+# =============================================================================
+
+country: Indonesia          # display name, also used in tradingeconomics URLs (lowercase-slugged)
+gta_code: ID                # 2-letter GTA/ISO code for GTA.db (Reporter_ISO). e.g. ID, VN, TH
+te_slug: indonesia          # tradingeconomics.com/<slug>/... (defaults to lowercased country)
+
+# History window for charts/tables. Older data is fetched but trimmed for display.
+history_start: "2018-01-01"
+
+# -----------------------------------------------------------------------------
+# CEIC series IDs — fill once confirmed. Leave null to auto-resolve via search.
+# Keys are canonical; add/remove freely. A null value = "find it this run".
+# -----------------------------------------------------------------------------
+ceic_series:
+  gdp_real_yoy_q:        null   # Real GDP growth, %YoY, quarterly
+  gdp_real_annual:       null   # Real GDP growth, %YoY, annual (or derive from quarterly)
+  gdp_exp_components:    {}      # {component_name: series_id} real level or %YoY by expenditure
+  gdp_prod_components:   {}      # {component_name: series_id} real level or %YoY by production/industry
+  exports_bop_yoy_m:     null   # Total exports, BOP basis, %YoY, monthly
+  imports_bop_yoy_m:     null   # Total imports, BOP basis, %YoY, monthly
+  exports_bop_usd_m:     null   # Total exports value USD, monthly (for trade balance chart)
+  imports_bop_usd_m:     null   # Total imports value USD, monthly
+  cpi_yoy_m:             null   # Headline CPI, %YoY, monthly
+  cpi_components:        {}      # {group_name: series_id} CPI by main group (for contribution chart)
+  cpi_target:            null   # central bank inflation target (number, e.g. 2.5) or [low, high]
+  policy_rate_m:         null   # central bank policy rate, monthly
+  ppi_yoy_m:             null   # Producer price index, %YoY, monthly
+  fx_usd_m:              null   # Local currency per USD, monthly average
+  unemployment_rate:     null
+  labor_force_part_rate: null
+  real_wage:             null
+  yield_10y:             null   # 10-year government bond yield (for yield-curve spread)
+  yield_2y:              null   # 2-year (or 3-month) — pair with 10y for the spread
+  consumer_confidence:   null
+  stock_index_m:         null   # benchmark stock index, monthly average
+
+# -----------------------------------------------------------------------------
+# S&P Global Connect PMI saved-query endpoint (Monthly, seasonally adjusted).
+# The user must supply this — there is no public search. Leave null and the
+# skill will ASK for it when it reaches the PMI section.
+# -----------------------------------------------------------------------------
+sp_pmi_endpoint: null   # e.g. https://api.connect.spglobal.com/shared/v1/databrowser/savedqueries/3483XX/Monthly
+
+# -----------------------------------------------------------------------------
+# Section switches — set false to skip a whole section for this country.
+# -----------------------------------------------------------------------------
+sections:
+  executive_summary: true
+  gdp:               true
+  foreign_trade:     true     # needs iso3 present in GTA.db
+  fiscal_policy:     true     # web research
+  inflation_monetary: true
+  labor_market:      true
+  leading_indicators: true
+  pmi:               true     # needs sp_pmi_endpoint
+  appendix:          true
+
+# -----------------------------------------------------------------------------
+# Country-UNIQUE sectors. Add a block per bespoke series available only for this
+# country (e.g. Indonesia palm-oil exports, Vietnam coffee prices). The skill
+# renders each as its own subsection, using the chart type you name.
+# -----------------------------------------------------------------------------
+custom_sections: []
+  # - title: "Palm Oil Export Volume"
+  #   placement: foreign_trade        # which top-level section to nest under (or "standalone")
+  #   source: CEIC                     # CEIC | GTA | SP | web | csv
+  #   series: 123456789                # series_id, SQL hint, endpoint, or file path
+  #   chart: bar_yoy                   # bar_yoy | line | stacked_bar | heatmap | table
+  #   note: "Monthly, %YoY. Indonesia is the world's largest producer."

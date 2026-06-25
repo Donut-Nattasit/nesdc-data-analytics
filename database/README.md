@@ -5,6 +5,8 @@ This file documents the structures, tables, and columns of the central SQLite da
 ## 📁 Directory Structure Overview
 
 The `./database/` folder is organized as follows:
+
+*   **`SP.db`**: S&P Global Connect database (PMI saved queries — long-format observations and query registry).
 *   **`GTA.db`**: Global Trade Atlas database (HS2 meta, ISO meta, and transaction series).
 *   **`DBD.db`**: Department of Business Development database (firm financial statements).
 *   **`IMF.db`**: International Monetary Fund database (World GDP growth, Thailand inflation, ASEAN-4 GDP growth).
@@ -16,6 +18,47 @@ The `./database/` folder is organized as follows:
 *   **`energy_price_forecast/energy_price_forecast.db`**: SQLite database cache specific to the energy price forecast pipeline.
 *   **`ex_im_price_forecast/ex_im_price_forecast.db`**: SQLite database cache specific to the export and import price forecast pipeline.
 *   **`README.md`**: This entry point schema registry.
+
+---
+
+## 📁 Database: `SP.db`
+
+* **Workspace Path**: `./database/SP.db`
+
+Contains data fetched from the S&P Global Connect Databrowser API (saved queries). Auth: `SP_USERNAME` / `SP_PASSWORD` in `.env`. Client: `src/api/sp_client.py`.
+
+### 📋 Table: `saved_queries` (SP.db)
+
+Registry of every saved query that has been fetched.
+
+| CID | Column Name | Type | Primary Key | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| 0 | **query_id** | `INTEGER` | 🔑 PRIMARY KEY | Numeric ID from the saved-query URL |
+| 1 | **name** | `TEXT` | | Human-readable label (e.g. 'Thailand Manufacturing PMI') |
+| 2 | **endpoint** | `TEXT` | | Base URL (without pagination params) |
+| 3 | **last_fetched** | `TEXT` | | ISO-8601 UTC timestamp of last refresh |
+
+### 📋 Table: `series_data` (SP.db)
+
+Long-format observations for all saved queries. Upserted on every refresh.
+
+| CID | Column Name | Type | Primary Key | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| 0 | **query_id** | `INTEGER` | 🔑 | Foreign key → `saved_queries.query_id` |
+| 1 | **title** | `TEXT` | 🔑 | Full series title from S&P (e.g. 'PMI by S&P Global, Thailand Manufacturing PMI Adjusted') |
+| 2 | **date** | `TEXT` | 🔑 | Observation date (YYYY-MM-DD) |
+| 3 | **value** | `REAL` | | Numeric index value |
+| 4 | **frequency** | `TEXT` | | 'Monthly', 'Quarterly', or 'Annual' |
+| 5 | **economic_concept** | `TEXT` | | Sub-index label (e.g. 'New Orders', 'Employment') |
+| 6 | **country** | `TEXT` | | Source geographic location (e.g. 'Thailand') |
+| 7 | **industry** | `TEXT` | | Sector (e.g. 'Manufacturing') |
+| 8 | **adjustment** | `TEXT` | | 'Seasonally Adjusted' or 'Not Seasonally Adjusted' |
+
+**Loaded queries:**
+
+| query_id | Name | Series | Date Range |
+| :--- | :--- | :--- | :--- |
+| 348345 | Thailand Manufacturing PMI | 47 series, 5,922 rows | Dec 2015 → May 2026 |
 
 ---
 

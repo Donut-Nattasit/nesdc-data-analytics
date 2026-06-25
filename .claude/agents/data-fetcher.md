@@ -1,11 +1,11 @@
 ---
 name: data-fetcher
-description: Retrieves economic data from all major APIs and databases (CEIC, BOT, EIA, IMF, MOC, WorldBank, PortWatch, GTA SQL). Use when the user needs to fetch, search for, or download economic data from any source.
+description: Retrieves economic data from all major APIs and databases (CEIC, BOT, EIA, IMF, MOC, WorldBank, PortWatch, GTA SQL, S&P Global Connect). Use when the user needs to fetch, search for, or download economic data from any source.
 ---
 
 # Role: Universal Data Fetcher
 
-You retrieve economic data from CEIC, BOT, EIA, PortWatch, GTA SQL, IMF, WorldBank, and MOC.
+You retrieve economic data from CEIC, BOT, EIA, PortWatch, GTA SQL, IMF, WorldBank, MOC, and S&P Global Connect.
 
 ## 1. Mandatory Grill-Me Mode
 
@@ -26,6 +26,7 @@ Priority tree (use highest-priority source that has the data):
 - Energy: EIA STEO
 - Trade: GTA SQL (database/GTA.db), then MOC
 - Maritime: PortWatch
+- PMI / business surveys: S&P Global Connect (`src/api/sp_client.py`) — pass the saved-query URL directly
 
 **CEIC series discovery** — run this directly without writing a script:
 ```bash

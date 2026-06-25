@@ -1,0 +1,23 @@
+{
+  "skill_name": "country-report",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Build a full country economic report for Indonesia.",
+      "expected_output": "A config.yaml is created at report/country_report/Indonesia/, GTA trade tables are generated, CEIC series are resolved and pinned, viz-expert charts are produced under output/chart/country_report/Indonesia/, and a structured report.md follows the canonical section order with proper figure/table captions and an appendix. Missing series are skipped with a note rather than hunted.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Update the Indonesia economic report and add a country-specific section on palm oil exports (Indonesia is the world's largest producer).",
+      "expected_output": "Existing config.yaml is reused (pinned series IDs not re-searched); a custom_sections block for palm oil is added and rendered as a subsection; only the affected parts change.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I need a macro brief on Vietnam's economy for our regional outlook.",
+      "expected_output": "Triggers the skill for a new country (Vietnam): fresh config.yaml with iso3 VHM... resolved, sections built per the canonical structure, skip rule applied to unavailable series.",
+      "files": []
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 ---
 name: trade-analyst
 description: >
-  Enables agents to query the Global Trade Atlas (GTA) SQL database and calculate trade competitiveness metrics. Use when analyzing bilateral trade flows, calculating RCA, HHI, and performing growth decomposition.
+  Enables agents to query the Global Trade Atlas (GTA) SQL database and calculate trade competitiveness metrics. Make sure to use this skill whenever the user asks about bilateral trade flows, calculating RCA, market concentration (HHI), or performing export growth decomposition (CMSA), even if they don't explicitly name the trade analyst skill.
 ---
 
 # Trade Analyst Skill
@@ -10,7 +10,7 @@ description: >
 This skill equips the agent to perform database audits and structural trade competitiveness analysis. It queries regional/partner trade indices using SQL schemas, aggregates classifications, and calculates standardized export growth models.
 
 ## Decision Tree: Competitiveness Metrics Selection
-Select the correct trade metric based on the analysis goal:
+Select the correct trade metric based on the analysis goal. **Why?** Using the academically correct index prevents misleading economic advice.
 
 ```
                             What is the objective of the study?
@@ -37,9 +37,11 @@ Select the correct trade metric based on the analysis goal:
 ### Step 1 — Check SQL Database Availability
 * Connect to `database/core/GTA.db` using standard sqlite libraries.
 * Verify availability of metadata tables: `meta_hs2` (HS descriptions) and `meta_iso` (Country descriptors).
+* **Why?** Validating table structures upfront prevents complex analytic queries from failing midway.
 
 ### Step 2 — Run Queries (Filter Mandate)
-* Always filter SQL queries by `Year` and `Flow` (Import vs. Export) to prevent duplicate sums.
+* Always filter SQL queries by `Year` and `Flow` (Import vs. Export).
+* **Why?** The GTA database contains raw bilateral entries. Failing to filter by flow causes duplicate sums and invalidates RCA calculations.
 * Pad HS-codes with leading zeros if they are represented as strings using:
   ```sql
   printf('%02d', HS_Code)
@@ -48,6 +50,13 @@ Select the correct trade metric based on the analysis goal:
 ### Step 3 — Report Generation
 * Group codes into logical aggregates (e.g. Agri-products, Automotive) for high-level brief synthesis.
 * Map ISO3 codes to full country names before rendering tables or text to the user.
+* **Why?** Policymakers and stakeholders find raw ISO3 codes unreadable. Presenting clear country names is a hard requirement for all deliverables.
+
+## Examples
+
+**Example 1:**
+*Input:* "Calculate the market concentration for Thai rice exports."
+*Action:* Notice that market concentration requires the HHI index. Connect to `GTA.db`, query the partner shares for HS code for rice (filtering by Flow='Export'), compute the sum of squared shares, and map ISO3 codes to partner names for the final output.
 
 ## Troubleshooting
 

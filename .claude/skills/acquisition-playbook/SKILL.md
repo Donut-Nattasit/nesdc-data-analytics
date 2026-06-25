@@ -1,16 +1,16 @@
 ---
 name: acquisition-playbook
 description: >
-  Consolidates expert procedures for searching, refining, and retrieving economic data across multiple global and domestic databases (CEIC, BOT, EIA, IMF, World Bank, MOC, GTA, PortWatch). Use when designing data acquisition workflows, writing data-fetching scripts, or selecting appropriate economic indicators.
+  Consolidates expert procedures for searching, refining, and retrieving economic data across multiple global and domestic databases (CEIC, BOT, EIA, IMF, World Bank, MOC, GTA, PortWatch). Make sure to use this skill whenever the user asks to fetch economic indicators, download time-series data, or query any macro database, even if they don't explicitly say "use the acquisition playbook."
 ---
 
 # Acquisition Playbook Skill
 
 ## Purpose
-This playbook acts as the master reference for querying and consolidating time-series economic indicators into the workspace. It details database prioritizations, schema boundaries, and error-handling steps.
+This playbook acts as the master reference for querying and consolidating time-series economic indicators into the workspace. It details database prioritizations, schema boundaries, and error-handling steps. 
 
 ## Decision Tree: Database Selection
-When requested to retrieve economic data, use the following logic to select the primary database:
+When requested to retrieve economic data, use the following logic to select the primary database. **Why?** Consistent database selection ensures data continuity and avoids mixing methodologies across different sources.
 
 ```
                   Type of Data Required?
@@ -38,22 +38,30 @@ When requested to retrieve economic data, use the following logic to select the 
 
 ## Execution Protocol
 
-### Step 1 — Scripts as Black Boxes
-* Do not inspect or read full Python client implementations under `src/api/` unless debugging a connection error.
-* Discover capability, query parameters, and endpoints by executing scripts with the `--help` flag from the command line:
-  ```powershell
-  $env:PYTHONPATH='.'; .\bin\python.ps1 src/api/bot_client.py --help
-  ```
+### Step 1 — Treat Scripts as Black Boxes
+Treat the Python clients in `src/api/` as black boxes. Avoid inspecting their full implementations unless you are actively debugging a connection error. **Why?** Reading entire source files burns through your context window unnecessarily. 
+
+Instead, discover capabilities, query parameters, and endpoints by executing scripts with the `--help` flag from the command line:
+```powershell
+$env:PYTHONPATH='.'; .\bin\python.ps1 src/api/bot_client.py --help
+```
 
 ### Step 2 — Unified Retrieval Standards
-* **Wide Format**: Pivot and store retrieved datasets in wide format (Index = Date, Columns = Series).
+Follow these standards to maintain database hygiene:
+* **Wide Format**: Pivot and store retrieved datasets in wide format (Index = Date, Columns = Series). **Why?** It simplifies merging with existing macroeconomic datasets down the line.
 * **Storage Location**: Save all fetched time-series data to the consolidated SQLite database at `database/core/time_series.db`. Avoid writing loose `.csv` files unless the user explicitly requests a CSV export.
-* **Temp Scripting**: Generate data fetcher routines inside `temp/`. Run the script, verify the database update, and run `Remove-Item` on the script immediately.
+* **Temp Scripting**: Generate data fetcher routines inside the `temp/` folder. Run the script, verify the database update, and run `Remove-Item` on the script immediately. **Why?** Leaving temporary ad-hoc fetch scripts pollutes the repository.
+
+## Examples
+
+**Example 1:**
+*Input:* "Fetch the Thai CPI for the last 5 years."
+*Action:* Use `bot_client.py --help` to learn the arguments. Write a script in `temp/fetch_cpi.py` that queries the BOT API for the CPI series, pivots to wide format, and saves to `database/core/time_series.db`. Execute the script, verify the insertion, and then delete `temp/fetch_cpi.py`.
 
 ## Troubleshooting
 
 | Issue / Error | Cause | Resolution |
 | :--- | :--- | :--- |
 | `API Key Not Found` | Missing environment variable in `.env` | Ensure relevant key (e.g., `EIA_API_KEY`, `CEIC_API_KEY`) is defined in the root `.env` file. |
-| `Timeout / Connection Reset` | Remote server load or proxy block | Increase timeout threshold in the client client configuration or query batch size in smaller chunks. |
+| `Timeout / Connection Reset` | Remote server load or proxy block | Increase timeout threshold in the client configuration or query batch size in smaller chunks. |
 | `Empty DataFrame / No Columns` | Invalid Series ID or Code format | Check target database documentation or run the search function with a broader keyword filter. |

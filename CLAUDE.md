@@ -89,7 +89,7 @@ Pipelines are independent — run each via its slash command. The umbrella `/tha
 - **Figure captions**: `**Figure N: Descriptive title**` immediately below each embedded image. Sequential numbering restarts in each report.
 - **Table captions**: `**Table N: Descriptive title**` immediately above each table.
 - **Source citations**: Place below the table as italic text — `*Source: Organisation, Year.*` — never as a row inside the table.
-- **Chart paths in reports**: Use relative paths — `../output/chart/filename.png` for reports in `report/`, `../../output/chart/filename.png` for reports in `report/[pipeline]/`.
+- **Chart paths in reports**: Use relative paths — count the directory depth from the project root and prepend that many `../`. E.g. `../output/chart/filename.png` for reports in `report/` (1 level deep), `../../output/chart/filename.png` for `report/[pipeline]/` (2 levels), `../../../output/chart/filename.png` for `report/country_report/[Country]/` (3 levels).
 - **No absolute paths in reports**.
 
 ## Localization

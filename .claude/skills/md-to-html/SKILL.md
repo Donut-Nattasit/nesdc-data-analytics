@@ -1,7 +1,7 @@
 ---
 name: md-to-html
 description: >
-  Converts Markdown reports to single, portable, self-contained HTML files with base64-embedded images and MathJax LaTeX math rendering. Use when exporting reports for sharing or email distribution.
+  Converts Markdown reports to single, portable, self-contained HTML files with base64-embedded images and MathJax LaTeX math rendering. Make sure to use this skill whenever the user asks to export a report, create a sharable HTML, convert markdown to html, or prepare a document for email distribution, even if they don't explicitly say "use md-to-html."
 ---
 
 # Markdown to HTML Export Skill
@@ -10,7 +10,7 @@ description: >
 This skill converts standard markdown reports into portable HTML documents. It embeds all local image assets as base64 data URIs and integrates MathJax v3 for offline/online mathematical equation rendering, resolving broken links in emails or shares.
 
 ## Decision Tree: Export Output Selection
-Use this logic to define input and output paths for the conversion:
+Use this logic to define input and output paths for the conversion. **Why?** Maintaining consistent output paths ensures that HTML files reside next to their source Markdown, avoiding a cluttered workspace.
 
 ```
                             Is the report project-specific?
@@ -33,6 +33,7 @@ Use this logic to define input and output paths for the conversion:
   ```powershell
   $env:PYTHONPATH='.'; .\bin\python.ps1 -c "import markdown; import pymdownx; print('Dependencies OK')"
   ```
+* **Why?** Checking dependencies first prevents the conversion script from failing midway.
 * If this command fails, install them:
   ```powershell
   $env:PYTHONPATH='.'; .\bin\python.ps1 -m pip install markdown pymdown-extensions
@@ -41,15 +42,19 @@ Use this logic to define input and output paths for the conversion:
 ### Step 2 — Execute the Conversion
 * Call the python converter script with the input and output arguments using the relative environment template:
   ```powershell
-  $env:PYTHONPATH='.'; .\bin\python.ps1 .agents/skills/md-to-html/scripts/md_to_html.py <INPUT_MD_PATH> <OUTPUT_HTML_PATH>
+  $env:PYTHONPATH='.'; .\bin\python.ps1 .claude/skills/md-to-html/scripts/md_to_html.py <INPUT_MD_PATH> <OUTPUT_HTML_PATH>
   ```
-  *Example*:
-  ```powershell
-  $env:PYTHONPATH='.'; .\bin\python.ps1 .agents/skills/md-to-html/scripts/md_to_html.py report/energy_price_forecast/energy_price_forecast.md report/energy_price_forecast/energy_price_forecast.html
-  ```
+  *(Note the correct path `.claude/skills/...` rather than the old `.agents/...` path)*
 
 ### Step 3 — Post-Flight Verification
-* Verify that the generated HTML has base64 data strings instead of relative paths for all visual figures, ensuring it is self-contained.
+* Verify that the generated HTML has base64 data strings instead of relative paths for all visual figures.
+* **Why?** Ensuring it is self-contained guarantees the images won't break when the user emails the file or shares it on a network drive.
+
+## Examples
+
+**Example 1:**
+*Input:* "Convert my new report in report/energy_price/ to HTML."
+*Action:* Use `.\bin\python.ps1 .claude/skills/md-to-html/scripts/md_to_html.py report/energy_price/energy_price_forecast.md report/energy_price/energy_price_forecast.html`. Check the output file to confirm the images were base64 encoded successfully.
 
 ## Troubleshooting
 

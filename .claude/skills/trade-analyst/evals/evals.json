@@ -1,0 +1,14 @@
+{
+  "skill_name": "trade-analyst",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "Calculate market concentration for rice exports.",
+      "expected_output": "Expected output",
+      "files": [],
+      "assertions": [
+        { "name": "Maps ISO3 codes to names", "description": "Passes criteria", "type": "qualitative" }
+      ]
+    }
+  ]
+}

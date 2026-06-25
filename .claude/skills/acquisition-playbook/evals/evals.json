@@ -1,0 +1,46 @@
+{
+  "skill_name": "acquisition-playbook",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "I need to fetch the latest monthly inflation rate for Thailand. Please get it and save it to the database.",
+      "expected_output": "Agent should select the BOT API, write a temp script, execute it to save wide-format data to database/core/time_series.db, and remove the temp script.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "Uses BOT API",
+          "description": "The agent selected the BOT API as the primary source for domestic inflation data.",
+          "type": "qualitative"
+        },
+        {
+          "name": "Writes to time_series.db",
+          "description": "The script generated explicitly targets database/core/time_series.db.",
+          "type": "qualitative"
+        },
+        {
+          "name": "Cleans up script",
+          "description": "The agent removed the temporary script after execution.",
+          "type": "qualitative"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "prompt": "Get the global crude oil production data from EIA and store it.",
+      "expected_output": "Agent should select the EIA STEO API, write a temp script, execute it to save wide-format data to database/core/time_series.db, and remove the temp script.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "Uses EIA API",
+          "description": "The agent selected the EIA STEO API for global petroleum data.",
+          "type": "qualitative"
+        },
+        {
+          "name": "Wide Format",
+          "description": "The agent ensures the data is pivoted to wide format (Index = Date, Columns = Series).",
+          "type": "qualitative"
+        }
+      ]
+    }
+  ]
+}
