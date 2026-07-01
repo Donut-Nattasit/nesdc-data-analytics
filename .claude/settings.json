@@ -10,7 +10,14 @@
       "Grep",
       "NotebookEdit",
       "WebFetch",
-      "WebSearch"
+      "WebSearch",
+      "Bash(powershell -Command \"& '.\\\\bin\\\\python.ps1' 'src\\\\api\\\\ceic_client.py' search 'GDP' --limit 5\")",
+      "PowerShell(Get-ExecutionPolicy -List)",
+      "PowerShell(& '.\\\\bin\\\\python.ps1' 'src\\\\api\\\\ceic_client.py' search 'GDP' --limit 5)",
+      "PowerShell(.\\\\setup.ps1)",
+      "PowerShell(py --list 2>&1)",
+      "PowerShell(py --version 2>&1)",
+      "PowerShell(py install 3.12)"
     ],
     "defaultMode": "acceptEdits"
   },

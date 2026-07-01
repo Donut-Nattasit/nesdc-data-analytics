@@ -1,7 +1,7 @@
 ---
 name: acquisition-playbook
 description: >
-  Consolidates expert procedures for searching, refining, and retrieving economic data across multiple global and domestic databases (CEIC, BOT, EIA, IMF, World Bank, MOC, GTA, PortWatch). Make sure to use this skill whenever the user asks to fetch economic indicators, download time-series data, or query any macro database, even if they don't explicitly say "use the acquisition playbook."
+  Consolidates expert procedures for searching, refining, and retrieving economic data across multiple global and domestic databases (CEIC, BOT, EIA, IMF, World Bank, MOC, GTA, PortWatch, NESDC SocData). Make sure to use this skill whenever the user asks to fetch economic indicators, download time-series data, or query any macro database, even if they don't explicitly say "use the acquisition playbook."
 ---
 
 # Acquisition Playbook Skill
@@ -31,6 +31,7 @@ When requested to retrieve economic data, use the following logic to select the 
 2. **Thai Domestic Macroeconomics**:
    - *First Priority*: **Bank of Thailand (BOT) API**. Official source for domestic trade, monetary, and financial indices.
    - *Second Priority*: **Ministry of Commerce (MOC) API**. Prioritize for commodity retail/wholesale prices and detailed product trade data.
+   - **NESDC SocData API**: Use for provincial social indicators (education, poverty, labor, household debt, welfare, health) across all 77 provinces. See `references/api_patterns.md` §5.
 3. **Sector-Specific**:
    - **EIA STEO API**: Prioritize for global crude oil, petroleum products, and liquid fuels production/consumption balances.
    - **IMF PortWatch**: Use for maritime shipping transit volumes, port congestion, and shipping trade disruptions.
