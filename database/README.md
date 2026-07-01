@@ -14,6 +14,7 @@ The `./database/` folder is organized as follows:
 *   **`MOC.db`**: Ministry of Commerce database (Thailand product prices and product metadata).
 *   **`WB.db`**: World Bank database (global development indicators and macroeconomic metadata).
 *   **`TSIC.db`**: Thailand Standard Industrial Classification database (TSIC sector hierarchies and descriptions).
+*   **`GPP.db`**: NESDC Gross Provincial Product database (sector breakdown, GPP, GPP per capita, and population for all 77 provinces, 1995–2024).
 *   **`api_cache.db`**: Central cache for API responses.
 *   **`energy_price_forecast/energy_price_forecast.db`**: SQLite database cache specific to the energy price forecast pipeline.
 *   **`ex_im_price_forecast/ex_im_price_forecast.db`**: SQLite database cache specific to the export and import price forecast pipeline.
@@ -229,6 +230,58 @@ Contains Thailand Standard Industrial Classification (TSIC) sector hierarchy and
 | 0 | **กิจกรรม** | `TEXT` | | 5-digit activity code |
 | 1 | **คำอธิบาย** | `TEXT` | | Description in Thai |
 | 2 | **Description** | `TEXT` | | Description in English |
+
+---
+
+## 📁 Database: `GPP.db`
+* **Workspace Path**: `./database/GPP.db`
+
+Gross Provincial Product (GPP) by province, extracted from `input/GPP-2024-On-Web-1995-2024.xlsx` (NESDC, 1995–2024). Long-format tables covering all 77 provinces across 7 regions (Northeast, North, South, East, West, Central, Bangkok & Vicinity). Both current-price and chain-volume-measure (CVM, reference year 2002) series are included; CVM sub-components are not additive to their totals (source caveat).
+
+### 📋 Table: `provinces`
+
+Lookup of every province code, name, and region.
+
+| CID | Column Name | Type | Primary Key | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| 0 | **province_code** | `TEXT` | 🔑 PRIMARY KEY | 4-digit NESDC province code (e.g. '0101') |
+| 1 | **province_name** | `TEXT` | | Province name in English (e.g. 'KHON KAEN') |
+| 2 | **region** | `TEXT` | | Region grouping (Northeast, North, South, East, West, Central, Bangkok & Vicinity) |
+
+### 📋 Table: `gpp_sector`
+
+Long-format sector breakdown (production by industry). Includes both group-total rows (`sector_level='major'`/`'sub'`, e.g. Agriculture, Non-Agriculture, Industrial, Services) and leaf rows (`sector_level='detail'`, e.g. Manufacturing, Construction). Filter on `sector_level='detail'` to avoid double-counting when summing.
+
+| CID | Column Name | Type | Primary Key | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| 0 | **province_code** | `TEXT` | 🔑 | 4-digit province code, FK → `provinces.province_code` |
+| 1 | **province_name** | `TEXT` | | Province name in English |
+| 2 | **region** | `TEXT` | | Region grouping |
+| 3 | **year** | `INTEGER` | 🔑 | Calendar year (1995–2024) |
+| 4 | **year_flag** | `TEXT` | | NULL, 'r' (revised), or 'p' (preliminary) |
+| 5 | **price_basis** | `TEXT` | 🔑 | 'current_price' or 'chain_volume_2002' |
+| 6 | **sector_level** | `TEXT` | | 'major' (Agriculture/Non-Agriculture), 'sub' (Industrial/Services), or 'detail' (leaf sector) |
+| 7 | **sector_major** | `TEXT` | | 'Agriculture' or 'Non-Agriculture' |
+| 8 | **sector_sub** | `TEXT` | | 'Industrial', 'Services', or NULL (for Agriculture rows) |
+| 9 | **sector_name** | `TEXT` | 🔑 | Exact sector label as in source (e.g. 'Mining and quarrying') |
+| 10 | **value** | `REAL` | | Value in the stated unit |
+| 11 | **unit** | `TEXT` | | Always 'Million Baht' |
+
+### 📋 Table: `gpp_summary`
+
+Long-format province-level totals: GPP, GPP per capita, and population. GPP is present for both price bases; per-capita and population are sourced from the current-price block only (no price basis applies).
+
+| CID | Column Name | Type | Primary Key | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| 0 | **province_code** | `TEXT` | 🔑 | 4-digit province code, FK → `provinces.province_code` |
+| 1 | **province_name** | `TEXT` | | Province name in English |
+| 2 | **region** | `TEXT` | | Region grouping |
+| 3 | **year** | `INTEGER` | 🔑 | Calendar year (1995–2024) |
+| 4 | **year_flag** | `TEXT` | | NULL, 'r' (revised), or 'p' (preliminary) |
+| 5 | **price_basis** | `TEXT` | 🔑 | 'current_price' or 'chain_volume_2002' |
+| 6 | **metric** | `TEXT` | 🔑 | 'GPP', 'GPP per capita', or 'Population' |
+| 7 | **value** | `REAL` | | Value in the stated unit |
+| 8 | **unit** | `TEXT` | | 'Million Baht', 'Baht', or '1,000 persons' |
 
 ---
 
